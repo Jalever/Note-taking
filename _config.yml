@@ -1,7 +1,7 @@
 # Site settings
 title: Jalever Blog
 SEOTitle: Jalever Chen |  Jalever
-header-img: img/post-bg-desk.jpg
+header-img: img/home_bg_tree.png
 email: jaleverchen@gmail.com
 description: "I want to see and understand the world outside."
 keyword: "jalever, Jalever Chen Blog, 杰拉沃的博客, jalever chen, JavaScript, Web Frontend Developer, Blog, React"
@@ -12,7 +12,7 @@ github_repo: "https://github.com/Jalever/jalever.github.io.git" # you code repos
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "I want to see and understand the world outside."
-sidebar-avatar: /img/avatar_m.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avatar_yuna.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
