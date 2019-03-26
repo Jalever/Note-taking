@@ -27,6 +27,7 @@ tags:
   - [hotfix](#hotfix)
   - [heuristic](#heuristic)
   - [tradeoff](#tradeoff)
+  - [swap out](#swap-out)
 
 ## Words20190317
 
@@ -171,3 +172,11 @@ to measure the quality of something by comparing it with something else of an ac
     - **_a trade-off between objectivity and relevance_**
 
 ---
+### swap out
+
+- noun
+  - `to replace or exchange someone or something with another person or thing`
+    - **_I think I just need to swap out the batteries for this to start working again_**
+
+---
+
