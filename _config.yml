@@ -3,7 +3,7 @@ title: Jalever Blog
 SEOTitle: Jalever Chen |  Jalever
 header-img: img/post-bg-desk.jpg
 email: jaleverchen@gmail.com
-description: "Every failure is leading towards success."
+description: "I want to see and understand the world outside."
 keyword: "jalever, Jalever Chen Blog, 杰拉沃的博客, jalever chen, JavaScript, Web Frontend Developer, Blog, React"
 url: "http://jalever.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
@@ -18,12 +18,10 @@ sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's us
 
 # SNS settings
 RSS: false
-# weibo_username:     qiubaiying
-zhihu_username:     qiubaiying
-github_username:    qiubaiying
-facebook_username:  baiying.qiu.7
-jianshu_username:   e71990ada2fd
-#twitter_username:   qiubaiying
+zhihu_username:     eHoza
+github_username:    Jalever Chen
+juejin_username:  Jalever
+segmentfault_username:   Jalever
 
 
 
@@ -99,16 +97,16 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "WY",
-        href: "http://zhengwuyang.com"
+        title: "语雀",
+        href: "https://www.yuque.com/jalever"
     },{
-        title: "简书·BY",
-        href: "http://www.jianshu.com/u/e71990ada2fd"
+        title: "掘金",
+        href: "https://juejin.im/user/57b920572e958a005fa6582b"
     },{
-        title: "Apple",
-        href: "https://apple.com"
+        title: "Segmentfault",
+        href: "https://segmentfault.com/u/jalever"
     },{
-        title: "Apple Developer",
-        href: "https://developer.apple.com/"
+        title: "Medium",
+        href: "https://medium.com/@jaleverchen"
     }
 ]
