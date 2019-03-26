@@ -29,12 +29,12 @@ When diffing two trees, `React` first compares the two root elements. The behavi
 
 #### Elements Of Different Types
 Whenever the root elements have different types, `React` will tear down the old tree and build the new tree from scratch. <br>
-Going from `<a>` to `<img>`, or from `<Article>` to `<Comment>, or from `<Button>` to `<div>` - any of those will lead to a full rebuild.<br>
+Going from `<a>` to `<img>`, or from `<Article>` to `<Comment>`, or from `<Button>` to `<div>` - any of those will lead to a full rebuild.<br>
 When tearing down a tree, old DOM nodes are destroyed. Component instances receive `componentWillUnmount()`. <br>
 When building up a new tree, new `DOM nodes` are inserted into the `DOM`. Component instances receive `componentWillMount()` and then `componentDidMount()`. Any state associated with the old tree is lost.<br>
 Any components below the root will also get unmounted and have their state destroyed.<br>
 For example, when diffing:
-```
+```js
 <div>
   <Counter />
 </div>
@@ -48,7 +48,7 @@ This will destroy the old `Counter` and remount a new one.
 #### DOM Elements Of The Same Type
 When comparing two `React DOM elements` of the same type, React looks at the attributes of both, keeps the same underlying DOM node, and only updates the changed attributes.<br>
 For example:
-```
+```js
 <div className="before" title="stuff" />
 
 <div className="after" title="stuff" />
@@ -64,7 +64,7 @@ Next, the `render()` method is called and the diff algorithm recurses on the pre
 #### Recursing On Children
 By default, when recursing on the children of a `DOM node`, React just iterates over both lists of children at the same time and generates a mutation whenever there’s a difference.
 For example, when adding an element at the end of the children, converting between these two trees works well:
-```
+```js
 <ul>
   <li>first</li>
   <li>second</li>
@@ -79,7 +79,7 @@ For example, when adding an element at the end of the children, converting betwe
 `React` will match the two <li>first</li> trees, match the two `<li>second</li>` trees, and then insert the `<li>third</li>` tree.<br>
 If you implement it naively, inserting an element at the beginning has worse performance.<br>
 For example, converting between these two trees works poorly:<br>
-```
+```js
 <ul>
   <li>Duke</li>
   <li>Villanova</li>
