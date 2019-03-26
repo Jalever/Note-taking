@@ -1,13 +1,13 @@
 # Site settings
-title: BY Blog
-SEOTitle: 柏荧的博客 | BY Blog
+title: Jalever Blog
+SEOTitle: Jalever Chen |  Jalever
 header-img: img/post-bg-desk.jpg
-email: qiubaiying@gmail.com
+email: jaleverchen@gmail.com
 description: "Every failure is leading towards success."
-keyword: "BY, BY Blog, 柏荧的博客, qiubaiying, 邱柏荧, iOS, Apple, iPhone"
-url: "http://qiubaiying.github.io"          # your host, for absolute URL
+keyword: "jalever, Jalever Chen Blog, 杰拉沃的博客, jalever chen, JavaScript, Web Frontend Developer, Blog, React"
+url: "http://jalever.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/qiubaiying/qiubaiying.github.io.git" # you code repository
+github_repo: "https://github.com/Jalever/jalever.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
