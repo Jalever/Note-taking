@@ -4,7 +4,7 @@ title: Refs and the DOM
 subtitle: React学习笔记系列
 date: 2019-03-26
 author: Jalever
-header-img: img/post_2019_react_bg.png
+header-img: img/post_2019_react_bg.jpg
 catalog: true
 tags:
   - React
@@ -19,9 +19,9 @@ tags:
 - [When to Use Refs](#when-to-use-refs)
 - [Creating Refs](#creating-refs)
 - [Accessing Refs](#accessing-refs)
-  - [Adding a Ref to a DOM Element](#adding-a-ref-to-a-dom-element)
-  - [Adding a Ref to a Class Component](#adding-a-ref-to-a-class-component)
-  - [Refs and Function Components](#refs-and-function-components)
+    - [Adding a Ref to a DOM Element](#adding-a-ref-to-a-dom-element)
+    - [Adding a Ref to a Class Component](#adding-a-ref-to-a-class-component)
+    - [Refs and Function Components](#refs-and-function-components)
 - [Exposing DOM Refs to Parent Components](#exposing-dom-refs-to-parent-components)
 - [Callback Refs](#callback-refs)
 - [Legacy API: String Refs](#legacy-api-string-refs)
@@ -38,7 +38,7 @@ tags:
 &ensp;&ensp;`Refs` are created using `React.createRef()` and attached to `React` elements via the `ref` attribute.
 &ensp;&ensp;`Refs` are commonly assigned to an instance property when a component is constructed so they can be referenced throughout the component.
 
-```
+```javascript
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +54,7 @@ class MyComponent extends React.Component {
 
 When a `ref` is passed to an element in <ins>**_render_**</ins>, a reference to the node becomes accessible at the <ins>**_current_**</ins> attribute of the ref.
 
-```
+```javascript
 const node = this.myRef.current;
 ```
 
@@ -64,11 +64,11 @@ The value of the ref differs depending on the type of the node:
 - When the <ins>**_ref_**</ins> attribute is used on a custom class component, the <ins>**_ref_**</ins> object receives the mounted instance of the component as its <ins>**_current_**</ins>.
 - You may not use the ref attribute on function components because they don’t have instances.
 
-### Adding a Ref to a DOM Element
+#### Adding a Ref to a DOM Element
 
 This code uses a <ins>**_ref_**</ins> to store a reference to a DOM node:
 
-```
+```javascript
 class CustomTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -104,11 +104,11 @@ class CustomTextInput extends React.Component {
 
 &ensp;&ensp;React will assign the <ins>**_current_**</ins> property with the DOM element when the component mounts, and assign it back to <ins>**_null_**</ins> when it unmounts. <ins>**_ref_**</ins> updates happen before <ins>**_componentDidMount_**</ins> or <ins>**_componentDidUpdate_**</ins> lifecycle methods.
 
-### Adding a Ref to a Class Component
+#### Adding a Ref to a Class Component
 
 If we wanted to wrap the <ins>**_CustomTextInput_**</ins> above to simulate it being clicked immediately after mounting, we could use a ref to get access to the custom input and call its <ins>**_focusTextInput_**</ins> method manually:
 
-```
+```javascript
 class AutoFocusTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -127,11 +127,11 @@ class AutoFocusTextInput extends React.Component {
 }
 ```
 
-### Refs and Function Components
+#### Refs and Function Components
 
 &ensp;&ensp;You may not use the ref attribute on function components because they don’t have instances:
 
-```
+```javascript
 function MyFunctionComponent() {
   return <input />;
 }
@@ -152,7 +152,7 @@ class Parent extends React.Component {
 
 &ensp;&ensp;You can use the ref attribute inside a function component as long as you refer to a DOM element or a class component:
 
-```
+```javascript
 function CustomTextInput(props) {
   // textInput must be declared here so the ref can refer to it
   let textInput = React.createRef();
@@ -184,7 +184,7 @@ function CustomTextInput(props) {
 
 &ensp;&ensp;Instead of passing a <ins>**_ref_**</ins> attribute created by <ins>**_createRef()_**</ins>, you pass a function. The function receives the React component instance or HTML DOM element as its argument, which can be stored and accessed elsewhere.
 
-```
+```javascript
 class CustomTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -230,7 +230,7 @@ class CustomTextInput extends React.Component {
 
 You can pass callback refs between components like you can with object refs that were created with <ins>**_React.createRef()_**</ins>.
 
-```
+```javascript
 function CustomTextInput(props) {
   return (
     <div>
