@@ -27,25 +27,31 @@ tags:
 
 ### vanilla
 
-    adjective
-        having no special or extra features
-            "choosing plain vanilla technology wherever you can will save your money"
+- adjective
+
+  - `having no special or extra features`
+
+    - **_choosing plain vanilla technology wherever you can will save your money_**
 
 ---
 
 ### ground
 
-    verb
-        prohibit or prevent (a pilot or an aircraft) from flying
-            "a bitter wind blew from northeast, and the bombers were grounded"
+- verb
+
+  - `prohibit or prevent (a pilot or an aircraft) from flying`
+
+    - **_a bitter wind blew from northeast, and the bombers were grounded_**
 
 ---
 
 ### caveat
 
-    noun
-        a warning, for example about the use or effectiveness of something
-            "One caveat: Know when passengers must be back on board the plane"
+- noun
+
+  - `a warning, for example about the use or effectiveness of something`
+
+    - **_One caveat: Know when passengers must be back on board the plane_**
 
 ---
 
