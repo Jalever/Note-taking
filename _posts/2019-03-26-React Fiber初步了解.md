@@ -4,7 +4,7 @@ title:      React Fiber初步了解
 subtitle:   React学习笔记系列
 date:       2019-03-26
 author:     Jalever
-header-img: img/post_2019_react_reactFiber_bg.png
+header-img: img/post_2019_react_reactFiber_bg.jpeg
 catalog: true
 tags:
     - React
@@ -14,8 +14,6 @@ tags:
 - [为什么要用React Fiber？](#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8react-fiber)
 - [React Fiber的运行方式](#react-fiber%E7%9A%84%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F)
 - [React Fiber的对现行代码的影响](#react-fiber%E7%9A%84%E5%AF%B9%E7%8E%B0%E8%A1%8C%E4%BB%A3%E7%A0%81%E7%9A%84%E5%BD%B1%E5%93%8D)
-
-
 
 ## 为什么要用React Fiber？
 当React决定要加载或更新组件树时，会做很多事情，比如调用各个组件的生命周期函数，计算和比对`Virtual DOM`，最后更新DOM树，这整个过程是同步进行的，也就是说只要加载一个或者更新过程开始，那`React`就会运行知道完成为止<br>
