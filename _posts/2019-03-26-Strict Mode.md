@@ -89,6 +89,7 @@ The `commit phase` is usually very fast, but rendering can be slow. For this rea
 - getDerivedStateFromProps
 - shouldComponentUpdate
 - setState(updater [,callback]) updater functions ( the first argument )
+<br>
 Because the above methods might be called more than once, it’s important that they do not contain side-effects. Ignoring this rule can lead to a variety of problems, including `memory leaks` and `invalid application state`. Unfortunately, it can be difficult to detect these problems as they can often be non-deterministic.
 `Strict mode` can’t automatically detect side effects for you, but it can help you spot them by making them a little more deterministic. <br/>
 This is done by intentionally double-invoking the following methods:

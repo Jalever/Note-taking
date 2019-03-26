@@ -4,7 +4,7 @@ title: 2019-03-17
 subtitle: English Vocabularies
 date: 2019-03-17
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/home_bg_black.png
 catalog: true
 tags:
   - English
@@ -28,6 +28,7 @@ tags:
   - [heuristic](#heuristic)
   - [tradeoff](#tradeoff)
   - [swap out](#swap-out)
+  - [automate](#automate)
 
 ## Words20190317
 
@@ -165,6 +166,7 @@ to measure the quality of something by comparing it with something else of an ac
   - `(of a method of teaching) allowing students to learn by discovering things themeselves and learning from their own experiences rather than by telling them things`
 
 ---
+
 ### tradeoff
 
 - noun
@@ -172,6 +174,7 @@ to measure the quality of something by comparing it with something else of an ac
     - **_a trade-off between objectivity and relevance_**
 
 ---
+
 ### swap out
 
 - noun
@@ -180,3 +183,10 @@ to measure the quality of something by comparing it with something else of an ac
 
 ---
 
+### automate
+
+- verb
+  - `to make something operate automatically by using machines or computers`
+    - **_New technologies let you automate control of your home lighting, appliances, and even heating and cooling systems_**
+
+---
