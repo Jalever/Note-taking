@@ -22,6 +22,11 @@ tags:
   - [bartender](#bartender)
   - [sketch out](#sketch-out)
   - [duplex](#duplex)
+  - [lag](#lag)
+  - [lay out](#lay-out)
+  - [hotfix](#hotfix)
+  - [heuristic](#heuristic)
+  - [tradeoff](#tradeoff)
 
 ## Words20190317
 
@@ -130,20 +135,39 @@ to measure the quality of something by comparing it with something else of an ac
 
 ---
 
-lag
-verb
-to move or advance so slowly that you are behind other people or things
-"John's always lagging behind the others in the class"
+### lag
+
+- verb
+  - `to move or advance so slowly that you are behind other people or things`
+    - **_John's always lagging behind the others in the class_**
 
 ---
 
-lay out
-to spread something out, or to arrange things so you can see them easily
-"She opened her suitcase and laid her clothes out on the bed"
+### lay out
+
+- `to spread something out, or to arrange things so you can see them easily`
+  - **_She opened her suitcase and laid her clothes out on the bed_**
 
 ---
 
-hotfix
-noun
-a small piece of code developed to correct a major software bug or fault and released as quickly as possible
-"the developer released a hotfix to deal with the issue"
+### hotfix
+
+- noun
+  - `a small piece of code developed to correct a major software bug or fault and released as quickly as possible`
+    - **_the developer released a hotfix to deal with the issue_**
+
+---
+
+### heuristic
+
+- adjective
+  - `(of a method of teaching) allowing students to learn by discovering things themeselves and learning from their own experiences rather than by telling them things`
+
+---
+### tradeoff
+
+- noun
+  - `a balance achieved between two desirable but imcompatible features`
+    - **_a trade-off between objectivity and relevance_**
+
+---
