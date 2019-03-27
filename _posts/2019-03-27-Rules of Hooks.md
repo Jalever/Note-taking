@@ -94,9 +94,9 @@ The `name !== ''` condition is `true` on the first render, so we run this `Hook`
 Now that we skip this `Hook` during rendering, the order of the `Hook` calls becomes different:
 ```javascript
 useState('Mary')           // 1. Read the name state variable (argument is ignored)
-// useEffect(persistForm)  // 🔴 This Hook was skipped!
-useState('Poppins')        // 🔴 2 (but was 3). Fail to read the surname state variable
-useEffect(updateTitle)     // 🔴 3 (but was 4). Fail to replace the effect
+// useEffect(persistForm)  //This Hook was skipped!
+useState('Poppins')        //2 (but was 3). Fail to read the surname state variable
+useEffect(updateTitle)     // 3 (but was 4). Fail to replace the effect
 ```
 `React` wouldn’t know what to return for the second `useState` Hook call. `React` expected that the second `Hook` call in this component corresponds to the `persistForm` effect, just like during the previous render, but it doesn’t anymore. From that point, every next `Hook` call after the one we skipped would also shift by one, leading to bugs.
 This is why `Hooks` must be called on the top level of our components. If we want to run an effect conditionally, we can put that condition inside our `Hook`:
