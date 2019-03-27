@@ -33,6 +33,8 @@ tags:
   - [opt out](#opt-out)
   - [flaky](#flaky)
   - [neurotic](#neurotic)
+  - [grasp](#grasp)
+  - [stale](#stale)
 
 ## Words20190317
 
@@ -220,5 +222,19 @@ to measure the quality of something by comparing it with something else of an ac
 - adjective
   - `related to or having unreasonable anxiety or unusual behavior`
     - **_a deep-seated neurotic fear of flying_**
+
+---
+### grasp
+
+- noun
+  - `power to achieve or control something`
+    - **_A full partnership at last seemed to be within her grasp_**
+
+---
+### stale
+
+- adjective
+  - `not fresh or new`
+    - **_stale bread_**
 
 ---
