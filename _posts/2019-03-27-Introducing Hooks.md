@@ -4,7 +4,7 @@ title: Introducing Hooks
 subtitle: React Hooks学习笔记系列
 date: 2019-03-27
 author: Jalever
-header-img: img/post_2019_react_bg_black.jpg
+header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
@@ -35,6 +35,7 @@ function Example() {
     - [Complex components become hard to understand](#complex-components-become-hard-to-understand)
     - [Classes confuse both people and machines](#classes-confuse-both-people-and-machines)
 - [Gradual Adoption Strategy](#gradual-adoption-strategy)
+- [Hooks Tutorial](#hooks-tutorial)
 
 ## No Breaking Changes
 - Completely opt-in
@@ -63,3 +64,7 @@ We’ve found that `classes` can be a large barrier to learning `React`. You hav
 
 ## Gradual Adoption Strategy
 `Hooks` work side-by-side with existing code so you can adopt them gradually. 
+
+## Hooks Tutorial
+1. Introducing Hooks
+2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
