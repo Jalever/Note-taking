@@ -29,6 +29,10 @@ tags:
   - [tradeoff](#tradeoff)
   - [swap out](#swap-out)
   - [automate](#automate)
+  - [opt-in](#opt-in)
+  - [opt out](#opt-out)
+  - [flaky](#flaky)
+  - [neurotic](#neurotic)
 
 ## Words20190317
 
@@ -188,5 +192,33 @@ to measure the quality of something by comparing it with something else of an ac
 - verb
   - `to make something operate automatically by using machines or computers`
     - **_New technologies let you automate control of your home lighting, appliances, and even heating and cooling systems_**
+
+---
+### opt-in
+
+- noun
+  - `the fact of choosing to take part in an activity, arrangement,etc. rather than being forced to take part`
+    - **_It is an opt-in rather than an opt-out system, which means that permission must be sought on a case-by-case basis._**
+
+---
+### opt out
+
+- noun
+  - `to choose not to be part of an activity or to stop being involved in it`
+    - **_Within any society, there will usually be people who decide to opt out (= choose not to live the way most people do)._**
+
+---
+### flaky
+
+- adjective
+  - `behaving in a way that is strange, not responsible or not expected`
+    - **_The central character of the play is a flaky neurotic_**
+
+---
+### neurotic
+
+- adjective
+  - `related to or having unreasonable anxiety or unusual behavior`
+    - **_a deep-seated neurotic fear of flying_**
 
 ---

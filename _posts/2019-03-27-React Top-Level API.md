@@ -309,6 +309,24 @@ The best practice is to place `<Suspense>` where you want to see a loading indic
 > `React.lazy()` and `<React.Suspense>` are not yet supported by ReactDOMServer. This is a known limitation that will be resolved in the future.
 
 ## Hooks
+Hooks let you use `state` and `other React features` without writing a `class`.
+```javascript
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
 
 #### Basic Hooks
 
