@@ -38,6 +38,7 @@ tags:
   - [ad hoc](#ad-hoc)
   - [bail out](#bail-out)
   - [defer](#defer)
+  - [coerce](#coerce)
 
 ## Words20190317
 
@@ -261,6 +262,13 @@ benchmark
 - verb
   - `to delay something until a later time`
     - **_You can order the furniture now and defer payment until September_**
+
+---
+### coerce
+
+- verb
+  - `to persuade someone forcefully to do something that he or she may not want to do`
+    - **_I don't think anybody should be coerced into leaving_**
 
 ---
 
