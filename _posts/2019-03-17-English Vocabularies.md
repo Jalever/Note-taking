@@ -40,6 +40,7 @@ tags:
   - [defer](#defer)
   - [coerce](#coerce)
   - [semantic](#semantic)
+  - [derived](#derived)
 
 ## Words20190317
 
@@ -277,6 +278,13 @@ benchmark
 - verb
   - `(of words and language) connected with meaning`
     - **_Words are semantic units that convey meaning_**
+
+---
+### derived
+
+- adjective
+  - `coming from or caused by something else`
+    - **_derived products_**
 
 ---
 

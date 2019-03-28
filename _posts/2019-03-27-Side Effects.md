@@ -11,4 +11,10 @@ tags:
   - Web Development
 ---
 
-We call some operations like ***data fetching***, ***subscriptions***, or ***manually changing the DOM from React Componens***,etc. `side effects` (or “effects” for short) because they can affect other components and can’t be done during rendering.
+We call some operations like
+
+- data fetching,
+- subscriptions, or
+- manually changing the DOM from React Componens
+- animation
+  `side effects` (or “effects” for short) because they can affect other components and can’t be done during rendering.
