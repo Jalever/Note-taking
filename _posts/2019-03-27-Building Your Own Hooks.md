@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building Your Own Hooks
-subtitle: React Hooks学习笔记系列
+subtitle: React Hooks学习笔记系列 6
 date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg

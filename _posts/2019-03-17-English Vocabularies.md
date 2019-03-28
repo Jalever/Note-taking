@@ -35,6 +35,9 @@ tags:
   - [neurotic](#neurotic)
   - [grasp](#grasp)
   - [stale](#stale)
+  - [ad hoc](#ad-hoc)
+  - [bail out](#bail-out)
+  - [defer](#defer)
 
 ## Words20190317
 
@@ -137,9 +140,10 @@ to separate or remove something from something else that it is connected to
 ---
 
 benchmark
-verb
-to measure the quality of something by comparing it with something else of an accepted standard
-"His reports said that all schools should be benchmarked against the best"
+
+- verb
+  - `to measure the quality of something by comparing it with something else of an accepted standard`
+    - **_His reports said that all schools should be benchmarked against the best_**
 
 ---
 
@@ -238,3 +242,25 @@ to measure the quality of something by comparing it with something else of an ac
     - **_stale bread_**
 
 ---
+### ad hoc
+
+- adjective
+  - `created or done for a particular purpose as necessary`
+    - **_the discussions were on an ad hoc basis_**
+
+---
+### bail out
+
+- adjective
+  - `become free of an an obligation or commitment`
+    - **_she felt ready to bail out of the corporate rat race_**
+
+---
+### defer
+
+- verb
+  - `to delay something until a later time`
+    - **_You can order the furniture now and defer payment until September_**
+
+---
+

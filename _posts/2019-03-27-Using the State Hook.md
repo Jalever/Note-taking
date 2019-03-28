@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using the State Hook
-subtitle: React Hooks学习笔记系列
+subtitle: React Hooks学习笔记系列 3
 date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg

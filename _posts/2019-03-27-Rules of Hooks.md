@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rules of Hooks
-subtitle: React Hooks学习笔记系列
+subtitle: React Hooks学习笔记系列 5
 date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
