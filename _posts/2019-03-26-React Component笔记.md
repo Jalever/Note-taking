@@ -54,8 +54,7 @@ These methods are called in the following order when an instance of a component 
 - render()
 - componentDidMount()
 
-> legacy but avoid them:
-> `UNSAFE_componentWillMount()`
+> legacy but avoid them:<br> > `UNSAFE_componentWillMount()`
 
 ###### constructor()
 
@@ -113,6 +112,8 @@ Make sure you’re familiar with simpler alternatives:
 
 ###### UNSAFE_componentWillMount()
 
+`UNSAFE_componentWillMount()` is invoked just before mounting occurs. It is called before `render()`, therefore calling `setState()` synchronously in this method will not trigger an extra rendering.
+
 ###### render()
 
 ```javascript
@@ -159,8 +160,9 @@ An update can be caused by changes to `props` or `state`. These methods are call
 - render()
 - getSnapshotBeforeUpdate()
 - componentDidUpdate()
-  > legacy but avoid them:
-  > `UNSAFE_componentWillUpdate()` > `UNSAFE_componentWillReceiveProps()`
+  > legacy but avoid them:<br>
+  >
+  > > `UNSAFE_componentWillUpdate()` <br> >> `UNSAFE_componentWillReceiveProps()`<br>
 
 ###### static getDerivedStateFromProps()
 
@@ -225,6 +227,8 @@ class ScrollingList extends React.Component {
 
 ###### UNSAFE_componentWillUpdate()
 
+`UNSAFE_componentWillUpdate()` is invoked just before rendering when new props or state are being received.
+
 ###### componentDidUpdate()
 
 ```javascript
@@ -252,6 +256,9 @@ componentDidUpdate(prevProps) {
 
 ###### UNSAFE_componentWillReceiveProps()
 
+&nbsp;&nbsp;`UNSAFE_componentWillReceiveProps()` is invoked before a mounted component receives new props.<br>
+&nbsp;&nbsp;If you need to update the state in response to prop changes (for example, to reset it), you may compare `this.props` and `nextProps` and perform state transitions using `this.setState()` in this method.
+
 #### Unmounting
 
 This method is called when a component is being removed from the DOM:
@@ -271,24 +278,174 @@ These methods are called when there is an error during rendering, in a `lifecycl
 - static getDerivedStateFromError()
 - componentDidCatch()
 
+`Error boundaries` are `React` components that catch `JavaScript` errors anywhere in their child component tree, `log those errors`, and `display a fallback UI` instead of the component tree that crashed.<br>
+A class component becomes an error boundary if it defines either (or both) of the lifecycle methods `static getDerivedStateFromError()` or `componentDidCatch()`.<br>
+Updating state from these lifecycles lets you capture an `unhandled JavaScript error` in the below tree and display a fallback UI.
+
+> Note
+> `Error boundaries` only catch errors in the components below them in the tree.
+> An error boundary can’t catch an error within itself.
+
 ###### static getDerivedStateFromError()
 
+```javascript
+static getDerivedStateFromError(error)
+```
+
+This lifecycle is invoked after an error has been thrown by a descendant component.<br>
+It receives the error that was thrown as a parameter and should return a value to update state.
+
+```javascript
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+> `getDerivedStateFromError()` is called during the “render” phase, so side-effects are not permitted.
+> For those use cases, use `componentDidCatch()` instead.
+
 ###### componentDidCatch()
+
+```javascript
+componentDidCatch(error, info);
+```
+
+This lifecycle is invoked after an error has been thrown by a descendant component.<br>
+It receives two parameters:
+
+- error
+  - The error that was thrown.
+- info
+  - An object with a `componentStack key` containing information about which component threw the error.
+    `componentDidCatch()` is called during the “commit” phase, so side-effects are permitted.<br>
+
+```javascript
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    // Example "componentStack":
+    //   in ComponentThatThrows (created by App)
+    //   in ErrorBoundary (created by App)
+    //   in div (created by App)
+    //   in App
+    logComponentStackToMyService(info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
 
 ## Other APIs
 
 #### setState()
 
+```javascript
+setState(updater[, callback])
+```
+
+1. `setState()` enqueues changes to the component state and tells `React` that this component and its children need to be re-rendered with the updated state. <br>
+2. For better perceived performance, React may delay `setState()`, and then update several components in a single pass. <br>
+3. `setState()` does not always immediately update the component. It may batch or defer the update until later.<br>
+4. `setState()` will always lead to a re-render unless `shouldComponentUpdate()` returns false. <br>
+5. The first argument is an updater function with the signature:
+
+```javascript
+(state, props) => stateChange;
+```
+
+6. `state` is a reference to the component state at the time the change is being applied.<br>
+7. It should not be directly mutated. Instead, changes should be represented by building a new object based on the input from `state` and `props`. <br>
+8. The second parameter to `setState()` is an optional callback function that will be executed once `setState` is completed and the component is re-rendered.<br>
+9. Generally we recommend using `componentDidUpdate()` for such logic instead.
+10. You may optionally pass an object as the first argument to `setState()` instead of a function.
+
 #### forceUpdate()
+
+```javascript
+component.forceUpdate(callback);
+```
+
+1. If your `render()` method depends on some other data, you can tell `React` that the component needs re-rendering by calling `forceUpdate()`.
+2. Calling `forceUpdate()` will cause `render()` to be called on the component, skipping `shouldComponentUpdate()`.
+3. `React` will still only update the `DOM` if the markup changes.
 
 ## Class Properties
 
 #### defaultProps
 
+1. `defaultProps` can be defined as a property on the component class itself, to set the default props for the class.
+2. This is used for undefined props, but not for null props.
+3. For example:
+
+```javascript
+class CustomButton extends React.Component {
+  // ...
+}
+
+CustomButton.defaultProps = {
+  color: "blue"
+};
+```
+
+If `props.color` is not provided, it will be set by default to 'blue':
+
+```javascript
+render() {
+ return <CustomButton /> ; // props.color will be set to blue
+}
+```
+
+If `props.color` is set to null, it will remain null:
+
+```javascript
+  render() {
+    return <CustomButton color={null} /> ; // props.color will remain null
+  }
+```
+
 #### displayName
+1. The `displayName` string is used in debugging messages.
 
 ## Instance Properties
 
 #### props
+1. `this.props` contains the props that were defined by the caller of this component.
+2. In particular, `this.props.children` is a special prop, typically defined by the child tags in the JSX expression rather than in the tag itself.
 
 #### state
+1. The state contains data specific to this component that may change over time.
+2. The state is user-defined, and it should be a plain JavaScript object.
+3. Never mutate `this.state` directly, as calling `setState()` afterwards may replace the mutation you made.

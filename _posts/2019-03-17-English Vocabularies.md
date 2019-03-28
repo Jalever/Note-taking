@@ -41,6 +41,8 @@ tags:
   - [coerce](#coerce)
   - [semantic](#semantic)
   - [derived](#derived)
+  - [batch](#batch)
+  - [warehouse](#warehouse)
 
 ## Words20190317
 
@@ -287,4 +289,17 @@ benchmark
     - **_derived products_**
 
 ---
+### batch
 
+- verb
+  - `to make a group out of a number of things so they can all be dealt with together`
+    - **_In a warehouse, several orders are batched together_**
+
+---
+### warehouse
+
+- noun
+  - `a large building used for storing goods`
+    - **_Textbooks are sent right from the warehouse to the schools_**
+
+---
