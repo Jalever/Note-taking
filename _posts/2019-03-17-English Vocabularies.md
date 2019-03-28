@@ -39,6 +39,7 @@ tags:
   - [bail out](#bail-out)
   - [defer](#defer)
   - [coerce](#coerce)
+  - [semantic](#semantic)
 
 ## Words20190317
 
@@ -269,6 +270,13 @@ benchmark
 - verb
   - `to persuade someone forcefully to do something that he or she may not want to do`
     - **_I don't think anybody should be coerced into leaving_**
+
+---
+### semantic
+
+- verb
+  - `(of words and language) connected with meaning`
+    - **_Words are semantic units that convey meaning_**
 
 ---
 
