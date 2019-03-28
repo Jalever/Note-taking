@@ -16,6 +16,7 @@ tags:
     - [Only Call Hooks from React Functions](#only-call-hooks-from-react-functions)
 - [ESLint Plugin](#eslint-plugin)
 - [Explanation](#explanation)
+- [Hooks Tutorial](#hooks-tutorial)
 
 ## Preface
 
@@ -109,3 +110,12 @@ This is why `Hooks` must be called on the top level of our components. If we wan
   });
 ```
 > Note that you don’t need to worry about this problem if you use the provided `lint` rule. 
+
+## Hooks Tutorial
+1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
+2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
+3. [Using the State Hook](https://jalever.github.io/2019/03/27/Using-the-State-Hook/)
+4. [Using the Effect Hook](https://jalever.github.io/2019/03/27/Using-the-Effect-Hook/)
+5.  Rules of Hooks
+6. [Building Your Own Hooks](https://jalever.github.io/2019/03/27/Building-Your-Own-Hooks/)
+7. [Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)

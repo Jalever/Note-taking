@@ -72,6 +72,7 @@ Traditionally in `React`, we’ve had two popular ways to share stateful logic b
     - [Do two components using the same Hook share state?](#do-two-components-using-the-same-hook-share-state)
     - [How does a custom Hook get isolated state?](#how-does-a-custom-hook-get-isolated-state)
 - [useYourImagination()](#useyourimagination)
+- [Hooks Tutorial](#hooks-tutorial)
 
 ## Extracting a Custom Hook
 
@@ -133,3 +134,12 @@ We can call `useState` and `useEffect` many times in one component, and they wil
 
 ## useYourImagination()
 You can write `custom Hooks` that cover a wide range of use cases like `form handling`, `animation`, `declarative subscriptions`, `timers`, and probably many more we haven’t considered.<br>
+
+## Hooks Tutorial
+1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
+2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
+3. [Using the State Hook](https://jalever.github.io/2019/03/27/Using-the-State-Hook/)
+4. [Using the Effect Hook](https://jalever.github.io/2019/03/27/Using-the-Effect-Hook/)
+5. [Rules of Hooks](https://jalever.github.io/2019/03/27/Rules-of-Hooks/)
+6.  Building Your Own Hooks
+7. [Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)

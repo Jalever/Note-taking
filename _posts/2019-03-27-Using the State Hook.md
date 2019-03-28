@@ -199,7 +199,12 @@ In the above component, we have `age`, `fruit`, and `todos` as local variables, 
   }
 ```
 
+
 ## Hooks Tutorial
 1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
 2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
 3. Using the State Hook
+4. [Using the Effect Hook](https://jalever.github.io/2019/03/27/Using-the-Effect-Hook/)
+5. [Rules of Hooks](https://jalever.github.io/2019/03/27/Rules-of-Hooks/)
+6. [Building Your Own Hooks](https://jalever.github.io/2019/03/27/Building-Your-Own-Hooks/)
+7. [Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)

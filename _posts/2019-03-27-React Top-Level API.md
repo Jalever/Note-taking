@@ -4,7 +4,7 @@ title: Render Top-Level API
 subtitle: React学习笔记系列
 date: 2019-03-26
 author: Jalever
-header-img: img/post_2019_react_bg.png
+header-img: img/post_2019_react_bg_shadow.png
 catalog: true
 tags:
   - React
@@ -35,18 +35,6 @@ tags:
     - [React.lazy](#reactlazy)
     - [React.Suspense](#reactsuspense)
 - [Hooks](#hooks)
-    - [Basic Hooks](#basic-hooks)
-        - [useState](#usestate)
-        - [useEffect](#useeffect)
-        - [useContext](#usecontext)
-    - [Additional Hooks](#additional-hooks)
-        - [useReducer](#usereducer)
-        - [useCallback](#usecallback)
-        - [useMemo](#usememo)
-        - [useRef](#useref)
-        - [useImperativeHandle](#useimperativehandle)
-        - [useLayoutEffect](#uselayouteffect)
-        - [useDebugValue](#usedebugvalue)
 
 ## Components
 
@@ -327,27 +315,4 @@ function Example() {
   );
 }
 ```
-
-#### Basic Hooks
-
-###### useState
-
-###### useEffect
-
-###### useContext
-
-#### Additional Hooks
-
-###### useReducer
-
-###### useCallback
-
-###### useMemo
-
-###### useRef
-
-###### useImperativeHandle
-
-###### useLayoutEffect
-
-###### useDebugValue
+[Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)

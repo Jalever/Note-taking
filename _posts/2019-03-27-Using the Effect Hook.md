@@ -28,6 +28,7 @@ tags:
     - [Use Multiple Effects to Separate Concerns](#use-multiple-effects-to-separate-concerns)
     - [Why Effects Run on Each Update](#why-effects-run-on-each-update)
     - [Optimizing Performance by Skipping Effects](#optimizing-performance-by-skipping-effects)
+- [Hooks Tutorial](#hooks-tutorial)
 
 ## Effects Without Cleanup
 `Network requests`, `manual DOM mutations`, and `logging` are common examples of effects that don’t require a cleanup. 
@@ -380,3 +381,12 @@ useEffect(() => {
 > If you use this optimization, make sure the array includes all values from the component scope (such as `props` and `state`) that change over time and that are used by the effect. Otherwise, your code will reference stale values from previous renders.
 > If you want to run an effect and clean it up only once (on `mount` and `unmount`), you can pass an empty array (`[]`) as a second argument. This tells `React` that your effect doesn’t depend on any values from `props` or `state`, so it never needs to re-run.
 > If you pass an empty array (`[]`), the `props` and `state` inside the effect will always have their initial values. 
+
+## Hooks Tutorial
+1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
+2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
+3. [Using the State Hook](https://jalever.github.io/2019/03/27/Using-the-State-Hook/)
+4.  Using the Effect Hook
+5. [Rules of Hooks](https://jalever.github.io/2019/03/27/Rules-of-Hooks/)
+6. [Building Your Own Hooks](https://jalever.github.io/2019/03/27/Building-Your-Own-Hooks/)
+7. [Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)

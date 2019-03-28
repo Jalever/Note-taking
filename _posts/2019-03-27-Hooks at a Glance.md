@@ -206,4 +206,9 @@ The `useSomething` naming convention is how our linter plugin is able to find bu
 
 ## Hooks Tutorial
 1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
-2. Hooks at a Glance
+2.  Hooks at a Glance
+3. [Using the State Hook](https://jalever.github.io/2019/03/27/Using-the-State-Hook/)
+4. [Using the Effect Hook](https://jalever.github.io/2019/03/27/Using-the-Effect-Hook/)
+5. [Rules of Hooks](https://jalever.github.io/2019/03/27/Rules-of-Hooks/)
+6. [Building Your Own Hooks](https://jalever.github.io/2019/03/27/Building-Your-Own-Hooks/)
+7. [Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)
