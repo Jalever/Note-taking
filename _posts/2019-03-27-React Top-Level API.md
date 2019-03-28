@@ -4,7 +4,7 @@ title: Render Top-Level API
 subtitle: React学习笔记系列
 date: 2019-03-26
 author: Jalever
-header-img: img/post_2019_react_bg_shadow.png
+header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
@@ -268,7 +268,7 @@ const SomeComponent = React.lazy(() => import('./SomeComponent'));
 
 Note that rendering lazy components requires that there’s a `<React.Suspense>` component higher in the rendering tree. This is how you specify a loading indicator.
 
-> NOTE: Using `React.lazywith` dynamic import requires `Promises` to be available in the JS environment. This requires a polyfill on IE11 and below.
+> NOTE: Using `React.lazy` with dynamic import requires `Promises` to be available in the JS environment. This requires a polyfill on IE11 and below.
 
 #### React.Suspense
 
