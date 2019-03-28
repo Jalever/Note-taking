@@ -43,6 +43,9 @@ tags:
   - [derived](#derived)
   - [batch](#batch)
   - [warehouse](#warehouse)
+  - [escape hatch](#escape-hatch)
+  - [identical](#identical)
+  - [patch up](#patch-up)
 
 ## Words20190317
 
@@ -301,5 +304,25 @@ benchmark
 - noun
   - `a large building used for storing goods`
     - **_Textbooks are sent right from the warehouse to the schools_**
+
+---
+### escape hatch
+
+- noun
+  - `a way of getting out of a difficult or unwanted situation`
+    - **_The psychiatrist offered him an escape hatch from his feelings of guilt_**
+
+---
+### identical
+
+- adjective
+  - `exactly the same, or very similar`
+    - **_The test is identical to the one you took last year._**
+
+---
+### patch up
+
+  - `to repair something, often quickly and not very well`
+    - **_The road needs resurfacing, not just patching up_**
 
 ---
