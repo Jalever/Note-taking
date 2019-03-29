@@ -46,6 +46,7 @@ tags:
   - [escape hatch](#escape-hatch)
   - [identical](#identical)
   - [patch up](#patch-up)
+  - [query](#query)
 
 ## Words20190317
 
@@ -324,5 +325,12 @@ benchmark
 
   - `to repair something, often quickly and not very well`
     - **_The road needs resurfacing, not just patching up_**
+
+---
+### query
+
+- verb
+  - `to ask questions, especially in order to check if something is true or correct`
+    - **_A few students have queried their marks_**
 
 ---
