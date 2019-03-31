@@ -47,6 +47,7 @@ tags:
   - [identical](#identical)
   - [patch up](#patch-up)
   - [query](#query)
+  - [disposal](#disposal)
 
 ## Words20190317
 
@@ -334,3 +335,11 @@ benchmark
     - **_A few students have queried their marks_**
 
 ---
+### disposal
+
+- noun
+  - `the act of getting rid of something`
+    - **_the disposal of toxic wastes_**
+
+---
+
