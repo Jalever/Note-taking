@@ -20,9 +20,11 @@ The main difference between them is in what they iterate over.<br>
 
 ## for...of
 The `for...of` statement iterates over values that the <ins>***iterable object***</ins> defines to be iterated over.<br>
+you can get access to the array element itself<br>
 
 ## for...in
 The `for...in` statement iterates over the <ins>***enumerable properties***</ins> of an object, in an arbitrary order.<br>
+`for/in` looping constructs give you access to the index in the array, not the actual element.<br>
 > `enumerable properties`: A property is identified as enumerable or not by its own `[[Enumerable]]` attribute<br>
 > `for-in` 方法来遍历所有非 `Symbol` 类型并且是可枚举的属性<br>
 
