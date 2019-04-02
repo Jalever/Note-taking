@@ -11,6 +11,8 @@ tags:
 ---
 - [for...of](#forof)
 - [for...in](#forin)
+- [差别](#%E5%B7%AE%E5%88%AB)
+    - [空元素](#%E7%A9%BA%E5%85%83%E7%B4%A0)
 - [Example](#example)
 
 Both `for...in` and `for...of` statements iterate over something.<br>
@@ -27,6 +29,15 @@ The `for...in` statement iterates over the <ins>***enumerable properties***</ins
 `for/in` looping constructs give you access to the index in the array, not the actual element.<br>
 > `enumerable properties`: A property is identified as enumerable or not by its own `[[Enumerable]]` attribute<br>
 > `for-in` 方法来遍历所有非 `Symbol` 类型并且是可枚举的属性<br>
+
+## 差别
+#### 空元素
+例如:
+```javascript
+const arr = ['a',, 'c'];
+arr.length; // 3
+```
+`for/in` and `for/each` skip the empty element, `for` and `for/of` do not.
 
 ## Example
 The following example shows the difference between a `for...of` loop and a `for...in` loop when used with an `Array`.<br>
