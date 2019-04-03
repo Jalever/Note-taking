@@ -16,12 +16,16 @@ tags:
 - [window.innerWidth/Height](#windowinnerwidthheight)
 
 ## document.body.scrollHeight
+`content`, `padding`
 
 ## document.body.offsetHeight
-content, padding, border
+`content`, `padding`, `border`<br>
+include `scrollbar`
 
 ## document.body.clientHeight
-Properties clientWidth/clientHeight of document.documentElement is exactly what we want here
+`content`, `padding`<br>
+not `scrollbar`<br>
+Properties `clientWidth/clientHeight` of document.documentElement is exactly what we want here<br>
 If there’s a scrollbar, and it occupies some space, then these two lines show different values:
 ```javascript
 alert( window.innerWidth ); // full window width
@@ -29,3 +33,4 @@ alert( document.documentElement.clientWidth ); // window width minus the scrollb
 ```
 
 ## window.innerWidth/Height
+`content`
