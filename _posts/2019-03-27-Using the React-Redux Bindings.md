@@ -8,7 +8,7 @@ header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React-Redux
+  - React Redux
 ---
 
 - [Using the React-Redux Bindings](#using-the-react-redux-bindings)

@@ -12,6 +12,8 @@ tags:
 ---
 
 - [prelude](#prelude)
+- [compact](#compact)
+- [savvy](#savvy)
 
 ### prelude
 
@@ -23,4 +25,21 @@ tags:
 
 ---
 
+### compact
 
+- noun
+
+  - `closely or neatly put together`
+
+    - **_The newer cameras have a flatter, more compact design_**
+
+---
+### savvy
+
+- noun
+
+  - `practical knowledge and ability`
+
+    - **_She has a lot of marketing savvy_**
+
+---

@@ -1,14 +1,14 @@
 ---
 layout: post
 title: Actions
-subtitle: React Redux学习笔记系列
+subtitle: Redux学习笔记系列
 date: 2019-04-03
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React Redux
+  - Redux
 ---
 
 - [Action](#action)
@@ -16,11 +16,11 @@ tags:
 - [Example](#example)
 
 ## Action
-`Actions` are payloads of information that send data from your application to your store.
-They are the only source of information for the store.
-You send them to the store using `store.dispatch()`.
-`Actions` are plain JavaScript objects.
-`Actions` must have a type property that indicates the type of action being performed. Types should typically be defined as ***string constants***.
+`Actions` are payloads of information that send data from your application to your store.<br>
+They are the only source of information for the store.<br>
+You send them to the store using `store.dispatch()`.<br>
+`Actions` are plain JavaScript objects.<br>
+`Actions` must have a type property that indicates the type of action being performed. Types should typically be defined as ***string constants***.<br>
 ```javascript
 {
   type: TOGGLE_TODO,
@@ -29,8 +29,8 @@ You send them to the store using `store.dispatch()`.
 ```
 
 ## Action Creators
-Action creators are exactly that—functions that create actions. 
-In `Redux`, action creators simply return an action
+Action creators are exactly that—functions that create actions. <br>
+In `Redux`, action creators simply return an action<br>
 ```javascript
 function addTodo(text) {
   return {
@@ -40,7 +40,7 @@ function addTodo(text) {
 }
 ```
 
-In `react-redux`'s `connect()`, you can use `bindActionCreators()` to automatically bind many action creators to a `dispatch()` function.
+In `react-redux`'s `connect()`, you can use `bindActionCreators()` to automatically bind many action creators to a `dispatch()` function.<br>
 
 
 ## Example
