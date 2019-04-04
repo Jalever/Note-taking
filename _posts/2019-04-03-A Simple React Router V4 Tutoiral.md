@@ -13,13 +13,13 @@ tags:
 - [Installation](#installation)
 - [Determining which type of router to use](#determining-which-type-of-router-to-use)
 - [History](#history)
-- [Rendering a <Router>](#rendering-a-router)
-- [The <App>](#the-app)
+- [Rendering a `<Router>`](#rendering-a-router)
+- [The `<App>`](#the-app)
 - [Routes](#routes)
-    - [<Route>](#route)
+    - [`<Route>`](#route)
     - [path](#path)
     - [`<Switch>`](#switch)
-    - [What does the <Route> render?](#what-does-the-route-render)
+    - [What does the `<Route>` render?](#what-does-the-route-render)
         - [component](#component)
         - [render](#render)
         - [children](#children)
@@ -43,7 +43,7 @@ Each router creates a `history` object, which it uses to keep track of the curre
 The other components provided by `React Router` rely on having that history object available through `React`’s context, so they must be rendered as descendants of a router component.<br>
 A `React Router` component that does not have a router as one of its ancestors will fail to work.
 
-## Rendering a <Router>
+## Rendering a `<Router>`
 `Router` components only expect to receive a single child element. <br>
 To work within this limitation, it is useful to create an `<App>` component that renders the rest of your application.
 ```javascript
@@ -56,7 +56,7 @@ ReactDOM.render((
 ), document.getElementById('root'));
 ```
 
-## The <App>
+## The `<App>`
 Our application is defined within the `<App>` component.<br>
 The `<Header>` component will contain links to navigate throughout the website.<br>
 The `<Main>` component is where the rest of the content will be rendered.
@@ -87,7 +87,7 @@ function Main() {
 }
 ```
 
-#### <Route>
+#### `<Route>`
 The `<Route>` component is the main building block of `React Router`. <br>
 Anywhere that you want to only render content based on the location’s pathname, you should use a `<Route>` element.
 
@@ -114,7 +114,7 @@ For this website, the paths that we want to match are:
 </Switch>
 ```
 
-#### What does the <Route> render?
+#### What does the `<Route>` render?
 `Routes` have three props that can be used to define what should be rendered when the route’s path matches. 
 Only one should be provided to a `<Route>` element.
 
