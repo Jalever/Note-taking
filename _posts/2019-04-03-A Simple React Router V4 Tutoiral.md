@@ -23,6 +23,7 @@ tags:
         - [component](#component)
         - [render](#render)
         - [children](#children)
+- [`<Link>`](#link)
 
 ## Installation
 `React Router` has been broken into three packages: 
@@ -118,7 +119,9 @@ For this website, the paths that we want to match are:
 Only one should be provided to a `<Route>` element.
 
 The element rendered by the `<route>` will be passed a number of props.
-
+- `match` object
+- `location` object
+- `history` object
 
 ###### component 
 - A React component
@@ -147,4 +150,26 @@ const extraProps = { color: 'red' }
 )}/>
 ```
 
+## `<Link>`
+a way to navigate between pages<br>
+When clicking a `<Link>`, the `URL` will be updated and the rendered content will change without reloading the page<br>
+`<Link>`s use the to prop to describe the location that they should navigate to
+This can either be a string or a location object (containing a combination of `pathname`, `search`, `hash`, and `state` properties)
+
+```javascript
+import { Link } from 'react-router-dom'
+function Header() {
+  return (
+    <header>
+      <nav>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/roster'>Roster</Link></li>
+          <li><Link to='/schedule'>Schedule</Link></li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
+```
 
