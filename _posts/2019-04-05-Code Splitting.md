@@ -69,7 +69,6 @@ Using these inline directives while declaring your imports allows webpack to out
 2. prefetch
     - resource is probably needed for some navigation in the future
 
-
 | Preload                                        | Prefetch                                       |
 | ---------------------------------------------- | ---------------------------------------------- |
 | starts loading in parallel to the parent chunk | starts after the parent chunk finishes loading |
