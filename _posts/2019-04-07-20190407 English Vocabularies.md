@@ -14,6 +14,9 @@ tags:
 - [prelude](#prelude)
 - [compact](#compact)
 - [savvy](#savvy)
+- [analogy](#analogy)
+- [dethrone](#dethrone)
+- [pitfall](#pitfall)
 
 ### prelude
 
@@ -41,5 +44,32 @@ tags:
   - `practical knowledge and ability`
 
     - **_She has a lot of marketing savvy_**
+
+---
+### analogy
+
+- noun
+
+  - `a comparison of the features or qualities of two different things to show their similarities`
+
+    - **_He was explaining that the mind has no form and is invisible, and that a useful analogy is of the mind being like the sky_**
+
+---
+### dethrone
+
+- verb 
+
+  - `to beat someone who is the best at something, especially a sport, and become the best yourself`
+
+    - **_The world champion was dethroned by a young Swedish challenger._**
+
+---
+### pitfall
+
+- verb 
+
+  - `an unexpected danger or difficulty`
+
+    - **_Who knows what kind of pitfalls they're going to run into._**
 
 ---
