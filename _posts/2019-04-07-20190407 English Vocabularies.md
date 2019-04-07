@@ -17,6 +17,8 @@ tags:
 - [analogy](#analogy)
 - [dethrone](#dethrone)
 - [pitfall](#pitfall)
+- [bottleneck](#bottleneck)
+- [identical](#identical)
 
 ### prelude
 
@@ -73,3 +75,23 @@ tags:
     - **_Who knows what kind of pitfalls they're going to run into._**
 
 ---
+### bottleneck
+
+- noun 
+
+  - `delay`
+
+    - **_Bureaucratic bottlenecks delayed the project's start._**
+
+---
+### identical
+
+- adjective 
+
+  - `exactly the same, or very similar`
+
+    - **_The test is identical to the one you took last year.._**
+
+---
+
+
