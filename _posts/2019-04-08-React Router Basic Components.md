@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Basic Components
-subtitle: React-Router学习笔记系列
+subtitle: React Router Guides学习笔记系列 2
 date: 2019-04-08
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
@@ -49,9 +49,10 @@ A `<Switch>` will iterate over all of its children `<Route>` elements and only r
   <Route path="/about" component={About} />
   <Route path="/contact" component={Contact} />
 </Switch>
-
 ```
+
 A `<Route>` with no path will always match.<br>
+
 ```javascript
 <Switch>
   <Route exact path="/" component={Home} />
@@ -60,8 +61,8 @@ A `<Route>` with no path will always match.<br>
   {/* when none of the above match, <NoMatch> will be rendered */}
   <Route component={NoMatch} />
 </Switch>
-
 ```
+
 ## Route Rendering Props
 You have three prop choices for how you render a component for a given `<Route>`: 
 - component
@@ -113,7 +114,7 @@ The <NavLink> is a special type of <Link> that can style itself as “active” 
 </NavLink>
 // <a href='/react' className='hurray'>React</a>
 
-Any time that you want to force navigation, you can render a <Redirect>. When a <Redirect> renders, it will navigate using its to prop.
+// Any time that you want to force navigation, you can render a <Redirect>. When a <Redirect> renders, it will navigate using its to prop.
 
 <Redirect to="/login" />
 
