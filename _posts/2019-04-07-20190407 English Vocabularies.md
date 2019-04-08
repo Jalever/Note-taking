@@ -19,6 +19,7 @@ tags:
 - [pitfall](#pitfall)
 - [bottleneck](#bottleneck)
 - [identical](#identical)
+- [invariant](#invariant)
 
 ### prelude
 
@@ -93,5 +94,13 @@ tags:
     - **_The test is identical to the one you took last year.._**
 
 ---
+### invariant
 
+- adjective 
+
+  - `not changing`
+
+    - **_traits that are invariant throughout all mammals._**
+
+---
 
