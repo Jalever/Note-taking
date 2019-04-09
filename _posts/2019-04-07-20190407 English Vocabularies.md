@@ -20,6 +20,7 @@ tags:
 - [bottleneck](#bottleneck)
 - [identical](#identical)
 - [invariant](#invariant)
+- [(right) out of the box](#right-out-of-the-box)
 
 ### prelude
 
@@ -103,4 +104,15 @@ tags:
     - **_traits that are invariant throughout all mammals._**
 
 ---
+
+### (right) out of the box
+
+- informal 
+
+  - `used to refer to the immediate usability or functionality of a newly purchased product, typically an electronic device or a piece of software`
+
+    - **_most laptops come with wireless capability out of the box._**
+
+---
+
 
