@@ -12,7 +12,7 @@ tags:
 
 - [document.body.scrollHeight](#documentbodyscrollheight)
 - [document.body.offsetHeight](#documentbodyoffsetheight)
-- [document.body.clientHeight](#documentbodyclientheight)
+- [document.documentElement.clientHeight](#documentdocumentelementclientheight)
 - [window.innerWidth/Height](#windowinnerwidthheight)
 
 ## document.body.scrollHeight
@@ -22,7 +22,7 @@ tags:
 `content`, `padding`, `border`<br>
 include `scrollbar`
 
-## document.body.clientHeight
+## document.documentElement.clientHeight
 `content`, `padding`<br>
 not `scrollbar`<br>
 Properties `clientWidth/clientHeight` of document.documentElement is exactly what we want here<br>

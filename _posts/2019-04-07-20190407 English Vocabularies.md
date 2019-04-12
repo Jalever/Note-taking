@@ -21,6 +21,7 @@ tags:
 - [identical](#identical)
 - [invariant](#invariant)
 - [(right) out of the box](#right-out-of-the-box)
+- [strip](#strip)
 
 ### prelude
 
@@ -114,5 +115,13 @@ tags:
     - **_most laptops come with wireless capability out of the box._**
 
 ---
+### strip
 
+- verb 
+
+  - `to remove, pull, or tear the covering or outer layer from something`
+
+    - **_I have this cabinet that had about eight layers of paint on it, and I stripped it down to refinish it._**
+
+---
 

@@ -8,7 +8,7 @@ header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React-Router
+  - React Router
 ---
 - [Installation](#installation)
 - [Determining which type of router to use](#determining-which-type-of-router-to-use)
