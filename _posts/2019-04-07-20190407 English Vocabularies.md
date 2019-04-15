@@ -124,4 +124,7 @@ tags:
     - **_I have this cabinet that had about eight layers of paint on it, and I stripped it down to refinish it._**
 
 ---
+### live under a rock
 
+- It is to be a person who lives in isolation from and `has limited knowledge of what is happening in the world around them`. 
+---
