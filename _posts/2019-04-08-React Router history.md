@@ -55,7 +55,7 @@ The number of entries in the history stack
 
 #### action - (string)
 
-The current action (PUSH, REPLACE, or POP)
+The current action (`PUSH`, `REPLACE`, or `POP`)
 
 #### location - (object)
 
