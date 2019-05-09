@@ -1,0 +1,43 @@
+---
+layout:     post
+title:      useReducer, useContext, useMemo的使用
+subtitle:   React学习笔记系列
+date:       2019-05-09
+author:     Jalever
+header-img: img/post-bg-js-version.jpg
+catalog: true
+tags:
+    - React
+---
+
+
+```jsx
+function countReducer(state, action) {
+  switch (action.type) {
+    case 'INCREMENT': {
+      return {count: state.count + 1}
+    }
+    default: {
+      throw new Error(`Unsupported action type: ${action.type}`)
+    }
+  }
+}
+function CountProvider(props) {
+  const [state, dispatch] = React.useReducer(countReducer, {count: 0})
+  const value = React.useMemo(() => [state, dispatch], [state])
+  return <CountContext.Provider value={value} {...props} />
+}
+function useCount() {
+  const context = React.useContext(CountContext)
+  if (!context) {
+    throw new Error(`useCount must be used within a CountProvider`)
+  }
+  const [state, dispatch] = context
+  const increment = () => dispatch({type: 'INCREMENT'})
+  return {
+    state,
+    dispatch,
+    increment,
+  }
+}
+```
