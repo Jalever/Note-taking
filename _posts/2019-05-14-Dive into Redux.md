@@ -36,10 +36,30 @@ const createStore = (reducer, preloadedState = {}, middlewares = []) => {
 
 #### Implementation of getState()
 ```js
-let state = initialState;
-return {
-  getState: () => state,
-  ...
+export default function createStore(reducer, preloadedState, enhancer) {
+    let currentState = preloadedState;
+
+    ...
+
+    function getState() {
+        if (isDispatching) {// when user is dispatching, isDispatching is true, vice versa
+          throw new Error(
+            'You may not call store.getState() while the reducer is executing. ' +
+              'The reducer has already received the state as an argument. ' +
+              'Pass it down from the top reducer instead of reading it from the store.'
+          )
+        }
+
+        return currentState
+    }
+
+    ...
+
+    return {
+        ...
+        getState,
+        ...
+    }
 }
 ```
 
@@ -104,7 +124,8 @@ const middlewareAPI = {
 
 const newMiddleWareArray = middlewareArray.map(middleware => middleware(middlewareAPI));
 
-//At the end, the finalMiddleware will be the first middleware in the collection, so when we invoke dispatch it will call the first middleware.
+/*At the end, the finalMiddleware will be the first middleware in the collection,
+so when we invoke dispatch it will call the first middleware*/
 for(let i = newMiddleWareArray.length - 1; i >= 0; i--) {
   finalMiddleware = newMiddleWareArray[i](finalMiddleware);
 }
