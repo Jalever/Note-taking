@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Shadow Copy and Deep Copy
+title: Shallow Copy and Deep Copy
 subtitle: Web Development学习笔记系列
 date: 2019-05-09
 author: Jalever

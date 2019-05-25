@@ -10,6 +10,58 @@ tags:
   - Typescript
 ---
 
+npm packages
+```
+npm i -D typescript awesome-typescript-loader @types/react @react-dom
+```
+
+## 2.create `tsconfig.js`
+```json
+{
+"compilerOptions": {
+    "outDir": "./dist/",
+    "jsx": "react",
+    "sourceMap": true,
+    "allowJs": true,
+    "target": "es5",
+    "module": "es6",
+    "noImplicitAny": true
+},
+"include": ["./src/**/*"]
+}
+```
+
+## 3.webpack.config.js
+```js
+...
+module: {
+    ...
+    {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+    },{
+        enforce: "pre",
+        test:/\.js$/,
+        loader: "source-map-loader"
+    }
+    ...
+},
+...
+resolve: {
+    ...
+    extensions: ["tsx", "ts", "js"]
+}
+
+...
+```
+
+## 4.interact with SaSS
+at first, create file named `declaration.d.ts` <br/>
+and then write down `declare module '*.scss';`
+
+
+---
+
 ## Install our dependencies
 ```js
 npm install --save react react-dom @types/react @types/react-dom
@@ -18,7 +70,7 @@ That `@types/` prefix means that we also want to get the declaration files for `
 
 Usually when you import a path like "react", it will look inside of the react package itself;<br/>
 
-however, not all packages include declaration files, so `TypeScript` also looks in the `@types/react` package as well. 
+however, not all packages include declaration files, so `TypeScript` also looks in the `@types/react` package as well.
 
 ```git
 npm install --save-dev typescript awesome-typescript-loader source-map-loader
@@ -133,7 +185,3 @@ module.exports = {
     }
 };
 ```
-
-
-
-
