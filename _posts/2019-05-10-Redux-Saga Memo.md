@@ -18,7 +18,18 @@ It allows only one "fetchData" task to run at any moment. <br/>
 And it will be the latest started task. If a previous task is still running when another "fetchData" task is started, the previous task will be automatically cancelled.
 
 #### fork
-If you have multiple Sagas watching for different actions, you can create multiple watchers with those built-in helpers
+If you have multiple Sagas watching for different actions, you can create multiple watchers with those built-in helpers<br/>
+
+When we fork a task, the task is started in the background and the caller can continue its flow without waiting for the forked task to terminate.
+
+
+#### cancel
+In order to cancel a forked task, we use a dedicated Effect `cancel`
+
+
+#### race
+Sometimes we start multiple tasks in parallel but we don't want to wait for all of them, we just need to get the winner: the first one that resolves (or rejects).<br/>
+it automatically cancels the loser Effects.
 
 ## Effect
 An "Effect" is an object that contains some information to be interpreted by the middleware.<br/>
