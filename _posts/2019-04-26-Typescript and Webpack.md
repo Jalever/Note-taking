@@ -185,3 +185,11 @@ module.exports = {
     }
 };
 ```
+
+## Datatypes in TypeScript
+- Number
+- String
+- Boolean
+- Void
+- Arrays
+- Any
