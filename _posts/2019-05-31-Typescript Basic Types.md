@@ -4,7 +4,7 @@ title: Basic Types
 subtitle: Typescript学习笔记系列
 date: 2019-05-31
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post_bg_2019_typescript.png
 catalog: true
 tags:
   - Typescript
