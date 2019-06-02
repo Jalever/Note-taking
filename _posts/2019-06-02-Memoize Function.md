@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Web Development
 ---
+
 ```js
 function memoize(fn) {
     return function () {
