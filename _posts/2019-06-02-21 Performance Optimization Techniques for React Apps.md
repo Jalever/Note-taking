@@ -14,33 +14,33 @@ tags:
 - [Using Web Workers for CPU Extensive Tasks](#Using Web Workers for CPU Extensive Tasks)
 - [Consider Server-side Rendering](#Consider Server-side Rendering)
 
-# Using Immutable Data Structures
+## Using Immutable Data Structures
 
-# Function/Stateless Components and React.PureComponent
+## Function/Stateless Components and React.PureComponent
 
-# Multiple Chunk Files
+## Multiple Chunk Files
 
-# Using Production Mode Flag in Webpack
+## Using Production Mode Flag in Webpack
 
-# Dependency optimization
+## Dependency optimization
 
-# Use React.Fragments to Avoid Additional HTML Element Wrappers
+## Use React.Fragments to Avoid Additional HTML Element Wrappers
 
-# Avoid Inline Function Definition in the Render Function
+## Avoid Inline Function Definition in the Render Function
 
-# Throttling and Debouncing Event Action in JavaScript
+## Throttling and Debouncing Event Action in JavaScript
 
-# Avoid using Index as Key for map
+## Avoid using Index as Key for map
 
-# Avoiding Props in Initial States
+## Avoiding Props in Initial States
 
-# Spreading props on DOM elements
+## Spreading props on DOM elements
 
-# Use Reselect in Redux Connect to Avoid Frequent Re-render
+## Use Reselect in Redux Connect to Avoid Frequent Re-render
 
-# Avoid Async Initialization in componentWillMount()
+## Avoid Async Initialization in componentWillMount()
 
-# Memoize React Components
+## Memoize React Components
 
 Memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again. A memoized function is usually faster because if the function is called with the same values as the previous one then instead of executing function logic it would fetch the result from cache.
 
@@ -60,11 +60,11 @@ const UserDetails = ({user, onEdit}) =>{
 export default React.memo(UserDetails)
 ```
 
-# CSS Animations Instead of JS Animations
+## CSS Animations Instead of JS Animations
 
-# Using a CDN
+## Using a CDN
 
-# Using Web Workers for CPU Extensive Tasks
+## Using Web Workers for CPU Extensive Tasks
 
 Web Workers makes it possible to run a script operation in a web application's background thread, separate from the main execution thread. By performing the laborious processing in a separate thread, the main thread, which is usually the UI, is able to run without being blocked or slowed down.
 
@@ -182,10 +182,10 @@ export default Posts extends React.Component{
 }
 ```
 
-# Virtualize Long Lists
+## Virtualize Long Lists
 
-# Analyzing and Optimizing Your Webpack Bundle Bloat
+## Analyzing and Optimizing Your Webpack Bundle Bloat
 
-# Consider Server-side Rendering
+## Consider Server-side Rendering
 
-# Enable Gzip Compression on Web Server
+## Enable Gzip Compression on Web Server
