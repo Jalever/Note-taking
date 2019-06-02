@@ -4,7 +4,7 @@ title: Strategy Pattern
 subtitle: Design Pattern学习笔记系列
 date: 2019-06-02
 author: Jalever
-header-img: img/post-bg-algorithm.jpg
+header-img: img/home_bg_tree.png
 catalog: true
 tags:
   - Design Pattern
