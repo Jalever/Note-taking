@@ -10,10 +10,42 @@ tags:
   - Computer Network
 ---
 
-## Common TCP/IP Protocols and Ports
-| Protocol                           | TCP/UDP | Port Number | Description                     |
-| ---------------------------------- | ------- | ----------- | ------------------------------- |
-| File Transfer Protocol (FTP)       | TCP     | 20/21       | file transfer protocols         |
-| Secure Shell (SSH)                 | TCP     | 22          | manage network devices securely |
-| Telnet                             | TCP     | 23          | manage network devices          |
-| Hypertext Transfer Protocol (HTTP) | TCP     | 80          | files located on these servers  |
+#### 20/21
+###### Protocol
+File Transfer Protocol (FTP)
+
+###### TCP/UDP
+TCP
+
+###### Description
+file transfer protocols
+
+#### 22
+###### Protocol
+Secure Shell (SSH)
+
+###### TCP/UDP
+TCP
+
+###### Description
+manage network devices securely
+
+#### 23
+###### Protocol
+Telnet
+
+###### TCP/UDP
+TCP
+
+###### Description
+manage network devices
+
+#### 80
+###### Protocol
+Hypertext Transfer Protocol (HTTP)
+
+###### TCP/UDP
+TCP
+
+###### Description
+files located on these servers
