@@ -22,7 +22,7 @@ UDP does not use acknowledgments at all, and is usually used for protocols where
 UDP is used when speed is desirable and error correction is not necessary. For example, UDP is frequently used for live broadcasts and online games.
 
 ## Difference
-| TCP | UDP|
-|---|---|
-|Reliable|Unreliable
-|Connection-oriented|Connectionless|
+| TCP                 | UDP            |
+| ------------------- | -------------- |
+| Reliable            | Unreliable     |
+| Connection-oriented | Connectionless |
