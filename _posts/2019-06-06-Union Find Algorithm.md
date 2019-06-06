@@ -11,7 +11,7 @@ tags:
 ---
 
 ## Optimization
-#### union by rank  
+#### Union by Rank  
 The idea is to always attach smaller depth tree under the root of the deeper tree.
 
 #### Path Compression
@@ -121,4 +121,4 @@ int main() {
 ```
 
 ## Links
-[Blog](#https://www.geeksforgeeks.org/union-find-algorithm-set-2-union-by-rank/)
+[Union By Rank and Path Compression](#https://www.geeksforgeeks.org/union-find-algorithm-set-2-union-by-rank/)
