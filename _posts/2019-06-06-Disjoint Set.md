@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Disjoint Set (Or Union-Find)
+title: Disjoint Set (Or Union-Find)[Detect Cycle in an Undirected Graph]
 subtitle: Algorithm学习笔记系列
 date: 2019-06-06
 author: Jalever
@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Algorithm
 ---
+
 A disjoint-set data structure is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets.
 
 A union-find algorithm is an algorithm that performs two useful operations on such a data structure:
@@ -25,7 +26,7 @@ Union-Find Algorithm can be used to check whether an undirected graph contains c
 ```c
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
+#include<string.h>//defines void *memset(void *str, int c, size_t n)
 
 struct Edge {
     int source,
@@ -67,7 +68,7 @@ void Union(int parent[], int x, int y) {
     }
 }
 
-int isCycle(struct Graph* graph) {
+int isCircle(struct Graph* graph) {
 
     int *parent = (int*)malloc((graph->verticleNum) * (sizeof(int)));
     memset(parent, -1, ( graph->verticleNum) * ( sizeof(int) ) );
@@ -99,7 +100,7 @@ int main() {
     graph->edge[2].source = 2;
     graph->edge[2].distance = 0;
 
-    if(isCycle(graph)) {
+    if(isCircle(graph)) {
 		printf( "graph contains cycle" );
     } else {
 		printf( "graph doesn't contain cycle" );
