@@ -167,3 +167,6 @@ int main()
     return 0;
 }
 ```
+
+## Links
+[Kruskal Algorithm](#https://www.geeksforgeeks.org/?p=26604/)
