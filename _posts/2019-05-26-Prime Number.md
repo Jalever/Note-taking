@@ -34,9 +34,17 @@ To find all the prime numbers less than or equal to 30, proceed as follows.
 
 First, generate a list of integers from 2 to 30:
 <p>
-2&nbsp;3&nbsp;<del>4</del>&nbsp;5&nbsp;6&nbsp;7&nbsp;8&nbsp;9&nbsp;10&nbsp;
+2&nbsp;
+3&nbsp;
+4&nbsp;
+5&nbsp;
+6&nbsp;
+7&nbsp;
+8&nbsp;
+9&nbsp;
+10&nbsp;
 11&nbsp;
-12&nbsp; 
+12&nbsp;
 13&nbsp;
 14&nbsp;
 15&nbsp;
@@ -57,7 +65,75 @@ First, generate a list of integers from 2 to 30:
 30&nbsp;
 </p>
 
+The first number in the list is 2; cross out every 2nd number in the list after 2 by counting up from 2 in increments of 2 (these will be all the multiples of 2 in the list)
 
+Multiples of 2 would be deleted,for example: 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
+<p>
+2&nbsp;
+3&nbsp;
+<del>4</del>&nbsp;
+5&nbsp;
+<del>6</del>&nbsp;
+7&nbsp;
+<del>8</del>&nbsp;
+9&nbsp;
+<del>10</del>&nbsp;
+11&nbsp;
+<del>12</del>&nbsp;
+13&nbsp;
+<del>14</del>&nbsp;
+15&nbsp;
+<del>16</del>&nbsp;
+17&nbsp;
+<del>18</del>&nbsp;
+19&nbsp;
+<del>20</del>&nbsp;
+21&nbsp;
+<del>22</del>&nbsp;
+23&nbsp;
+<del>24</del>&nbsp;
+25&nbsp;
+<del>26</del>&nbsp;
+27&nbsp;
+<del>28</del>&nbsp;
+29&nbsp;
+<del>30</del>&nbsp;
+</p>
+
+The next number in the list after 2 is 3; cross out every 3rd number in the list after 3 by counting up from 3 in increments of 3 (these will be all the multiples of 3 in the list):
+
+Multiples of 3 would be deleted,for example: 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
+<p>
+2&nbsp;
+3&nbsp;
+<del>4</del>&nbsp;
+5&nbsp;
+<del>6</del>&nbsp;
+7&nbsp;
+<del>8</del>&nbsp;
+<del>9</del>&nbsp;
+<del>10</del>&nbsp;
+11&nbsp;
+<del>12</del>&nbsp;
+13&nbsp;
+<del>14</del>&nbsp;
+<del>15</del>&nbsp;
+<del>16</del>&nbsp;
+17&nbsp;
+<del>18</del>&nbsp;
+19&nbsp;
+<del>20</del>&nbsp;
+<del>21</del>&nbsp;
+<del>22</del>&nbsp;
+23&nbsp;
+<del>24</del>&nbsp;
+25&nbsp;
+<del>26</del>&nbsp;
+<del>27</del>&nbsp;
+<del>28</del>&nbsp;
+29&nbsp;
+<del>30</del>&nbsp;
+</p>
 
 
 ## Implementation in
