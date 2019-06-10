@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Program for Array Rotation
-subtitle: Algorithm学习笔记系列
+subtitle: Array Rotations学习笔记系列1
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
