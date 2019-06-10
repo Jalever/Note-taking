@@ -9,16 +9,16 @@ catalog: true
 tags:
   - Algorithm
 ---
-Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3};
-         key = 3
-Output : Found at index 8
+Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3};<br/>
+         key = 3<br/>
+Output : Found at index 8<br/>
 
-Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3};
-         key = 30
-Output : Not found
+Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3};<br/>
+         key = 30<br/>
+Output : Not found<br/>
 
-Input : arr[] = {30, 40, 50, 10, 20}
-        key = 10   
+Input : arr[] = {30, 40, 50, 10, 20}<br/>
+        key = 10<br/>
 Output : Found at index 3
 
 ```cpp
