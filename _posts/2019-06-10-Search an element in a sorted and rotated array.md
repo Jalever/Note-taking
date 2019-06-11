@@ -21,6 +21,8 @@ Input : arr[] = {30, 40, 50, 10, 20}<br/>
         key = 10<br/>
 Output : Found at index 3
 
+![](http://ww3.sinaimg.cn/large/006tNc79gw1fb0neee6mlj30dw0aldgf.jpg)
+
 ```cpp
 #include<iostream>
 using namespace std;

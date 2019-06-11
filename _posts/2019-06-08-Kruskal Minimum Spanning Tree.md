@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Kruskal MST
-subtitle: Algorithm学习笔记系列
+subtitle: Graph学习笔记系列
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg

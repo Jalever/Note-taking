@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Greater Common Divisor
-subtitle: Algorithm学习笔记系列
+subtitle: Mathematics学习笔记系列
 date: 2019-05-26
 author: Jalever
 header-img: img/post_2019_react_contextAPI_bg.png

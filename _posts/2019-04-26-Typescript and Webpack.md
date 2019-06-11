@@ -56,9 +56,10 @@ resolve: {
 ```
 
 ## 4.interact with SaSS
-at first, create file named `declaration.d.ts` <br/>
-and then write down `declare module '*.scss';`
-
+```
+npm i -D @types/node-sass css-modules-typescript-loader
+```
+That would generated a file automatically
 
 ---
 
