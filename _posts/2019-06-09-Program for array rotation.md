@@ -9,15 +9,16 @@ catalog: true
 tags:
   - Algorithm
 ---
--[Overview](#Overview)
--[Solutions](#Solutions)
-    -[Juggling Algorithm](#Juggling Algorithm)
-        -[Diagram](#Diagram)
-        -[General](#General)
-        -[Implementation in CPP](#Implementation in CPP)
-        -[Time Complexity](#Time Complexity)
-        -[Auxiliary Space](#Auxiliary Space)
--[Links](#Links)
+
+- [Overview](#Overview)
+- [Solutions](#Solutions)
+    - [Juggling Algorithm](#Juggling-Algorithm)
+        - [Diagram](#Diagram)
+        - [General](#General)
+        - [Implementation in CPP](#Implementation-in-CPP)
+        - [Time Complexity](#Time-Complexity)
+        - [Auxiliary Space](#Auxiliary-Space)
+- [Links](#Links)
 
 
 ## Overview
