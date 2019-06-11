@@ -21,7 +21,6 @@ Input : arr[] = {30, 40, 50, 10, 20}<br/>
         key = 10<br/>
 Output : Found at index 3
 
-![Vc1hSs.png](https://s2.ax1x.com/2019/06/11/Vc1hSs.png)
 
 ```cpp
 #include<iostream>
