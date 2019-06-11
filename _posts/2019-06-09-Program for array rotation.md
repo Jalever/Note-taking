@@ -9,6 +9,16 @@ catalog: true
 tags:
   - Algorithm
 ---
+-[Overview](#Overview)
+-[Solutions](#Solutions)
+    -[Juggling Algorithm](#Juggling Algorithm)
+        -[Diagram](#Diagram)
+        -[General](#General)
+        -[Implementation in CPP](#Implementation in CPP)
+        -[Time Complexity](#Time Complexity)
+        -[Auxiliary Space](#Auxiliary Space)
+-[Links](#Links)
+
 
 ## Overview
 Write a function rotate(ar[], d, n) that rotates arr[] of size n by d elements
@@ -29,13 +39,15 @@ If GCD is 1 as is for the above example array (n = 7 and d =2), then elements wi
 Here is an example for n = 12 and d = 3. GCD is 3 and
 
 ###### Diagram
+![Vcb3cT.png](https://s2.ax1x.com/2019/06/11/Vcb3cT.png)
 
-###### General Knowledges
+###### General
 
 - Greatest Common Divisor
     - In mathematics, the greatest common divisor (gcd) of two or more integers, which are not all zero, is the largest positive integer that divides each of the integers. For example, the gcd of 8 and 12 is 4.
+    - ![VcbyuD.png](https://s2.ax1x.com/2019/06/11/VcbyuD.png)
 - Euclid Algorithm
-    - A much more efficient method is the Euclidean algorithm, which uses a division algorithm such as long division in combination with the observation that the gcd of two numbers also divides their difference. To compute gcd(48,18), divide 48 by 18 to get a quotient of 2 and a remainder of 12. Then divide 18 by 12 to get a quotient of 1 and a remainder of 6. Then divide 12 by 6 to get a remainder of 0, which means that 6 is the gcd.
+    - Euclidean algorithm uses a division algorithm such as long division in combination with the observation that the gcd of two numbers also divides their difference. To compute gcd(48,18), divide 48 by 18 to get a quotient of 2 and a remainder of 12. Then divide 18 by 12 to get a quotient of 1 and a remainder of 6. Then divide 12 by 6 to get a remainder of 0, which means that 6 is the gcd.
 
 ###### Implementation in CPP
 ```cpp
