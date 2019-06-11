@@ -10,15 +10,15 @@ tags:
   - Algorithm
 ---
 
-- [Overview](#Overview)
-- [Solutions](#Solutions)
-    - [Juggling Algorithm](#Juggling-Algorithm)
-        - [Diagram](#Diagram)
-        - [General](#General)
-        - [Implementation in CPP](#Implementation-in-CPP)
-        - [Time Complexity](#Time-Complexity)
-        - [Auxiliary Space](#Auxiliary-Space)
-- [Links](#Links)
+- [Overview](#overview)
+- [Solutions](#solutions)
+    - [Juggling Algorithm](#juggling-algorithm)
+        - [Diagram](#diagram)
+        - [General](#general)
+        - [Implementation in CPP](#implementation-in-cpp)
+        - [Time Complexity](#time-complexity)
+        - [Auxiliary Space](#auxiliary-space)
+- [Links](#links)
 
 
 ## Overview
