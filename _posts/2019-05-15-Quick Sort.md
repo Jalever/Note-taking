@@ -4,7 +4,7 @@ title: Quick Sort
 subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-15
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure

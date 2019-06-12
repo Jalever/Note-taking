@@ -1,22 +1,32 @@
 ---
 layout: post
 title: Merge Sort
-subtitle: Data Structure学习笔记系列
+subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-20
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure
 ---
-
+- [Features](#features)
+- [Common Errors](#common-errors)
+- [Implementation in CPP](#implementation-in-cpp)
+- [Links](#links)
 
 ## Features
 - Best Case: O( n * Log(n) )
 - Average Case: O( n * Log(n) )
 - Worst Case: O( n * Log(n) )
 
+## Common Errors
+[![VRMU3j.md.png](https://s2.ax1x.com/2019/06/12/VRMU3j.md.png)](https://imgchr.com/i/VRMU3j)
 
+[![VRMBD0.md.png](https://s2.ax1x.com/2019/06/12/VRMBD0.md.png)](https://imgchr.com/i/VRMBD0)
+
+[![VRM4Dx.md.png](https://s2.ax1x.com/2019/06/12/VRM4Dx.md.png)](https://imgchr.com/i/VRM4Dx)
+
+## Implementation in CPP
 ```c
 #include <stdio.h>
 
