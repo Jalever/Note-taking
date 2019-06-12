@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Quick Sort
-subtitle: Data Structure学习笔记系列
+subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-15
 author: Jalever
 header-img: img/post_2019_react_contextAPI_bg.png
@@ -9,6 +9,11 @@ catalog: true
 tags:
   - Data Structure
 ---
+- [Features](#features)
+- [Diagram](#diagram)
+- [Implementation in CPP](#implementation-in-cpp)
+- [Links](#links)
+
 
 ## Features
 - Not Stable
@@ -17,103 +22,69 @@ tags:
 - Average Case: O(n * log(n))
 - Worst Case: O( n^2 )
 
-## Implementation
-```c
-#include<stdio.h>
+## Diagram
+[![V2jRcn.md.png](https://s2.ax1x.com/2019/06/12/V2jRcn.md.png)](https://imgchr.com/i/V2jRcn)
 
-void swap(int* a, int* b)
-{
-	int t = *a;
+[![V2jWXq.md.png](https://s2.ax1x.com/2019/06/12/V2jWXq.md.png)](https://imgchr.com/i/V2jWXq)
+
+[![V2j4BV.md.png](https://s2.ax1x.com/2019/06/12/V2j4BV.md.png)](https://imgchr.com/i/V2j4BV)
+
+
+## Implementation in CPP
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+void swap(int* a,int* b) {
+	int temp = *a;
 	*a = *b;
-	*b = t;
+	*b = temp;
 }
 
-int partition (int arr[], int low, int high)
-{
-	int pivot = arr[high];
-	int i = low - 1;
+void traverseArray(int arr[],int length) {
+	for(int i = 0;i < length;++i) {
+		cout << arr[i] << "\t";
+	}
+}
 
-	for (int j = low; j <= high- 1; j++)
-	{
-		if (arr[j] <= pivot)
-		{
-          	i++;
+int partition(int arr[],int low,int high) {
+	int i = low - 1;
+	int pivot = arr[high];
+
+	for(int j = low;j < high;++j) {
+		if(arr[j] <= pivot) {
+			++i;
 			swap(&arr[i], &arr[j]);
 		}
 	}
 
-	swap(&arr[i + 1], &arr[high]);
-
-	return (i + 1);
+	swap(&arr[i+1], &arr[high]);
+	return i+1;
 }
 
-void quickSort(int arr[], int low, int high)
-{
-	if (low < high)
-	{
+void Sort(int arr[],int low,int high) {
+	if(low < high) {
 		int pi = partition(arr, low, high);
-
-		quickSort(arr, low, pi - 1);
-		quickSort(arr, pi + 1, high);
+		Sort(arr,low, pi-1);
+		Sort(arr, pi+1, high);
 	}
 }
 
-void printArray(int arr[], int size)
-{
-	int i;
-	for (i=0; i < size; i++)
-		printf("%d ", arr[i]);
-	printf("\n");
-}
+int main() {
+	int arr[] = {90,23,101,45,65,23,67,89,34,23};
+	int length = sizeof(arr)/sizeof(arr[0]);
+	cout << "Original Array: " << endl;
+	traverseArray(arr, length);
 
-int main()
-{
-	int arr[] = {10, 7, 8, 9, 1, 5};
-	int n = sizeof(arr)/sizeof(arr[0]);
+	Sort(arr,0,length-1);
 
-	quickSort(arr, 0, n-1);
-
-	printf("Sorted array:");
-	printArray(arr, n);
+	cout << "\nSorted Array: " << endl;
+	traverseArray(arr, length);
 
 	return 0;
 }
+
 ```
 
-## Output
-```
-low = (0)arr[10], high = (5)arr[5]
-pivot = 5
-i = 0
-for: (0)arr[10] <=> (4)arr[1]
-unswap: high = arr[5](5)
-finish: swap: arr[1](5) <=> arr[5](7)
-pi = 1
-
-
-low = (2)arr[8], high = (5)arr[7]
-pivot = 7
-unswap: high = arr[5](7)
-finish: swap: arr[2](7) <=> arr[5](8)
-pi = 2
-
-
-low = (3)arr[9], high = (5)arr[8]
-pivot = 8
-unswap: high = arr[5](8)
-finish: swap: arr[3](8) <=> arr[5](9)
-pi = 3
-
-
-low = (4)arr[10], high = (5)arr[9]
-pivot = 9
-unswap: high = arr[5](9)
-finish: swap: arr[4](9) <=> arr[5](10)
-pi = 4
-
-
-Sorted array:1 5 7 8 9 10
-```
-
-## Time Complexity
-average: O(n * log(n))
+## Links
+[Origin Article](https://www.geeksforgeeks.org/quick-sort/)

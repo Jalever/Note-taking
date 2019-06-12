@@ -230,11 +230,6 @@ void Search(char* text,char* pattern) {
 	}
 }
 
-void traverseArray(int arr[], int size) {
-    for (int i = 0; i < size; i++)
-        cout << arr[i] << " ";
-}
-
 int main() {
 	char text[] = "AAAAABAAABA";
 	char pattern[] = "AAAA";
