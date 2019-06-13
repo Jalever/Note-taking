@@ -19,7 +19,7 @@ tags:
 
 <table>
     <thead>
-        <tr>
+        <tr style="textAlign: center">
             <td colspan="2">Shell Sort</td>
         </tr>
     </thead>
@@ -31,6 +31,22 @@ tags:
         <tr>
             <td>Data structure</td>
             <td>Array</td>
+        </tr>
+        <tr>
+            <td>Worst-case performance</td>
+            <td>O(n2) (worst known worst case gap sequence)</td>
+        </tr>
+        <tr>
+            <td>Best-case performance</td>
+            <td>O(n log n) (most gap sequences)</td>
+        </tr>
+        <tr>
+            <td>Average performance</td>
+            <td>depends on gap sequence</td>
+        </tr>
+        <tr>
+            <td>Worst-case space complexity</td>
+            <td>О(n) total, O(1) auxiliary</td>
         </tr>
     </tbody>
 </table>
