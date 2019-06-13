@@ -21,43 +21,6 @@ tags:
 
 
 ## Description
-<table>
-    <thead>
-        <tr style="text-align: center">
-            <td colspan="2">Shell Sort</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Class</td>
-            <td>Sorting algorithm</td>
-        </tr>
-        <tr>
-            <td>Data structure</td>
-            <td>Array</td>
-        </tr>
-        <tr>
-            <td>Worst-case performance</td>
-            <td>O(n log n)</td>
-        </tr>
-        <tr>
-            <td rowspan="2">Best-case performance</td>
-            <td>O(n log n)  [distinct keys]</td>
-        </tr>
-        <tr>
-            <td>O(n)  [equal keys]</td>
-        </tr>
-        <tr>
-            <td>Average performance</td>
-            <td>O(n log n)</td>
-        </tr>
-        <tr>
-            <td>Worst-case space complexity</td>
-            <td>О(n) total, O(1) auxiliary</td>
-        </tr>
-    </tbody>
-</table>
-
 
 ## Algorithm
 
