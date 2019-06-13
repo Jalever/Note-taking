@@ -11,7 +11,7 @@ tags:
 ---
 
 - [Features](#features)
-- [Implementation in CPP](#implementation-in-cpp)
+- [Implementation in C](#implementation-in-c)
 - [Pseudocode](#pseudocode)
 - [Links](#links)
 
@@ -77,8 +77,8 @@ foreach (gap in gaps)
 }
 ```
 
-## Implementation in CPP
-```c
+## Implementation in C
+```cpp
 #include <stdio.h>
 
 void shellSort(int arr[], int len) {
