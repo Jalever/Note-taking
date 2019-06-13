@@ -84,14 +84,12 @@ void mergeSort(int arr[], int leftIndex, int rightIndex) {
     }
 }
 
-void printArray(int arr[], int n)
-{
+void printArray(int arr[], int n) {
     for (int i=0; i<n; i++)
         printf("%d  ", arr[i]);
 }
 
-int main()
-{
+int main() {
     int arr[] = {12, 34, 54, 2, 3}, i;
     int n = sizeof(arr)/sizeof(arr[0]);
 
@@ -105,6 +103,7 @@ int main()
 
     return 0;
 }
-
-
 ```
+
+## Links
+[Origin Article](https://www.geeksforgeeks.org/merge-sort/)

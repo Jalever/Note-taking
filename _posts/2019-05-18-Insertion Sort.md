@@ -4,24 +4,29 @@ title: Insertion Sort
 subtitle: Data Structure学习笔记系列
 date: 2019-05-18
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure
 ---
+- [Features](#features)
+- [Diagram](#diagram)
+- [Implementation in CPP](#implementation-in-cpp)
+- [Links](#links)
 
 ## Features
 - In-Place
 - Stable
 - Average Case: O( n^2 )
 
+## Attention
+![VW7oQ0.png](https://s2.ax1x.com/2019/06/13/VW7oQ0.png)
 
+## Implementation in CPP
 ```c
 #include <stdio.h>
 
 void insertionSort(int arr[], int len) {
-
-
     for(int i = 1;i < len;i++) {
 
         int key = arr[i];
@@ -35,7 +40,6 @@ void insertionSort(int arr[], int len) {
         arr[j+1] = key;
 
     }
-
 }
 
 // A utility function to print an array of size n  
@@ -59,3 +63,6 @@ int main()
 }  
 
 ```
+
+## Links
+[Origin Article](https://www.geeksforgeeks.org/insertion-sort/)
