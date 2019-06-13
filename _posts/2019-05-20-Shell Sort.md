@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Shell Sort
-subtitle: Data Structure学习笔记系列
+subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-20
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure
@@ -12,11 +12,10 @@ tags:
 
 - [Features](#features)
 - [Implementation in CPP](#implementation-in-cpp)
+- [Pseudocode](#pseudocode)
 - [Links](#links)
 
 ## Features
-- Average Case: O( n^2 )
-
 <table>
     <thead>
         <tr style="textAlign: center">
