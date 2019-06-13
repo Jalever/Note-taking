@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Bubble Sort
-subtitle: Data Structure学习笔记系列
+subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-17
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure
@@ -17,7 +17,7 @@ tags:
 - Average Case: O( n^2 )
 - Worst Case: O( n^2 )
 
-
+## Implementation in CPP
 ```c
 #include <stdio.h>
 
