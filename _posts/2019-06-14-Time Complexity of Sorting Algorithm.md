@@ -10,6 +10,7 @@ tags:
   - Data Structure
 ---
 
+## Summary
 <table>
     <thead>
         <tr>
@@ -34,45 +35,45 @@ tags:
             <td>O(1)</td>
         </tr>
         <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>O(1)</td>
-        </tr>
-        <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
+            <td>Bubble Sort</td>
+            <td>Ω(n)</td>
             <td>Ω(n^2)</td>
             <td>Ω(n^2)</td>
             <td>O(1)</td>
         </tr>
         <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>O(1)</td>
-        </tr>
-        <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
+            <td>Insertion Sort</td>
+            <td>Ω(n)</td>
             <td>Ω(n^2)</td>
             <td>Ω(n^2)</td>
             <td>O(1)</td>
         </tr>
         <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
+            <td>Shell Sort</td>
+            <td>Ω(n log(n))</td>
+            <td>Θ(n(log(n))^2)</td>
+            <td>O(n(log(n))^2)</td>
             <td>O(1)</td>
         </tr>
         <tr>
-            <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
+            <td>Quicksort</td>
+            <td>Ω(n log(n))</td>
+            <td>Θ(n log(n))</td>
+            <td>O(n^2)</td>
+            <td>O(log(n))</td>
+        </tr>
+        <tr>
+            <td>Mergesort</td>
+            <td>Ω(n log(n))</td>
+            <td>Θ(n log(n))</td>
+            <td>O(n log(n))</td>
+            <td>O(n)</td>
+        </tr>
+        <tr>
+            <td>Heapsort</td>
+            <td>Ω(n log(n))</td>
+            <td>Θ(n log(n))</td>
+            <td>O(n log(n))</td>
             <td>O(1)</td>
         </tr>
     </tbody>
