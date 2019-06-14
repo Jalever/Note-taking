@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Data Structure Post Template
-subtitle: Data Structure Sorting学习笔记系列
+subtitle: Data Structure学习笔记系列
 date: 2019-06-13
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg

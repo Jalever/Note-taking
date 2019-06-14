@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Insertion Sort
+title: Sorting: Insertion Sort
 subtitle: Data Structure学习笔记系列
 date: 2019-05-18
 author: Jalever

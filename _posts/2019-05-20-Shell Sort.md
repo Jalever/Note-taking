@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Shell Sort
+title: Sorting: Shell Sort
 subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-20
 author: Jalever
