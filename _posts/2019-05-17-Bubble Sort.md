@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sorting: Bubble Sort
+title: DS Sorting-Bubble Sort
 subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-17
 author: Jalever

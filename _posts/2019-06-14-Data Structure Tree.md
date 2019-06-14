@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DS Tree: Tree
+title: DS Tree-Tree
 subtitle: Data Structure学习笔记系列
 date: 2019-06-14
 author: Jalever
