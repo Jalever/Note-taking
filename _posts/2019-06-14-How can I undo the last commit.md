@@ -25,4 +25,14 @@ git reset --hard [somecommitcode]
 git push --force
 ```
 
+## Recover
+```
+git reflog
+```
+
+```
+git reset --hard 866775d
+```
+
+
 ![V595Yn.png](https://s2.ax1x.com/2019/06/14/V595Yn.png)
