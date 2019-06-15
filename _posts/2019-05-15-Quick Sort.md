@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DS Sorting-Quick Sort
+title: (DS Sorting)Quick Sort
 subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-15
 author: Jalever

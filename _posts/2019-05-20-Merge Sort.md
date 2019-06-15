@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DS Sorting-Merge Sort
+title: (DS Sorting)Merge Sort
 subtitle: Data Structure Sorting学习笔记系列
 date: 2019-05-20
 author: Jalever

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: [DS Sorting]Time Complexity of Sorting Algorithms
-subtitle: Data Structure学习笔记系列
+title: (DS Sorting)Time Complexity of Sorting Algorithms
+subtitle: Data Structure Sorting学习笔记系列
 date: 2019-06-14
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg
