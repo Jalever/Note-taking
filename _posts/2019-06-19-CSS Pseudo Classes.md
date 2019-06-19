@@ -62,5 +62,52 @@ tags:
             <td>a:active</td>
             <td>Selects the active link</td>
         </tr>
+        <tr>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td>:first-child</td>
+            <td>p:first-child</td>
+            <td>Selects every &#60;p&#62; elements that is the first child of its parent</td>
+        </tr>
+        <tr>
+            <td>:nth-child(n)</td>
+            <td>p:nth-child(2)</td>
+            <td>Selects every &#60;p&#62; element that is the second child of its parent</td>
+        </tr>
+        <tr>
+            <td>:last-child</td>
+            <td>p:last-child</td>
+            <td>Selects every &#60;p&#62; elements that is the last child of its parent</td>
+        </tr>
+        <tr>
+            <td>:nth-last-child(n)</td>
+            <td>p:nth-last-child(2)</td>
+            <td>Selects every &#60;p&#62; element that is the second child of its parent, counting from the last child</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td>:first-of-type</td>
+            <td>p:first-of-type</td>
+            <td>Selects every &#60;p&#62; element that is the first &#60;p&#62; element of its parent</td>
+        </tr>
+        <tr>
+            <td>:nth-of-type(n)</td>
+            <td>p:nth-of-type(2)</td>
+            <td>Selects every &#60;p&#62; element that is the second &#60;p&#62; element of its parent</td>
+        </tr>
+        <tr>
+            <td>:last-of-type</td>
+            <td>p:last-of-type</td>
+            <td>Selects every &#60;p&#62; element that is the last &#60;p&#62; element of its parent</td>
+        </tr>
+        <tr>
+            <td>:only-of-type</td>
+            <td>p:only-of-type</td>
+            <td>Selects every &#60;p&#62; element that is the only &#60;p&#62; element of its parent</td>
+        </tr>
+
     </tbody>
 </table>
