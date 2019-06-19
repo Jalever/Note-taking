@@ -104,6 +104,11 @@ tags:
             <td>Selects every &#60;p&#62; element that is the last &#60;p&#62; element of its parent</td>
         </tr>
         <tr>
+            <td>:nth-last-of-type(n)</td>
+            <td>p:nth-last-of-type(2)</td>
+            <td>Selects every &#60;p&#62; element that is the second &#60;p&#62; element of its parent, counting from the last child</td>
+        </tr>
+        <tr>
             <td>:only-of-type</td>
             <td>p:only-of-type</td>
             <td>Selects every &#60;p&#62; element that is the only &#60;p&#62; element of its parent</td>
