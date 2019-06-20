@@ -11,6 +11,7 @@ tags:
 ---
 
 TCP(Transmission Control Protocol)
+
 UDP(User Datagram Protocol)
 
 UDP is mostly used as querying the DNS server to get the binary equivalent of the Domain Name used for the website.
