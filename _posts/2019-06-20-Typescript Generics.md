@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Typescript Generics
-subtitle: Typescript学习笔记系列
+subtitle: Typescript Handbook学习笔记系列
 date: 2019-06-20
 author: Jalever
 header-img: img/post_bg_2019_typescript.png
