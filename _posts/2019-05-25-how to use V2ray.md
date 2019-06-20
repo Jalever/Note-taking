@@ -10,10 +10,23 @@ tags:
   - VPS
 ---
 
-
+## command lines
 ```
+apt install lrzsz
 wget https://install.direct/go.sh
 apt-get install zip unzip  
 bash go.sh
 systemctl start v2ray
+```
+
+## `lrzsz` command line
+
+#### upload file
+```
+rz
+```
+
+#### download file
+```
+sz filename
 ```
