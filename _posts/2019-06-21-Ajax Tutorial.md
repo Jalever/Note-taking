@@ -15,6 +15,10 @@ tags:
     - [Synchronous](#synchronous)
     - [Asynchronous](#asynchronous)
 - [AJAX Technologies](#ajax-technologies)
+- [Understanding XMLHttpRequest](#understanding-xmlhttprequest)
+    - [Properties of XMLHttpRequest object](#properties-of-xmlhttprequest-object)
+    - [Methods of XMLHttpRequest object](#methods-of-xmlhttpRequest-object)
+- [How AJAX works](#how-ajax-works)
 - [Examples](#examples)
 
 
@@ -86,11 +90,12 @@ The common properties of XMLHttpRequest object are as follows:
         <tr>
             <td>readyState</td>
             <td>
-                <p>0&nbsp;UNOPENED&nbsp;open() is not called.</p>
-                <p>1&nbsp;OPENED&nbsp;open is called but send() is not called.</p>
-                <p>2&nbsp;HEADERS_RECEIVED&nbsp;send() is called, and headers and status are available.</p>
-                <p>3&nbsp;LOADING&nbsp;Downloading data; responseText holds the data.</p>
-                <p>4&nbsp;DONE&nbsp;The operation is completed fully.</p>
+                <p>represents the state of the request. It ranges from 0 to 4</p>
+                <p>0&nbsp;<strong>UNOPENED</strong>&nbsp;open() is not called.</p>
+                <p>1&nbsp;<strong>OPENED</strong>&nbsp;open is called but send() is not called.</p>
+                <p>2&nbsp;<strong>HEADERS_RECEIVED</strong>&nbsp;send() is called, and headers and status are available.</p>
+                <p>3&nbsp;<strong>LOADING</strong>&nbsp;Downloading data; responseText holds the data.</p>
+                <p>4&nbsp;<strong>DONE</strong>&nbsp;The operation is completed fully.</p>
             </td>
         </tr>
         <tr>
@@ -103,6 +108,57 @@ The common properties of XMLHttpRequest object are as follows:
         </tr>
     </tbody>
 </table>
+
+#### Methods of XMLHttpRequest object
+The important methods of XMLHttpRequest object are as follows:
+<table>
+    <thead>
+        <tr>
+            <td>Method</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>void open(method, URL)</td>
+            <td>opens the request specifying get or post method and url.</td>
+        </tr>
+        <tr>
+            <td>void open(method, URL, async)</td>
+            <td>same as above but specifies asynchronous or not</td>
+        </tr>
+        <tr>
+            <td>void open(method, URL, async, username, password)</td>
+            <td>same as above but specifies username and password</td>
+        </tr>
+        <tr>
+            <td>void send()</td>
+            <td>sends get request</td>
+        </tr>
+        <tr>
+            <td>void send(string)</td>
+            <td>send post request</td>
+        </tr>
+        <tr>
+            <td>setRequestHeader(header,value)</td>
+            <td>it adds request headers</td>
+        </tr>
+    </tbody>
+</table>
+
+## How AJAX works
+AJAX communicates with the server using XMLHttpRequest object. Let's try to understand the flow of ajax or how ajax works by the image displayed below.
+
+![ZSMVzT.png](https://s2.ax1x.com/2019/06/21/ZSMVzT.png)
+
+As you can see in the above example, XMLHttpRequest object plays a important role.
+
+1.User sends a request from the UI and a javascript call goes to XMLHttpRequest object.
+2.HTTP Request is sent to the server by XMLHttpRequest object.
+3.Server interacts with the database using JSP, PHP, Servlet, ASP.net etc.
+4.Data is retrieved.
+5.Server sends XML data or JSON data to the XMLHttpRequest callback function.
+6.HTML and CSS data is displayed on the browser.
 
 ## Examples
 ```js
