@@ -22,7 +22,20 @@ tags:
         - [head is NULL inserting into end](#head-is-null-inserting-into-end)
         - [head is not NULL inserting into end](#head-is-not-null-inserting-into-end)
         - [Complete Codes inserting into end](#complete-codes-inserting-into-end)
-
+    - [Insertion after specified node](#insertion-after-specified-node)
+        - [Complete Codes of inserting at specified node](#complete-codes-of-inserting-at-specified node)
+    - [Deletion at beginning](#deletion-at-beginning)
+        - [Complete Codes of deleting the first node](#complete-codes-of-deleting-the-first-node)
+    - [Deletion at the end](#deletion-at-the-end)
+        - [Head is NULL before deletion at the end](#head-is-null-before-deletion-at-the-end)
+        - [Head is not NULL before deletion at the end](#head-is-not-null-before-deletion-at-the-end)
+        - [Delete Specified Node](#delete-specified-node)
+        - [Complete Codes of Deletion at the End](#complete-codes-of-deletion-at-the-end)
+    - [Deletion of the node having given data](#deletion-of-the-node-having-given-data)
+        - [Complete Codes of Deleting Specified Node](#complete-codes-of-deleting-specified-node)
+    - [Searching](#searching)
+    - [Traversing](#traversing)
+- [Source Codes](#source-codes)
 
 ## Overview
 Doubly linked list is a complex type of linked list in which a node contains a pointer to the previous as well as the next node in the sequence.
@@ -226,18 +239,313 @@ void InsertingAtLast() {
 ```
 
 #### Insertion after specified node
+In order to insert a node after the specified node in the list, we need to skip the required number of nodes in order to reach the mentioned node and then make the pointer adjustments as required.
+
+Use the following steps for this purpose.
+
+Allocate the memory for the new node. Use the following statements for this.
+```cpp
+ptr = (struct node *)malloc(sizeof(struct node));  
+```
+
+Traverse the list by using the pointer temp to skip the required number of nodes in order to reach the specified node.
+
+```cpp
+temp=head;  
+for(i=0;i<loc;i++) {  
+    temp = temp->next;  
+    if(temp == NULL) // the temp will be //null if the list doesn't last long //up to mentioned location {  
+        return;  
+    }  
+}  
+```
+
+The temp would point to the specified node at the end of the for loop. The new node needs to be inserted after this node therefore we need to make a fer pointer adjustments here. Make the next pointer of ptr point to the next node of temp.
+
+```cpp
+ptr->next = temp->next;   
+```
 
 
+make the prev of the new node ptr point to temp.
+
+```cpp
+ptr->prev = temp;   
+```
+
+make the next pointer of temp point to the new node ptr.
+
+```cpp
+temp->next = ptr;   
+```
+
+make the previous pointer of the next node of temp point to the new node.
+
+```cpp
+temp->next->prev = ptr;    
+```
+
+![VzK6mj.png](https://s2.ax1x.com/2019/06/21/VzK6mj.png)
+
+###### Complete Codes of inserting at specified node
+```cpp
+void InsertAfterSpecificPosition() {
+	struct node *ptr, *temp;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	int data,location;
+
+	if(ptr == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else {
+		cout << "Enter a Value: " << "\t";
+		cin >> data;
+
+		cout << "Enter a Position: " << "\t";
+		cin >> location;
+
+		temp = head;
+		for(int i = 0;i < location;++i) {
+			temp = temp->next;
+			if(temp == NULL) {
+				cout << "Invalid Position for inserting." << endl;
+				return;
+			}
+		}
+
+		ptr->data = data;
+		ptr->next = temp->next;
+		ptr->prev = temp;
+
+		temp->next = ptr;
+		temp->next->prev = ptr;
+
+		cout << "Node Inserted Successfully!" << endl;
+	}
+}
+```
 
 #### Deletion at beginning
+Deletion in doubly linked list at the beginning is the simplest operation. We just need to copy the head pointer to pointer `ptr` and shift the head pointer to its next.
+
+```cpp
+ptr = head;  
+head = head → next;  
+```
+
+now make the `prev` of this new head node point to `NULL`. This will be done by using the following statements.
+
+```cpp
+head->prev = NULL  
+```
+
+Now free the pointer `ptr` by using the free function.
+
+```cpp
+free(ptr)
+```
+
+###### Complete Codes of deleting the first node
+```cpp
+void DeleteAtBeginning() {
+	struct node* ptr;
+
+	if(head == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else if(head->next == NULL) {
+		head = NULL;
+		free(head);
+		cout << "The first node has been deleted!" << endl;
+	} else {
+		ptr = head;
+		head = head->next;
+		head->prev = NULL;
+		free(ptr);
+
+		cout << "The first node has been deleted!" << endl;
+	}
+}
+```
+
+#### Deletion at the end
+Deletion of the last node in a doubly linked list needs traversing the list in order to reach the last node of the list and then make pointer adjustments at that position.
+
+In order to delete the last node of the list, we need to follow the following steps.
+
+###### Head is NULL before deletion at the end
+
+If the list is already empty then the condition head == NULL will become true and therefore the operation can not be carried on.
+
+###### Head is not NULL before deletion at the end
+If there is only one node in the list then the condition `head->next == NULL` become true. In this case, we just need to assign the head of the list to `NULL` and free head in order to completely delete the list.
+
+###### Delete Specified Node
+Otherwise, just traverse the list to reach the last node of the list. This will be done by using the following statements.
+
+```cpp
+ptr = head;   
+if(ptr->next != NULL) {  
+    ptr = ptr -> next;   
+}  
+```
+
+The `ptr` would point to the last node of the ist at the end of the for loop. Just make the next pointer of the previous node of ptr to `NULL`.
+
+```cpp
+ptr → prev → next = NULL  
+```
+
+free the pointer as this the node which is to be deleted.
+
+```cpp
+free(ptr)     
+```
+
+###### Complete Codes of Deletion at the End
+```cpp
+void DeleteTheLastNode() {
+	struct node* ptr;
+
+	if(head == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else if(head->next == NULL) {
+		head = NULL;
+		free(head);
+		cout << "The last node has been deleted!" << endl;
+	} else {
+		ptr = head;
+
+		while(ptr->next != NULL) {
+			ptr = ptr->next;
+		}
+
+		ptr->prev->next = NULL;
+		free(ptr);
+
+		cout << "The last node has been deleted!" << endl;
+	}
+}
+```
+
+#### Deletion of the node having given data
+In order to delete the node after the specified data, we need to perform the following steps.
+
+Copy the head pointer into a temporary pointer temp.
+
+```cpp
+temp = head;
+```
+
+Traverse the list until we find the desired data value.
+
+```cpp
+while(ptr->data != value) {
+	ptr = ptr->next;
+}
+```
+
+Check if this is the last node of the list. If it is so then we can't perform deletion.
+
+```cpp
+if(temp -> next == NULL) {  
+    return;   
+}
+```
+
+Check if the node which is to be deleted, is the last node of the list, if it so then we have to make the next pointer of this node point to null so that it can be the new last node of the list.
+
+```cpp
+if(ptr->next->next == NULL) {
+	ptr->next = NULL;
+}
+```
+
+Otherwise, make the pointer ptr point to the node which is to be deleted. Make the next of temp point to the next of ptr. Make the previous of next node of ptr point to temp. free the ptr.
+```cpp
+temp = ptr->next;
+ptr->prev->next = temp;
+temp->prev = ptr->prev;
+free(ptr);
+cout << "Delete Successfully!" << endl;
+```
+
+[![VzN1L6.md.png](https://s2.ax1x.com/2019/06/21/VzN1L6.md.png)](https://imgchr.com/i/VzN1L6)
+
+###### Complete Codes of Deleting Specified Node
+```cpp
+void DeleteTheSpecificNode() {
+	struct node *ptr, *temp;
+
+	int value;
+	cout << "Enter the value that you want to delete" << "\t";
+	cin >> value;
+
+	ptr = head;
+	while(ptr->data != value) {
+		ptr = ptr->next;
+	}
+
+	if(ptr->next == NULL) {
+		cout << "It cann't be deleted." << endl;
+	} else if(ptr->next->next == NULL) {
+		ptr->next = NULL;
+	} else {
+		temp = ptr->next;
+		ptr->prev->next = temp;
+		temp->prev = ptr->prev;
+		free(ptr);
+		cout << "Delete Successfully!" << endl;
+	}
+}
+```
+
+#### Searching
+```cpp
+void Search() {
+	struct node *ptr;
+	int value, isFound = 0,location = 0;
+
+	ptr = head;
+
+	if(ptr == NULL) {
+		cout << "Empty List!" << endl;
+	} else {
+		cout << "Enter the value you want to look for: " << endl;
+		cin >> value;
+
+		while(ptr != NULL) {
+			if(ptr->data == value) {
+				cout << "value has been found.location is " << location+1 << endl;
+				isFound = 1;
+				break;
+			} else {
+				isFound = 0;
+			}
+
+			location += 1;
+			ptr = ptr->next;
+		}
 
 
-#### delete the last value
+		if(isFound == 0) {
+			cout << "Value can not be found." << endl;
+		}
+	}
+}
+```
 
+#### Traversing
+```cpp
+void Traverse() {
+	struct node *ptr;
+	ptr = head;
 
-#### delete a specified value
+	cout << "The Doubly Linked List is: " << endl;
+	while(ptr != NULL) {
+		cout << ptr->data << " -> ";
+		ptr = ptr->next;
+	}
+}
+```
 
-
-#### search specified value in doubly linked list
-
-#### traverse all values
+## Source Codes
+[Complete Operations Implementating in CPP](https://github.com/Jalever/Data-Structure-and-Algorithm/blob/master/Data%20Structure/Linked%20List/Doubly%20Linked%20List.cpp)
