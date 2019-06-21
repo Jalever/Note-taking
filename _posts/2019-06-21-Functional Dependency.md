@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Functional Dependency
-subtitle: MySQL学习笔记系列
+subtitle: DBMS学习笔记系列
 date: 2019-06-21
 author: Jalever
 header-img: img/home-bg-geek.jpg
@@ -9,6 +9,7 @@ catalog: true
 tags:
   - DBMS
 ---
+
 ## Overview
 
 A functional dependency (FD) is a relationship between two attributes, typically between the PK and other non-key attributes within a table. For any relation R, attribute Y is functionally dependent on attribute X (usually the PK), if for every valid instance of X, that value of X uniquely determines the value of Y. This relationship is indicated by the representation below :
