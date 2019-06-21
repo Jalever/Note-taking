@@ -60,6 +60,50 @@ As describe earlier, `AJAX` is not a technology but group of inter-related techn
 - XMLHttpRequest
 - JavaScript
 
+## Understanding XMLHttpRequest
+An object of XMLHttpRequest is used for asynchronous communication between client and server.
+
+It performs following operations:
+1.Sends data from the client in the background
+2.Receives the data from the server
+3.Updates the webpage without reloading it.
+
+#### Properties of XMLHttpRequest object
+The common properties of XMLHttpRequest object are as follows:
+
+<table>
+    <thead>
+        <tr>
+            <td>Property</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onReadyStateChange</td>
+            <td>It is called whenever readystate attribute changes. It must not be used with synchronous requests.</td>
+        </tr>
+        <tr>
+            <td>readyState</td>
+            <td>
+                <p>0&nbsp;UNOPENED&nbsp;open() is not called.</p>
+                <p>1&nbsp;OPENED&nbsp;open is called but send() is not called.</p>
+                <p>2&nbsp;HEADERS_RECEIVED&nbsp;send() is called, and headers and status are available.</p>
+                <p>3&nbsp;LOADING&nbsp;Downloading data; responseText holds the data.</p>
+                <p>4&nbsp;DONE&nbsp;The operation is completed fully.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>reponseText</td>
+            <td>returns response as text</td>
+        </tr>
+        <tr>
+            <td>responseXML</td>
+            <td>returns response as XML</td>
+        </tr>
+    </tbody>
+</table>
+
 ## Examples
 ```js
 let xhr = new XMLHttpRequest();
