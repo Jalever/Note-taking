@@ -9,6 +9,19 @@ catalog: true
 tags:
   - Data Structure
 ---
+- [Overview](#overview)
+- [Structure of Node](#structure-of-node)
+    - [Node Creation](#node-creation)
+    - [Insertion at beginning](#insertion-at-beginning)
+        - [Allocate the space](#allocate-the-space)
+        - [head is NULL](#head-is-null)
+        - [head is not NULL](#head-is-not-null)
+        - [Complete Codes](#complete-codes)
+    - [Insertion at end](#insertion-at-end)
+        - [Allocate the Space inserting into end](#allocate-the-space-inserting-into-end)
+        - [head is NULL inserting into end](#head-is-null-inserting-into-end)
+        - [head is not NULL inserting into end](#head-is-not-null-inserting-into-end)
+        - [Complete Codes inserting into end](#complete-codes-inserting-into-end)
 
 
 ## Overview
@@ -96,9 +109,121 @@ head = ptr
 
 [![VzkEsx.md.png](https://s2.ax1x.com/2019/06/21/VzkEsx.md.png)](https://imgchr.com/i/VzkEsx)
 
+###### Complete Codes
+```cpp
+void InsertAtBeginning() {
+	struct node *ptr;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	int data;
+
+	if(ptr == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else {
+		cout << "Enter a Value: ";
+		cin >> data;
+
+		if(head == NULL) {
+			ptr->prev = NULL;
+			ptr->data = data;
+			ptr->next = NULL;
+
+			head = ptr;
+		} else {
+			ptr->prev = NULL;
+			ptr->data = data;
+
+			ptr->next = head;
+			head->prev = ptr;
+
+			head = ptr;
+		}
+
+		cout << "The data is inserted." << endl;
+	}
+}
+```
+
 #### Insertion at end
+In order to insert a node in doubly linked list at the end, we must make sure whether the list is empty or it contains any element. Use the following steps in order to insert the node in doubly linked list at the end.
 
+###### Allocate the Space inserting into end
+Allocate the memory for the new node. Make the pointer ptr point to the new node being inserted.
+```cpp
+ptr = (struct node *) malloc(sizeof(struct node));  
+```
 
+###### head is NULL inserting into end
+Check whether the list is empty or not. The list is empty if the condition head == NULL holds. In that case, the node will be inserted as the only node of the list and therefore the prev and the next pointer of the node will point to NULL and the head pointer will point to this node.
+```cpp
+ptr->next = NULL;  
+ptr->prev=NULL;  
+ptr->data=item;  
+head=ptr;  
+```
+
+###### head is not NULL inserting into end
+
+In the second scenario, the condition `head == NULL` become false. The new node will be inserted as the last node of the list. For this purpose, we have to traverse the whole list in order to reach the last node of the list. Initialize the pointer temp to head and traverse the list by using this pointer.
+
+```cpp
+Temp = head;   
+while (temp != NULL) {  
+    temp = temp->next;   
+}  
+```
+
+the pointer temp point to the last node at the end of this while loop. Now, we just need to make a few pointer adjustments to insert the new node ptr to the list. First, make the next pointer of temp point to the new node being inserted i.e. ptr.
+
+```cpp
+temp->next =ptr;   
+```
+
+make the previous pointer of the node ptr point to the existing last node of the list i.e. temp.
+
+```cpp
+ptr->prev = temp;   
+```
+
+make the next pointer of the node ptr point to the null as it will be the new last node of the list.
+
+```cpp
+ptr->next = NULL   
+```
+
+###### Complete Codes inserting into end
+```cpp
+void InsertingAtLast() {
+	struct node *ptr, *last;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	int data;
+
+	if(ptr == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else {
+		cout << "Enter a Value: " << endl;
+		cin >> data;
+
+		if(head == NULL) {
+			ptr->prev = NULL;
+			ptr->data = data;
+			ptr->next = NULL;
+			head = ptr;
+		} else {
+			last = head;
+
+			while(last->next !=NULL) {
+				last = last->next;
+			}
+
+			ptr->prev = last;
+			ptr->data = data;
+			ptr->next = NULL;
+			last->next = ptr;
+		}
+		cout << "Node Inserted." << endl;
+	}
+}
+```
 
 #### Insertion after specified node
 
