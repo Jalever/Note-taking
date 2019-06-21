@@ -7,7 +7,6 @@ author: Jalever
 header-img: img/home-bg-geek.jpg
 catalog: true
 tags:
-  - Database
   - MySQL
 ---
 
