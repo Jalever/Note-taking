@@ -1,14 +1,13 @@
 ---
 layout: post
 title: XMLHttpRequest
-subtitle: 原生JavaScript学习笔记系列
+subtitle: AJAX学习笔记系列
 date: 2019-04-12
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - AJAX
-  - XMLHttpRequest
 ---
 
 - [Constructor](#constructor)
@@ -52,7 +51,7 @@ tags:
 - [Return XHR](#return-xhr)
 
 ## Constructor
-The constructor initializes an `XMLHttpRequest`.<br> 
+The constructor initializes an `XMLHttpRequest`.<br>
 It must be called before any other method calls.
 ## Properties
 
