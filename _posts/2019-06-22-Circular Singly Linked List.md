@@ -22,6 +22,19 @@ tags:
         - [head is NULL while inserting at the end](#head-is-null-while-inserting-at-the-end)
         - [head is not NULL while inserting at the end](#head-is-not-null-while-inserting-at-the-end)
         - [Source codes of insertion at the end](#source-codes-of-insertion-at-the-end)
+    - [Deletion at beginning](#deletion-at-beginning)
+        - [Empty list while deleting the first node](#empty-list-while-deleting-the-first-node)    
+        - [Single node while deleting the first node](#single-node-while-deleting-the-first-node)
+        - [More than one node while deleting the first node](#more-than-one-node-while-deleting-the-first-node)
+        - [Source codes of deletion the first node](#source-codes-of-deletion-the-first-node)
+    - [Deletion at the end](#deletion-at-the-end)
+        - [Empty list while deleting the last node](#empty-list-while-deleting-the-last-node)
+        - [Single node while deleting the last node](#single-node-while-deleting-the-last-node)
+        - [More than one node while deleting the last node](#more-than-one-node-while-deleting-the-last-node)
+        - [Source codes of deletion the last node](#source-codes-of-deletion-the-last-node)
+    - [Searching](#searching)
+    - [Traversing](#traversing)
+- [Links](#links)
 
 ## Introduction
 In a circular Singly linked list, the last node of the list contains a pointer to the first node of the list.
@@ -204,14 +217,213 @@ void InsertAtLast() {
 }
 ```
 
-#### Deletion at beginning
-![ZpyXP1.png](https://s2.ax1x.com/2019/06/22/ZpyXP1.png)
+#### Deletion at the end
+There are three scenarios of deleting a node in circular singly linked list at the end.
 
+###### Empty list while deleting the last node
+If the list is empty then the condition `head == NULL` will become true, in this case, we just need to print underflow on the screen and make exit.
+
+```cpp
+if(head == NULL) {  
+    printf("\nUNDERFLOW");    
+    return;   
+}  
+```
+
+###### Single node while deleting the last node
+If the list contains single node then, the condition `head->next == head` will become true. In this case, we need to delete the entire list and make the head pointer free. This will be done by using the following statements.
+
+```cpp
+if(head->next == head) {  
+    head = NULL;  
+    free(head);  
+}
+```
+
+###### More than one node while deleting the last node
+If the list contains more than one element, then in order to delete the last element, we need to reach the last node. We also need to keep track of the second last node of the list. For this purpose, the two pointers `lastOne` and `lastTwo` are defined. The following sequence of code is used for this purpose.
+
+```cpp
+lastOne = head;
+while(lastOne->next != head) {
+	lastTwo = lastOne;
+	lastOne = lastOne->next;
+}
+```
+
+now, we need to make just one more pointer adjustment. We need to make the next pointer of `lastTwo` point to the next of `lastOne` (i.e. head) and then make pointer `lastOne` free.
+
+```cpp
+lastTwo->next = lastOne->next;
+free(lastOne);
+```
+
+###### Source codes of deletion the last node
+```cpp
+void DeleteTheLastNode() {
+	struct node *lastTwo, *lastOne;
+
+	if(head == NULL) {
+		cout << "UNDERFLOW" << endl;
+	} else if(head->next == head) {
+		head = NULL;
+		free(head);
+		cout << "The only node has been deleted." << endl;
+	} else {
+		lastOne = head;
+		while(lastOne->next != head) {
+			lastTwo = lastOne;
+			lastOne = lastOne->next;
+		}
+
+		lastTwo->next = lastOne->next;
+		free(lastOne);
+
+		cout << "The last one node has been deleted." << endl;
+	}
+}
+```
 
 #### Deletion at the end
+In order to delete a node in circular singly linked list, we need to make a few pointer adjustments.
 
+There are three scenarios of deleting a node from circular singly linked list at beginning.
+
+###### Empty list while deleting the first node
+If the list is empty then the condition head == NULL will become true, in this case, we just need to print underflow on the screen and make exit.
+
+```cpp
+if(head == NULL) {  
+    printf("\nUNDERFLOW");    
+    return;   
+}
+```
+
+###### Single node while deleting the first node
+If the list contains single node then, the condition head → next == head will become true. In this case, we need to delete the entire list and make the head pointer free. This will be done by using the following statements.
+
+```cpp
+if(head->next == head) {  
+    head = NULL;  
+    free(head);  
+}  
+```
+
+###### More than one node while deleting the first node
+If the list contains more than one node then, in that case, we need to traverse the list by using the pointer `ptr` to reach the last node of the list. This will be done by using the following statements.
+
+```cpp
+ptr = head;   
+while(ptr -> next != head) {
+       ptr = ptr -> next;   
+}
+```
+
+At the end of the loop, the pointer `ptr` point to the last node of the list. Since, the last node of the list points to the head node of the list. Therefore this will be changed as now, the last node of the list will point to the next of the head node.
+
+```cpp
+ptr->next = head->next;  
+```
+
+Now, free the head pointer by using the `free()` method in C language.
+
+```cpp
+free(head);  
+```
+
+Make the node pointed by the next of the last node, the new head of the list.
+
+```cpp
+head = ptr->next;  
+```
+
+In this way, the node will be deleted from the circular singly linked list from the beginning.
+
+###### Source codes of deletion the first node
+```cpp
+void DeleteTheFirstNode() {
+	struct node *ptr;
+
+	if(head == NULL) {
+		cout << "UNDERFLOW" << endl;
+	} else if(head->next == head){
+		head = NULL;
+		free(head);
+		cout << "The first node has been deleted.";
+	} else {
+		ptr = head;
+		while(ptr->next != head) {
+			ptr = ptr->next;
+		}
+
+		ptr->next = head->next;
+		free(head);
+		head = ptr->next;
+
+		cout << "The first node has been deleted." << endl;
+	}
+}
+```
 
 #### Searching
+```cpp
+void Search() {
+	int data, isFound = 0,location = 0;
 
+	struct node *ptr;
+
+	ptr = head;
+	if(ptr == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else {
+		cout << "Enter the value you wanna look for: " << endl;
+		cin >> data;
+
+		if(head->data == data) {
+			cout << "The value has been found." << location+1 << endl;
+			isFound = 1;
+		} else {
+			while(ptr->next != head) {
+				if(ptr->data == data) {
+					cout << "The value has been found." << location+1 << endl;
+					isFound = 1;
+					break;
+				} else {
+					isFound = 0;
+				}
+
+				location++;
+				ptr = ptr->next;
+			}
+
+			if(isFound != 0) {
+				cout << "the value haven't been found." << endl;
+			}
+		}
+
+	}
+}
+```
 
 #### Traversing
+```cpp
+void Traverse() {
+	struct node *ptr;
+	ptr = head;
+
+	cout << "The Doubly Linked List is: " << endl;
+	if(head == NULL) {
+		cout << "Empty List." << endl;
+	} else {
+		cout << "Printing Values..." << endl;
+		while(ptr->next != head) {
+			cout << ptr->data << " -> ";
+			ptr = ptr->next;
+		}
+		cout << " " << ptr->data;
+	}
+}
+```
+
+## Links
+[All Source Codes of Circular Singly Linked List](https://github.com/Jalever/Data-Structure-and-Algorithm/blob/master/Data%20Structure/Linked%20List/Circular%20Singly%20Linked%20List.cpp)
