@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Web Development
 ---
+
 - [Introduction](#introduction)
 - [Simple CORS Example](#simple-cors-example)
 - [CORS and JSONP](#cors-and-jsonp)
@@ -19,12 +20,10 @@ tags:
     - [通过`location.hash` + `iframe`跨域](#%E9%80%9A%E8%BF%87locationhash--iframe%E8%B7%A8%E5%9F%9F)
     - [通过`window.name` + `iframe`跨域](#%E9%80%9A%E8%BF%87windowname--iframe%E8%B7%A8%E5%9F%9F)
     - [`postMessage`跨域](#postmessage%E8%B7%A8%E5%9F%9F)
-    - [跨域资源共享（CORS）](#%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%ABcors)
     - [`nginx`代理跨域](#nginx%E4%BB%A3%E7%90%86%E8%B7%A8%E5%9F%9F)
     - [`nodejs`中间件代理跨域](#nodejs%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BB%A3%E7%90%86%E8%B7%A8%E5%9F%9F)
         - [1.`cors`包](#1cors%E5%8C%85)
         - [2.`res.header`](#2resheader)
-    - [`WebSocket`协议跨域](#websocket%E5%8D%8F%E8%AE%AE%E8%B7%A8%E5%9F%9F)
 
 ## Introduction
 `Cross-Origin Resource Sharing (CORS)` is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin.
@@ -99,9 +98,34 @@ devServer: {
 
 #### `postMessage`跨域
 
-#### 跨域资源共享（CORS）
-
 #### `nginx`代理跨域
+```js
+server {
+  listen        80;
+  server_name   api.test.com;
+
+
+  location / {
+
+    # Simple requests
+    if ($request_method ~* "(GET|POST)") {
+      add_header "Access-Control-Allow-Origin"  *;
+    }
+
+    # Preflighted requests
+    if ($request_method = OPTIONS ) {
+      add_header "Access-Control-Allow-Origin"  *;
+      add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+      add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+      return 200;
+    }
+
+    ....
+    # Handle request
+    ....
+  }
+}
+```
 
 #### `nodejs`中间件代理跨域
 
@@ -134,5 +158,3 @@ app.use(function(req, res, next) {
   next();
 });
 ```
-
-#### `WebSocket`协议跨域
