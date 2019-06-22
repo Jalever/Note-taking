@@ -10,14 +10,10 @@ tags:
   - Interview Questions
 ---
 
-| Property           | occupies space     | consumes clicks    |
-| ------------------ | ------------------ | ------------------ |
-| opacity: 0         | :heavy_check_mark: | :heavy_check_mark: |
-| visibility: hidden | :heavy_check_mark: | :x:                |
-| display: none      | :x:                | :x:                |
+## Differences
 
-
-
-
-
-
+| Property           | occupies space | consumes clicks |
+| ------------------ | -------------- | --------------- |
+| opacity: 0         | Yes            | Yes             |
+| visibility: hidden | Yes            | No              |
+| display: none      | No             | No              |

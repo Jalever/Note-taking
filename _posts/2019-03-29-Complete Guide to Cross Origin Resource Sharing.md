@@ -45,9 +45,9 @@ Origin: http://domainx.com
 
 DomainY receives that request and will respond back with either:
 
-1.Access-Control-Allow-Origin: http://domainx.com
-2.Access-Control-Allow-Origin: * (meaning all domains are allowed)
-3.An error if the cross-origin requests are not allowed
+1. Access-Control-Allow-Origin: http://domainx.com
+2. Access-Control-Allow-Origin: * (meaning all domains are allowed)
+3. An error if the cross-origin requests are not allowed
 
 ## CORS and JSONP
 `CORS` can be used as a modern alternative to the `JSONP` pattern. While `JSONP` supports only the `GET` request method, `CORS` also supports other types of `HTTP` requests. Using `CORS` enables a web programmer to use regular `XMLHttpRequest`, which supports better error handling than `JSONP`. On the other hand, `JSONP` works on legacy browsers which predate `CORS` support. `CORS` is supported by most modern web browsers. Also, while `JSONP` can cause `cross-site scripting (XSS)` issues when the external site is compromised, `CORS` allows websites to manually parse responses to increase security

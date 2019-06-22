@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Circular Singly Linked List
+title: (DS Linked List)Circular Singly Linked List
 subtitle: Data Structure Linked List学习笔记系列
 date: 2019-06-22
 author: Jalever
@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Data Structure
 ---
+
 - [Introduction](#introduction)
 - [Usage](#usage)
 - [Operations](#operations)
