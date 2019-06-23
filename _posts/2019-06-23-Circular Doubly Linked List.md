@@ -12,15 +12,25 @@ tags:
 
 - [Introduction](#introduction)
 - [Operations](#operations)
-- [Insertion at beginning](#insertion-at-beginning)
-    - [Scenario 1 of insertion at beginning](#scenario-1-of-insertion-at-beginning)
-    - [Scenario 2 of insertion at beginning](#scenario-2-of-insertion-at-beginning)
-    - [Source codes of insertion at beginning](#source-codes-of-insertion-at-beginning)
-
-
-
-
-
+    - [Insertion at beginning](#insertion-at-beginning)
+        - [Scenario 1 of insertion at beginning](#scenario-1-of-insertion-at-beginning)
+        - [Scenario 2 of insertion at beginning](#scenario-2-of-insertion-at-beginning)
+        - [Source codes of insertion at beginning](#source-codes-of-insertion-at-beginning)
+    - [Insertion at end](#insertion-at-end)
+        - [Scenario 1 of insertion at end](#scenario-1-of-insertion-at-end)
+        - [Scenario 2 of insertion at end](#scenario-2-of-insertion-at-end)
+        - [Source codes of insertion at end](#source-codes-of-insertion-at-end)
+    - [Deletion at beginning](#deletion-at-beginning)
+        - [Scenario 1 of deleting at beginning](#scenario-1-of-deleting-at-beginning)
+        - [Scenario 2 of deleting at beginning](#scenario-2-of-deleting-at-beginning)
+        - [Source codes of deleting at beginning](#source-codes-of-deleting-at-beginning)
+    - [Deletion at end](#deletion-at-end)
+        - [Scenario 1 of insertion at end](#scenario-1-of-deleting-at-end)
+        - [Scenario 2 of insertion at end](#scenario-2-of-deleting-at-end)
+        - [Source codes of insertion at end](#source-codes-of-deleting-at-end)
+    - [Search](#search)
+        - [Source codes of Search](#source-codes-of-search)
+- [Links](#links)
 
 ## Introduction
 
@@ -194,7 +204,192 @@ void InsertAtLast() {
 ```
 
 #### Deletion at beginning
+There can be two scenario of deleting the first node in a circular doubly linked list.
 
+![ZPYfQH.png](https://s2.ax1x.com/2019/06/23/ZPYfQH.png)
 
+###### Scenario 1 of deleting at beginning
+The node which is to be deleted can be the only node present in the linked list. In this case, the condition head → next == head will become true, therefore the list needs to be completely deleted.
+
+It can be simply done by assigning head pointer of the list to null and free the head pointer.
+
+```cpp
+head = NULL;   
+free(head);
+```
+
+###### Scenario 2 of deleting at beginning
+in the second scenario, the list contains more than one element in the list, therefore the condition `head -> next == head` will become false. Now, reach the last node of the list and make a few pointer adjustments there. Run a while loop for this purpose
+
+```cpp
+temp = head;   
+while(temp -> next != head) {  
+    temp = temp -> next;  
+}  
+```
+
+Now, temp will point to the last node of the list. The first node of the list i.e. pointed by head pointer, will need to be deleted. Therefore the last node must contain the address of the node that is pointed by the next pointer of the existing head node. Use the following statement for this purpose.
+
+```cpp
+temp -> next = head -> next;  
+```
+
+The new head node i.e. next of existing head node must also point to the last node of the list through its previous pointer. Use the following statement for this purpose.
+
+```cpp
+head -> next -> prev = temp;  
+```
+
+Now, free the head pointer and the make its next pointer, the new head node of the list.
+
+```cpp
+free(head);  
+head = temp -> next;  
+```
+
+in this way, a node is deleted at the beginning from a circular doubly linked list.
+
+[![ZPUnJK.md.png](https://s2.ax1x.com/2019/06/23/ZPUnJK.md.png)](https://imgchr.com/i/ZPUnJK)
+###### Source codes of deleting at beginning
+```cpp
+void DeleteAtBeginning() {
+	struct node *lastNode;
+
+	if(head == NULL) {
+		cout << "Empty List" << endl;
+	} else if(head->next == NULL) {
+		head = NULL;
+		free(head);
+		cout << "The only node has been deleted.";
+	} else {
+		lastNode = head;
+		while(lastNode->next != head) {
+			lastNode = lastNode->next;
+		}
+
+		lastNode->next = head->next;
+		head->next->prev = lastNode;
+		free(head);
+		head = lastNode->next;
+	}
+}
+```
 
 #### Deletion at end
+There can be two scenario of deleting the first node in a circular doubly linked list.
+
+![ZPYfQH.png](https://s2.ax1x.com/2019/06/23/ZPYfQH.png)
+
+###### Scenario 1 of deleting at end
+The node which is to be deleted can be the only node present in the linked list. In this case, the condition `head -> next == head` will become true, therefore the list needs to be completely deleted.
+
+It can be simply done by assigning head pointer of the list to null and free the head pointer.
+
+```cpp
+head = NULL;   
+free(head);
+```
+
+###### Scenario 2 of deleting at end
+in the second scenario, the list contains more than one element in the list, therefore the condition `head -> next == head` will become false. Now, reach the last node of the list and make a few pointer adjustments there. Run a while loop for this purpose
+
+```cpp
+temp = head;   
+while(temp -> next != head) {  
+    temp = temp -> next;  
+}  
+```
+
+Now, temp will point to the node which is to be deleted from the list. Make the next pointer of previous node of temp, point to the head node of the list.
+
+```cpp
+temp -> prev -> next = head;  
+```
+
+make the previous pointer of the head node, point to the previous node of temp.
+
+```cpp
+head -> prev = ptr -> prev;    
+```
+
+Now, free the temp pointer to free the memory taken by the node.
+
+```cpp
+free(head)  
+```
+
+in this way, the last node of the list is deleted.
+
+[![ZPBjZ4.md.png](https://s2.ax1x.com/2019/06/23/ZPBjZ4.md.png)](https://imgchr.com/i/ZPBjZ4)
+
+###### Source codes of deleting at end
+```cpp
+void DeleteAtLast() {
+	struct node *lastNode;
+
+	if(head == NULL) {
+		cout << "Empty List" << endl;
+	} else if(head->next == NULL) {
+		head = NULL;
+		free(head);
+		cout << "The only node has been deleted.";
+	} else {
+		lastNode = head;
+		while(lastNode->next != head) {
+			lastNode = lastNode->next;
+		}
+
+		lastNode->prev->next = head;
+		head->prev = lastNode->prev;
+
+		free(lastNode);
+
+		cout << "The node has been deleted." << endl;
+	}
+}
+```
+
+#### Search
+
+###### Source codes of Search
+```cpp
+void Search() {
+	int data, location = 0, isFound = 0;
+	struct node *ptr;
+
+	ptr = head;
+	if(ptr == NULL) {
+		cout << "Empty List" << endl;
+	} else {
+		cout << "Enter a value that you want to find it: ";
+		cin >> data;
+
+		if(head->data == data) {
+			isFound = 1;
+			cout << "Found it, location is: " << location+1 << endl;
+		} else {
+
+			while(ptr->next != head) {
+				if(ptr->data == data) {
+					cout << "Found it, location is: " << location+1 << endl;
+					isFound = 1;
+					break;
+				} else {
+					isFound = 0;
+				}
+				ptr = ptr->next;
+				location++;
+			}
+
+		}
+
+		if(isFound != 1) {
+			cout << "The item wasn't found." << endl;
+		}
+
+	}
+}
+```
+
+## Links
+[Source codes of circular doubly linked list](https://github.com/Jalever/Data-Structure-and-Algorithm/blob/master/Data%20Structure/Linked%20List/Circular%20Doubly%20Linked%20List.cpp)
