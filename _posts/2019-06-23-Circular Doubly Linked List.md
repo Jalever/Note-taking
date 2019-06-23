@@ -109,7 +109,7 @@ void InsertAtBeginning() {
 			head->prev = ptr;
 			ptr->next = head;
 
-			ptr = head;
+            head = ptr;
 		}
 
 		cout << "OVERFLOW" << endl;
@@ -118,8 +118,80 @@ void InsertAtBeginning() {
 ```
 
 #### Insertion at end
+There are two scenario of inserting a node in circular doubly linked list at the end. Either the list is empty or it contains more than one element in the list.
 
+Allocate the memory space for the new node `ptr` by using the following statement.
 
+```cpp
+ptr = (struct node *)malloc(sizeof(struct node));  
+```
+
+![ZCD7VJ.png](https://s2.ax1x.com/2019/06/23/ZCD7VJ.png)
+
+###### Scenario 1 of insertion  at end
+In the first case, the condition `head == NULL` becomes true therefore, the node will be added as the first node in the list. The next and the previous pointer of this newly added node will point to itself only. This can be done by using the following statement.
+
+```cpp
+head = ptr;  
+ptr -> next = head;   
+ptr -> prev = head;
+```
+
+###### Scenario 2 of insertion  at end
+In the second scenario, the condition `head == NULL` become false, therefore node will be added as the last node in the list. For this purpose, we need to make a few pointer adjustments in the list at the end. Since, the new node will contain the address of the first node of the list therefore we need to make the next pointer of the last node point to the head node of the list. Similarly, the previous pointer of the head node will also point to the new last node of the list.
+
+```cpp
+head -> prev = ptr;  
+ptr -> next = head;
+```
+
+Now, we also need to make the next pointer of the existing last node of the list (temp) point to the new last node of the list, similarly, the new last node will also contain the previous pointer to the temp. this will be done by using the following statements.
+
+```cpp
+temp->next = ptr;  
+ptr ->prev=temp;
+```
+
+In this way, the new node ptr has been inserted as the last node of the list. The algorithm and its C implementation has been described as follows.
+
+[![ZCruZQ.md.png](https://s2.ax1x.com/2019/06/23/ZCruZQ.md.png)](https://imgchr.com/i/ZCruZQ)
+
+###### Source codes of insertion at beginning
+```cpp
+void InsertAtLast() {
+	struct node *ptr, *lastNode;
+	ptr = (struct node*)malloc(sizeof(struct node));
+
+	int data;
+
+	if(ptr == NULL) {
+		cout << "OVERFLOW" << endl;
+	} else {
+		cout << "Enter a Value: ";
+		cin >> data;
+
+		ptr->data = data;
+
+		if(head == NULL) {
+			ptr = head;
+			ptr->next = head;
+			ptr->prev = head;
+		} else {
+			lastNode = head;
+			while(lastNode->next != head) {
+				lastNode = lastNode->next;
+			}
+
+			lastNode->next = ptr;
+			ptr->prev = lastNode;
+			head->prev = ptr;
+			ptr->next = head;
+		}
+
+		cout << "Node Inserted." << endl;
+	}
+}
+```
 
 #### Deletion at beginning
 
