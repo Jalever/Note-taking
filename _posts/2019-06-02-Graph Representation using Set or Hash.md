@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Graph Representation using Set or Hash
-subtitle: Data Structure学习笔记系列
+title: (DS Graph)Graph Representation using Set or Hash
+subtitle: Data Structure Graph学习笔记系列
 date: 2019-06-02
 author: Jalever
 header-img: img/post-bg-algorithm.jpg

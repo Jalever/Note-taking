@@ -1,10 +1,10 @@
 ---
 layout: post
-title: DS Tree-Tree
-subtitle: Data Structure学习笔记系列
+title: (DS Tree)Tree
+subtitle: Data Structure Tree学习笔记系列
 date: 2019-06-14
 author: Jalever
-header-img: img/post-bg-business-sketchees.jpg
+header-img: img/post-bg-star.jpg
 catalog: true
 tags:
   - Data Structure
