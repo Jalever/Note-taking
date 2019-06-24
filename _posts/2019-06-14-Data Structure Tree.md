@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Data Structure
 ---
+
 - [Introduction](#introduction)
 - [Basic terminology](#basic-terminology)
     - [Root Node](#root-node)
