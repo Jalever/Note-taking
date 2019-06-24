@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Data Structure Overview
-subtitle: Data Structure Tree学习笔记系列
+subtitle: Data Structure学习笔记系列
 date: 2019-06-24
 author: Jalever
 header-img: img/post-bg-star.jpg
