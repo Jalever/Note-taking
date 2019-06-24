@@ -9,6 +9,18 @@ catalog: true
 tags:
   - Data Structure
 ---
+- [Introduction](#introduction)
+- [Basic terminology](#basic-terminology)
+    - [Root Node](#root-node)
+    - [Sub Tree](#sub-tree)
+    - [Leaf Node](#leaf-node)
+    - [Path](#path)
+    - [Ancestor node](#ancestor-node)
+    - [Degree](#degree)
+    - [Level Number](#level-number)
+- [Representation by codes](#representation-by-codes)
+    - [Static representation of tree](#static-representation-of-tree)
+    - [Dynamic representation of tree](#dynamic-representation-of-tree)
 - [Types of Tree](#types-of-tree)
     - [General Tree](#general-tree)
     - [Forests](#forests)
@@ -20,6 +32,58 @@ tags:
     - [Expression Tree](#expression-tree)
     - [Tournament Tree](#tournament-tree)
 
+## Introduction
+- A Tree is a recursive data structure containing the set of one or more data nodes where one node is designated as <ins>the root of the tree</ins> while the remaining nodes are called as <ins>the children of the root</ins>.
+- The nodes other than the root node are partitioned into the non empty sets where each one of them is to be called `sub-tree`.
+- Nodes of a tree either maintain a parent-child relationship between them or they are sister nodes.
+- In a general tree, A node can have any number of children nodes but it can have only a single parent.
+- The following image shows a tree, where the node A is the root node of the tree while the other nodes can be seen as the children of A.
+
+![ZkInuF.png](https://s2.ax1x.com/2019/06/24/ZkInuF.png)
+
+## Basic terminology
+#### Root Node
+The root node is the topmost node in the tree hierarchy. In other words, the root node is the one which doesn't have any parent.
+
+#### Sub Tree
+If the root node is not null, the tree T1, T2 and T3 is called sub-trees of the root node.
+
+#### Leaf Node
+The node of tree, which doesn't have any child node, is called `leaf node`. `Leaf node` is the bottom most node of the tree. There can be any number of leaf nodes present in a general tree. Leaf nodes can also be called external nodes.
+
+#### Path
+The sequence of consecutive edges is called path. In the tree shown in the above image, path to the node E is `A→ B → E`.
+
+#### Ancestor node
+An ancestor of a node is any predecessor node on a path from root to that node. The root node doesn't have any ancestors. In the tree shown in the above image, the node F have the ancestors, B and A.
+
+#### Degree
+Degree of a node is equal to number of children, a node have. In the tree shown in the above image, the degree of node B is 2. Degree of a leaf node is always 0 while in a complete binary tree, degree of each node is equal to 2.
+
+#### Level Number
+Each node of the tree is assigned a level number in such a way that each node is present at one level higher than its parent. Root node of the tree is always present at level 0.
+
+## Representation by codes
+#### Static representation of tree
+```cpp
+#define MAXNODE 500  
+struct treenode {  
+    int root;  
+    int father;  
+    int son;  
+    int next;   
+}
+```
+
+#### Dynamic representation of tree
+```cpp
+struct treenode {  
+    int root;  
+    struct treenode *father;   
+    struct treenode *son   
+    struct treenode *next;   
+}  
+```
 
 ## Types of Tree
 The tree data structure can be classified into six different categories.
