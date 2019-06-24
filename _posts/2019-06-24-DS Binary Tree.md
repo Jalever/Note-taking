@@ -21,6 +21,7 @@ tags:
         - [Postorder traversal](#postorder-traversal)
         - [Implementation of CPP](#implementation-of-cpp)
     - [Breadth First Traversal](#breadth-first-traversal)
+        - [Implementation of Level Order Traversal in CPP](#implementation-of-level-order-Traversal-in-cpp)
 - [Binary Tree representation](#binary-tree-traversal)
     - [Linked Representation](#linked-representation)
     - [Sequential Representation](#sequential-representation)
@@ -150,7 +151,82 @@ int main() {
 ```
 
 #### Breadth First Traversal
+Level order traversal of a tree is breadth first traversal for the tree.
+
+![ZAnw6I.gif](https://s2.ax1x.com/2019/06/24/ZAnw6I.gif)
+
 Level Order Traversal : 1 2 3 4 5
+
+###### Implementation of Level Order Traversal in CPP
+```cpp
+#include <iostream>
+using namespace std;
+
+class node {
+	public:
+		int data;
+		node *left, *right;
+};
+
+node *newNode(int data) {
+	node *Node = new node();
+	Node->data = data;
+	Node->left = NULL;
+	Node->right = NULL;
+
+	return(Node);
+}
+
+//Compute the "height" of a tree -- the number of
+//nodes along the longest path from the root node
+//down to the farthest leaf node
+int getTreeHeight(node *oneNode) {
+	if(oneNode == NULL) {
+		return 0;
+	} else {
+		int leftHeight = getTreeHeight(oneNode->left);
+		int rightHeight = getTreeHeight(oneNode->right);
+
+		if(leftHeight > rightHeight) {
+			return leftHeight+1;
+		} else {
+			return rightHeight+1;
+		}
+	}
+}
+
+void printLevelNodes(node *root, int level) {
+	if(root == NULL) {
+		return;
+	} else if(level == 1) {
+		cout << root->data << "\t";
+	} else if(level > 1){
+		printLevelNodes(root->left, level-1);
+		printLevelNodes(root->right, level-1);
+	}
+}
+
+void iterateLevels(node *root) {
+	int height = getTreeHeight(root);
+
+	for(int i = 1;i <= height;++i) {
+		printLevelNodes(root, i);
+	}
+}
+
+int main() {
+	node *root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+
+	cout << "Level Order Traverse of Binary Tree: " << endl;
+	iterateLevels(root);
+
+	return 0;
+}
+```
 
 ## Binary Tree representation
 There are two types of representation of a binary tree:
