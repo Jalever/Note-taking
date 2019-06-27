@@ -9,6 +9,17 @@ catalog: true
 tags:
   - Data Structure
 ---
+- [Overview](#overview)
+- [Advantages of using binary search tree](#advantages-of-using-binary-search-tree)
+- [Example of creating Binary Search Tree using the following data elements](#example-of-creating-binary-search-tree-using-the-following-data-elements)
+- [Operations on Binary Search Tree](#operations-on-binary-search-tree)
+    - [Insertion in BST](#insertion-in-bst)
+    - [Deletion in BST](#deletion-in-bst)
+        - [Prerequisites](#prerequisites)
+        - [The node to be deleted is a leaf node](#the-node-to-be-deleted-is-a-leaf-node)
+        - [The node to be deleted has only one child](#the-node-to-be-deleted-has-only-one-child)
+        - [The node to be deleted has two children](#the-node-to-be-deleted-has-two-children)
+- [Source Codes](#source-codes)
 
 ## Overview
 
@@ -44,11 +55,30 @@ The process of creating BST by using the given elements, is shown in the image b
 
 ## Operations on Binary Search Tree
 
-#### Searching in BST
-
-
 #### Insertion in BST
+Insert function is used to add a new element in a binary search tree at appropriate location. Insert function is to be designed in such a way that, it must node violate the property of binary search tree at each value.
 
+1. Allocate the memory for tree.
+2. Set the data part to the value and set the left and right pointer of tree, point to NULL.
+3. If the item to be inserted, will be the first element of the tree, then the left and right of this node will point to NULL.
+4. Else, check if the item is less than the root element of the tree, if this is true, then recursively perform this operation with the left of the root.
+5. If this is false, then perform this operation recursively with the right sub-tree of the root.
+
+```cpp
+Node *Insertion(Node *root,int data) {
+	if(root == NULL) {
+		return Create(data);
+	}
+
+	if(data < root->data) {
+		root->left = Insertion(root->left, data);
+	} else {
+		root->right = Insertion(root->right, data);
+	}
+
+	return root;
+}
+```
 
 #### Deletion in BST
 ###### Prerequisites
@@ -92,6 +122,7 @@ if(currentNode == NULL) {
 }
 
 //	The node to be deleted is a leaf node
+
 if(currentNode->left == NULL && currentNode->right == NULL) {
 	if(currentNode != root) {
 		if(parentNode->left == currentNode) {
@@ -218,7 +249,8 @@ void Deletion(Node *&root,int data) {
 		return;
 	}
 
-//	The node to be deleted is a leaf node
+//The node to be deleted is a leaf node
+
 	if(currentNode->left == NULL && currentNode->right == NULL) {
 		if(currentNode != root) {
 			if(parentNode->left == currentNode) {
@@ -238,7 +270,10 @@ void Deletion(Node *&root,int data) {
 		Deletion(root, successor->data);
 
 		currentNode->data = value;
-	} else {//The node to be deleted has only one child
+	} else {
+
+        //The node to be deleted has only one child
+
 		Node *childNode = (currentNode->left)?currentNode->left : currentNode->right;
 
 		if(currentNode != root) {
@@ -258,7 +293,6 @@ void Deletion(Node *&root,int data) {
 
 //-------------Traversal------------------------------
 
-//traversal
 void Preorder(Node *root) {
 	if(root == NULL) {
 		return;
