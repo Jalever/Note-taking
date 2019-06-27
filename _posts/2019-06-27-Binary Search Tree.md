@@ -51,6 +51,106 @@ The process of creating BST by using the given elements, is shown in the image b
 
 
 #### Deletion in BST
+###### Prerequisites
+```cpp
+void Search(Node *&currentNode,int data,Node *&parentNode) {
+	while(currentNode != NULL && currentNode->data != data) {
+		parentNode = currentNode;
+
+		if(data < currentNode->data) {
+			currentNode = currentNode->left;
+		} else {
+			currentNode = currentNode->right;
+		}
+	}
+}
+
+Node *getInorderSuccessor(Node *currentNode) {
+	while(currentNode->left != NULL) {
+		currentNode = currentNode->left;
+	}
+
+	return currentNode;
+}
+```
+
+###### The node to be deleted is a leaf node
+It is the simplest case, in this case, replace the leaf node with the NULL and simple free the allocated space.
+
+In the following image, we are deleting the node 85, since the node is a leaf node, therefore the node will be replaced with NULL and allocated space will be freed.
+
+[![Zn5TJg.md.png](https://s2.ax1x.com/2019/06/27/Zn5TJg.md.png)](https://imgchr.com/i/Zn5TJg)
+
+```cpp
+Node *parentNode = NULL;
+Node *currentNode = root;
+
+Search(currentNode,data,parentNode);
+
+if(currentNode == NULL) {
+	return;
+}
+
+//	The node to be deleted is a leaf node
+if(currentNode->left == NULL && currentNode->right == NULL) {
+	if(currentNode != root) {
+		if(parentNode->left == currentNode) {
+			parentNode->left = NULL;
+		} else {
+			parentNode->right = NULL;
+		}
+	} else {
+		root = NULL;
+	}
+
+	free(currentNode);
+}
+```
+
+###### The node to be deleted has only one child
+In this case, replace the node with its child and delete the child node, which now contains the value which is to be deleted. Simply replace it with the NULL and free the allocated space.
+
+In the following image, the node 12 is to be deleted. It has only one child. The node will be replaced with its child node and the replaced node 12 (which is now leaf node) will simply be deleted.
+
+[![ZnIQld.md.png](https://s2.ax1x.com/2019/06/27/ZnIQld.md.png)](https://imgchr.com/i/ZnIQld)
+
+```cpp
+Node *childNode = (currentNode->left)?currentNode->left : currentNode->right;
+
+if(currentNode != root) {
+	if(currentNode == parentNode->left) {
+		parentNode->left = childNode;
+	} else {
+		parentNode->right = childNode;
+	}
+} else {
+	root = childNode;
+}
+
+free(currentNode);
+```
+
+###### The node to be deleted has two children
+It is a bit complexed case compare to other two cases. However, the node which is to be deleted, is replaced with its in-order successor or predecessor recursively until the node value (to be deleted) is placed on the leaf of the tree. After the procedure, replace the node with NULL and free the allocated space.
+
+In the following image, the node 50 is to be deleted which is the root node of the tree. The in-order traversal of the tree given below.
+
+6, 25, 30, 50, 52, 60, 70, 75.
+
+replace 50 with its in-order successor 52. Now, 50 will be moved to the leaf of the tree, which will simply be deleted.
+
+[![ZnINtS.md.png](https://s2.ax1x.com/2019/06/27/ZnINtS.md.png)](https://imgchr.com/i/ZnINtS)
+
+```cpp
+if(currentNode->left && currentNode->right) {
+	Node *successor = getInorderSuccessor(currentNode->right);
+
+	int value = successor->data;
+	Deletion(root, successor->data);
+
+	currentNode->data = value;
+}
+```
 
 ## Source Codes
 ```cpp
@@ -64,6 +164,7 @@ struct Node{
 };
 
 //---------------Insertion----------------------------
+
 Node *Create(int data){
 	Node *node = new Node;
 	node->data = data;
@@ -86,6 +187,7 @@ Node *Insertion(Node *root,int data) {
 }
 
 //-------------Deletion------------------------------
+
 void Search(Node *&currentNode,int data,Node *&parentNode) {
 	while(currentNode != NULL && currentNode->data != data) {
 		parentNode = currentNode;
