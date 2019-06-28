@@ -19,6 +19,8 @@ tags:
     - [Ancestor node](#ancestor-node)
     - [Degree](#degree)
     - [Level Number](#level-number)
+    - [Height](#height)
+    - [Depth](#depth)
 - [Representation by codes](#representation-by-codes)
     - [Static representation of tree](#static-representation-of-tree)
     - [Dynamic representation of tree](#dynamic-representation-of-tree)
@@ -63,6 +65,18 @@ Degree of a node is equal to number of children, a node have. In the tree shown 
 
 #### Level Number
 Each node of the tree is assigned a level number in such a way that each node is present at one level higher than its parent. Root node of the tree is always present at level 0.
+
+#### Height
+The height of a node is the number of edges on the longest path from the node to a leaf.
+A leaf node will have a height of 0.
+
+#### Depth
+The depth of a node is the number of edges from the node to the tree's root node.
+A root node will have a depth of 0.
+
+![ZK1h5Q.png](https://s2.ax1x.com/2019/06/28/ZK1h5Q.png)
+
+![ZK3roF.png](https://s2.ax1x.com/2019/06/28/ZK3roF.png)
 
 ## Representation by codes
 #### Static representation of tree
