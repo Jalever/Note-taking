@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Data Structure
 ---
+
 - [Overview](#overview)
 - [Advantages of using binary search tree](#advantages-of-using-binary-search-tree)
 - [Example of creating Binary Search Tree using the following data elements](#example-of-creating-binary-search-tree-using-the-following-data-elements)
