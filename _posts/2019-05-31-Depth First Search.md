@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFS(Depth First Search)
+title: (DS Graph)DFS
 subtitle: Data Structure学习笔记系列
 date: 2019-05-31
 author: Jalever

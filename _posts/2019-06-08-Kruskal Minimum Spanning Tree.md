@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Kruskal MST
-subtitle: Graph学习笔记系列
+title: (DS Graph)Kruskal Shortest Path Algorithm
+subtitle: Data Structure Graph学习笔记系列
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 ## What is Minimum Spanning Tree?
 Given a connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together.

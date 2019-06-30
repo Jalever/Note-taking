@@ -1,10 +1,10 @@
 ---
 layout: post
-title: BFS(Breadth First Search)
+title: (DS Graph)BFS
 subtitle: Data Structure学习笔记系列
-date: 2019-05-29
+date: 2019-05-30
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/post-bg-star.jpg
 catalog: true
 tags:
   - Data Structure

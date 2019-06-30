@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Prim Algorithm
-subtitle: Graph学习笔记系列
+title: (DS Graph)Prim Shortest Path Algorithm
+subtitle: Data Structure Graph学习笔记系列
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 
 Prim’s algorithm is a Greedy algorithm.

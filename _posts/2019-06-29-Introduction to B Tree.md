@@ -18,7 +18,7 @@ To understand the use of B-Trees, we must think of the huge amount of data that 
 Most of the tree operations (search, insert, delete, max, min, ..etc ) require `O(h)` disk accesses where `h` is the height of the tree. B-tree is a fat tree. The height of B-Trees is kept low by putting maximum possible keys in a B-Tree node. Generally, a B-Tree node size is kept equal to the disk block size. Since `h` is low for B-Tree, total disk accesses for most of the operations are reduced significantly compared to balanced Binary Search Trees like AVL Tree, Red-Black Tree, ..etc.
 
 ## Properties of B Tree
-[![ZlAsL4.md.png](https://s2.ax1x.com/2019/06/29/ZlAsL4.md.png)](https://imgchr.com/i/ZlAsL4)
+![ZlMnoD.png](https://s2.ax1x.com/2019/06/29/ZlMnoD.png)
 
 1. All leaves are at same level.
 2. A B-Tree is defined by the term minimum degree ‘t’. The value of t depends upon disk block size.
