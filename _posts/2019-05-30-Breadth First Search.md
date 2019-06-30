@@ -10,7 +10,22 @@ tags:
   - Data Structure
 ---
 
+- [Overview](#overview)
+- [Implementation of Adajacent List](#implementation-of-adajacent-list)
+
+## Overview
+Breadth first search is a graph traversal algorithm that starts traversing the graph from root node and explores all the neighbouring nodes. Then, <ins>it selects the nearest node and explore all the unexplored nodes.</ins> The algorithm follows the same process for each of the nearest node until it finds the goal.
+
+The algorithm of breadth first search is given below. The algorithm starts with examining the node A and all of its neighbours. In the next step, the neighbours of the nearest node of A are explored and process continues in the further steps. The algorithm explores all neighbours of all the nodes and ensures that each node is visited exactly once and no node is visited twice.
+
 ## Implementation of Adajacent List
+![Z1xdD1.png](https://s2.ax1x.com/2019/06/30/Z1xdD1.png)
+
+![Z1xBE6.png](https://s2.ax1x.com/2019/06/30/Z1xBE6.png)
+
+![Z1xDUK.png](https://s2.ax1x.com/2019/06/30/Z1xDUK.png)
+
+![Z1xyCD.png](https://s2.ax1x.com/2019/06/30/Z1xyCD.png)
 
 ```cpp
 #include <iostream>
@@ -63,17 +78,18 @@ void Graph::BFS(int sourceVector) {
 };
 
 int main() {
-    Graph g(4);
+    Graph g(5);
     g.addEdge(0, 1);
     g.addEdge(0, 2);
-    g.addEdge(1, 2);
-    g.addEdge(2, 0);
-    g.addEdge(2, 3);
-    g.addEdge(3, 3);
+    g.addEdge(0, 3);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 4);
+    g.addEdge(3, 4);
 
     cout << "Following is Breadth First Traversal "
          << "(starting from vertex 2) \n";
-    g.BFS(2);
+    g.BFS(0);
 
     return 0;
 }
