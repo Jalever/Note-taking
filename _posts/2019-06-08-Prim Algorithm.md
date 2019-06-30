@@ -10,15 +10,49 @@ tags:
   - Data Structure
 ---
 
-Prim’s algorithm is a Greedy algorithm.
+- [Spanning Tree](#spanning-tree)
+- [Minimum Spanning Tree](#minimum-spanning-tree)
+- [Prim Algorithm](#prim-algorithm)
+- [Example](#example)
+    - [Steps](#steps)
+- [Implementation in CPP](#implementation-in-cpp)
 
-It starts with an empty spanning tree.
+## Spanning Tree
+Spanning tree can be defined as a sub-graph of connected, undirected graph G that is a tree produced by removing the desired number of edges from a graph. In other words, Spanning tree is a <ins>non-cyclic sub-graph of a connected and undirected graph G that connects all the vertices together</ins>. A graph G can have multiple spanning trees.
 
-The idea is to maintain two sets of vertices.
+## Minimum Spanning Tree
+There can be weights assigned to every edge in a weighted graph. However, A minimum spanning tree is a spanning tree which has <ins>minimal total weight</ins>. In other words, minimum spanning tree is the one which contains the least weight among all other spanning tree of some particular graph.
 
-The first set contains the vertices already included in the MST, the other set contains the vertices not yet included.
+## Prim Algorithm
+Prim's Algorithm is used to find the minimum spanning tree from a graph. Prim's algorithm finds the subset of edges that includes every vertex of the graph such that the sum of the weights of the edges can be minimized.
 
-At every step, it considers all the edges that connect the two sets, and picks the minimum weight edge from these edges. After picking the edge, it moves the other endpoint of the edge to the set containing MST.
+Prim's algorithm starts with the single node and explore all the adjacent nodes with all the connecting edges at every step. The edges with the minimal weights causing no cycles in the graph got selected.
+
+## Example
+Construct a minimum spanning tree of the graph given in the following figure by using prim's algorithm.
+
+![Z3VSg0.png](https://s2.ax1x.com/2019/06/30/Z3VSg0.png)
+
+#### Steps
+1. Choose a starting vertex B.
+2. Add the vertices that are adjacent to A. the edges that connecting the vertices are shown by dotted lines.
+3. Choose the edge with the minimum weight among all. i.e. BD and add it to MST. Add the adjacent vertices of D i.e. C and E.
+4. Choose the edge with the minimum weight among all. In this case, the edges DE and CD are such edges. Add them to MST and explore the adjacent of C i.e. E and A.
+5. Choose the edge with the minimum weight i.e. CA. We can't choose CE as it would cause cycle in the graph.
+
+```text
+B -> BD -> BD, DE -> BD, DE, DC -> BD, DE, DC, CA
+```
+
+The graph produces in the step 5 is the minimum spanning tree of the graph shown in the above figure.
+
+The cost of MST will be calculated as;
+
+cost(MST) = 4 + 2 + 1 + 3 = 10 units.
+
+![Z3VaKf.png](https://s2.ax1x.com/2019/06/30/Z3VaKf.png)
+
+## Implementation in CPP
 
 ```cpp
 #include <stdio.h>

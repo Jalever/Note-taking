@@ -9,15 +9,60 @@ catalog: true
 tags:
   - Data Structure
 ---
-## What is Minimum Spanning Tree?
+- [Spanning Tree](#spanning-tree)
+- [Minimum Spanning Tree](#minimum-spanning-tree)
+- [Kruskal Algorithm](#kruskal-algorithm)
+    - [Example](#example)
+- [Source Codes](#source-codes)
+- [Time Complexity](#time-complexity)
+- [Links](#links)
+
+## Spanning Tree
 Given a connected and undirected graph, a spanning tree of that graph is a subgraph that is a tree and connects all the vertices together.
 
-A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected and undirected graph is a spanning tree with weight less than or equal to the weight of every other spanning tree.
+## Minimum Spanning Tree
+A minimum spanning tree (MST) or minimum weight spanning tree for a weighted, connected and undirected graph is a spanning tree with weight <ins>less than or equal to the weight of every other spanning tree</ins>.
 
 The weight of a spanning tree is the sum of weights given to each edge of the spanning tree.
 
-## Time Complexity
-O(ElogE) or O(ElogV)
+## Kruskal Algorithm
+
+#### Example
+Apply the Kruskal's algorithm on the graph given as follows.
+
+![Z3ZYo4.png](https://s2.ax1x.com/2019/06/30/Z3ZYo4.png)
+
+the weight of the edges given as :
+
+![Z3ZwS1.png](https://s2.ax1x.com/2019/06/30/Z3ZwS1.png)
+
+Sort the edges according to their weights.
+
+![Z3Z6Te.png](https://s2.ax1x.com/2019/06/30/Z3Z6Te.png)
+
+Start constructing the tree;
+
+Add `AB` to the MST;
+![Z3ZbkQ.png](https://s2.ax1x.com/2019/06/30/Z3ZbkQ.png)
+
+Add `DE` to the MST;
+![Z3ZqYj.png](https://s2.ax1x.com/2019/06/30/Z3ZqYj.png)
+
+Add `BC` to the MST;
+![Z3ePk4.png](https://s2.ax1x.com/2019/06/30/Z3ePk4.png)
+
+Add `CD` to the MST;
+![Z3eFh9.png](https://s2.ax1x.com/2019/06/30/Z3eFh9.png)
+
+The next step is to add `AE`, but we can't add that as it will cause a cycle.
+
+The next edge to be added is `AC`, but it can't be added as it will cause a cycle.
+
+The next edge to be added is `AD`, but it can't be added as it will contain a cycle.
+
+Hence, the final MST is the one which is shown in the step 4.
+
+the cost of MST = 1 + 2 + 3 + 4 = 10.
 
 ## Source Codes
 
@@ -167,6 +212,9 @@ int main()
     return 0;
 }
 ```
+
+## Time Complexity
+O(ElogE) or O(ElogV)
 
 ## Links
 [Kruskal Algorithm](#https://www.geeksforgeeks.org/?p=26604/)
