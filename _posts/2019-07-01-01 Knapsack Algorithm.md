@@ -15,6 +15,7 @@ tags:
     - [Overlapping Subproblems](#overlapping-subproblems)
 - [Dynamic Programming Based Implementation](#dynamic-programming-based-implementation)
     - [Explanation](#explanation)
+    - [Source Codes Details](#source-codes-details)
     - [Source Codes](#source-codes)
 
 ## Overview
@@ -42,7 +43,39 @@ If weight of nth item is greater than `W`, then the nth item cannot be included 
 ## Dynamic Programming Based Implementation
 
 #### Explanation
+![ZGGekn.png](https://s2.ax1x.com/2019/07/02/ZGGekn.png)
 
+Let's try to understand on with this example. So here I have a two dimensional matrix and this is a my total number of columns is same as total weight plus one and my number of rows is same as the total items. So our first column is 0, It means that if the total weight is zero no matter what items I have my maximum value I can get is always zero. So this is why this all are zero.
+
+![ZGGKpV.png](https://s2.ax1x.com/2019/07/02/ZGGKpV.png)
+
+If I just had one item 1, the best I can do is 1. So this is the weight of item, the total weight is one. so the maximum value I can get is just 1.
+![ZGG0XD.png](https://s2.ax1x.com/2019/07/02/ZGG0XD.png)
+
+
+If my total weight is two, if I just had one item of weight 1 and whose value is 1 the best I can do is 1. Remember we just have one quantity of each item. So even though the total weight is 2 if I just have item 1 again the best I can do is value 1.
+![ZGGo7j.png](https://s2.ax1x.com/2019/07/02/ZGGo7j.png)
+
+Similarly, one, one, one, one, one. So if the total weight is 7 the only item I have is weight 1 and whose value is 1 the best I can do is one because we have one quantity of each item.
+![ZGGjjU.png](https://s2.ax1x.com/2019/07/02/ZGGjjU.png)
+
+So next let's introduce 3. Since the total weight is 1 and if the weight of the item is 3 which is greater than one so three can never be the, can never be selected. So what we do is what is the best we can do without selecting 3 so basically this number becomes one.
+![ZGJEjO.png](https://s2.ax1x.com/2019/07/02/ZGJEjO.png)
+
+Again 2, Since 2 is less than 3, 3 can never be selected. Since this total weight is less than 3 so the best we can do is without 3 what is the best we can do which is this number, so that's 1.
+![ZGJJKS.png](https://s2.ax1x.com/2019/07/02/ZGJJKS.png)
+
+Now 3,so since 3 is,since 3 is less equal to 3, we have 2 choices, do we select 3 or do we not select 3. If we select this item(weight is 3, value is 4) the so we have to check what is the best we can do by selecting this item. If we didn't select this item this gives me a value 4 plus whatever weight is remaining after we select this weight. So 3-3 so that's 0. So weight[0][0](the first 0 is to go back to previous row, and second one is because 3 minus 3 is equal to 0) and then and then we go to the top column so that's also 0(matrix[0][0] is 0). So we reach this point,so we up,we go 3 steps, we reach this point,3 steps because the weight of this item is 3 So T[0][0] is 0 or what is the best value we can do without selecting this item altogether and that's 1. So this value is 4 and this value is 1 so max of this is 4.
+![ZGw9s0.png](https://s2.ax1x.com/2019/07/02/ZGw9s0.png)
+
+so the total weight is 4 and the item weight is 3. So again the best I can do is without selecting 3 the best I'm getting is 1[row is (1)1, column is 1, which number is 1]. If I do select 3 the best I can get is max of by selecting 3 I get a value of 4 plus I subtract 3 from 4 so that's,that's 1. and then I go one row up which is 0 and 1. So this value 0 and 1 is 1, so 4 plus 1, 5 so max of 4 plus 1,5 or this value 1, so that's 5.
+![ZGwoY4.png](https://s2.ax1x.com/2019/07/02/ZGwoY4.png)
+
+...
+
+![ZG0Ste.png](https://s2.ax1x.com/2019/07/02/ZG0Ste.png)
+
+#### Source Codes Details
 When `i = 0`
 ```text
    0   1   2   3
@@ -75,40 +108,40 @@ When `i = 3`
 #include<iostream>
 using namespace std;
 
-// A utility function that returns maximum of two integers
-int max(int a, int b) {
+int getMaximum(int a, int b) {
   return (a > b)? a : b;
 }
 
-// Returns the maximum value that can be put in a knapsack of capacity W
-int knapSack(int capacityOfKnapsack, int weight[], int val[], int numberOfItems) {
-	int i, w;
-	int temporaryArray[numberOfItems+1][capacityOfKnapsack+1];
+int Knapsack(int capacityOfKnapsack, int weight[], int value[], int numberOfItems) {
 
-	for (i = 0; i <= numberOfItems; i++) {
-		for (w = 0; w <= capacityOfKnapsack; w++) {
-			if (i==0 || w==0) {
-				temporaryArray[i][w] = 0;
-			} else if (weight[i-1] <= w) {
+	int Matrix[numberOfItems + 1][capacityOfKnapsack + 1];
 
-				temporaryArray[i][w] = max(val[i-1] + temporaryArray[i-1][w-weight[i-1]], temporaryArray[i-1][w]);
-
+	for(int item=0;item <= numberOfItems;++item) {
+		for(int column = 0;column <= capacityOfKnapsack;++column) {
+			if(item == 0 || column == 0) {
+				Matrix[item][column] = 0;
+			} else if(column >= weight[item-1]) {
+				Matrix[item][column] = getMaximum(value[item-1] + Matrix[item-1][column-weight[item-1]], Matrix[item-1][column]);
 			} else {
-				temporaryArray[i][w] = temporaryArray[i-1][w];
+				Matrix[item][column] = Matrix[item-1][column];
 			}
 		}
 	}
 
-	return temporaryArray[numberOfItems][capacityOfKnapsack];
+	return Matrix[numberOfItems][capacityOfKnapsack];
 }
 
 int main() {
-	int value[] = {60, 100, 120};
-	int weight[] = {10, 20, 30};
-	int W = 50;
+	int value[] = {1, 4, 5, 7};
+	int weight[] = {1, 3, 4, 5};
+	int W = 7;
 	int n = sizeof(value)/sizeof(value[0]);
-	cout << "Maximum value is " << knapSack(W, weight, value, n) << endl;
+	cout << "Maximum value is " << Knapsack(W, weight, value, n) << endl;
 	return 0;
 }
 
+
 ```
+
+#### Time Complexity
+Time Complexity: `O(nW)` where `n` is the number of items and `W` is the capacity of knapsack.
