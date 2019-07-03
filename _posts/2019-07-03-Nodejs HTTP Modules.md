@@ -9,6 +9,18 @@ catalog: true
 tags:
   - Node.js
 ---
+
+- [Introduction](#introduction)
+    - [Definition](#definition)
+    - [Syntax](#syntax)
+    - [HTTP Properties and Methods](#http-properties-and-methods)
+        - [Node.js http.createServer Method](#nodejs-httpcreateserver-method)
+        - [Node.js requestListener Function](#nodejs-requestlistener-function)
+        - [Node.js IncomingMessage Object](#nodejs-incomingmessage-object)
+        - [Node.js HTTP ServerResponse Object](#nodejs-http-serverresponse-object)
+- [Sample Code](#sample-code)
+    - [HTTP Header](#http-header)
+
 ## Introduction
 #### Definition
 The HTTP module provides a way of making Node.js transfer data over HTTP (Hyper Text Transfer Protocol).
@@ -51,6 +63,7 @@ http.createServer(requestListener);
 </table>
 
 ###### Node.js requestListener Function
+
 1.<strong>Definition and Usage</strong>
 The `requestListener` is a function that is called each time the server gets a request.
 
@@ -84,6 +97,19 @@ function (request, response) {
     </tbody>
 </table>
 
+###### Node.js IncomingMessage Object
+1.<strong>IncomingMessage Methods and Properties</strong>
+
+The `IncomingMessage` object represents the request to the server.
+![ZthgED.png](https://s2.ax1x.com/2019/07/03/ZthgED.png)
+
+###### Node.js HTTP ServerResponse Object
+1.<strong>ServerResponse Methods and Properties</strong>
+
+The `ServerResponse` object is passed as the second parameter to the `requestListener` function.
+
+The `ServerResponse` object represents the writable stream back to the client.
+![Zt4nr6.png](https://s2.ax1x.com/2019/07/03/Zt4nr6.png)
 
 ## Sample Code
 The HTTP module can create an HTTP server that listens to server ports and gives a response back to the client.
