@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Nodejs使用ES6语法
-subtitle: Web Development学习笔记系列
+title: Writing Your Node.js Apps Using ES6
+subtitle: Nodejs Tricks
 date: 2019-05-04
 author: Jalever
-header-img: img/home_bg_black.png
+header-img: img/post_light_bulb_bg.png
 catalog: true
 tags:
   - Node.js
@@ -15,16 +15,15 @@ tags:
 npm i -D @babel/core @babel/node @babel/preset-env
 ```
 
-## Package.json中
+## Package.json
 ```
 "start": "nodemon --exec babel-node server.js"
 ```
 
 
-## 创建`.babelrc`
+## Building a `.babelrc` file
 {
   "presets": [
     "@babel/preset-env"
   ]
 }
-
