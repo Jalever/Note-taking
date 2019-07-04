@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Fractional Knapsack
+title: Fractional Knapsack Problem
 subtitle: Greedy Algorithm
-date: 2019-07-04
+date: 2019-07-01
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
@@ -21,16 +21,7 @@ Given weights and values of `n` items, we need to put these items in a knapsack 
 
 In Fractional Knapsack, we can break items for maximizing the total value of knapsack. This problem in which we can break an item is also called the `Fractional Knapsack Problem`.
 
-```text
-Input :
-    Items as (value, weight) pairs
-    arr[] = {{60, 10}, {100, 20}, {120, 30}}
-    Knapsack Capacity, W = 50;
-Output :
-   Maximum possible value = 240
-   By taking full items of 10 kg, 20 kg and
-   2/3rd of last item of 30 kg
-```
+![ZNRJeS.png](https://s2.ax1x.com/2019/07/04/ZNRJeS.png)
 
 A `Brute-Force` solution would be to try all possible subset with all different fraction but that will be too much time taking.
 
