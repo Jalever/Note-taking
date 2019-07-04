@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 0-1 Knapsack Problem
-subtitle: Dynamic Programming学习笔记系列
+subtitle: Dynamic Programming
 date: 2019-07-01
 author: Jalever
 header-img: img/post-bg-algorithm.jpg

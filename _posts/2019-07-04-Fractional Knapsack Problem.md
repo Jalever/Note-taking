@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Fractional Knapsack Problem
-subtitle: Greedy Algorithm学习笔记系列
+subtitle: Greedy Algorithm
 date: 2019-07-04
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
