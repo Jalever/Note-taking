@@ -23,6 +23,9 @@ In Fractional Knapsack, we can break items for maximizing the total value of kna
 
 ```text
 Input :
+    Items as (value, weight) pairs
+    arr[] = {{60, 10}, {100, 20}, {120, 30}}
+    Knapsack Capacity, W = 50;
 Output :
    Maximum possible value = 240
    By taking full items of 10 kg, 20 kg and
