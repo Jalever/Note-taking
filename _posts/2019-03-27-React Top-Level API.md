@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Render Top-Level API
-subtitle: React学习笔记系列
-date: 2019-03-26
+title: React Top-Level API
+subtitle: React API Reference
+date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
@@ -60,32 +60,18 @@ If your React component’s <ins>**_render()_**</ins> function renders the same 
 
 #### React.memo
 
-`React.memo` is a higher order component. It’s similar to `React.PureComponent`but for function components instead of classes.<br>
-If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result.<br>
+`React.memo` is a higher order component. It’s similar to `React.PureComponent`but for function components instead of classes.
+
+If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result.
+
 By default it will only shallowly compare complex objects in the props object.
 React components can also be defined as functions which can be wrapped
 
-```javascript
-const MyComponent = React.memo(function MyComponent(props) {
-  /* render using props */
-});
-```
+![ZUS3ZD.png](https://s2.ax1x.com/2019/07/04/ZUS3ZD.png)
 
 If you want control over the comparison, you can also provide a custom comparison function as the second argument.
 
-```javascript
-function MyComponent(props) {
-  /* render using props */
-}
-function areEqual(prevProps, nextProps) {
-  /*
-  return true if passing nextProps to render would return
-  the same result as passing prevProps to render,
-  otherwise return false
-  */
-}
-export default React.memo(MyComponent, areEqual);
-```
+![ZUpukQ.png](https://s2.ax1x.com/2019/07/04/ZUpukQ.png)
 
 ## Creating React Elements
 
@@ -171,7 +157,7 @@ Returns the **_total number of components_** in children, equal to the number of
 React.Children.only(children)
 ```
 
-Verifies that `children` has only one child (a React element) and returns it.<br> 
+Verifies that `children` has only one child (a React element) and returns it.<br>
 Otherwise this method throws an error.<br>
 
 > `React.Children.only()` does not accept the return value of `React.Children.map()` because it is an array rather than a `React` element.

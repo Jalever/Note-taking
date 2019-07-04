@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Greater Common Divisor
-subtitle: Mathematics
+subtitle: Mathematical Algorithms
 date: 2019-05-26
 author: Jalever
 header-img: img/home-bg-math.jpg
