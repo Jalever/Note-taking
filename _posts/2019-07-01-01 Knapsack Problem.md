@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 0-1 Knapsack Algorithm
+title: 0-1 Knapsack Problem
 subtitle: Dynamic Programming学习笔记系列
 date: 2019-07-01
 author: Jalever
