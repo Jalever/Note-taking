@@ -77,98 +77,74 @@ If you want control over the comparison, you can also provide a custom compariso
 
 #### React.createElement()
 
-Create and return a new `React` element of the given type.<br>
-The type argument can be either a <ins>**_tag name_**</ins> string (such as 'div' or 'span'), a <ins>**_React component_**</ins> type (a class or a function), or a <ins>**_React fragment_**</ins> type.<br>
-Code written with JSX will be converted to use `React.createElement()`.<br>
+Create and return a new `React element` of the given type. The type argument can be either a tag name string (such as <strong>div</strong> or <strong>span</strong>), a `React component` type (a <strong>class</strong> or a <strong>function</strong>), or a `React fragment` type.
 
-```javascript
-React.createElement(type, [props], [...children]);
-```
+Code written with JSX will be converted to use `React.createElement()`. You will not typically invoke `React.createElement()` directly if you are using JSX.
+
+![ZUpt7F.png](https://s2.ax1x.com/2019/07/04/ZUpt7F.png)
 
 #### React.createFactory()
 
-```javascript
-React.createFactory(type);
-```
+![ZU9puV.png](https://s2.ax1x.com/2019/07/04/ZU9puV.png)
 
-Return a function that produces `React` elements of a given type.<br/>
-Like `React.createElement()`, the type argument can be either a **_tag name string_** (such as 'div' or 'span'), a **_React component type_** (a class or a function), or a **_React fragment type_**.<br/>
+Return a function that produces React elements of a given type. Like `React.createElement()`, the type argument can be either a `tag name string` (such as <strong>div</strong> or <strong>span</strong>), a `React component type` (a <strong>class</strong> or a <strong>function</strong>), or a `React fragment type`.
+
+This helper is considered legacy, and we encourage you to either use `JSX` or use `React.createElement()` directly instead.
+
 You will not typically invoke `React.createFactory()` directly if you are using JSX.
 
 ## Transforming Elements
 
 #### cloneElement()
 
-```javascript
-React.cloneElement(
-  element,
-  [props],
-  [...children]
-)
-```
+![ZU9zPH.png](https://s2.ax1x.com/2019/07/04/ZU9zPH.png)
 
-Clone and return a new `React` element using `element` as the starting point. <br/>
-The resulting element will have the original element’s props with the new props merged in shallowly. <br/>
-New children will replace existing children. `key` and `ref` from the original element will be preserved.
+Clone and return a new React element using `element` as the starting point. The resulting element will have the original element’s props with the new props merged in shallowly. New children will replace existing children. `key` and `ref` from the original element will be preserved.
+
+`React.cloneElement()` is almost equivalent to:
+
+![ZUCEdS.png](https://s2.ax1x.com/2019/07/04/ZUCEdS.png)
+
+However, it also preserves `ref`s. This means that if you get a child with a `ref` on it, you won’t accidentally steal it from your ancestor. You will get the same `ref` attached to your new element.
 
 #### isValidElement()
 
-```javascript
-React.isValidElement(object)
-```
+![ZUC0L6.png](https://s2.ax1x.com/2019/07/04/ZUC0L6.png)
 
-Verifies the object is a `React` element.<br/>
-Returns `true` or `false`
+Verifies the object is a React element. Returns `true` or `false`.
 
 #### React.Children
 
 `React.Children` provides utilities for dealing with the `this.props.children` opaque data structure.
 
-##### React.Children.map
+###### React.Children.map
+![ZUC5ef.png](https://s2.ax1x.com/2019/07/04/ZUC5ef.png)
 
-```javascript
-React.Children.map(children, function[(thisArg)])
-```
+Invokes a function on every immediate child contained within `children` with `this` set to `thisArg`. If `children` is an array it will be traversed and the function will be called for each child in the array. If children is `null` or `undefined`, this method will return `null` or `undefined` rather than an array.
 
-Invokes a function on every immediate child contained within `children` with `this`set to `thisArg`.<br>
-If children is an `array` it will be traversed and the function will be called for each child in the array.<br>
-If children is `null` or `undefined`, this method will return `null` or `undefined` rather than an array.<br>
-If children is a `Fragment` it will be treated as a single child and not traversed.
+> If `children` is a `Fragment` it will be treated as a single child and not traversed.
 
-##### React.Children.forEach
-
-```javascript
-React.Children.forEach(children, function[(thisArg)])
-```
+###### React.Children.forEach
+![ZUCbWj.png](https://s2.ax1x.com/2019/07/04/ZUCbWj.png)
 
 Like `React.Children.map()` but does not return an array.
 
-##### React.Children.count
+###### React.Children.count
+![ZUCXyq.png](https://s2.ax1x.com/2019/07/04/ZUCXyq.png)
 
-```javascript
-React.Children.count(children)
-```
+Returns the total number of components in `children`, equal to the number of times that a callback passed to `map` or `forEach` would be invoked.
 
-Returns the **_total number of components_** in children, equal to the number of times that a callback passed to `map` or `forEach` would be invoked.
+###### React.Children.only
+![ZUCzwT.png](https://s2.ax1x.com/2019/07/04/ZUCzwT.png)
 
-##### React.Children.only
-
-```javascript
-React.Children.only(children)
-```
-
-Verifies that `children` has only one child (a React element) and returns it.<br>
-Otherwise this method throws an error.<br>
+Verifies that `children` has only one child (a React element) and returns it. Otherwise this method throws an error.
 
 > `React.Children.only()` does not accept the return value of `React.Children.map()` because it is an array rather than a `React` element.
 
-##### React.Children.toArray
+###### React.Children.toArray
+![ZUPCY4.png](https://s2.ax1x.com/2019/07/04/ZUPCY4.png)
 
-```javascript
-React.Children.toArray(children)
-```
-
-Returns the children opaque data structure as a flat array with keys assigned to each child.
+Returns the `children` opaque data structure as a flat array with keys assigned to each child. Useful if you want to manipulate collections of children in your render methods, especially if you want to reorder or slice `this.props.children` before passing it down.
 
 > `React.Children.toArray()` changes keys to preserve the semantics of nested arrays when flattening lists of children. That is, `toArray` prefixes each key in the returned array so that each element’s key is scoped to the input array containing it.
 
@@ -178,16 +154,9 @@ Returns the children opaque data structure as a flat array with keys assigned to
 
 The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element
 
-```javascript
-render() {
-  return (
-    <React.Fragment>
-      Some text.
-      <h2>A heading</h2>
-    </React.Fragment>
-  );
-}
-```
+![ZUi2rt.png](https://s2.ax1x.com/2019/07/04/ZUi2rt.png)
+
+You can also use it with the shorthand `<></>` syntax.
 
 ## Refs
 
@@ -195,92 +164,88 @@ render() {
 
 `React.createRef` creates a `ref` that can be attached to `React` elements via the `ref` attribute.
 
-```javascript
-class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.inputRef = React.createRef();
-  }
-
-  render() {
-    return <input type="text" ref={this.inputRef} />;
-  }
-
-  componentDidMount() {
-    this.inputRef.current.focus();
-  }
-}
-```
+![ZUFFqx.png](https://s2.ax1x.com/2019/07/04/ZUFFqx.png)
 
 #### React.forwardRef
+`React.forwardRef` creates a React component that forwards the `ref` attribute it receives to another component below in the tree.
 
-`React.forwardRef` creates a `React` component that **_forwards the ref attribute it receives to another component below in the tree_**. This technique is not very common but is particularly useful in two scenarios:<br>
+`React.forwardRef` accepts a rendering function as an argument. React will call this function with `props` and `ref` as two arguments. This function should return a React node.
+![ZUFLSH.png](https://s2.ax1x.com/2019/07/04/ZUFLSH.png)
 
-- Forwarding refs to DOM components
-- Forwarding refs in higher-order-components
+This technique is not very common but is particularly useful in two scenarios:
 
-`React.forwardRef` accepts a rendering function as an argument.
-`React` will call this function with `props` and `ref` as two arguments.
-This function should return a `React` node.<br>
+###### Forwarding refs to DOM components
+Consider a `FancyButton` component that renders the native button DOM element:
+![ZUkLNT.png](https://s2.ax1x.com/2019/07/04/ZUkLNT.png)
 
-```javascript
-const FancyButton = React.forwardRef((props, ref) => (
-  <button ref={ref} className="FancyButton">
-    {props.children}
-  </button>
-));
+React components hide their implementation details, including their rendered output. Other components using `FancyButton` usually will not need to obtain a ref to the inner `button` DOM element. This is good because it prevents components from relying on each other’s DOM structure too much.
 
-// You can now get a ref directly to the DOM button:
-const ref = React.createRef();
-<FancyButton ref={ref}>Click me!</FancyButton>;
-```
+Although such encapsulation is desirable for application-level components like `FeedStory` or `Comment`, it can be inconvenient for highly reusable “leaf” components like `FancyButton` or `MyTextInput`. These components tend to be used throughout the application in a similar manner as a regular DOM `button` and `input`, and accessing their DOM nodes may be unavoidable for managing focus, selection, or animations.
 
-In the above example, `React` passes a `ref` given to `<FancyButton ref={ref}>` element as a second argument to the rendering function inside the `React.forwardRef` call. This rendering function passes the `ref` to the `<button ref={ref}>` element.
+Ref forwarding is an opt-in feature that lets some components take a ref they receive, and pass it further down (in other words, “forward” it) to a child.
 
-As a result, after `React` attaches the `ref`, `ref.current` will point directly to the `<button>` DOM element instance.
+In the example below, `FancyButton` uses `React.forwardRef` to obtain the `ref` passed to it, and then forward it to the DOM `button` that it renders:
+
+![ZUAiE6.png](https://s2.ax1x.com/2019/07/04/ZUAiE6.png)
+
+This way, components using `FancyButton` can get a ref to the underlying `button` DOM node and access it if necessary—just like if they used a DOM `button` directly.
+
+Here is a step-by-step explanation of what happens in the above example:
+
+1. We create a React ref by calling `React.createRef` and assign it to a ref variable.
+2. We pass our `ref` down to `<FancyButton ref={ref}>` by specifying it as a JSX attribute.
+3. React passes the `ref` to the `(props, ref) => ...` function inside `forwardRef` as a second argument.
+4. We forward this `ref` argument down to `<button ref={ref}>` by specifying it as a JSX attribute.
+5. When the ref is attached, `ref.current` will point to the `<button>` DOM node.
+
+> The second `ref` argument only exists when you define a component with `React.forwardRef` call. Regular function or class components don’t receive the `ref` argument, and ref is not available in props either.
+
+> Ref forwarding is not limited to DOM components. You can forward refs to class component instances, too.
+
+###### Forwarding refs in higher-order-components
+This technique can also be particularly useful with higher-order components (also known as `HOC`s). Let’s start with an example HOC that logs component props to the console:
+
+![ZUESJS.png](https://s2.ax1x.com/2019/07/04/ZUESJS.png)
+
+The “logProps” HOC passes all `props` through to the component it wraps, so the rendered output will be the same. For example, we can use this HOC to log all props that get passed to our “fancy button” component:
+
+![ZUEQy9.png](https://s2.ax1x.com/2019/07/04/ZUEQy9.png)
+
+There is one caveat to the above example: refs will not get passed through. That’s because `ref` is not a prop. Like `key`, it’s handled differently by React. If you add a ref to a HOC, the ref will refer to the outermost container component, not the wrapped component.
+
+This means that refs intended for our `FancyButton` component will actually be attached to the `LogProps` component:
+
+![ZUEwyd.png](https://s2.ax1x.com/2019/07/04/ZUEwyd.png)
+
+Fortunately, we can explicitly forward refs to the inner `FancyButton` component using the `React.forwardRef` API. `React.forwardRef` accepts a render function that receives `props` and `ref` parameters and returns a React node. For example:
+
+![ZUEsTP.png](https://s2.ax1x.com/2019/07/04/ZUEsTP.png)
 
 ## Suspense
+Suspense lets components “wait” for something before rendering. Today, Suspense only supports one use case: loading components dynamically with React.lazy. In the future, it will support other use cases like data fetching.
 
 #### React.lazy
+> `React.lazy` and Suspense are not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend `Loadable Components`.
 
-`React.lazy()` lets you define a component that is loaded dynamically.
-This helps **_reduce the bundle size to delay loading components that aren’t used during the initial render_**.
+The `React.lazy` function lets you render a dynamic import as a regular component.
 
-```javascript
-// This component is loaded dynamically
-const SomeComponent = React.lazy(() => import('./SomeComponent'));
-```
+<strong>Before: </strong>
+![ZUVSTx.png](https://s2.ax1x.com/2019/07/04/ZUVSTx.png)
 
-Note that rendering lazy components requires that there’s a `<React.Suspense>` component higher in the rendering tree. This is how you specify a loading indicator.
+<strong>After: </strong>
+![ZUVFpD.png](https://s2.ax1x.com/2019/07/04/ZUVFpD.png)
 
-> NOTE: Using `React.lazy` with dynamic import requires `Promises` to be available in the JS environment. This requires a polyfill on IE11 and below.
+This will automatically load the bundle containing the `OtherComponent` when this component gets rendered.
+
+`React.lazy` takes a function that must call a dynamic `import()`. This must return a `Promise` which resolves to a module with a `default` export containing a React component.
 
 #### React.Suspense
+If the module containing the `OtherComponent` is not yet loaded by the time `MyComponent` renders, we must show some fallback content while we’re waiting for it to load - such as a loading indicator. This is done using the `Suspense` component.
+![ZUV8Xj.png](https://s2.ax1x.com/2019/07/04/ZUV8Xj.png)
 
-`React.Suspense` let you specify the loading indicator in case some components in the tree below it are not yet ready to render. <br>
-Today, lazy loading components is the only use case supported by `<React.Suspense>`:
+The `fallback` prop accepts any React elements that you want to render while waiting for the component to load. You can place the `Suspense` component anywhere above the lazy component. You can even wrap multiple lazy components with a single `Suspense` component.
 
-```javascript
-// This component is loaded dynamically
-const OtherComponent = React.lazy(() => import('./OtherComponent'));
-
-function MyComponent() {
-  return (
-    // Displays <Spinner> until OtherComponent loads
-    <React.Suspense fallback={<Spinner />}>
-      <div>
-        <OtherComponent />
-      </div>
-    </React.Suspense>
-  );
-}
-```
-
-Note that lazy components can be deep inside the `Suspense` tree — it doesn’t have to wrap every one of them.<br>
-The best practice is to place `<Suspense>` where you want to see a loading indicator, but to use `lazy()` wherever you want to do code splitting.
-
-> `React.lazy()` and `<React.Suspense>` are not yet supported by ReactDOMServer. This is a known limitation that will be resolved in the future.
+![ZUVRN6.png](https://s2.ax1x.com/2019/07/04/ZUVRN6.png)
 
 ## Hooks
 Hooks let you use `state` and `other React features` without writing a `class`.
