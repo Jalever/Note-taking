@@ -9,7 +9,7 @@ catalog: true
 tags:
   - Database
 ---
-- [常用命令](#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
+- [Basics](#basics)
     - [创建数据库](#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93)
     - [删除数据库](#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93)
     - [列出所有存在的数据库](#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E5%AD%98%E5%9C%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93)
@@ -35,14 +35,34 @@ tags:
 - [FAQ](#faq)
     - [mysql: not found](#mysql-not-found)
 
-## 常用命令
+## Basics
 
-| 命令                                                                      | 描述                        |
-| ------------------------------------------------------------------------- | --------------------------- |
-| select version(),current_date;                                            | 显示当前mysql版本和当前日期 |
-| exit                                                                      | 断开数据库连接              |
-| quit                                                                      | 断开数据库连接              |
-| mysql -u 用户名 -p密码 -h 服务器IP地址 -P 服务器端MySQL端口号 -D 数据库名 | 连接数据库                  |
+<table>
+    <thead>
+        <tr>
+            <td>Command</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mysql -V</td>
+            <td>Check MySQL Version</td>
+        </tr>
+        <tr>
+            <td>mysql -u root -p</td>
+            <td>Log in to your MySQL</td>
+        </tr>
+        <tr>
+            <td>exit;</td>
+            <td>exit MySQL</td>
+        </tr>
+        <tr>
+            <td>quit;</td>
+            <td>exit MySQL</td>
+        </tr>
+    </tbody>
+</table>
 
 #### 创建数据库
 
@@ -192,5 +212,6 @@ DELETE FROM table_name WHERE table_column="table_column_name";
 ```
 
 ## FAQ
-#### mysql: not found
-> export PATH="/usr/local/mysql/bin:$PATH"
+1.<strong>bash: mysql: command not found...</strong>
+
+export PATH="/usr/local/mysql/bin:$PATH"
