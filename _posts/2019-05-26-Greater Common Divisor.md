@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Greater Common Divisor
-subtitle: Mathematics学习笔记系列
+subtitle: Mathematics
 date: 2019-05-26
 author: Jalever
-header-img: img/post_2019_react_contextAPI_bg.png
+header-img: img/home-bg-math.jpg
 catalog: true
 tags:
   - Algorithm

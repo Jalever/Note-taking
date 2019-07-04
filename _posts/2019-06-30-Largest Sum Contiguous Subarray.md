@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Largest Sum Contiguous Subarray
-subtitle: Dynamic Programming学习笔记系列
-date: 2019-06-30
+subtitle: Dynamic Programming Paradigm
+date: 2019-07-01
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true

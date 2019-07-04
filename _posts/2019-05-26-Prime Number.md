@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Prime Number
-subtitle: Algorithm学习笔记系列
+subtitle: Mathematics
 date: 2019-05-26
 author: Jalever
-header-img: img/post-bg-algorithm.jpg
+header-img: img/home-bg-math.jpg
 catalog: true
 tags:
   - Algorithm

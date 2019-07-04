@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (DS Graph)Prim Shortest Path Algorithm
+title: (DS Graph)Prim Minimum Spanning Tree
 subtitle: Data Structure Graph学习笔记系列
 date: 2019-06-08
 author: Jalever

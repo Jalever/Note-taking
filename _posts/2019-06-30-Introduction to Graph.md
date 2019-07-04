@@ -2,7 +2,7 @@
 layout: post
 title: (DS Graph)Graph Overview
 subtitle: Data Structure Graph学习笔记系列
-date: 2019-06-30
+date: 2019-05-29
 author: Jalever
 header-img: img/post-bg-star.jpg
 catalog: true
@@ -34,6 +34,19 @@ tags:
         - [Undirected Graph and Adjacency List](#undirected-graph-and-adjacency-list)
         - [Directed Graph and Adjacency List](#directed-graph-and-adjacency-list)
         - [Weighted Directed Graph and Adjacency List](#weighted-directed-graph-and-adjacency-list)
+- [Operations](#operations)
+    - [Traversal](#traversal)
+        - [BFS](#bfs)
+        - [DFS](#dfs)
+    - [Minimum Spanning Tree](#minimum-spanning-tree)
+        - [Prim](#prim)
+        - [Kruskal](#kruskal)
+    - [Shortest Path First Algorithm](#shortest-path-first-algorithm)
+        - [Dijkstra](#dijkstra)
+        - [Floyd-Washall Algorithm](#floyd-washall-algorithm)
+    - [Sorting](#sorting)
+        - [Topological Sorting](#topological-sorting)
+
 
 ## Overview
 A graph can be defined as group of vertices and edges that are used to connect these vertices. A graph can be seen as a cyclic tree, where the vertices (Nodes) maintain any complex relationship among them instead of having parent child relationship.
@@ -140,3 +153,19 @@ In a directed graph, the sum of lengths of all the adjacency lists is equal to t
 In the case of weighted directed graph, each node contains an extra field that is called the weight of the node. The adjacency list representation of a directed graph is shown in the following figure.
 
 ![Z1NVzT.png](https://s2.ax1x.com/2019/06/30/Z1NVzT.png)
+
+## Operations
+#### Traversal
+###### BFS
+###### DFS
+
+#### Minimum Spanning Tree
+###### Prim
+###### Kruskal
+
+#### Shortest Path First Algorithm
+###### Dijkstra
+###### Floyd-Washall Algorithm
+
+#### Sorting
+###### Topological Sorting

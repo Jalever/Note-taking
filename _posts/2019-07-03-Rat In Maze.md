@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rat in Maze
-subtitle: Backtracking学习笔记系列
+subtitle: Backtracking Paradigm
 date: 2019-07-03
 author: Jalever
 header-img: img/post-bg-algorithm.jpg

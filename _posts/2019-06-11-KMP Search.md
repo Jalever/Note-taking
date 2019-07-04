@@ -1,7 +1,7 @@
 ---
 layout: post
 title: KMP Algorithm for Pattern Searching
-subtitle: Pattern Searching学习笔记系列
+subtitle: Pattern Searching Paradigm
 date: 2019-06-11
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
