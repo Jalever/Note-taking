@@ -1,13 +1,13 @@
 ---
 layout: post
-title: MySQL数据库常用命令
-subtitle: MySQL学习笔记系列
-date: 2019-03-29
+title: (MySQL)Common SQL Statement
+subtitle: SQL Tutorial
+date: 2019-04-17
 author: Jalever
-header-img: img/home-bg-geek.jpg
+header-img: img/home_bg_whale.png
 catalog: true
 tags:
-  - MySQL
+  - Database
 ---
 - [常用命令](#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
     - [创建数据库](#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93)

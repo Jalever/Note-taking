@@ -1,13 +1,13 @@
 ---
 layout: post
-title: SQL Data Types
-subtitle: MySQL学习笔记系列
+title: (MySQL)SQL Data Types
+subtitle: SQL Tutorial
 date: 2019-04-17
 author: Jalever
-header-img: img/home-bg-geek.jpg
+header-img: img/home_bg_whale.png
 catalog: true
 tags:
-  - MySQL
+  - Database
 ---
 
 - [Text Data Types](#text-data-types)

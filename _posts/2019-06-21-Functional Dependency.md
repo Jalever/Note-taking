@@ -1,13 +1,13 @@
 ---
 layout: post
 title: Functional Dependency
-subtitle: DBMS学习笔记系列
+subtitle: Relational Database Theory
 date: 2019-06-21
 author: Jalever
-header-img: img/home-bg-geek.jpg
+header-img: img/home_bg_whale.png
 catalog: true
 tags:
-  - DBMS
+  - Database
 ---
 
 ## Overview
