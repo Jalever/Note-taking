@@ -14,6 +14,8 @@ tags:
     - [Naive Algorithm](#naive-algorithm)
     - [Divide And Conquer Algorithm](#divide-and-conquer-algorithm)
 - [Implementation using Divide and Conquer Algorithm in CPP](#implementation-using-divide-and-conquer-algorithm-in-cpp)
+    - [Time Complexity](#time-complexity)
+- [Comparison with Kadane Algorithm](#comparison-with-kadane-algorithm)
 
 ## Introduction
 You are given a one dimensional array that may contain both positive and negative integers, find the sum of contiguous subarray of numbers which has the largest sum.
@@ -94,3 +96,13 @@ int main() {
 	return 0;
 }
 ```
+
+#### Time Complexity
+`getMaximumSubarraySum()` is a recursive method and time complexity can be expressed as following recurrence relation.
+```
+T(n) = 2T(n/2) + Θ(n)
+```
+The above recurrence is similar to Merge Sort and can be solved either using Recurrence Tree method or Master method. It falls in case II of Master Method and solution of the recurrence is `Θ(nLogn)`.
+
+## Comparison with Kadane Algorithm
+The [Kadane Algorithm](https://jalever.github.io/2019/07/01/Largest-Sum-Contiguous-Subarray/) for this problem takes `O(n)` time. Therefore the Kadane’s algorithm is better than the Divide and Conquer approach, but this problem can be considered as a good example to show power of Divide and Conquer.
