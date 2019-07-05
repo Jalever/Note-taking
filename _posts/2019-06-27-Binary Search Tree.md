@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Tree)Binary Search Tree
-subtitle: Data Structure Tree学习笔记系列
+subtitle: Data Structure Tree
 date: 2019-06-27
 author: Jalever
 header-img: img/post-bg-star.jpg

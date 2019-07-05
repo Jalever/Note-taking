@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Graph)Graph Overview
-subtitle: Data Structure Graph学习笔记系列
+subtitle: Data Structure Graph
 date: 2019-05-29
 author: Jalever
 header-img: img/post-bg-star.jpg

@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Disjoint Set (Or Union-Find)[Union By Rank and Path Compression]
-subtitle: Algorithm学习笔记系列
-date: 2019-06-06
+title: (DS Graph)Disjoint Set (Or Union-Find)[Union By Rank and Path Compression]
+subtitle: Data Structure Graph
+date: 2019-06-02
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 
 ## Optimization

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: CSS Pseudo Classes
-subtitle: CSS学习笔记系列
+subtitle: CSS
 date: 2019-06-19
 author: Jalever
 header-img: img/css_bg_simple.png

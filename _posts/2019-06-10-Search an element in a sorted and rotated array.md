@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Search an element in a sorted and rotated array
-subtitle: Array Rotations学习笔记系列5
+title: (DS Array)Search an element in a sorted and rotated array
+subtitle: Array Rotations 5
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3};<br/>
          key = 3<br/>

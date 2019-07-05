@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Reversal Rotation
-subtitle: Array Rotations学习笔记系列2
+title: (DS Array)Reversal Rotation
+subtitle: Array Rotations 2
 date: 2019-06-08
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 ## Overview
 Let AB are the two parts of the input array where A = arr[0..d-1] and B = arr[d..n-1]. The idea of the algorithm is :
@@ -61,5 +61,5 @@ int main() {
 #### Time Complexity
 Time Complexity : O(n)
 
-## Links 
+## Links
 [Reversal Rotation](https://www.geeksforgeeks.org/program-for-array-rotation-continued-reversal-algorithm/)

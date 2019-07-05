@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Disjoint Set (Or Union-Find)[Detect Cycle in an Undirected Graph]
-subtitle: Algorithm学习笔记系列
-date: 2019-06-06
+title: (DS Graph)Disjoint Set (Or Union-Find)[Detect Cycle in an Undirected Graph]
+subtitle: Data Structure Graph
+date: 2019-06-02
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
 tags:
-  - Algorithm
+  - Data Structure
 ---
 
 A disjoint-set data structure is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets.
