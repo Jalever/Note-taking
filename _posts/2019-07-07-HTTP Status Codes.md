@@ -86,5 +86,78 @@ Responses are grouped in five classes:
             <td>226</td>
             <td>IM Used</td>
         </tr>
+        <tr>
+            <td colspan="2">3×× Redirection</td>
+        </tr>
+        <tr>
+            <td>300</td>
+            <td>Multiple Choices</td>
+        </tr>
+        <tr>
+            <td>301</td>
+            <td>Moved Permanently</td>
+        </tr>
+        <tr>
+            <td>302</td>
+            <td>Found</td>
+        </tr>
+        <tr>
+            <td>303</td>
+            <td>See Other</td>
+        </tr>
+        <tr>
+            <td>304</td>
+            <td>Not Modified</td>
+        </tr>
+        <tr>
+            <td>305</td>
+            <td>Use Proxy</td>
+        </tr>
+        <tr>
+            <td>307</td>
+            <td>Temporary Redirect</td>
+        </tr>
+        <tr>
+            <td>308</td>
+            <td>Permanent Redirect</td>
+        </tr>
+        <tr>
+            <td colspan="2">4×× Client Error</td>
+        </tr>
+        <tr>
+            <td>400</td>
+            <td>Bad Request</td>
+        </tr>
+        <tr>
+            <td>401</td>
+            <td>Unauthorized</td>
+        </tr>
+        <tr>
+            <td>402</td>
+            <td>Payment Required</td>
+        </tr>
+        <tr>
+            <td>403</td>
+            <td>Forbidden</td>
+        </tr>
+        <tr>
+            <td>404</td>
+            <td>Not Found</td>
+        </tr>
+        <tr>
+            <td>405</td>
+            <td>Method Not Allowed</td>
+        </tr>
+        <tr>
+            <td>406</td>
+            <td>Not Acceptable</td>
+        </tr>
+        <tr>
+            <td colspan="2">5×× Server Error</td>
+        </tr>
+        <tr>
+            <td>500</td>
+            <td>Internal Server Error</td>
+        </tr>
     </tbody>
 </table>
