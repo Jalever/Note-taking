@@ -1,14 +1,13 @@
 ---
 layout: post
 title: Hooks API Reference
-subtitle: React Hooks学习笔记系列 7
+subtitle: React Hooks API
 date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React Hooks
 ---
 
 - [Table of Contents](#table-of-contents)
@@ -348,7 +347,7 @@ function useFriendStatus(friendID) {
 }
 ```
 Don’t recommend adding debug values to every custom `Hook`.
-###### Defer formatting debug values 
+###### Defer formatting debug values
 In some cases formatting a value for display might be an expensive operation.<br>
 It’s also unnecessary unless a Hook is actually inspected.
 

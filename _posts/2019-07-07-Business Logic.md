@@ -36,7 +36,7 @@ There will be also <strong>Business Rules</strong> of the website:
 - Specific formats that the visitor's address, email address, and credit card information must follow.
 - A specific communication protocol for talking to the credit card network
 
-The web site software also contains other code which is not considered part of <strong>Business Logic</strong> nor business rules:
+The web site software also contains other code which is not considered part of <strong>Business Logic</strong> nor <strong>Business Rules</strong>:
 - Peripheral content not related to the core business data, such as the HTML that defines the colors, appearance, background image, and navigational structure of the site
 - Generic error-handling code (e.g. which displays the HTTP Error Code 500 page)
 - Initialization code that runs when the web server starts up the site, which sets up the system

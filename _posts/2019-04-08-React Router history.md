@@ -1,14 +1,13 @@
 ---
 layout: post
-title: history
-subtitle: React Router API学习笔记系列
+title: (React Router)history
+subtitle: React Router API
 date: 2019-04-08
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React Router
 ---
 
 - [Preface](#preface)
@@ -79,17 +78,17 @@ The `URL` hash fragment
 location-specific state that was provided to e.g. `push`(path, state) when this location was pushed onto the stack. <br>
 Only available in **_browser_** and **_memory_** history.
 
-#### push(path, [state]) - (function) 
+#### push(path, [state]) - (function)
 Pushes a new entry onto the history stack
-#### replace(path, [state]) - (function) 
+#### replace(path, [state]) - (function)
 Replaces the current entry on the history stack
-#### go(n) - (function) 
+#### go(n) - (function)
 Moves the pointer in the history stack by n entries
-#### goBack() - (function) 
+#### goBack() - (function)
 Equivalent to go(-1)
-#### goForward() - (function) 
+#### goForward() - (function)
 Equivalent to go(1)
-#### block(prompt) - (function) 
+#### block(prompt) - (function)
 Prevents navigation
 
 

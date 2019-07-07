@@ -1,10 +1,10 @@
 ---
 layout: post
-title: React.Component笔记
-subtitle: React学习笔记系列
+title: React Component
+subtitle: React Lifecycle Methods
 date: 2019-03-26
 author: Jalever
-header-img: img/post_2019_react_bg.png
+header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Sorting)Bubble Sort
-subtitle: Data Structure Sorting学习笔记系列
+subtitle: Data Structure Sorting
 date: 2019-05-17
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg

@@ -1,14 +1,13 @@
 ---
 layout: post
-title: mapStateToProps
-subtitle: React Redux学习笔记系列
+title: (React Redux)mapStateToProps
+subtitle: React Redux
 date: 2019-04-03
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
   - React
-  - React Redux
 ---
 
 ## Table of Contents
