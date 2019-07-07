@@ -9,6 +9,17 @@ catalog: true
 tags:
   - Computer Network
 ---
+
+- [Introduction](#introduction)
+- [Overview](#overview)
+- [Meaning](#meaning)
+    - [1×× Informational](#1××-informational)
+    - [2×× Success](#2××-success)
+    - [3×× Redirection](#3××-redirection)
+    - [4×× Client Error](#4××-client-error)
+        - [402 Payment Required](#402-payment-required)
+    - [5×× Server Error](#5××-server-error)
+
 ## Introduction
 HTTP Response Status Codes indicate whether a specific HTTP request has been successfully completed.
 
@@ -161,3 +172,16 @@ Responses are grouped in five classes:
         </tr>
     </tbody>
 </table>
+
+## Meaning
+#### 1×× Informational
+
+#### 2×× Success
+
+#### 3×× Redirection
+
+#### 4×× Client Error
+###### 402 Payment Required
+Reserved for future use.
+
+#### 5×× Server Error
