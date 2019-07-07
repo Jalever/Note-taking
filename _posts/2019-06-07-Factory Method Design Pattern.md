@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Factory Method Pattern
-subtitle: Design Pattern学习笔记系列
+subtitle: Creational Pattern
 date: 2019-06-07
 author: Jalever
-header-img: img/home_bg_tree.png
+header-img: img/design_pattern_bg_simple.png
 catalog: true
 tags:
   - Design Pattern

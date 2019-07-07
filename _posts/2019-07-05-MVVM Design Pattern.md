@@ -22,7 +22,7 @@ tags:
     - [JavaScript frameworks](#javaScript-frameworks)
 
 ## Overview
-<strong>odel–View–ViewModel</strong>(MVVM) is a <strong>Software Architectural Pattern</strong>.
+<strong>Model–View–ViewModel</strong>(MVVM) is a <strong>Software Architectural Pattern</strong>.
 
 <strong>MVVM</strong> facilitates a separation of development of the Graphical User Interface – be it via a markup language or GUI code – from development of the business logic or back-end logic (the data model).
 
@@ -32,14 +32,16 @@ The <strong>View Model</strong> of MVVM is a value converter, meaning the <stron
 
 <strong>MVVM</strong> was invented by Microsoft architects <strong>Ken Cooper</strong> and <strong>Ted Peters</strong> specifically to simplify event-driven programming of user interfaces. The pattern was incorporated into `Windows Presentation Foundation` (WPF) (Microsoft's .NET graphics system) and Silverlight (WPF's Internet application derivative). John Gossman, one of Microsoft's WPF and Silverlight architects, announced <strong>MVVM</strong> on his blog in 2005.
 
-<strong>odel–View–ViewModel</strong> is also referred to as <strong>Model–View–Binder</strong>, especially in implementations not involving the `.NET` platform. `ZK` (a web application framework written in Java) and `KnockoutJS` (a JavaScript library) use <strong>Model–View–Binder</strong>.
+<strong>Model–View–ViewModel</strong> is also referred to as <strong>Model–View–Binder</strong>, especially in implementations not involving the `.NET` platform. `ZK` (a web application framework written in Java) and `KnockoutJS` (a JavaScript library) use <strong>Model–View–Binder</strong>.
 
 ![Zdoces.png](https://s2.ax1x.com/2019/07/05/Zdoces.png)
 
 ## Components of MVVM pattern
 
 #### Model
-<strong>Model</strong> refers either to a `domain model`, which represents real state content (an object-oriented approach), or to the `Data Access Layer`, which represents content (a data-centric approach)
+<strong>Model</strong> refers either to a `domain model`, which represents real state content (an Object-Oriented Approach), or to the `Data Access Layer`, which represents content (a Data-Centric Approach)
+
+The <strong>Model</strong> represents the actual data and/or information we are dealing with.
 
 #### View
 As in the <strong>odel-View-Controller</strong>(MVC) and <strong>Model-View-Presenter</strong>(MVP) patterns, the <strong>View</strong> is the structure, layout, and appearance of what a user sees on the screen. It displays a representation of the <strong>Model</strong> and receives the user's interaction with the <strong>View</strong> (clicks, keyboard, gestures, etc.), and it forwards the handling of these to the <strong>View Model</strong> via the data binding (properties, event callbacks, etc.) that is defined to link the <strong>View</strong> and <strong>View Model</strong>.

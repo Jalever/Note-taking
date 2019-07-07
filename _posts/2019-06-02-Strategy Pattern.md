@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Strategy Pattern
-subtitle: Design Pattern学习笔记系列
-date: 2019-06-02
+subtitle: Behavioral Pattern
+date: 2019-06-09
 author: Jalever
-header-img: img/home_bg_tree.png
+header-img: img/design_pattern_bg_simple.png
 catalog: true
 tags:
   - Design Pattern
