@@ -7,7 +7,7 @@ author: Jalever
 header-img: img/home_bg_tree.png
 catalog: true
 tags:
-  - Node.js
+  - Web Development
 ---
 - [Overview](#overview)
 - [Details and Example](#details-and-example)

@@ -1,14 +1,13 @@
 ---
 layout: post
-title: String属性和方法
-subtitle: 原生JavaScript学习笔记系列 
-date: 2019-04-12
+title: String
+subtitle: Javascript Standard Built-in Object
+date: 2019-03-26
 author: Jalever
-header-img: img/post_2019_react_bg_shadow.jpg
+header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
-  - String
-  - Plain JavaScript
+  - JavaScript
 ---
 
 ## Properties

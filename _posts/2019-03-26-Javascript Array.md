@@ -1,14 +1,13 @@
 ---
-layout:     post
-title:      Array属性与方法
-subtitle:   原生JavaScript学习笔记系列
-date:       2019-03-26
-author:     Jalever
+layout: post
+title: Array
+subtitle: Javascript Standard Built-in Object
+date: 2019-03-26
+author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
     - JavaScript
-    - Plain JavaScript
 ---
 
 
@@ -56,7 +55,7 @@ const numbers = [4, 9, 16, 25];
 numbers.forEach( (currentValue, index, arr) => {
 	console.log("index[" + index + "]: " + currentValue);
 } );
-//expected output: 
+//expected output:
 // index[0]: 4
 // index[1]: 9
 // index[2]: 16
@@ -100,7 +99,7 @@ const numbers = [43,222,32,1];
 numbers.forEach( (currentValue, index, arr) => {
 	console.log("index[" + index + "]: " + currentValue);
 } );
-//expected output: 
+//expected output:
 // index[0]: 43
 // index[1]: 222
 // index[2]: 32
@@ -152,7 +151,7 @@ var sum = numbers.reduce( (total, currentValue, currentIndex, arr) => {
 } );
 
 console.log("Sum: " + sum);
-//expected output: 
+//expected output:
 //Sum: 200
 ```
 
@@ -201,7 +200,7 @@ console.log(Array.from([1, 2, 3], x => x + x));
 
 #### Array from a String
 ```
-Array.from('foo'); 
+Array.from('foo');
 // [ "f", "o", "o" ]
 ```
 
@@ -265,7 +264,7 @@ For example, "banana" comes before "cherry". In a numeric sort, 9 comes before 8
 
 All `undefined` elements are sorted to the end of the array.<br/>
 
-If `compareFunction` is supplied, all `non-undefined` array elements are sorted according to the return value of the compare function (all `undefined` elements are sorted to the end of the array, with no call to `compareFunction`). 
+If `compareFunction` is supplied, all `non-undefined` array elements are sorted according to the return value of the compare function (all `undefined` elements are sorted to the end of the array, with no call to `compareFunction`).
 
 If `a` and `b` are two elements being compared, then:
 
@@ -279,7 +278,7 @@ If `a` and `b` are two elements being compared, then:
 
 #### Syntax
 ##### Parameters
-* compareFunction 
+* compareFunction
 Specifies a function that defines the sort order.<br/>
 If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.  <br/>
 	* firstEl
@@ -288,7 +287,7 @@ If omitted, the array is sorted according to each character's Unicode code point
 		* The second element for comparison.
 
 ##### Return value
-The sorted array. 
+The sorted array.
 > Note that the array is sorted in place, and no copy is made.
 
 #### Usage

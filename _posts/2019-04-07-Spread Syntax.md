@@ -1,14 +1,13 @@
 ---
 layout: post
 title: Spread Syntax
-subtitle: 原生JavaScript学习笔记系列
+subtitle: Javascript Reference
 date: 2019-04-07
 author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
   - JavaScript
-  - Plain JavaScript
 ---
 
 ## Definition
