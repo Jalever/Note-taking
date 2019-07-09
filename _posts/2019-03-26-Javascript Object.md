@@ -95,9 +95,9 @@ Two values are the same if one of the following holds:
 
 1.<strong>Parameters</strong>
 - <strong>value1</strong>
-    The first value to compare.
+    - The first value to compare.
 - <strong>value2</strong>
-The second value to compare.
+    - The second value to compare.
 
 2.<strong>Return value</strong>
 A `Boolean` indicating whether or not the two arguments are the same value.

@@ -1,13 +1,13 @@
 ---
 layout: post
 title: How to Use V2ray
-subtitle: Typescript学习笔记系列
+subtitle: Getting Cross the GFW
 date: 2019-05-25
 author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
-  - VPS
+  - Server
 ---
 
 ## command lines

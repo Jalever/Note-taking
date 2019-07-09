@@ -1,7 +1,7 @@
 ---
 layout: post
 title: XMLHttpRequest
-subtitle: AJAX学习笔记系列
+subtitle: AJAX Tutorial
 date: 2019-04-12
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: ReactDOM
-subtitle: React学习笔记系列
+title: ReactDOMServer
+subtitle: React API Reference
 date: 2019-04-01
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg

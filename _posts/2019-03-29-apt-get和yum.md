@@ -1,13 +1,13 @@
 ---
 layout: post
-title: apt-get和yum命令
-subtitle: Linux学习笔记系列
+title: (Linux)apt-get and yum Command
+subtitle: Linux Tutorial
 date: 2019-03-29
 author: Jalever
 header-img: img/home-bg-geek.jpg
 catalog: true
 tags:
-  - Linux
+  - Server
 ---
 
 - [Preface](#preface)
@@ -22,9 +22,9 @@ tags:
 2. `deb`包主要应用于`Debian`系列
 3. `Ubuntu`
 - 安装
-> apt-get install <package_name> 
+> apt-get install <package_name>
 - 卸载
-> apt-get remove <package_name> 
+> apt-get remove <package_name>
 - 更新
 > apt-get update <package_name>
 
@@ -34,8 +34,8 @@ tags:
 3. `Fedora`
 4. `CentOS`
 - 安装
-> yum install <package_name> 
+> yum install <package_name>
 - 卸载
-> yum remove <package_name> 
+> yum remove <package_name>
 - 更新
-> yum update <package_name> 
+> yum update <package_name>

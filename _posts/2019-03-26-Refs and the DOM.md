@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Refs and the DOM
-subtitle: React学习笔记系列
+subtitle: React Advanced Guides
 date: 2019-03-26
 author: Jalever
 header-img: img/post_2019_react_bg.png

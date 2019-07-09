@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Array
+title: Array Properties and Methods
 subtitle: Javascript Standard Built-in Object
 date: 2019-03-26
 author: Jalever
@@ -9,18 +9,142 @@ catalog: true
 tags:
     - JavaScript
 ---
-
-
-
-## Title
-1. [forEach](#forEach)
-2. [map](#map)
-3. [reduce](#reduce)
-4. [from](#from)
-5. [sort](#sort)
+- [Properties](#properties)
+    - [Array.length](#arraylength)
+    - [Array.prototype](#arrayprototype)
+- [Methods](#methods)
+    - [Array.from()](#arrayfrom)
+    - [Array.isArray()](#arrayisarray)
+    - [Array.observe()](#arrayobserve)
+    - [Array.of()](#arrayof)
+    - [Array.prototype.concat()](#arrayprototypeconcat)
+    - [Array.prototype.copyWithin()](#arrayprototypecopywithin)
+    - [Array.prototype.entries()](#arrayprototypeentries)
+    - [Array.prototype.every()](#arrayprototypeevery)
+    - [Array.prototype.fill()](#arrayprototypefill)
+    - [Array.prototype.filter()](#arrayprototypefilter)
+    - [Array.prototype.find()](#arrayprototypefind)
+    - [Array.prototype.findIndex()](#arrayprototypefindindex)
+    - [Array.prototype.flat()](#arrayprototypeflat)
+    - [Array.prototype.flatMap()](#arrayprototypeflatmap)
+    - [Array.prototype.forEach()](#arrayprototypeforeach)
+    - [Array.prototype.includes()](#arrayprototypeincludes)
+    - [Array.prototype.indexOf()](#arrayprototypeindexof)
+    - [Array.prototype.join()](#arrayprototypejoin)
+    - [Array.prototype.keys()](#arrayprototypekeys)
+    - [Array.prototype.lastIndexOf()](#arrayprototypelastindexof)
+    - [Array.prototype.map()](#arrayprototypemap)
+    - [Array.prototype.pop()](#arrayprototypepop)
+    - [Array.prototype.push()](#arrayprototypepush)
+    - [Array.prototype.reduce()](#arrayprototypereduce)
+    - [Array.prototype.reduceRight()](#arrayprototypereduceright)
+    - [Array.prototype.reverse()](#arrayprototypereverse)
+    - [Array.prototype.shift()](#arrayprototypeshift)
+    - [Array.prototype.slice()](#arrayprototypeslice)
+    - [Array.prototype.some()](#arrayprototypesome)
+    - [Array.prototype.sort()](#arrayprototypesort)
+    - [Array.prototype.splice()](#arrayprototypesplice)
+    - [Array.prototype.toLocaleString()](#arrayprototypetoLocalestring)
+    - [Array.prototype.toString()](#arrayprototypetostring)
+    - [Array.prototype.unshift()](#arrayprototypeunshift)
+    - [Array.prototype.values()](#arrayprototypevalues)
 
 ----------------------------------------------------------------------------
-## forEach
+
+#### Array.from()
+###### Definition
+&ensp;&ensp;The <ins>***Array.from&#40;&#41;***</ins> method creates a new, shallow-copied <ins>***Array***</ins> instance from an array-like or iterable object.
+
+Array.from() lets you create Arrays from:
+* array-like objects (objects with a length property and indexed elements)
+* iterable objects (objects where you can get its elements, such as Map and Set).
+
+`Array.from()` has an optional parameter `mapFn`, which allows you to execute a `map` function on each element of the array (or subclass object) that is being created. More clearly, `Array.from(obj, mapFn, thisArg)` has the same result as `Array.from(obj).map(mapFn, thisArg)`, except that it does not create an intermediate array. This is especially important for certain array subclasses, like typed arrays, since the intermediate array would necessarily have values truncated to fit into the appropriate type.
+
+The `length` property of the `from()` method is 1.
+
+###### Syntax
+![Zydbm6.png](https://s2.ax1x.com/2019/07/09/Zydbm6.png)
+
+1.<strong>Parameters</strong>
+    - <strong>arrayLike</strong>
+        - Required
+        - An array-like or iterable object to convert to an array
+    - <strong>mapFn</strong>
+        - Optional
+        - Map function to call on every element of the array
+    - <strong>thisArg</strong>
+        - Optional
+        - Value to use as `this` when executing `mapFn`
+2.<strong>Return value</strong>
+A new `Array` instance.
+
+###### Usage
+1.<strong>Basic</strong>
+```
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+```
+
+2.<strong>Array from a String</strong>
+```
+Array.from('foo');
+// [ "f", "o", "o" ]
+```
+
+3.<strong>Array from a Set</strong>
+```
+const set = new Set(['foo', 'bar', 'baz', 'foo']);
+Array.from(set);
+// [ "foo", "bar", "baz" ]
+```
+
+4.<strong>Array from a Map</strong>
+```
+const map = new Map([[1, 2], [2, 4], [4, 8]]);
+Array.from(map);
+// [[1, 2], [2, 4], [4, 8]]
+
+const mapper = new Map([['1', 'a'], ['2', 'b']]);
+Array.from(mapper.values());
+// ['a', 'b'];
+
+Array.from(mapper.keys());
+// ['1', '2'];
+```
+
+5.<strong>Array from an Array-like object (arguments)</strong>
+```
+function f() {
+  return Array.from(arguments);
+}
+
+f(1, 2, 3);
+
+// [ 1, 2, 3 ]
+```
+
+6.<strong>Using arrow functions and Array.from</strong>
+```
+// Using an arrow function as the map function to
+// manipulate the elements
+Array.from([1, 2, 3], x => x + x);      
+// [2, 4, 6]
+
+
+// Generate a sequence of numbers
+// Since the array is initialized with `undefined` on each position,
+// the value of `v` below will be `undefined`
+Array.from({length: 5}, (v, i) => i);
+// [0, 1, 2, 3, 4]
+```
+
+----------------------------------------------------------------------------
+
+## Array.prototype.forEach()
 #### Definition
 &ensp;&ensp;The forEach() method calls a provided function once for each element in an array, in order.
 > Note: forEach() does not execute the function for array elements without values.
@@ -62,7 +186,7 @@ numbers.forEach( (currentValue, index, arr) => {
 // index[3]: 25
 ```
 ----------------------------------------------------------------------------
-## map
+## Array.prototype.map()
 #### Definition
 &ensp;&ensp;The map() method creates a new array with the results of calling a function for every array element.<br/>
 &ensp;&ensp;The map() method calls the provided function once for each element in an array, in order.<br/>
@@ -108,7 +232,7 @@ numbers.forEach( (currentValue, index, arr) => {
 
 ----------------------------------------------------------------------------
 
-## reduce
+## Array.prototype.reduce()
 #### Definition
 &ensp;&ensp;The reduce() method reduces the array to a single value.
 &ensp;&ensp;The reduce() method executes a provided function for each value of the array (from left-to-right).
@@ -157,103 +281,7 @@ console.log("Sum: " + sum);
 
 ----------------------------------------------------------------------------
 
-## from
-#### Definition
-&ensp;&ensp;The <ins>***Array.from&#40;&#41;***</ins> method creates a new, shallow-copied <ins>***Array***</ins> instance from an array-like or iterable object.
-
-Array.from() lets you create Arrays from:
-* array-like objects (objects with a length property and indexed elements)
-* iterable objects (objects where you can get its elements, such as Map and Set).
-
-`Array.from()` has an optional parameter `mapFn`, which allows you to execute a `map` function on each element of the array (or subclass object) that is being created. More clearly, `Array.from(obj, mapFn, thisArg)` has the same result as `Array.from(obj).map(mapFn, thisArg)`, except that it does not create an intermediate array. This is especially important for certain array subclasses, like typed arrays, since the intermediate array would necessarily have values truncated to fit into the appropriate type.
-
-The `length` property of the `from()` method is 1.
-
-#### Syntax
-`Array.from(arrayLike [, mapFn[, thisArg ] ] )`
-
-##### Parameters
-**arrayLike**<br/>
-* Required.<br/>
-* An array-like or iterable object to convert to an array.<br/>
-
-**mapFn** <br/>
-* Optional. <br/>
-* Map function to call on every element of the array.<br/>
-
-**thisArg** <br/>
-* Optional.<br/>
-* Value to use as `this` when executing `mapFn`.<br/>
-
-##### Return value
-A new `Array` instance.
-
-#### Usage
-#### Basic
-```
-console.log(Array.from('foo'));
-// expected output: Array ["f", "o", "o"]
-
-console.log(Array.from([1, 2, 3], x => x + x));
-// expected output: Array [2, 4, 6]
-```
-
-#### Array from a String
-```
-Array.from('foo');
-// [ "f", "o", "o" ]
-```
-
-#### Array from a Set
-```
-const set = new Set(['foo', 'bar', 'baz', 'foo']);
-Array.from(set);
-// [ "foo", "bar", "baz" ]
-```
-
-#### Array from a Map
-```
-const map = new Map([[1, 2], [2, 4], [4, 8]]);
-Array.from(map);
-// [[1, 2], [2, 4], [4, 8]]
-
-const mapper = new Map([['1', 'a'], ['2', 'b']]);
-Array.from(mapper.values());
-// ['a', 'b'];
-
-Array.from(mapper.keys());
-// ['1', '2'];
-```
-
-#### Array from an Array-like object (arguments)
-```
-function f() {
-  return Array.from(arguments);
-}
-
-f(1, 2, 3);
-
-// [ 1, 2, 3 ]
-```
-
-#### Using arrow functions and Array.from
-```
-// Using an arrow function as the map function to
-// manipulate the elements
-Array.from([1, 2, 3], x => x + x);      
-// [2, 4, 6]
-
-
-// Generate a sequence of numbers
-// Since the array is initialized with `undefined` on each position,
-// the value of `v` below will be `undefined`
-Array.from({length: 5}, (v, i) => i);
-// [0, 1, 2, 3, 4]
-```
-
-----------------------------------------------------------------------------
-
-## sort
+## Array.prototype.sort()
 #### Definition
 &ensp;&ensp;The sort() method sorts the elements of an array in place and returns the array.<br/>
 
