@@ -57,19 +57,19 @@ The `Array.from()` method creates a new, shallow-copied `Array` instance from an
 ![ZcrFrd.png](https://s2.ax1x.com/2019/07/10/ZcrFrd.png)
 
 ###### Parameters
-<strong>arrayLike</strong><br/>
-An array-like or iterable object to convert to an array.
+&nbsp;&nbsp;<strong>arrayLike</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array-like or iterable object to convert to an array.
 
-<strong>mapFn</strong><br/>
-Optional<br/>
-Map function to call on every element of the array.
+&nbsp;&nbsp;<strong>mapFn</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Map function to call on every element of the array.
 
-<strong>thisArg</strong><br/>
-Optional<br/>
-Value to use as `this` when executing `mapFn`.
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `mapFn`.
 
 ###### Return Value
-A new Array instance.
+&nbsp;&nbsp;A new Array instance.
 
 #### Description
 `Array.from()` lets you create Arrays from:
@@ -103,7 +103,53 @@ In ES2015, the class syntax allows for sub-classing of both built-in and user de
 ![Zc6ow9.png](https://s2.ax1x.com/2019/07/10/Zc6ow9.png)
 
 ----------------------------------------------------------------------------
+## Array.isArray()
+The `Array.isArray()` method determines whether the passed value is an Array.
+![ZcRx3t.png](https://s2.ax1x.com/2019/07/10/ZcRx3t.png)
 
+#### Syntax
+![Zcflsf.png](https://s2.ax1x.com/2019/07/10/Zcflsf.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The value to be checked.
+
+###### Return Value
+&nbsp;&nbsp;`true` if the value is an `Array`; otherwise, `false`.
+
+#### Description
+If the value is an `Array`, `true` is returned; otherwise, `false` is.
+
+#### Examples
+![Zc4oPH.png](https://s2.ax1x.com/2019/07/10/Zc4oPH.png)
+
+When checking for `Array` instance, `Array.isArray` is preferred over `instanceof` because it works through `iframes`.
+
+----------------------------------------------------------------------------
+## Array.of()
+The `Array.of()` method creates a new Array instance from a variable number of arguments, regardless of number or type of the arguments.
+
+The difference between `Array.of()` and the Array constructor is in the handling of integer arguments: `Array.of(7)` creates an array with a single element, 7, whereas `Array(7)` creates an empty array with a length property of 7
+
+> this implies an array of 7 empty slots, not slots with actual undefined values.
+![Zc21LF.png](https://s2.ax1x.com/2019/07/10/Zc21LF.png)
+
+#### Syntax
+![Zc2cFA.png](https://s2.ax1x.com/2019/07/10/Zc2cFA.png)
+###### Parameters
+<strong>elementN</strong><br/>
+Elements of which to create the array.
+
+###### Return Value
+A new `Array` instance.
+
+#### Description
+This function is part of the ECMAScript 2015 standard.
+
+#### Examples
+![ZcR1pt.png](https://s2.ax1x.com/2019/07/10/ZcR1pt.png)
+
+----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 #### Definition
 &ensp;&ensp;The forEach() method calls a provided function once for each element in an array, in order.

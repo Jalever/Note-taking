@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Object
+title: Object Properties and Methods
 subtitle: Javascript Standard Built-in Object
 date: 2019-03-26
 author: Jalever
