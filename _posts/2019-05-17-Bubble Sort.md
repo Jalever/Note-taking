@@ -18,8 +18,9 @@ tags:
 - Worst Case: O( n^2 )
 
 ## Implementation in CPP
-```c
-#include <stdio.h>
+```cpp
+#include <iostream>
+using namespace std;
 
 void swap (int *a, int *b) {
     int t = *a;
@@ -27,16 +28,17 @@ void swap (int *a, int *b) {
     *b = t;
 }
 
-
 void printArray(int arr[], int size) {
 	int i;
-	for (i=0; i < size; i++)
-		printf("%d ", arr[i]);
-	printf("\n");
+	for (i = 0; i < size; i++) {
+		cout << arr[i] << " ";
+	}
+
+	cout << "\n" << endl;
 }
 
 
-void quickSort (int arr[], int len) {
+void BubbleSort(int arr[], int len) {
     int flag = 0;
     for(int i = 0;i < len; i++) {
         flag = 0;
@@ -49,19 +51,18 @@ void quickSort (int arr[], int len) {
         }
 
         if(flag == 0) return;
-
     }
 
 }
 
 int main () {
     int arr[] = {10, 7, 8, 9, 1, 5};
-	int n = sizeof(arr)/sizeof(arr[0]);
+	int length = sizeof(arr)/sizeof(arr[0]);
 
-	quickSort(arr, n);
+	BubbleSort(arr, length);
 
-	printf("Sorted array:");
-	printArray(arr, n);
+	cout << "Sorted array: " << endl;
+	printArray(arr, length);
 
   return 0;
 }

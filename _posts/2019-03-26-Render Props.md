@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Render Props
-subtitle: React学习笔记系列
+subtitle: React Advance Guides
 date: 2019-03-26
 author: Jalever
 header-img: img/post_2019_react_bg.png
@@ -182,9 +182,8 @@ Mouse.propTypes = {
 };
 ```
 
-## Caveats 
+## Caveats
 
-#### Be careful when using Render Props with React.PureComponent 
+#### Be careful when using Render Props with React.PureComponent
 Using a `render prop` can negate the advantage that comes from using `React.PureComponent` if you create the function inside a `render` method.<br>
 This is because the shallow prop comparison will always return `false` for new props, and each `render` in this case will generate a new value for the render prop.
-
