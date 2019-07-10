@@ -15,7 +15,6 @@ tags:
 - [Methods](#methods)
     - [Array.from()](#arrayfrom)
     - [Array.isArray()](#arrayisarray)
-    - [Array.observe()](#arrayobserve)
     - [Array.of()](#arrayof)
     - [Array.prototype.concat()](#arrayprototypeconcat)
     - [Array.prototype.copyWithin()](#arrayprototypecopywithin)
@@ -51,96 +50,57 @@ tags:
 
 ----------------------------------------------------------------------------
 
-#### Array.from()
-###### Definition
-&ensp;&ensp;The <ins>***Array.from&#40;&#41;***</ins> method creates a new, shallow-copied <ins>***Array***</ins> instance from an array-like or iterable object.
+## Array.from()
+The `Array.from()` method creates a new, shallow-copied `Array` instance from an array-like or iterable object.
 
-Array.from() lets you create Arrays from:
-* array-like objects (objects with a length property and indexed elements)
-* iterable objects (objects where you can get its elements, such as Map and Set).
+#### Syntax
+![ZcrFrd.png](https://s2.ax1x.com/2019/07/10/ZcrFrd.png)
 
-`Array.from()` has an optional parameter `mapFn`, which allows you to execute a `map` function on each element of the array (or subclass object) that is being created. More clearly, `Array.from(obj, mapFn, thisArg)` has the same result as `Array.from(obj).map(mapFn, thisArg)`, except that it does not create an intermediate array. This is especially important for certain array subclasses, like typed arrays, since the intermediate array would necessarily have values truncated to fit into the appropriate type.
+###### Parameters
+<strong>arrayLike</strong><br/>
+An array-like or iterable object to convert to an array.
+
+<strong>mapFn</strong><br/>
+Optional<br/>
+Map function to call on every element of the array.
+
+<strong>thisArg</strong><br/>
+Optional<br/>
+Value to use as `this` when executing `mapFn`.
+
+###### Return Value
+A new Array instance.
+
+#### Description
+`Array.from()` lets you create Arrays from:
+
+- array-like objects (objects with a `length` property and indexed elements) or
+- iterable objects (objects where you can get its elements, such as `Map` and `Set`).
+
+`Array.from()` has an optional parameter `mapFn`, which allows you to execute a map function on each element of the array (or subclass object) that is being created. More clearly, `Array.from(obj, mapFn, thisArg)` has the same result as `Array.from(obj).map(mapFn, thisArg)`, except that it does not create an intermediate array. This is especially important for certain array subclasses, like `typed arrays`, since the intermediate array would necessarily have values truncated to fit into the appropriate type.
 
 The `length` property of the `from()` method is 1.
 
-###### Syntax
-![Zydbm6.png](https://s2.ax1x.com/2019/07/09/Zydbm6.png)
+In ES2015, the class syntax allows for sub-classing of both built-in and user defined classes; as a result, static methods such as `Array.from` are "inherited" by subclasses of Array and create new instances of the subclass, not Array.
 
-1.<strong>Parameters</strong>
-    - <strong>arrayLike</strong>
-        - Required
-        - An array-like or iterable object to convert to an array
-    - <strong>mapFn</strong>
-        - Optional
-        - Map function to call on every element of the array
-    - <strong>thisArg</strong>
-        - Optional
-        - Value to use as `this` when executing `mapFn`
-2.<strong>Return value</strong>
-A new `Array` instance.
+#### Examples
+###### Array from a String
+![Zcsb7R.png](https://s2.ax1x.com/2019/07/10/Zcsb7R.png)
 
-###### Usage
-1.<strong>Basic</strong>
-```
-console.log(Array.from('foo'));
-// expected output: Array ["f", "o", "o"]
+###### Array from a Set
+![ZcsXh6.png](https://s2.ax1x.com/2019/07/10/ZcsXh6.png)
 
-console.log(Array.from([1, 2, 3], x => x + x));
-// expected output: Array [2, 4, 6]
-```
+###### Array from a Map
+![ZcylEn.png](https://s2.ax1x.com/2019/07/10/ZcylEn.png)
 
-2.<strong>Array from a String</strong>
-```
-Array.from('foo');
-// [ "f", "o", "o" ]
-```
+###### Array from an Array-like object (arguments)
+![ZcyRDH.png](https://s2.ax1x.com/2019/07/10/ZcyRDH.png)
 
-3.<strong>Array from a Set</strong>
-```
-const set = new Set(['foo', 'bar', 'baz', 'foo']);
-Array.from(set);
-// [ "foo", "bar", "baz" ]
-```
+###### Using arrow functions and Array.from()
+![Zcy728.png](https://s2.ax1x.com/2019/07/10/Zcy728.png)
 
-4.<strong>Array from a Map</strong>
-```
-const map = new Map([[1, 2], [2, 4], [4, 8]]);
-Array.from(map);
-// [[1, 2], [2, 4], [4, 8]]
-
-const mapper = new Map([['1', 'a'], ['2', 'b']]);
-Array.from(mapper.values());
-// ['a', 'b'];
-
-Array.from(mapper.keys());
-// ['1', '2'];
-```
-
-5.<strong>Array from an Array-like object (arguments)</strong>
-```
-function f() {
-  return Array.from(arguments);
-}
-
-f(1, 2, 3);
-
-// [ 1, 2, 3 ]
-```
-
-6.<strong>Using arrow functions and Array.from</strong>
-```
-// Using an arrow function as the map function to
-// manipulate the elements
-Array.from([1, 2, 3], x => x + x);      
-// [2, 4, 6]
-
-
-// Generate a sequence of numbers
-// Since the array is initialized with `undefined` on each position,
-// the value of `v` below will be `undefined`
-Array.from({length: 5}, (v, i) => i);
-// [0, 1, 2, 3, 4]
-```
+###### Sequence generator (range)
+![Zc6ow9.png](https://s2.ax1x.com/2019/07/10/Zc6ow9.png)
 
 ----------------------------------------------------------------------------
 
