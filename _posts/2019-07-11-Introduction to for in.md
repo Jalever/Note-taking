@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Introduction to for...in
-subtitle: Web Development
+subtitle: Statements and Declarations
 date: 2019-07-11
 author: Jalever
 header-img: img/post-bg-js-version.jpg
