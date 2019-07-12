@@ -191,6 +191,63 @@ The following code concatenates three values to an array:
 The following code concatenates nested arrays and demonstrates retention of references:
 ![ZgmeKJ.png](https://s2.ax1x.com/2019/07/10/ZgmeKJ.png)
 
+
+----------------------------------------------------------------------------
+## Array.prototype.copyWithin()
+The `copyWithin()` method shallow copies part of an array to another location in the same array and returns it without modifying its length.
+![ZWfVJg.png](https://s2.ax1x.com/2019/07/12/ZWfVJg.png)
+
+#### Syntax
+![ZWfGYF.png](https://s2.ax1x.com/2019/07/12/ZWfGYF.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>target</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to copy the sequence to. If negative, <strong>target</strong> will be counted from the end.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>target</strong> is at or greater than <strong>arr.length</strong>, nothing will be copied. If <strong>target</strong> is positioned after <strong>start</strong>, the copied sequence will be trimmed to fit <strong>arr.length</strong>.
+
+&nbsp;&nbsp;<strong>start</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to start copying elements from. If negative, <strong>start</strong> will be counted from the end.
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>start</strong> is omitted, <strong>copyWithin</strong> will copy from index 0.
+
+
+&nbsp;&nbsp;<strong>end</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to end copying elements from. <strong>copyWithin</strong> copies up to but not including <strong>end</strong>. If negative, <strong>end</strong> will be counted from the end.
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>end</strong> is omitted, <strong>copyWithin</strong> will copy until the last index (default to <strong>arr.length</strong>).
+
+###### Return Value
+&nbsp;&nbsp;The modified array.
+
+#### Description
+The <strong>copyWithin</strong> works like C and C++'s <strong>memmove</strong>, and is a high-performance method to shift the data of an <strong>Array</strong>. This especially applies to the <strong>TypedArray</strong> method of the same name. The sequence is copied and pasted as one operation; pasted sequence will have the copied values even when the copy and paste region overlap.
+
+The <strong>copyWithin</strong> function is intentionally generic, it does not require that its <strong>this</strong> value be an <strong>Array</strong> object.
+
+The <strong>copyWithin</strong> method is a mutable method. It does not alter the length of <strong>this</strong>, but it will change its content and create new properties, if necessary.
+
+#### Examples
+![ZW4aa6.png](https://s2.ax1x.com/2019/07/12/ZW4aa6.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.entries()
+The `entries()` method returns a new <strong>Array Iterator</strong> object that contains the key/value pairs for each index in the array.
+
+![ZW5Ik6.png](https://s2.ax1x.com/2019/07/12/ZW5Ik6.png)
+
+#### Syntax
+![ZWIGH1.png](https://s2.ax1x.com/2019/07/12/ZWIGH1.png)
+
+###### Return Value
+&nbsp;&nbsp;A new <strong>Array</strong> iterator object.
+
+#### Examples
+###### Iterating with index and element
+![ZWoqeA.png](https://s2.ax1x.com/2019/07/12/ZWoqeA.png)
+
+###### Using a for…of loop
+![ZWTpQg.png](https://s2.ax1x.com/2019/07/12/ZWTpQg.png)
+
 ----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 #### Definition
