@@ -248,6 +248,62 @@ The `entries()` method returns a new <strong>Array Iterator</strong> object that
 ###### Using a for…of loop
 ![ZWTpQg.png](https://s2.ax1x.com/2019/07/12/ZWTpQg.png)
 
+
+----------------------------------------------------------------------------
+## Array.prototype.every()
+The `every()` method tests whether all elements in the array pass the test implemented by the provided function. It returns a <strong>Boolean</strong> value.
+> This method returns true for any condition put on an empty array.
+
+![ZWHcLQ.png](https://s2.ax1x.com/2019/07/12/ZWHcLQ.png)
+
+
+#### Syntax
+![ZWHOoR.png](https://s2.ax1x.com/2019/07/12/ZWHOoR.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A function to test for each element, taking three arguments:<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The <strong>array</strong> every was called upon.
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A value to use as this when executing callback.<br/>
+
+###### Return Value
+&nbsp;&nbsp;<strong>true</strong> if the callback function returns a truthy value for every array element. Otherwise, <strong>false</strong>.
+
+#### Description
+The <strong>every</strong> method executes the provided <strong>callback</strong> function once for each element present in the array until it finds the one where <strong>callback</strong> returns a `falsy` value. If such an element is found, the <strong>every</strong> method immediately returns <strong>false</strong>. Otherwise, if <strong>callback</strong> returns a `truthy` value for all elements, <strong>every</strong> returns <strong>true</strong>. <strong>callback</strong> is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values.
+
+<strong>callback</strong> is invoked with three arguments: the value of the element, the index of the element, and the Array object being traversed.
+
+If a <strong>thisArg</strong> parameter is provided to <strong>every</strong>, it will be used as callback's <strong>this</strong> value. Otherwise, the value <strong>undefined</strong> will be used as its <strong>this</strong> value.  The <strong>this</strong> value ultimately observable by <strong>callback</strong> is determined according to the usual rules for determining the this seen by a function.
+
+<strong>every</strong> does not mutate the array on which it is called.
+
+The range of elements processed by <strong>every</strong> is set before the first invocation of <strong>callback</strong>. Therefore, <strong>callback</strong> will not run on elements that are appended to the array after the call to <strong>every</strong> begins. If existing elements of the array are changed, their value as passed to <strong>callback</strong> will be the value at the time <strong>every</strong> visits them. Elements that are deleted are not visited.
+
+<strong>every</strong> acts like the "for all" quantifier in mathematics. In particular, for an empty array, it returns true.
+
+#### Examples
+###### Testing size of all array elements
+The following example tests whether all elements in the array are bigger than 10.
+![ZWL8zV.png](https://s2.ax1x.com/2019/07/12/ZWL8zV.png)
+
+###### Using arrow functions
+Arrow functions provide a shorter syntax for the same test.
+![ZWL0iR.png](https://s2.ax1x.com/2019/07/12/ZWL0iR.png)
+
 ----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 #### Definition
