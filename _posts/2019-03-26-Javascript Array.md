@@ -305,6 +305,43 @@ Arrow functions provide a shorter syntax for the same test.
 ![ZWL0iR.png](https://s2.ax1x.com/2019/07/12/ZWL0iR.png)
 
 ----------------------------------------------------------------------------
+## Array.prototype.fill()
+The `fill()` method fills (modifies) all the elements of an array from a start index (default zero) to an end index (default array length) with a static value. It returns the modified array.
+![ZWLOoj.png](https://s2.ax1x.com/2019/07/12/ZWLOoj.png)
+
+#### Syntax
+![ZWOSS0.png](https://s2.ax1x.com/2019/07/12/ZWOSS0.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to fill an array.
+
+&nbsp;&nbsp;<strong>start</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Start index, defaults to 0.
+
+&nbsp;&nbsp;<strong>end</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;End index, defaults to <strong>this.length</strong>.
+
+###### Return Value
+&nbsp;&nbsp;The modified array.
+
+#### Description
+The <strong>fill</strong> method takes up to three arguments <strong>value</strong>, <strong>start</strong> and <strong>end</strong>. The <strong>start</strong> and <strong>end</strong> arguments are optional with default values of <strong>0</strong> and the <strong>length</strong> of the <strong>this</strong> object.
+
+If <strong>start</strong> is negative, it is treated as <strong>length+start</strong> where <strong>length</strong> is the length of the array. If <strong>end</strong> is negative, it is treated as <strong>length+end</strong>.
+
+<strong>fill</strong> is intentionally generic, it does not require that its <strong>this</strong> value be an Array object.
+
+<strong>fill</strong> is a mutable method, it will change <strong>this</strong> object itself, and return it, not just return a copy of it.
+
+When <strong>fill</strong> gets passed an object, it will copy the reference and fill the array with references to that object.
+
+#### Examples
+![ZWXM3q.png](https://s2.ax1x.com/2019/07/12/ZWXM3q.png)
+
+----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 #### Definition
 &ensp;&ensp;The forEach() method calls a provided function once for each element in an array, in order.
