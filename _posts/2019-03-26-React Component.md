@@ -45,6 +45,8 @@ tags:
 Each component has several “lifecycle methods” that you can override to run code at particular times in the process.<br>
 You can use [this lifecycle diagram](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) as a cheat sheet.
 
+![Z2HJxg.jpg](https://s2.ax1x.com/2019/07/11/Z2HJxg.jpg)
+
 #### Mounting
 
 These methods are called in the following order when an instance of a component is being created and inserted into the `DOM`:
