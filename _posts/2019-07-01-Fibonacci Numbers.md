@@ -140,7 +140,7 @@ int main() {
 <strong>Extra Space</strong>: O(1)
 
 #### Using the Power of the Matrix
-This another `O(n)` which relies on the fact that if we n times multiply the matrix M = {{1,1},{1,0}} to itself (in other words calculate power(M, n )), then we get the `(n+1)`th Fibonacci number as the element at row and column `(0, 0)` in the resultant matrix.
+This another `O(n)` which relies on the fact that if we n times multiply the matrix M = &lcub;&lcub;1,1&rcub;,&lcub;1,0&rcub;&rcub; to itself (in other words calculate power(M, n )), then we get the `(n+1)`th Fibonacci number as the element at row and column `(0, 0)` in the resultant matrix.
 
 The matrix representation gives the following closed expression for the Fibonacci numbers:
 ![Z5sOuq.png](https://s2.ax1x.com/2019/07/14/Z5sOuq.png)
