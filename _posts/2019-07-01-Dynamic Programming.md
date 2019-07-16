@@ -35,9 +35,9 @@ From a Dynamic Programming point of view, Dijkstra's Algorithm for the Shortest 
 In fact, Dijkstra's explanation of the logic behind the algorithm, namely
 
 Find the path of minimum total length between two given nodes `P` and `Q`.
-```text
-We use the fact that, if `R` is a node on the minimal path from `P` to `Q`, knowledge of the latter implies the knowledge of the minimal path from `P` to `R`
-```
+
+"We use the fact that, if `R` is a node on the minimal path from `P` to `Q`, knowledge of the latter implies the knowledge of the minimal path from `P` to `R`"
+
 is a paraphrasing of Bellman's famous <strong>Principle of Optimality</strong> in the context of the Shortest Path Problem.
 
 #### Fibonacci Sequence

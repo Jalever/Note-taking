@@ -342,7 +342,7 @@ When <strong>fill</strong> gets passed an object, it will copy the reference and
 ![ZWXM3q.png](https://s2.ax1x.com/2019/07/12/ZWXM3q.png)
 
 ----------------------------------------------------------------------------
-## Array.prototype.fill()
+## Array.prototype.filter()
 The `filter()` method creates a new array with all elements that pass the test implemented by the provided function.
 ![ZojdSg.png](https://s2.ax1x.com/2019/07/15/ZojdSg.png)
 
@@ -470,7 +470,6 @@ const filterItems = (arr, query) => {
 console.log(filterItems(fruits, 'ap')); // ['apple', 'grapes']
 console.log(filterItems(fruits, 'an')); // ['banana', 'mango', 'orange']
 ```
-
 
 ----------------------------------------------------------------------------
 ## Array.prototype.find()
@@ -600,7 +599,6 @@ array.find(function(value, index) {
 The `findIndex()` method returns the <strong>index</strong> of the first element in the array <strong>that satisfies the provided testing function</strong>. Otherwise, it returns <strong>-1</strong>, indicating that no element passed the test.
 ![ZTCNHH.png](https://s2.ax1x.com/2019/07/15/ZTCNHH.png)
 
-
 #### Syntax
 ![ZTCrgf.png](https://s2.ax1x.com/2019/07/15/ZTCrgf.png)
 
@@ -676,47 +674,216 @@ console.log(fruits[index]); // blueberries
 ```
 
 ----------------------------------------------------------------------------
-## Array.prototype.forEach()
-#### Definition
-&ensp;&ensp;The forEach() method calls a provided function once for each element in an array, in order.
-> Note: forEach() does not execute the function for array elements without values.
+## Array.prototype.flat()
+The `flat()` method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
 
 #### Syntax
-`array.forEach( function( currentValue, index, arr ), thisValue )`
+![ZHmuLR.png](https://s2.ax1x.com/2019/07/16/ZHmuLR.png)
 
-**currentValue**<br/>
-* Required.<br/>
-* The value of the current element<br/>
+###### Parameters
+&nbsp;&nbsp;<strong>depth</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
 
-**index** <br/>
-* Optional. <br/>
-* The array index of the current element<br/>
+###### Return Value
+&nbsp;&nbsp;A new array with the sub-array elements concatenated into it.
 
-**arr** <br/>
-* Optional.<br/>
-* The array object the current element belongs to<br/>
+#### Examples
+###### Flattening nested arrays
+```js
+var arr1 = [1, 2, [3, 4]];
+arr1.flat();
 
-**function( currentValue, index, arr )**<br/>
-* Required. <br/>
-* A function to be run for each element in the array.<br/>
+// [1, 2, 3, 4]
 
-**thisValue**<br/>
-* Optional. <br/>
-* A value to be passed to the function to be used as its "this" value.
-* If this parameter is empty, the value "undefined" will be passed as its "this" value<br/>
+var arr2 = [1, 2, [3, 4, [5, 6]]];
+arr2.flat();
 
-#### Usage
+// [1, 2, 3, 4, [5, 6]]
+
+var arr3 = [1, 2, [3, 4, [5, 6]]];
+arr3.flat(2);
+
+// [1, 2, 3, 4, 5, 6]
 ```
-const numbers = [4, 9, 16, 25];
-numbers.forEach( (currentValue, index, arr) => {
-	console.log("index[" + index + "]: " + currentValue);
-} );
-//expected output:
-// index[0]: 4
-// index[1]: 9
-// index[2]: 16
-// index[3]: 25
+
+###### Flattening and array holes
+The flat method removes empty slots in arrays:
+```js
+var arr4 = [1, 2, , 4, 5];
+arr4.flat();
+
+// [1, 2, 4, 5]
 ```
+
+#### Alternative
+###### reduce and concat
+```js
+var arr1 = [1, 2, [3, 4]];
+arr1.flat();
+
+//to flat single level array
+
+arr1.reduce((acc, val) => acc.concat(val), []);// [1, 2, 3, 4]
+
+//or
+const flatSingle = arr => [].concat(...arr);
+```
+
+###### Deep level flatten use recursion with reduce and concat
+```js
+var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
+
+function flattenDeep(arr1) {
+   return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []);
+}
+flattenDeep(arr1);
+
+// [1, 2, 3, 1, 2, 3, 4, 2, 3, 4]
+```
+
+###### Non Recursive flatten deep using a stack
+```js
+var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
+function flatten(input) {
+  const stack = [...input];
+  const res = [];
+  while (stack.length) {
+    // pop value from stack
+
+    const next = stack.pop();
+    if (Array.isArray(next)) {
+
+      // push back array items, won't modify the original input
+
+      stack.push(...next);
+    } else {
+      res.push(next);
+    }
+  }
+
+  //reverse to restore input order
+
+  return res.reverse();
+}
+flatten(arr1);// [1, 2, 3, 1, 2, 3, 4, 2, 3, 4]
+```
+
+###### recursive flatten deep
+```js
+function flatten(array) {
+  var flattend = [];
+  !(function flat(array) {
+    array.forEach(function(el) {
+      if (Array.isArray(el)) flat(el);
+      else flattend.push(el);
+    });
+  })(array);
+  return flattend;
+}
+```
+
+----------------------------------------------------------------------------
+## Array.prototype.flatMap()
+The `flatMap()` method first maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map()` followed by a `flat()` of depth 1, but `flatMap()` is often quite useful, as merging both into one method is slightly more efficient.
+
+
+#### Syntax
+![ZHnTEt.png](https://s2.ax1x.com/2019/07/16/ZHnTEt.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function that produces an element of the new Array, taking three arguments:
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>currentValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `map` was called upon.
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
+
+###### Return Value
+&nbsp;&nbsp;A new array with each element being the result of the callback function and flattened to a depth of 1.
+
+#### Description
+See `Array.prototype.map()` for a detailed description of the callback function. The `flatMap` method is identical to a `map` followed by a call to `flat` of depth 1.
+
+#### Examples
+###### map() and flatMap()
+```js
+let arr1 = [1, 2, 3, 4];
+
+arr1.map(x => [x * 2]);
+// [[2], [4], [6], [8]]
+
+arr1.flatMap(x => [x * 2]);
+// [2, 4, 6, 8]
+
+// only one level is flattened
+arr1.flatMap(x => [[x * 2]]);
+// [[2], [4], [6], [8]]
+```
+While the above could have been achieved by using map itself, here is an example that better showcases the use of `flatMap`.
+
+Let's generate a list of words from a list of sentences.
+```js
+let arr1 = ["it's Sunny in", "", "California"];
+
+arr1.map(x => x.split(" "));
+// [["it's","Sunny","in"],[""],["California"]]
+
+arr1.flatMap(x => x.split(" "));
+// ["it's","Sunny","in", "", "California"]
+```
+Notice, the output list length can be different from the input list length.
+
+###### For adding and removing items during a map()
+`flatMap` can be used as a way to add and remove items (modify the number of items) during a `map`. In other words, it allows you to map many items to many items (by handling each input item separately), rather than always one-to-one. In this sense, it works like the opposite of filter. Simply return a 1-element array to keep the item, a multiple-element array to add items, or a 0-element array to remove the item.
+```js
+// Let's say we want to remove all the negative numbers and split the odd numbers into an even number and a 1
+let a = [5, 4, -3, 20, 17, -33, -4, 18]
+//       |\  \  x   |  | \   x   x   |
+//      [4,1, 4,   20, 16, 1,       18]
+
+a.flatMap( (n) =>
+  (n < 0) ?      [] :
+  (n % 2 == 0) ? [n] :
+                 [n-1, 1]
+)
+
+// expected output: [4, 1, 4, 20, 16, 1, 18]
+```
+
+#### Alternative
+###### reduce() and concat()
+```js
+var arr1 = [1, 2, 3, 4];
+
+arr1.flatMap(x => [x * 2]);
+// is equivalent to
+arr1.reduce((acc, x) => acc.concat([x * 2]), []);
+// [2, 4, 6, 8]
+```
+
+Note, however, that this is inefficient and should be avoided for large arrays: in each iteration, it creates a new temporary array that must be garbage-collected, and it copies elements from the current accumulator array into a new array instead of just adding the new elements to the existing array.
+
+----------------------------------------------------------------------------
+## Array.prototype.forEach()
+The `forEach()` method executes a provided function once for each array element.
+
+
+
+
+
+
 ----------------------------------------------------------------------------
 ## Array.prototype.map()
 #### Definition
