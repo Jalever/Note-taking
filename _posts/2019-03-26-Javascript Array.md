@@ -787,7 +787,6 @@ function flatten(array) {
 ## Array.prototype.flatMap()
 The `flatMap()` method first maps each element using a mapping function, then flattens the result into a new array. It is identical to a `map()` followed by a `flat()` of depth 1, but `flatMap()` is often quite useful, as merging both into one method is slightly more efficient.
 
-
 #### Syntax
 ![ZHnTEt.png](https://s2.ax1x.com/2019/07/16/ZHnTEt.png)
 
@@ -878,11 +877,242 @@ Note, however, that this is inefficient and should be avoided for large arrays: 
 ----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 The `forEach()` method executes a provided function once for each array element.
+![ZH35z6.png](https://s2.ax1x.com/2019/07/16/ZH35z6.png)
+
+#### Syntax
+![ZH3XFA.png](https://s2.ax1x.com/2019/07/16/ZH3XFA.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function to execute on each element, taking three arguments:
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>currentValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `forEach()` was called upon.
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
+
+###### Return Value
+&nbsp;&nbsp;undefined.
+
+#### Description
+`forEach()` calls a provided `callback` function once for each element in an array in ascending order. It is not invoked for index properties that have been deleted or are uninitialized (i.e. on sparse arrays).
+
+`callback` is invoked with three arguments:
+
+1. the value of the element
+2. the index of the element
+3. the Array object being traversed
+
+If a `thisArg` parameter is provided to `forEach()`, it will be used as callback's `this` value. Otherwise, the value `undefined` will be used as its `this` value. The `this` value ultimately observable by `callback` is determined according to the usual rules for determining the `this` seen by a function.
+
+The range of elements processed by `forEach()` is set before the first invocation of `callback`. Elements which are appended to the array after the call to `forEach()` begins will not be visited by `callback`. If existing elements of the array are changed, or deleted, their value as passed to `callback` will be the value at the time `forEach()` visits them; elements that are deleted before being visited are not visited. If elements that are already visited are removed (e.g. using `shift()`) during the iteration, later elements will be skipped - see example below.
+
+`forEach()` executes the `callback` function once for each array element; unlike `map()` or `reduce()` it always returns the value `undefined` and is not chainable. The typical use case is to execute side effects at the end of a chain.
+
+`forEach()` does not mutate the array on which it is called (although `callback`, if invoked, may do so).
+
+> There is no way to stop or break a `forEach()` loop other than by throwing an exception. If you need such behavior, the `forEach()` method is the wrong tool.
+> Early termination may be accomplished with:
+> - A simple loop
+> - A for...of loop
+> - Array.prototype.every()
+> - Array.prototype.some()
+> - Array.prototype.find()
+> - Array.prototype.findIndex()
+> The other Array methods: `every()`, `some()`, `find()`, and `findIndex()` test the array elements with a predicate returning a truthy value to determine if further iteration is required.
+
+#### Examples
+###### Converting a for loop to forEach
+```js
+const items = ['item1', 'item2', 'item3'];
+const copy = [];
+
+// before
+for (let i=0; i<items.length; i++) {
+  copy.push(items[i]);
+}
+
+// after
+items.forEach(function(item){
+  copy.push(item);
+});
+```
+
+###### Printing the contents of an array
+> Note: In order to display the content of an array in the console, you can use `console.table()` which will print a formated version of the array. The following example illustrates another way of doing so, using forEach().
+
+The following code logs a line for each element in an array:
+
+```js
+function logArrayElements(element, index, array) {
+  console.log('a[' + index + '] = ' + element);
+}
+
+// Notice that index 2 is skipped since there is no item at
+// that position in the array.
+[2, 5, , 9].forEach(logArrayElements);
+// logs:
+// a[0] = 2
+// a[1] = 5
+// a[3] = 9
+```
+
+###### Using thisArg
+The following (contrived) example updates an object's properties from each entry in the array:
+```js
+function Counter() {
+  this.sum = 0;
+  this.count = 0;
+}
+Counter.prototype.add = function(array) {
+  array.forEach(function(entry) {
+    this.sum += entry;
+    ++this.count;
+  }, this);
+  // ^---- Note
+};
+
+const obj = new Counter();
+obj.add([2, 5, 9]);
+obj.count;
+// 3
+obj.sum;
+// 16
+```
+Since the `thisArg` parameter (`this`) is provided to `forEach()`, it is passed to `callback` each time it's invoked, for use as its `this` value.
+> If passing the function argument using an arrow function expression the thisArg parameter can be omitted as arrow functions lexically bind the this value.
+
+###### An object copy function
+The following code creates a copy of a given object. There are different ways to create a copy of an object; the following is just one way and is presented to explain how `Array.prototype.forEach()` works by using ECMAScript 5 `Object.*` meta property functions.
+```js
+function copy(obj) {
+  const copy = Object.create(Object.getPrototypeOf(obj));
+  const propNames = Object.getOwnPropertyNames(obj);
+
+  propNames.forEach(function(name) {
+    const desc = Object.getOwnPropertyDescriptor(obj, name);
+    Object.defineProperty(copy, name, desc);
+  });
+
+  return copy;
+}
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = copy(obj1); // obj2 looks like obj1 now
+```
+
+###### If the array is modified during iteration, other elements might be skipped.
+The following example logs "one", "two", "four". When the entry containing the value "two" is reached, the first entry of the whole array is shifted off, which results in all remaining entries moving up one position. Because element "four" is now at an earlier position in the array, "three" will be skipped. `forEach()` does not make a copy of the array before iterating.
+```js
+var words = ['one', 'two', 'three', 'four'];
+words.forEach(function(word) {
+  console.log(word);
+  if (word === 'two') {
+    words.shift();
+  }
+});
+// one
+// two
+// fou
+```
+
+###### Flatten an array
+The following example is only here for learning purpose. If you want to flatten an array using built-in methods you can use `Array.prototype.flat()` (expected to be part of ES2019 and already implemented in some browsers).
+```js
+function flatten(arr) {
+  const result = []
+
+  arr.forEach((i) => {
+    if (Array.isArray(i)) {
+      result.push(...flatten(i))
+    } else {
+      result.push(i)
+    }
+  })
+
+  return result
+}
+
+// Usage
+const problem = [1, 2, 3, [4, 5, [6, 7], 8, 9]]
+
+flatten(problem) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+----------------------------------------------------------------------------
+## Array.prototype.includes()
+The `includes()` method determines whether an array includes a certain value among its entries, returning `true` or `false` as appropriate.
+![ZHbqFf.png](https://s2.ax1x.com/2019/07/16/ZHbqFf.png)
 
 
+#### Syntax
+![ZHq9wq.png](https://s2.ax1x.com/2019/07/16/ZHq9wq.png)
 
+###### Parameters
+&nbsp;&nbsp;<strong>valueToFind</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The value to search for.    
+> When comparing strings and characters, `includes()` is case-sensitive.
 
+&nbsp;&nbsp;<strong>fromIndex</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;The position in this array at which to begin searching for `valueToFind`; the first character to be searched is found at `fromIndex` for positive values of `fromIndex`, or at `array.length + fromIndex` for negative values of `fromIndex` (using the absolute value of `fromIndex` as the number of characters from the end of the array at which to start the search). Defaults to 0.
 
+###### Return Value
+&nbsp;&nbsp;A `Boolean` which is `true` if the value `valueToFind` is found within the array (or the part of the array indicated by the index `fromIndex`, if specified). Values of zero are all considered to be equal regardless of sign (that is, `-0` is considered to be equal to both `0` and `+0`), but `false` is not considered to be the same as 0.
+
+> Technically speaking, `includes()` uses the sameValueZero algorithm to determine whether the given element is found.
+
+#### Examples
+```js
+[1, 2, 3].includes(2);     // true
+[1, 2, 3].includes(4);     // false
+[1, 2, 3].includes(3, 3);  // false
+[1, 2, 3].includes(3, -1); // true
+[1, 2, NaN].includes(NaN); // true
+```
+
+###### fromIndex is greater than or equal to the array length
+If `fromIndex` is greater than or equal to the length of the array, `false` is returned. The array will not be searched.
+```js
+var arr = ['a', 'b', 'c'];
+
+arr.includes('c', 3);   // false
+arr.includes('c', 100); // false
+```
+
+###### Computed index is less than 0
+If `fromIndex` is negative, the computed index is calculated to be used as a position in the array at which to begin searching for `valueToFind`. If the computed index is less or equal than `-1 * array.length`, the entire array will be searched.
+```js
+// array length is 3
+// fromIndex is -100
+// computed index is 3 + (-100) = -97
+
+var arr = ['a', 'b', 'c'];
+
+arr.includes('a', -100); // true
+arr.includes('b', -100); // true
+arr.includes('c', -100); // true
+arr.includes('a', -2); // false
+```
+
+###### includes() used as a generic method
+`includes()` method is intentionally generic. It does not require `this` value to be an Array object, so it can be applied to other kinds of objects (e.g. array-like objects). The example below illustrates `includes()` method called on the function's arguments object.
+```js
+(function() {
+  console.log([].includes.call(arguments, 'a')); // true
+  console.log([].includes.call(arguments, 'd')); // false
+})('a','b','c');
+```
 
 ----------------------------------------------------------------------------
 ## Array.prototype.map()
