@@ -342,6 +342,340 @@ When <strong>fill</strong> gets passed an object, it will copy the reference and
 ![ZWXM3q.png](https://s2.ax1x.com/2019/07/12/ZWXM3q.png)
 
 ----------------------------------------------------------------------------
+## Array.prototype.fill()
+The `filter()` method creates a new array with all elements that pass the test implemented by the provided function.
+![ZojdSg.png](https://s2.ax1x.com/2019/07/15/ZojdSg.png)
+
+#### Syntax
+![ZovYu9.png](https://s2.ax1x.com/2019/07/15/ZovYu9.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function is a predicate, to test each element of the array. Return `true` to keep the element, `false` otherwise. It accepts three arguments:
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array filter was called upon.
+
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
+
+###### Return Value
+&nbsp;&nbsp;A new array with the elements that pass the test. If no elements pass the test, an empty array will be returned.
+
+#### Description
+`filter()` calls a provided `callback` function once for each element in an array, and constructs a new array of all the values for which `callback` returns a value that coerces to true. `callback` is invoked only for indexes of the array which have assigned values; it is not invoked for indexes which have been deleted or which have never been assigned values. Array elements which do not pass the `callback` test are simply skipped, and are not included in the new array.
+
+`callback` is invoked with three arguments:
+
+1. the value of the element
+2. the index of the element
+3. the Array object being traversed
+
+If a `thisArg` parameter is provided to `filter`, it will be used as the callback's `this` value.  Otherwise, the value `undefined` will be used as its `this` value. The `this` value ultimately observable by `callback` is determined according to the usual rules for determining the `this` seen by a function.
+
+`filter()` does not mutate the array on which it is called.
+
+The range of elements processed by `filter()` is set before the first invocation of `callback`. Elements which are appended to the array after the call to `filter()` begins will not be visited by `callback`. If existing elements of the array are changed, or deleted, their value as passed to `callback` will be the value at the time `filter()` visits them; elements that are deleted are not visited.
+
+#### Examples
+###### Filtering out all small values
+The following example uses `filter()` to create a filtered array that has all elements with values less than 10 removed.
+```js
+function isBigEnough(value) {
+  return value >= 10;
+}
+
+var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+// filtered is [12, 130, 44]
+```
+
+###### Filtering invalid entries from JSON
+The following example uses `filter()` to create a filtered json of all elements with non-zero, numeric `id`.
+```js
+var arr = [
+  { id: 15 },
+  { id: -1 },
+  { id: 0 },
+  { id: 3 },
+  { id: 12.2 },
+  { },
+  { id: null },
+  { id: NaN },
+  { id: 'undefined' }
+];
+
+var invalidEntries = 0;
+
+function isNumber(obj) {
+  return obj !== undefined && typeof(obj) === 'number' && !isNaN(obj);
+}
+
+function filterByID(item) {
+  if (isNumber(item.id) && item.id !== 0) {
+    return true;
+  }
+  invalidEntries++;
+  return false;
+}
+
+var arrByID = arr.filter(filterByID);
+
+console.log('Filtered Array\n', arrByID);
+// Filtered Array
+// [{ id: 15 }, { id: -1 }, { id: 3 }, { id: 12.2 }]
+
+console.log('Number of Invalid Entries = ', invalidEntries);
+// Number of Invalid Entries = 5
+```
+
+###### Searching in array
+Following example uses `filter()` to filter array content based on search criteria
+```js
+var fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+
+/**
+ * Filter array items based on search criteria (query)
+ */
+function filterItems(arr, query) {
+  return arr.filter(function(el) {
+      return el.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+  })
+}
+
+console.log(filterItems(fruits, 'ap')); // ['apple', 'grapes']
+console.log(filterItems(fruits, 'an')); // ['banana', 'mango', 'orange']
+```
+
+###### Searching in array
+```js
+const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+
+/**
+ * Filter array items based on search criteria (query)
+ */
+const filterItems = (arr, query) => {
+  return arr.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+};
+
+console.log(filterItems(fruits, 'ap')); // ['apple', 'grapes']
+console.log(filterItems(fruits, 'an')); // ['banana', 'mango', 'orange']
+```
+
+
+----------------------------------------------------------------------------
+## Array.prototype.find()
+The `find()` method returns the <strong>value</strong> of the <strong>first element</strong> in the array that satisfies the provided testing function. Otherwise `undefined` is returned.
+![ZoxqQe.png](https://s2.ax1x.com/2019/07/15/ZoxqQe.png)
+
+See also the `findIndex()` method, which returns the index of a found element in the array instead of its value.
+
+#### Syntax
+![ZozQlF.png](https://s2.ax1x.com/2019/07/15/ZozQlF.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function to execute on each value in the array, taking three arguments:
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array find was called upon.
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional object to use as `this` when executing `callback`.
+
+###### Return Value
+&nbsp;&nbsp;The <strong>value</strong> of the <strong>first element</strong> in the array that satisfies the provided testing function. Otherwise, `undefined` is returned.
+
+#### Description
+The `find` method executes the `callback` function once for each index of the array until it finds one where `callback` returns a true value. If such element is found, `find` immediately returns the value of that element. Otherwise, `find` returns `undefined`. `callback` is invoked for every index of the array from `0` to `length - 1` and it is invoked for all indexes, not just those that have been assigned values. This indicates that it may be less efficient for sparse arrays compared to other methods that only visit indexes with assigned value.
+
+`callback` is invoked with three arguments: the value of the element, the index of the element, and the Array object being traversed.
+
+If a `thisArg` parameter is provided to `find`, it will be used as the `this` value for each invocation of the `callback`. If it is not provided, then `undefined` is used.
+
+The `find` method does not mutate the array on which it is called.
+
+The range of elements processed by `find` is set before the first invocation of `callback`. Therefore, `callback` will not visit the elements that are appended to the array after the call to `find` begins. If an existing, unvisited element of the array is changed by `callback`, its value passed to the `callback` will be the given value at the time `find` visits that element's index. Elements that are deleted are still visited.
+
+#### Examples
+###### Find an object in an array by one of its properties
+```js
+const inventory = [
+    {name: 'apples', quantity: 2},
+    {name: 'bananas', quantity: 0},
+    {name: 'cherries', quantity: 5}
+];
+
+function isCherries(fruit) {
+    return fruit.name === 'cherries';
+}
+
+console.log(inventory.find(isCherries));
+// { name: 'cherries', quantity: 5 }
+```
+
+###### Using ES2015 arrow function
+```js
+const inventory = [
+    {name: 'apples', quantity: 2},
+    {name: 'bananas', quantity: 0},
+    {name: 'cherries', quantity: 5}
+];
+
+const result = inventory.find( fruit => fruit.name === 'cherries' );
+
+console.log(result) // { name: 'cherries', quantity: 5 }
+```
+
+###### Find a prime number in an array
+The following example finds an element in the array that is a prime number (or returns `undefined` if there is no prime number).
+```js
+function isPrime(element, index, array) {
+  let start = 2;
+  while (start <= Math.sqrt(element)) {
+    if (element % start++ < 1) {
+      return false;
+    }
+  }
+  return element > 1;
+}
+
+console.log([4, 6, 8, 12].find(isPrime)); // undefined, not found
+console.log([4, 5, 8, 12].find(isPrime)); // 5
+```
+
+The following examples show that non-existent and deleted elements are visited and that the value passed to the callback is their value when visited.
+
+```js
+// Declare array with no element at index 2, 3 and 4
+const array = [0,1,,,,5,6];
+
+// Shows all indexes, not just those that have been assigned values
+array.find(function(value, index) {
+  console.log('Visited index ' + index + ' with value ' + value);
+});
+
+// Shows all indexes, including deleted
+array.find(function(value, index) {
+
+  // Delete element 5 on first iteration
+  if (index == 0) {
+    console.log('Deleting array[5] with value ' + array[5]);
+    delete array[5];
+  }
+  // Element 5 is still visited even though deleted
+  console.log('Visited index ' + index + ' with value ' + value);
+});
+// expected output:
+// Deleting array[5] with value 5
+// Visited index 0 with value 0
+// Visited index 1 with value 1
+// Visited index 2 with value undefined
+// Visited index 3 with value undefined
+// Visited index 4 with value undefined
+// Visited index 5 with value undefined
+// Visited index 6 with value 6
+```
+
+----------------------------------------------------------------------------
+## Array.prototype.findIndex()
+The `findIndex()` method returns the <strong>index</strong> of the first element in the array <strong>that satisfies the provided testing function</strong>. Otherwise, it returns <strong>-1</strong>, indicating that no element passed the test.
+![ZTCNHH.png](https://s2.ax1x.com/2019/07/15/ZTCNHH.png)
+
+
+#### Syntax
+![ZTCrgf.png](https://s2.ax1x.com/2019/07/15/ZTCrgf.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A function to execute on each value in the array until the function returns `true`, indicating that the satisfying element was found. It takes three arguments:
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `findIndex` was called upon.
+
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional object to use as `this` when executing `callback`.
+
+
+###### Return Value
+&nbsp;&nbsp;The index of the first element in the array that passes the test. Otherwise, `-1`.
+
+
+#### Description
+The `findIndex` method executes the `callback` function once for every index `0..length-1` (inclusive) in the array until it finds the one where `callback` returns a truthy value (a value that coerces to `true`).
+
+If such an element is found, `findIndex` immediately returns the element's index. If the callback never returns a truthy value (or the array's `length` is 0), `findIndex` returns -1. Unlike other array methods such as `Array.some`, the `callback` is called even for indexes with unassigned values.
+
+`callback` is invoked with three arguments:
+
+1. The value of the element
+2. The index of the element
+3. The Array object being traversed
+
+If a `thisArg` parameter is passed to `findIndex`, it will be used as the `this` inside each invocation of the `callback`. If it is not provided, then `undefined` is used.
+
+The range of elements processed by `findIndex` is set before the first invocation of `callback`. `callback` will not process the elements appended to the array after the call to `findIndex` begins. If an existing, unvisited element of the array is changed by `callback`, its value passed to the `callback` will be the value at the time `findIndex` visits the element's index. Elements that are deleted are still visited.
+
+#### Examples
+###### Find the index of a prime number in an array
+The following example returns the index of the first element in the array that is a prime number, or -1 if there is no prime number.
+```js
+function isPrime(element, index, array) {
+  var start = 2;
+  while (start <= Math.sqrt(element)) {
+    if (element % start < 1) {
+      return false;
+    } else {
+      start++;
+    }
+  }
+  return element > 2;
+}
+
+console.log([4, 6, 8, 12].findIndex(isPrime)); // -1, not found
+console.log([4, 6, 7, 12].findIndex(isPrime)); // 2 (array[2] is 7)
+```
+
+###### Find index using arrow function
+The following example finds the index of a fruit using an arrow function:
+```js
+const fruits = ["apple", "banana", "cantaloupe", "blueberries", "grapefruit"];
+
+const index = fruits.findIndex(fruit => fruit === "blueberries");
+
+console.log(index); // 3
+console.log(fruits[index]); // blueberries
+```
+
+----------------------------------------------------------------------------
 ## Array.prototype.forEach()
 #### Definition
 &ensp;&ensp;The forEach() method calls a provided function once for each element in an array, in order.

@@ -192,4 +192,4 @@ int main() {
 	return 0;
 }
 ```
-<strong>Time Complexity</strong>: Time complexity of above implementation is O(n).
+<strong>Time Complexity</strong>: Time complexity of above implementation is `O(n)`.
