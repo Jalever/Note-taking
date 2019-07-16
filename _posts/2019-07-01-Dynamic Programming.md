@@ -27,3 +27,34 @@ This can be achieved in either of two ways:
 <strong>Top-Down Approach</strong>: This is the direct fall-out of the recursive formulation of any problem. If the solution to any problem can be formulated recursively using the solution to its sub-problems, and if its sub-problems are overlapping, then one can easily memoize or store the solutions to the sub-problems in a table. Whenever we attempt to solve a new sub-problem, we first check the table to see if it is already solved. If a solution has been recorded, we can use it directly, otherwise we solve the sub-problem and add its solution to the table.
 
 <strong>Bottom-Up Approach</strong>: Once we formulate the solution to a problem recursively as in terms of its sub-problems, we can try reformulating the problem in a bottom-up fashion: try solving the sub-problems first and use their solutions to build-on and arrive at solutions to bigger sub-problems. This is also usually done in a tabular form by iteratively generating solutions to bigger and bigger sub-problems by using the solutions to small sub-problems. For example, if we already know the values of `F41` and `F40`, we can directly calculate the value of `F42`.
+
+## Examples
+#### Dijkstra algorithm for the Shortest Path Problem
+From a Dynamic Programming point of view, Dijkstra's Algorithm for the Shortest Path Problem is a successive approximation scheme that solves the dynamic programming functional equation for the shortest path problem by the Reaching method.
+
+In fact, Dijkstra's explanation of the logic behind the algorithm, namely
+
+Find the path of minimum total length between two given nodes `P` and `Q`.
+```text
+We use the fact that, if `R` is a node on the minimal path from `P` to `Q`, knowledge of the latter implies the knowledge of the minimal path from `P` to `R`
+```
+is a paraphrasing of Bellman's famous <strong>Principle of Optimality</strong> in the context of the Shortest Path Problem.
+
+#### Fibonacci Sequence
+Here is a naive implementation of a function finding the `nth` member of the Fibonacci Sequence, based directly on the mathematical definition:
+![Z7Udr6.png](https://s2.ax1x.com/2019/07/16/Z7Udr6.png)
+
+Notice that if we call, say, `fib(5)`, we produce a call tree that calls the function on the same value many different times:
+![Z7UrIe.png](https://s2.ax1x.com/2019/07/16/Z7UrIe.png)
+
+In particular, `fib(2)` was calculated three times from scratch. In larger examples, many more values of `fib`, or <ins>Subproblem</ins>s, are <ins>Recalculated</ins>, leading to an exponential time algorithm.
+
+Now, suppose we have a simple <strong>Map</strong> object, <strong>m</strong>, which maps each value of `fib` that has already been calculated to its result, and we modify our function to use it and update it. The resulting function requires only `O(n)` time instead of exponential time (but requires `O(n)` space):
+![Z7UXLV.png](https://s2.ax1x.com/2019/07/16/Z7UXLV.png)
+
+This technique of saving values that have already been calculated is called <strong>Memoization</strong>; this is the <strong>Top-Down Approach</strong>, since we first break the problem into subproblems and then calculate and store values.
+
+In the <strong>Bottom-Up Approach</strong>, we calculate the smaller values of `fib` first, then build larger values from them. This method also uses `O(n)` time since it contains a loop that repeats `n − 1` times, but it only takes constant `O(1)` space, in contrast to the top-down approach which requires `O(n)` space to store the map.
+![Z7aQSA.png](https://s2.ax1x.com/2019/07/16/Z7aQSA.png)
+
+In both examples, we only calculate `fib(2)` one time, and then use it to calculate both `fib(4)` and `fib(3)`, instead of computing it every time either of them is evaluated.
