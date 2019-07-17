@@ -20,6 +20,12 @@ Nearly all objects in <strong>JavaScript</strong> are instances of <strong>Objec
 While this confusion is often considered to be one of <strong>JavaScript</strong>'s weaknesses, the prototypal inheritance model itself is, in fact, more powerful than the classic model. It is, for example, fairly trivial to build a classic model on top of a prototypal model.
 
 [![V75w5T.md.png](https://s2.ax1x.com/2019/06/17/V75w5T.md.png)](https://imgchr.com/i/V75w5T)
+```text
+Object-_proto_ -> Function.prototype
+Object-prototype haven't _proto_
+Function-_proto_ -> Function-prototype
+Function-prototype-_proto_ -> Object-prototype
+```
 
 ## Inheritance with the prototype chain
 #### Inheriting Properties
