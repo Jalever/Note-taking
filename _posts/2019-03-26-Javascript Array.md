@@ -1115,6 +1115,39 @@ arr.includes('a', -2); // false
 ```
 
 ----------------------------------------------------------------------------
+## Array.prototype.indexOf()
+The `indexOf()` method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+![ZLdgU0.png](https://s2.ax1x.com/2019/07/17/ZLdgU0.png)
+
+#### Syntax
+![ZLdTbR.png](https://s2.ax1x.com/2019/07/17/ZLdTbR.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>searchElement</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Element to locate in the array.
+
+&nbsp;&nbsp;<strong>fromIndex</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;The index to start the search at. If the index is greater than or equal to the array's length, -1 is returned, which means the array will not be searched. If the provided index value is a negative number, it is taken as the offset from the end of the array. Note: if the provided index is negative, the array is still searched from front to back. If the provided index is 0, then the whole array will be searched. Default: 0 (entire array is searched).
+
+###### Return Value
+&nbsp;&nbsp;The first index of the element in the array; -1 if not found.
+
+#### Description
+`indexOf()` compares `searchElement` to elements of the Array using strict equality (the same method used by the `===` or triple-equals operator).
+
+#### Examples
+###### Using indexOf()
+The following example uses `indexOf()` to locate values in an array.
+![ZLw3GT.png](https://s2.ax1x.com/2019/07/17/ZLw3GT.png)
+
+###### Finding all the occurrences of an element
+![ZLwNL9.png](https://s2.ax1x.com/2019/07/17/ZLwNL9.png)
+
+###### Finding if an element exists in the array or not and updating the array
+![ZLwdd1.png](https://s2.ax1x.com/2019/07/17/ZLwdd1.png)
+
+----------------------------------------------------------------------------
 ## Array.prototype.map()
 #### Definition
 &ensp;&ensp;The map() method creates a new array with the results of calling a function for every array element.<br/>
