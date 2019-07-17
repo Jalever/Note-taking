@@ -798,15 +798,15 @@ The `flatMap()` method first maps each element using a mapping function, then fl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `map` was called upon.
 
 &nbsp;&nbsp;<strong>thisArg</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
 
 ###### Return Value
@@ -890,15 +890,15 @@ The `forEach()` method executes a provided function once for each array element.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `forEach()` was called upon.
 
 &nbsp;&nbsp;<strong>thisArg</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
 
 ###### Return Value
@@ -1064,7 +1064,7 @@ The `includes()` method determines whether an array includes a certain value amo
 > When comparing strings and characters, `includes()` is case-sensitive.
 
 &nbsp;&nbsp;<strong>fromIndex</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;The position in this array at which to begin searching for `valueToFind`; the first character to be searched is found at `fromIndex` for positive values of `fromIndex`, or at `array.length + fromIndex` for negative values of `fromIndex` (using the absolute value of `fromIndex` as the number of characters from the end of the array at which to start the search). Defaults to 0.
 
 ###### Return Value
@@ -1127,7 +1127,7 @@ The `indexOf()` method returns the first index at which a given element can be f
 &nbsp;&nbsp;&nbsp;&nbsp;Element to locate in the array.
 
 &nbsp;&nbsp;<strong>fromIndex</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Optional</br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;The index to start the search at. If the index is greater than or equal to the array's length, -1 is returned, which means the array will not be searched. If the provided index value is a negative number, it is taken as the offset from the end of the array. Note: if the provided index is negative, the array is still searched from front to back. If the provided index is 0, then the whole array will be searched. Default: 0 (entire array is searched).
 
 ###### Return Value
@@ -1146,6 +1146,86 @@ The following example uses `indexOf()` to locate values in an array.
 
 ###### Finding if an element exists in the array or not and updating the array
 ![ZLwdd1.png](https://s2.ax1x.com/2019/07/17/ZLwdd1.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.join()
+The `join()` method creates and returns a new string by concatenating all of the elements in an array (or an array-like object), separated by commas or a specified separator string. If the array has only one item, then that item will be returned without using the separator.
+![ZLBGDJ.png](https://s2.ax1x.com/2019/07/17/ZLBGDJ.png)
+
+#### Syntax
+![ZLBBvD.png](https://s2.ax1x.com/2019/07/17/ZLBBvD.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>separator</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Specifies a string to separate each pair of adjacent elements of the array. The separator is converted to a string if necessary. If omitted, the array elements are separated with a comma (","). If `separator` is an empty string, all elements are joined without any characters in between them.
+
+###### Return Value
+&nbsp;&nbsp;A string with all array elements joined. If `arr.length` is `0`, the empty string is returned.
+
+#### Description
+The string conversions of all array elements are joined into one string.
+> If an element is `undefined` or `null`, it is converted to the empty string.
+
+#### Examples
+###### Joining an array four different ways
+The following example creates an array, `a`, with three elements, then joins the array four times: using the default separator, then a comma and a space, then a plus and an empty string.
+![ZLBzMF.png](https://s2.ax1x.com/2019/07/17/ZLBzMF.png)
+
+###### Joining an array-like object
+The following example joins array-like object (`arguments`), by calling `Function.prototype.call` on `Array.prototype.join`.
+
+![ZLD8Rf.png](https://s2.ax1x.com/2019/07/17/ZLD8Rf.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.keys()
+The `keys()` method returns a new <strong>Array Iterator</strong> object that contains the keys for each index in the array.
+![ZLrvB4.png](https://s2.ax1x.com/2019/07/17/ZLrvB4.png)
+
+#### Syntax
+![ZLsEuD.png](https://s2.ax1x.com/2019/07/17/ZLsEuD.png)
+
+###### Return Value
+&nbsp;&nbsp;A new <strong>Array</strong> iterator object.
+
+#### Examples
+###### Key iterator doesn't ignore holes
+![ZLsnUA.png](https://s2.ax1x.com/2019/07/17/ZLsnUA.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.lastIndexOf()
+The `lastIndexOf()` method returns the last index at which a given element can be found in the array, or -1 if it is not present. The array is searched backwards, starting at `fromIndex`.
+![ZL6Rc6.png](https://s2.ax1x.com/2019/07/17/ZL6Rc6.png)
+
+#### Syntax
+![ZL6b9I.png](https://s2.ax1x.com/2019/07/17/ZL6b9I.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>searchElement</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Element to locate in the array.
+
+&nbsp;&nbsp;<strong>fromIndex</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The index at which to start searching backwards. Defaults to the array's length minus one (`arr.length - 1`), i.e. the whole array will be searched. If the index is greater than or equal to the length of the array, the whole array will be searched. If negative, it is taken as the offset from the end of the array. Note that even when the index is negative, the array is still searched from back to front. If the calculated index is less than 0, -1 is returned, i.e. the array will not be searched.
+
+###### Return Value
+&nbsp;&nbsp;The last index of the element in the array; `-1` if not found.
+
+#### Description
+`lastIndexOf` compares `searchElement` to elements of the Array using <strong>Strict Equality</strong> (the same method used by the `===`, or triple-equals, operator).
+
+#### Examples
+###### Using lastIndexOf
+The following example uses `lastIndexOf` to locate values in an array.
+![ZLcJbD.png](https://s2.ax1x.com/2019/07/17/ZLcJbD.png)
+
+###### Finding all the occurrences of an element
+The following example uses `lastIndexOf` to find all the indices of an element in a given array, using `push` to add them to another array as they are found.
+
+![ZLgIfA.png](https://s2.ax1x.com/2019/07/17/ZLgIfA.png)
+
+Note that we have to handle the case `idx == 0` separately here because the element will always be found regardless of the `fromIndex` parameter if it is the first element of the array. This is different from the `indexOf` method.
+
 
 ----------------------------------------------------------------------------
 ## Array.prototype.map()
