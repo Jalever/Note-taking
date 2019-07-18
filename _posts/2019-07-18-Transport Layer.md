@@ -12,7 +12,7 @@ tags:
 
 - [Overview](#overview)
 - [Services](#services)
-    - [Connection-oriented communication](#connectionoriented-communication)
+    - [Connection-oriented communication](#connection-oriented-communication)
     - [Same order delivery](#same-order-delivery)
     - [Reliability](#reliability)
     - [Flow control](#flow-control)
@@ -47,3 +47,18 @@ The rate of data transmission between two nodes must sometimes be managed to pre
 
 #### Multiplexing
 Ports can provide multiple endpoints on a single node. For example, the name on a postal address is a kind of multiplexing, and distinguishes between different recipients of the same location. Computer applications will each listen for information on their own ports, which enables the use of more than one network service at the same time. It is part of the transport layer in the <strong>TCP/IP</strong> model, but of the <strong>Session Layer</strong> in the OSI model.
+
+## Analysis
+The <strong>Transport Layer</strong> is responsible for delivering data to the appropriate application process on the host computers. This involves <strong>Statistical Multiplexing</strong> of data from different application processes, i.e. forming data segments, and adding source and destination port numbers in the header of each transport layer data segment. Together with the source and destination IP address, the port numbers constitutes a <strong>Network Socket</strong>, i.e. an identification address of the <strong>Process-to-Process Communication</strong>. In the OSI model, this function is supported by the <strong>Session Layer</strong>.
+
+Some <strong>Transport Layer Protocols</strong>, for example <strong>TCP</strong>, but not UDP, support <strong>Virtual Circuits</strong>, i.e. provide Connection-Oriented Communication over an underlying packet oriented Datagram network. A byte-stream is delivered while hiding the packet mode communication for the application processes. This involves connection establishment, dividing of the data stream into packets called Segments, Segment Numbering and Reordering of Out-of Order Data.
+
+Finally, some Transport Layer Protocols, for example TCP, but not UDP, provide End-to-End Reliable communication, i.e. <strong>Error Recovery</strong> by means of <strong>Error Detecting Code</strong> and <strong>Automatic Repeat Request</strong>(ARQ) protocol. The <strong>ARQ</strong> protocol also provides <strong>Flow Control</strong>, which may be combined with <strong>Congestion Avoidance</strong>.
+
+<strong>UDP</strong> is a very simple protocol, and does not provide Virtual Circuits, nor reliable communication, delegating these functions to the application program. UDP packets are called <strong>Datagram</strong>s, rather than segments.
+
+<strong>TCP</strong> is used for many protocols, including HTTP web browsing and email transfer. UDP may be used for <ins>Multicasting</ins> and <ins>Broadcasting</ins>, since retransmissions are not possible to a large amount of hosts. UDP typically gives <ins>higher throughput</ins> and <ins>shorter latency</ins>, and is therefore often used for <ins>real-time multimedia communication</ins> where packet loss occasionally can be accepted, for example <ins>IP-TV</ins> and <ins>IP-telephony</ins>, and for <ins>online computer games</ins>.
+
+Many non-IP-based networks, such as <ins>X.25</ins>, <ins>Frame Relay</ins> and <ins>ATM</ins>, implement the <strong>Connection-Oriented Communication</strong> at the network or <strong>Data Link Layer</strong> rather than the <strong>Transport Layer</strong>. In <ins>X.25</ins>, in telephone network modems and in wireless communication systems, reliable Node-to-Node Communication is implemented at lower protocol layers.
+
+The OSI connection-mode transport layer protocol specification defines five classes of transport protocols: <strong>TP0</strong>, providing the least Error Recovery, to <strong>TP4</strong>, which is designed for less Reliable Networks.
