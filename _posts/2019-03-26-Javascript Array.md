@@ -1226,51 +1226,81 @@ The following example uses `lastIndexOf` to find all the indices of an element i
 
 Note that we have to handle the case `idx == 0` separately here because the element will always be found regardless of the `fromIndex` parameter if it is the first element of the array. This is different from the `indexOf` method.
 
-
 ----------------------------------------------------------------------------
 ## Array.prototype.map()
-#### Definition
-&ensp;&ensp;The map() method creates a new array with the results of calling a function for every array element.<br/>
-&ensp;&ensp;The map() method calls the provided function once for each element in an array, in order.<br/>
-> Note: map() does not execute the function for array elements without values.<br/>
-> Note: map() does not change the original array.
+The `map()` method creates a new array with the results of calling a provided function on every element in the calling array.
+![ZXnAiR.png](https://s2.ax1x.com/2019/07/18/ZXnAiR.png)
 
 #### Syntax
-`array.forEach( function( currentValue, index, arr ), thisValue )`
+![ZXnwwQ.png](https://s2.ax1x.com/2019/07/18/ZXnwwQ.png)
 
-**currentValue**<br/>
-* Required.<br/>
-* The value of the current element<br/>
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function that produces an element of the new Array, taking three arguments:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>currentValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array `map` was called upon.
 
-**index** <br/>
-* Optional. <br/>
-* The array index of the current element<br/>
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as `this` when executing `callback`.
 
-**arr** <br/>
-* Optional.<br/>
-* The array object the current element belongs to<br/>
+###### Return Value
+&nbsp;&nbsp;A new array with each element being the result of the callback function.
 
-**function( currentValue, index, arr )**<br/>
-* Required. <br/>
-* A function to be run for each element in the array.<br/>
+#### Description
+<strong>map</strong> calls a provided <strong>callback</strong> function once for each element in an array, in order, and constructs a new array from the results. <strong>callback</strong> is invoked only for indexes of the array which have assigned values, including <ins>undefined</ins>. It is not called for missing elements of the array (that is, indexes that have never been set, which have been deleted or which have never been assigned a value).
 
-**thisValue**<br/>
-* Optional. <br/>
-* A value to be passed to the function to be used as its "this" value.
-* If this parameter is empty, the value "undefined" will be passed as its "this" value<br/>
+Since <strong>map</strong> builds a new array, using it when you aren't using the returned array is an anti-pattern; use <ins>forEach</ins> or <ins>for-of</ins> instead. Signs you shouldn't be using map:
+1. You're not using the array it returns
+2. You're not returning a value from the callback.
 
-#### Usage
-```
-const numbers = [43,222,32,1];
-numbers.forEach( (currentValue, index, arr) => {
-	console.log("index[" + index + "]: " + currentValue);
-} );
-//expected output:
-// index[0]: 43
-// index[1]: 222
-// index[2]: 32
-// index[3]: 1
-```
+<strong>callback</strong> is invoked with three arguments: the value of the element, the index of the element, and the Array object being traversed.
+
+If a <strong>thisArg</strong> parameter is provided to <strong>map</strong>, it will be used as callback's <strong>this</strong> value. Otherwise, the value <strong>undefined</strong> will be used as its <strong>this</strong> value. The <strong>this</strong> value ultimately observable by <strong>callback</strong> is determined according to The Usual Rules For Determining The This Seen By A Function.
+
+<strong>map</strong> does not mutate the array on which it is called (although <strong>callback</strong>, if invoked, may do so).
+
+The range of elements processed by <strong>map</strong> is set before the first invocation of <strong>callback</strong>. Elements which are appended to the array after the call to <strong>map</strong> begins will not be visited by <strong>callback</strong>. If existing elements of the array are changed, their value as passed to <strong>callback</strong> will be the value at the time <strong>map</strong> visits them. Elements that are deleted after the call to <strong>map</strong> begins and before being visited are not visited.
+
+Due to the algorithm defined in the specification if the array which map was called upon is sparse, resulting array will also be sparse keeping same indices blank.
+
+#### Examples
+###### Mapping an array of numbers to an array of square roots
+The following code takes an array of numbers and creates a new array containing the square roots of the numbers in the first array.
+![ZXlnVU.png](https://s2.ax1x.com/2019/07/18/ZXlnVU.png)
+
+###### Using map to reformat objects in an array
+The following code takes an array of objects and creates a new array containing the newly reformatted objects.
+![ZXlhGj.png](https://s2.ax1x.com/2019/07/18/ZXlhGj.png)
+
+###### Mapping an array of numbers using a function containing an argument
+The following code shows how map works when a function requiring one argument is used with it. The argument will automatically be assigned from each element of the array as map loops through the original array.
+![ZX1FoD.png](https://s2.ax1x.com/2019/07/18/ZX1FoD.png)
+
+###### Using map generically
+This example shows how to use map on a <strong>String</strong> to get an array of bytes in the ASCII encoding representing the character values:
+![ZX1dmV.png](https://s2.ax1x.com/2019/07/18/ZX1dmV.png)
+
+###### Using map generically querySelectorAll
+This example shows how to iterate through a collection of objects collected by <strong>querySelectorAll</strong>. This is because <strong>querySelectorAll</strong> returns a <strong>NodeList</strong> which is a collection of objects.
+
+In this case we return all the selected options' values on the screen:
+![ZX3mh4.png](https://s2.ax1x.com/2019/07/18/ZX3mh4.png)
+
+###### Tricky use case
+It is common to use the callback with one argument (the element being traversed). Certain functions are also commonly used with one argument, even though they take additional optional arguments. These habits may lead to confusing behaviors.
+![ZX84RH.png](https://s2.ax1x.com/2019/07/18/ZX84RH.png)
+![ZX8TsI.png](https://s2.ax1x.com/2019/07/18/ZX8TsI.png)
+
+One alternative output of the map method being called with parseInt as a parameter runs as follows:
+![ZXGSQs.png](https://s2.ax1x.com/2019/07/18/ZXGSQs.png)
+
 
 ----------------------------------------------------------------------------
 

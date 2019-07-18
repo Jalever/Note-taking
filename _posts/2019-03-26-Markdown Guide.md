@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Markdown笔记
-subtitle:   Markdown学习系列
+title:      Markdown Guide
+subtitle:   Markdown
 date:       2019-03-26
 author:     Jalever
 header-img: img/post_2019_markdown_usage_bg.png

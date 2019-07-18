@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Introduce to Flex
+title: Introduction to Flex
 subtitle: Aligning Items in a Flex Container
 date: 2019-03-26
 author: Jalever
