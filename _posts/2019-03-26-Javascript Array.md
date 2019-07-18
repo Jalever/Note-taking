@@ -1301,55 +1301,159 @@ It is common to use the callback with one argument (the element being traversed)
 One alternative output of the map method being called with parseInt as a parameter runs as follows:
 ![ZXGSQs.png](https://s2.ax1x.com/2019/07/18/ZXGSQs.png)
 
-
 ----------------------------------------------------------------------------
-
-## Array.prototype.reduce()
-#### Definition
-&ensp;&ensp;The reduce() method reduces the array to a single value.
-&ensp;&ensp;The reduce() method executes a provided function for each value of the array (from left-to-right).
-&ensp;&ensp;The return value of the function is stored in an accumulator (result/total).
-> Note: reduce() does not execute the function for array elements without values.
+## Array.prototype.pop()
+The <strong>pop()</strong> method removes the <ins>last</ins> element from an array and returns that element. This method changes the length of the array.
+![ZXth7t.png](https://s2.ax1x.com/2019/07/18/ZXth7t.png)
 
 #### Syntax
-`array.reduce( function( total, currentValue, currentIndex, arr ), initialValue )`
+![ZXt79S.png](https://s2.ax1x.com/2019/07/18/ZXt79S.png)
 
-**total**<br/>
-* Required.<br/>
-* The initialValue, or the previously returned value of the function<br/>
+###### Return Value
+&nbsp;&nbsp;The removed element from the array; undefined if the array is empty.
 
-**currentValue** <br/>
-* Required. <br/>
-* The value of the current element<br/>
+#### Description
+The <strong>pop</strong> method removes the last element from an array and returns that value to the caller.
 
-**currentIndex** <br/>
-* Optional.<br/>
-* The array index of the current element<br/>
+<strong>pop</strong> is intentionally generic; this method can be called or applied to objects resembling arrays. Objects which do not contain a <strong>length</strong> property reflecting the last in a series of consecutive, zero-based numerical properties may not behave in any meaningful manner.
 
-**arr**<br/>
-* Optional. <br/>
-* The array object the current element belongs to.<br/>
+If you call <strong>pop()</strong> on an empty array, it returns <strong>undefined</strong>.
 
-**function( total, currentValue, currentIndex, arr )**<br/>
-* Required. <br/>
-* A function to be run for each element in the array.<br/>
+<strong>Array.prototype.shift()</strong> has similar behavior to <strong>pop</strong>, but applied to the first element in an array.
 
-**initialValue**<br/>
-* Optional.<br/>
-* A value to be passed to the function as the initial value.<br/>
+#### Examples
+###### Removing the last element of an array
+The following code creates the <strong>myFish</strong> array containing four elements, then removes its last element.
+![ZXtj7q.png](https://s2.ax1x.com/2019/07/18/ZXtj7q.png)
 
-#### Usage
-```
-const numbers = [33,54,6,7,42,58];
+###### Using apply( ) or call ( ) on array-like objects
+The following code creates the <strong>myFish</strong> array-like object containing four elements and a length parameter, then removes its last element and decrements the length parameter.
+![ZXNShT.png](https://s2.ax1x.com/2019/07/18/ZXNShT.png)
 
-var sum = numbers.reduce( (total, currentValue, currentIndex, arr) => {
-	return total + currentValue;
-} );
+----------------------------------------------------------------------------
+## Array.prototype.push()
+The <strong>push()</strong> method adds one or more elements to the end of an array and returns the new length of the array.
+![ZXN3DA.png](https://s2.ax1x.com/2019/07/18/ZXN3DA.png)
 
-console.log("Sum: " + sum);
-//expected output:
-//Sum: 200
-```
+#### Syntax
+![ZXNYUP.png](https://s2.ax1x.com/2019/07/18/ZXNYUP.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>elementN</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The elements to add to the end of the array.
+
+###### Return Value
+&nbsp;&nbsp;The new <strong>length</strong> property of the object upon which the method was called.
+
+#### Description
+The <strong>push</strong> method appends values to an array.
+
+<strong>push</strong> is intentionally generic. This method can be used with <strong>call()</strong> or <strong>apply()</strong> on objects resembling arrays. The <strong>push</strong> method relies on a <strong>length</strong> property to determine where to start inserting the given values. If the <strong>length</strong> property cannot be converted into a number, the index used is 0. This includes the possibility of <strong>length</strong> being nonexistent, in which case <strong>length</strong> will also be created.
+
+Although <strong>String</strong>s are native, Array-like objects, they are not suitable in applications of this method, as strings are immutable.  Similarly for the native, Array-like object arguments.
+
+
+#### Examples
+###### Adding elements to an array
+The following code creates the <strong>sports</strong> array containing two elements, then appends two elements to it. The <strong>total</strong> variable contains the new length of the array.
+![ZXNO2D.png](https://s2.ax1x.com/2019/07/18/ZXNO2D.png)
+
+###### Merging two arrays
+This example uses <strong>apply()</strong> to push all elements from a second array.
+
+Do not use this method if the second array (<strong>moreVegs</strong> in the example) is very large, because the maximum number of parameters that one function can take is limited in practice.
+![ZXUCIP.png](https://s2.ax1x.com/2019/07/18/ZXUCIP.png)
+
+###### Using an object in an array-like fashion
+As mentioned above, <strong>push</strong> is intentionally generic, and we can use that to our advantage. <strong>Array.prototype.push</strong> can work on an object just fine, as this example shows. Note that we don't create an array to store a collection of objects. Instead, we store the collection on the object itself and use <strong>call</strong> on <strong>Array.prototype.push</strong> to trick the method into thinking we are dealing with an array, and it just works, thanks to the way JavaScript allows us to establish the execution context however we please.
+![ZXUYL9.png](https://s2.ax1x.com/2019/07/18/ZXUYL9.png)
+Note that although <strong>obj</strong> is not an array, the method <strong>push</strong> successfully incremented <strong>obj</strong>'s <strong>length</strong> property just like if we were dealing with an actual array.
+
+----------------------------------------------------------------------------
+## Array.prototype.reduce()
+The <strong>reduce()</strong> method executes a <strong>reducer</strong> function (that you provide) on each element of the array, resulting in a single output value.
+![ZXUYL9.png](https://s2.ax1x.com/2019/07/18/ZXUYL9.png)
+Your <strong>reducer</strong> function's returned value is assigned to the accumulator, whose value is remembered across each iteration throughout the array and ultimately becomes the final, single resulting value.
+
+
+#### Syntax
+![ZX2c3d.png](https://s2.ax1x.com/2019/07/18/ZX2c3d.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A function to execute on each element in the array (except for the first, if no initialValue is supplied), taking four arguments:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>accumulator</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The accumulator accumulates the callback's return values. It is the accumulated value previously returned in the last invocation of the callback, or <strong>initialValue</strong>, if supplied.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>currentValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array. Starts from index 0 if an <strong>initialValue</strong> is provided. Otherwise, starts from index 1.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array <strong>reduce()</strong> was called upon.<br/>
+&nbsp;&nbsp;<strong>initialValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A value to use as the first argument to the first call of the <strong>callback</strong>. If no <strong>initialValue</strong> is supplied, the first element in the array will be used and skipped. Calling <strong>reduce()</strong> on an empty array without an <strong>initialValue</strong> will throw a <strong>TypeError</strong>.<br/>
+
+###### Return Value
+&nbsp;&nbsp;The single value that results from the reduction.
+
+#### Description
+The <strong>reduce()</strong> method executes the <strong>callback</strong> once for each assigned value present in the array, taking four arguments:
+- accumulator
+- currentValue
+- currentIndex
+- array
+The first time the callback is called, <strong>accumulator</strong> and <strong>currentValue</strong> can be one of two values. If <strong>initialValue</strong> is provided in the call to <strong>reduce()</strong>, then <strong>accumulator</strong> will be equal to <strong>initialValue</strong>, and <strong>currentValue</strong> will be equal to the first value in the array. If no <strong>initialValue</strong> is provided, then <strong>accumulator</strong> will be equal to the first value in the array, and <strong>currentValue</strong> will be equal to the second.
+> Note: If initialValue is not provided, reduce() will execute the callback function starting at index 1, skipping the first index. If initialValue is provided, it will start at index 0.
+
+If the array is empty and no <strong>initialValue</strong> is provided, <strong>TypeError</strong> will be thrown. If the array only has one element (regardless of position) and no <strong>initialValue</strong> is provided, or if <strong>initialValue</strong> is provided but the array is empty, the solo value will be returned without calling <strong>callback</strong>.
+
+It is usually safer to provide an <strong>initialValue</strong> because there are three possible outputs without <strong>initialValue</strong>, as shown in the following example.
+![ZXfPn1.png](https://s2.ax1x.com/2019/07/18/ZXfPn1.png)
+
+#### Examples
+###### Sum all the values of an array
+![ZX4fk6.png](https://s2.ax1x.com/2019/07/18/ZX4fk6.png)
+Alternatively written with an arrow function:
+![ZX44fO.png](https://s2.ax1x.com/2019/07/18/ZX44fO.png)
+
+###### Sum of values in an object array
+To sum up the values contained in an array of objects, you must supply an <strong>initialValue</strong>, so that each item passes through your function.
+![ZX4vh8.png](https://s2.ax1x.com/2019/07/18/ZX4vh8.png)
+Alternatively written with an arrow function:
+![ZX5S1g.png](https://s2.ax1x.com/2019/07/18/ZX5S1g.png)
+
+###### Flatten an array of arrays
+![ZX59Xj.png](https://s2.ax1x.com/2019/07/18/ZX59Xj.png)
+Alternatively written with an arrow function:
+![ZX5iBn.png](https://s2.ax1x.com/2019/07/18/ZX5iBn.png)
+
+###### Counting instances of values in an object
+![ZX5VhT.png](https://s2.ax1x.com/2019/07/18/ZX5VhT.png)
+
+###### Grouping objects by a property
+![ZX5Wuj.png](https://s2.ax1x.com/2019/07/18/ZX5Wuj.png)
+![ZX5hbn.png](https://s2.ax1x.com/2019/07/18/ZX5hbn.png)
+
+###### Bonding arrays contained in an array of objects using the spread operator and initialValue
+![ZXIaGT.png](https://s2.ax1x.com/2019/07/18/ZXIaGT.png)
+![ZXIRJK.png](https://s2.ax1x.com/2019/07/18/ZXIRJK.png)
+
+###### Remove duplicate items in array
+> If you are using an environment compatible with `Set` and `Array.from()`, you could use `let orderedArray = Array.from(new Set(myArray));` to get an array where duplicate items have been removed.
+![ZXoQFx.png](https://s2.ax1x.com/2019/07/18/ZXoQFx.png)
+
+###### Running Promises in Sequence
+![ZXoy6g.png](https://s2.ax1x.com/2019/07/18/ZXoy6g.png)
+![ZXoR7n.png](https://s2.ax1x.com/2019/07/18/ZXoR7n.png)
+![ZXofkq.png](https://s2.ax1x.com/2019/07/18/ZXofkq.png)
+
+###### Function composition enabling piping
+![ZXoz9K.png](https://s2.ax1x.com/2019/07/18/ZXoz9K.png)
+
+###### write map using reduce
+![ZXTlHs.png](https://s2.ax1x.com/2019/07/18/ZXTlHs.png)
 
 ----------------------------------------------------------------------------
 
