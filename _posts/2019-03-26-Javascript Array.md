@@ -1442,6 +1442,7 @@ Alternatively written with an arrow function:
 
 ###### Remove duplicate items in array
 > If you are using an environment compatible with `Set` and `Array.from()`, you could use `let orderedArray = Array.from(new Set(myArray));` to get an array where duplicate items have been removed.
+
 ![ZXoQFx.png](https://s2.ax1x.com/2019/07/18/ZXoQFx.png)
 
 ###### Running Promises in Sequence
