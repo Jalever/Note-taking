@@ -11,6 +11,9 @@ tags:
 ---
 - [Common Definition](#common-definition)
     - [Coefficient](#coefficient)
+    - [Binomial Theorem](#binomial-theorem)
+    - [Binomial Coefficient](#binomial-coefficient)
+    - [Pascal Triangle](#pascal-triangle)
 
 ## Common Definition
 #### Coefficient
@@ -30,4 +33,26 @@ it is generally supposed that `x` is the only variable and that `a`, `b` and `c`
 In <strong>Elementary Algebra</strong>, the <strong>Binomial Theorem</strong>(or <strong>Binomial Expansion</strong>) describes the algebraic expansion of powers of a binomial. According to the theorem, it is possible to expand the polynomial `(x + y)^n` into a sum involving terms of the form `a * x^b * y^c`, where the exponents `b` and `c` are nonnegative integers with `b + c = n`, and the coefficient `a` of each term is a specific positive integer depending on `n` and `b`. For example (for n = 4),
 ![ZO2roF.png](https://s2.ax1x.com/2019/07/18/ZO2roF.png)
 
-The coefficient `a` in the term of `a * x^b * y^c` is known as the <strong>Binomial Coefficient</strong> ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) or {\displaystyle {\tbinom {n}{c}}} {\tbinom {n}{c}} (the two have the same value). These coefficients for varying `n` and `b` can be arranged to form <strong>Pascal's Triangle</strong>. These numbers also arise in <strong>Combinatorics</strong>, where ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) gives the number of different combinations of `b` elements that can be chosen from an n-element set. Therefore ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) is often pronounced as "n choose b".
+The coefficient `a` in the term of `a * x^b * y^c` is known as the <strong>Binomial Coefficient</strong> ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) or ![ZO4nD1.png](https://s2.ax1x.com/2019/07/18/ZO4nD1.png) (the two have the same value). These coefficients for varying `n` and `b` can be arranged to form <strong>Pascal's Triangle</strong>. These numbers also arise in <strong>Combinatorics</strong>, where ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) gives the number of different combinations of `b` elements that can be chosen from an n-element set. Therefore ![ZOhf9e.png](https://s2.ax1x.com/2019/07/18/ZOhf9e.png) is often pronounced as "n choose b".
+
+#### Binomial Coefficient
+In <strong>Mathematics</strong>, the <strong>Binomial Coefficients</strong> are the positive integers that occur as coefficients in the <strong>Binomial Theorem</strong>. Commonly, a <strong>Binomial Coefficient</strong> is indexed by a pair of integers `n >= k >= 0` and is written ![ZO5CMd.png](https://s2.ax1x.com/2019/07/18/ZO5CMd.png). It is the coefficient of the `x^k` term in the <strong>Polynomial Expansion</strong> of the <strong>Binomial Power</strong> `(1 + x)^n`, and it is given by the formula
+![ZO5KMj.png](https://s2.ax1x.com/2019/07/18/ZO5KMj.png)
+
+For example, the fourth power of `1 + x` is
+![ZO53d0.png](https://s2.ax1x.com/2019/07/18/ZO53d0.png)
+and the binomial coefficient![ZO5JiT.png](https://s2.ax1x.com/2019/07/18/ZO5JiT.png)is the coefficient of the `x^2` term.
+
+Arranging the numbers ![ZOIeTx.png](https://s2.ax1x.com/2019/07/18/ZOIeTx.png)in successive rows for `n = 0, 1, 2,...` gives a triangular array called <strong>Pascal's Triangle</strong>, satisfying the <strong>Recurrence Relation</strong>.
+![ZOIw9S.png](https://s2.ax1x.com/2019/07/18/ZOIw9S.png)
+
+The binomial coefficients occur in many areas of mathematics, and especially in combinatorics. The symbol ![ZO5CMd.png](https://s2.ax1x.com/2019/07/18/ZO5CMd.png) is usually read as "n choose k" because there are ![ZO5CMd.png](https://s2.ax1x.com/2019/07/18/ZO5CMd.png) ways to choose an (unordered) subset of `k` elements from a fixed set of `n` elements. For example, there are ![ZOI5jJ.png](https://s2.ax1x.com/2019/07/18/ZOI5jJ.png) ways to choose 2 elements from `{1, 2, 3, 4}`, namely `{1, 2}`, `{1, 3}`, `{1, 4}`, `{2, 3}`, `{2, 4}` and  `{3, 4}`.
+
+#### Pascal Triangle
+In <strong>Mathematics</strong>, <strong>Pascal's Triangle</strong> is a triangular array of the <strong>Binomial Coefficient</strong>s.
+
+In <strong>Pascal's Triangle</strong>, each number is the sum of the two numbers directly above it.
+
+![ZO56JO.gif](https://s2.ax1x.com/2019/07/18/ZO56JO.gif)
+For example, the fourth power of `1 + x` is
+![ZO53d0.png](https://s2.ax1x.com/2019/07/18/ZO53d0.png)
