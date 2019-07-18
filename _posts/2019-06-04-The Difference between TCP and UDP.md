@@ -4,7 +4,7 @@ title: The Difference between TCP and UDP
 subtitle: Computer Network
 date: 2019-06-04
 author: Jalever
-header-img: img/post-bg-algorithm.jpg
+header-img: img/network_bg_simple.png
 catalog: true
 tags:
   - Computer Network

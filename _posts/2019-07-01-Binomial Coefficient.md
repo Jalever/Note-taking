@@ -51,8 +51,11 @@ The binomial coefficients occur in many areas of mathematics, and especially in 
 #### Pascal Triangle
 In <strong>Mathematics</strong>, <strong>Pascal's Triangle</strong> is a triangular array of the <strong>Binomial Coefficient</strong>s.
 
-In <strong>Pascal's Triangle</strong>, each number is the sum of the two numbers directly above it.
+The rows of <strong>Pascal's Triangle</strong> are conventionally enumerated starting with row `n = 0` at the top (the 0th row). The entries in each row are numbered from the left beginning with `k = 0` and are usually staggered relative to the numbers in the adjacent rows. The triangle may be constructed in the following manner: In `row 0` (the topmost row), there is a unique nonzero entry `1`. Each entry of each subsequent row is constructed by adding <ins>the number above and to the left</ins> with <ins>the number above and to the right</ins>, treating blank entries as `0`. For example, the initial number in the first (or any other) row is `1` (the sum of `0` and `1`), whereas the numbers `1` and `3` in the third row are added to produce the number `4` in the fourth row.
 
 ![ZO56JO.gif](https://s2.ax1x.com/2019/07/18/ZO56JO.gif)
 For example, the fourth power of `1 + x` is
 ![ZO53d0.png](https://s2.ax1x.com/2019/07/18/ZO53d0.png)
+
+## The Problem
+Write a function that takes two parameters `n` and `k` and returns the value of Binomial Coefficient ![ZO5CMd.png](https://s2.ax1x.com/2019/07/18/ZO5CMd.png). For example, your function should return 6 for `n = 4` and `k = 2`, and it should return `10` for `n = 5` and `k = 2`.
