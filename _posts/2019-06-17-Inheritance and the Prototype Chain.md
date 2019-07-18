@@ -21,7 +21,7 @@ While this confusion is often considered to be one of <strong>JavaScript</strong
 
 [![V75w5T.md.png](https://s2.ax1x.com/2019/06/17/V75w5T.md.png)](https://imgchr.com/i/V75w5T)
 ```text
-Object-_proto_ -> Function.prototype
+Object-_proto_ -> Function-prototype
 Object-prototype haven't _proto_
 Function-_proto_ -> Function-prototype
 Function-prototype-_proto_ -> Object-prototype

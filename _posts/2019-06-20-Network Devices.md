@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Network Devices
-subtitle: Network Devices学习笔记系列
+subtitle: Network Devices
 date: 2019-06-20
 author: Jalever
 header-img: img/computer_network_bg_simple.png

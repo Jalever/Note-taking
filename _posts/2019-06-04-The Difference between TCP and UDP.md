@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Difference between TCP and UDP
-subtitle: Computer Network学习笔记系列
+subtitle: Computer Network
 date: 2019-06-04
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
