@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Git常用命令
-subtitle: Git学习笔记系列
+title: Git Common Commands
+subtitle: Git Learning Notes
 date: 2019-03-27
 author: Jalever
 header-img: img/post_2019_git_bg.png

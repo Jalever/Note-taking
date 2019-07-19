@@ -1,6 +1,6 @@
 ---
 layout: post
-title: localStorage and SessionStorage
+title: localStorage and sessionStorage
 subtitle: Web API
 date: 2019-03-27
 author: Jalever

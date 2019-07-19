@@ -1,13 +1,12 @@
 ---
 layout: post
 title: Throttle and Debounce
-subtitle: Web Development学习笔记系列
+subtitle: Web Development
 date: 2019-03-27
 author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
-  - JavaScript
   - Web Development
 ---
 
