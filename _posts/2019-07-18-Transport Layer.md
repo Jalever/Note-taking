@@ -18,6 +18,7 @@ tags:
     - [Flow control](#flow-control)
     - [Congestion avoidance](#congestion-avoidance)
     - [Multiplexing](#multiplexing)
+- [Analysis](#analysis)
 
 ## Overview
 In <strong>Computer Networking</strong>, the <strong>Transport Layer</strong> is a conceptual division of methods in the layered architecture of protocols in the network stack in the Internet Protocol Suite and the OSI model. The protocols of this layer provide host-to-host communication services for applications. It provides services such as <ins>connection-oriented communication</ins>, <ins>reliability</ins>, <ins>flow control</ins>, and <ins>multiplexing</ins>.
