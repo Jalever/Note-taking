@@ -1393,6 +1393,7 @@ Your <strong>reducer</strong> function's returned value is assigned to the accum
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array <strong>reduce()</strong> was called upon.<br/>
 &nbsp;&nbsp;<strong>initialValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;A value to use as the first argument to the first call of the <strong>callback</strong>. If no <strong>initialValue</strong> is supplied, the first element in the array will be used and skipped. Calling <strong>reduce()</strong> on an empty array without an <strong>initialValue</strong> will throw a <strong>TypeError</strong>.<br/>
 
 ###### Return Value
@@ -1457,7 +1458,165 @@ Alternatively written with an arrow function:
 ![ZXTlHs.png](https://s2.ax1x.com/2019/07/18/ZXTlHs.png)
 
 ----------------------------------------------------------------------------
+## Array.prototype.reduceRight()
+The <strong>reduceRight()</strong> method applies a function against an accumulator and each value of the array (from right-to-left) to reduce it to a single value.
+![ZvNkHs.png](https://s2.ax1x.com/2019/07/19/ZvNkHs.png)
 
+#### Syntax
+![ZvUFxO.png](https://s2.ax1x.com/2019/07/19/ZvUFxO.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Function to execute on each value in the array, taking four arguments:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>accumulator</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The value previously returned in the last invocation of the callback, or <strong>initialValue</strong>, if supplied.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>currentValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array <strong>reduceRight()</strong> was called upon.<br/>
+&nbsp;&nbsp;<strong>initialValue</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Value to use as accumulator to the first call of the <strong>callback</strong>. If no initial value is supplied, the last element in the array will be used and skipped. Calling reduce or reduceRight on an empty array without an initial value creates a <strong>TypeError</strong>.<br/>
+
+###### Return Value
+&nbsp;&nbsp;The value that results from the reduction.
+
+#### Description
+<strong>reduceRight</strong> executes the callback function once for each element present in the array, excluding holes in the array, receiving four arguments: the initial value (or value from the previous callback call), the value of the current element, the current index, and the array over which iteration is occurring.
+
+The call to the <strong>reduceRight</strong> callback would look something like this:
+![ZvdN80.png](https://s2.ax1x.com/2019/07/19/ZvdN80.png)
+
+The first time the function is called, the <strong>accumulator</strong> and <strong>currentValue</strong> can be one of two values. If an <strong>initialValue</strong> was provided in the call to <strong>reduceRight</strong>, then <strong>accumulator</strong> will be equal to <strong>initialValue</strong> and <strong>currentValue</strong> will be equal to the last value in the array. If no <strong>initialValue</strong> was provided, then <strong>accumulator</strong> will be equal to the last value in the array and <strong>currentValue</strong> will be equal to the second-to-last value.
+
+If the array is empty and no <strong>initialValue</strong> was provided, <strong>TypeError</strong> would be thrown. If the array has only one element (regardless of position) and no <strong>initialValue</strong> was provided, or if <strong>initialValue</strong> is provided but the array is empty, the solo value would be returned without calling <strong>callback</strong>.
+
+#### Examples
+###### Sum up all values within an array
+![ZvweZ4.png](https://s2.ax1x.com/2019/07/19/ZvweZ4.png)
+
+###### Flatten an array of arrays
+![ZvwsOS.png](https://s2.ax1x.com/2019/07/19/ZvwsOS.png)
+
+###### Run a list of asynchronous functions with callbacks in series each passing their results to the next
+![ZvBp3q.png](https://s2.ax1x.com/2019/07/19/ZvBp3q.png)
+![ZvB9g0.png](https://s2.ax1x.com/2019/07/19/ZvB9g0.png)
+
+###### ​​​​​​Difference between reduce and reduceRight
+![ZvBiuT.png](https://s2.ax1x.com/2019/07/19/ZvBiuT.png)
+
+###### Defining Composible Function
+The concept of compose function is simple it combines n functions. It’s a flowing right-to-left, calling each function with the output of the last one.
+![ZvB8Ve.png](https://s2.ax1x.com/2019/07/19/ZvB8Ve.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.reverse()
+The <strong>reverse()</strong> method reverses an array in place. The first array element becomes the last, and the last array element becomes the first.
+![ZvBzZD.png](https://s2.ax1x.com/2019/07/19/ZvBzZD.png)
+
+#### Syntax
+![ZvDAQP.png](https://s2.ax1x.com/2019/07/19/ZvDAQP.png)
+
+###### Return Value
+&nbsp;&nbsp;The reversed array.
+
+#### Description
+The <strong>reverse</strong> method transposes the elements of the calling array object in place, mutating the array, and returning a reference to the array.
+
+<strong>reverse</strong> is intentionally generic; this method can be called or applied to objects resembling arrays. Objects which do not contain a <strong>length</strong> property reflecting the last in a series of consecutive, zero-based numerical properties may not behave in any meaningful manner.
+
+#### Examples
+###### Reversing the elements in an array
+The following example creates an array <strong>a</strong>, containing three elements, then reverses the array. The call to <strong>reverse()</strong> returns a reference to the reversed array <strong>a</strong>.
+![ZvD3Q0.png](https://s2.ax1x.com/2019/07/19/ZvD3Q0.png)
+
+###### Reversing the elements in an array-like object
+The following example creates an array-like object <strong>a</strong>, containing three elements and a length property, then reverses the array-like object. The call to <strong>reverse()</strong> returns a reference to the reversed array-like object <strong>a</strong>.
+![ZvDtwF.png](https://s2.ax1x.com/2019/07/19/ZvDtwF.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.shift()
+The <strong>shift()</strong> method removes the <strong>first</strong> element from an array and returns that removed element. This method changes the length of the array.
+![ZvDH0S.png](https://s2.ax1x.com/2019/07/19/ZvDH0S.png)
+
+#### Syntax
+![ZvrmX6.png](https://s2.ax1x.com/2019/07/19/ZvrmX6.png)
+
+###### Return Value
+&nbsp;&nbsp;The removed element from the array; undefined if the array is empty.
+
+#### Description
+The <strong>shift</strong> method removes the element at the zeroeth index and shifts the values at consecutive indexes down, then returns the removed value. If the <strong>length</strong> property is 0, <strong>undefined</strong> is returned.
+
+<strong>shift</strong> is intentionally generic; this method can be called or applied to objects resembling arrays. Objects which do not contain a <strong>length</strong> property reflecting the last in a series of consecutive, zero-based numerical properties may not behave in any meaningful manner.
+
+<strong>Array.prototype.pop()</strong> has similar behavior to <strong>shift</strong>, but applied to the last element in an array.
+
+#### Examples
+###### Removing an element from an array
+The following code displays the <strong>myFish</strong> array before and after removing its first element. It also displays the removed element:
+![ZvsKvq.png](https://s2.ax1x.com/2019/07/19/ZvsKvq.png)
+
+###### Using shift() method in while loop
+The shift() method is often used in condition inside while loop. In the following example every iteration will remove the next element from an array, until it is empty:
+![ZvsGaF.png](https://s2.ax1x.com/2019/07/19/ZvsGaF.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.slice()
+The <strong>slice()</strong> method returns a shallow copy of a portion of an array into a new array object selected from <strong>begin</strong> to <strong>end</strong>(<strong>end</strong> not included). The original array will not be modified.
+![Zvy8yt.png](https://s2.ax1x.com/2019/07/19/Zvy8yt.png)
+
+
+#### Syntax
+![Zvy6mV.png](https://s2.ax1x.com/2019/07/19/Zvy6mV.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>begin</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to begin extraction.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A negative index can be used, indicating an offset from the end of the sequence. <strong>slice(-2)</strong> extracts the last two elements in the sequence.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>begin</strong> is undefined, <strong>slice</strong> begins from index <strong>0</strong>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>begin</strong> is greater than the length of the sequence, an empty array is returned.<br/>
+&nbsp;&nbsp;<strong>end</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index before which to end extraction. <strong>slice</strong> extracts up to but not including <strong>end</strong>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;For example, <strong>slice(1,4)</strong> extracts the second element through the fourth element (elements indexed 1, 2, and 3).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A negative index can be used, indicating an offset from the end of the sequence. <strong>slice(2,-1)</strong> extracts the third element through the second-to-last element in the sequence.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>end</strong> is omitted, <strong>slice</strong> extracts through the end of the sequence(<strong>arr.length</strong>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If <strong>end</strong> is greater than the length of the sequence, <strong>slice</strong> extracts through to the end of the sequence (<strong>arr.length</strong>).<br/>
+
+###### Return Value
+&nbsp;&nbsp;A new array containing the extracted elements.
+
+#### Description
+<strong>slice</strong> does not alter the original array. It returns a shallow copy of elements from the original array. Elements of the original array are copied into the returned array as follows:
+- For object references (and not the actual object), <strong>slice</strong> copies object references into the new array. Both the original and new array refer to the same object. If a referenced object changes, the changes are visible to both the new and original arrays.
+- For strings, numbers and booleans (not <strong>String</strong>, <strong>Number</strong> and <strong>Boolean</strong> objects), <strong>slice</strong> copies the values into the new array. Changes to the string, number or boolean in one array do not affect the other array.
+
+If a new element is added to either array, the other array is not affected.
+
+#### Examples
+###### Return a portion of an existing array
+![Zvgr6A.png](https://s2.ax1x.com/2019/07/19/Zvgr6A.png)
+
+###### Using slice
+In the following example, <strong>slice</strong> creates a new array, <strong>newCar</strong>, from <strong>myCar</strong>. Both include a reference to the object <strong>myHonda</strong>. When the color of <strong>myHonda</strong> is changed to purple, both arrays reflect the change.
+![ZvgCFS.png](https://s2.ax1x.com/2019/07/19/ZvgCFS.png)
+![Zvgwfe.png](https://s2.ax1x.com/2019/07/19/Zvgwfe.png)
+
+###### Array-like objects
+<strong>slice</strong> method can also be called to convert Array-like objects / collections to a new Array. You just bind the method to the object. The <strong>arguments</strong> inside a function is an example of an 'array-like object'.
+![Zv2SXR.png](https://s2.ax1x.com/2019/07/19/Zv2SXR.png)
+Binding can be done with the .<strong>call</strong> function of <strong>Function.prototype</strong> and it can also be reduced using <strong>[].slice.call(arguments)</strong> instead of <strong>Array.prototype.slice.call</strong>. Anyway, it can be simplified using <strong>bind</strong>.
+![Zv2P76.png](https://s2.ax1x.com/2019/07/19/Zv2P76.png)
+
+
+
+----------------------------------------------------------------------------
 ## Array.prototype.sort()
 #### Definition
 &ensp;&ensp;The sort() method sorts the elements of an array in place and returns the array.<br/>

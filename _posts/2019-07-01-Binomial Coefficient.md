@@ -184,6 +184,12 @@ int main() {
 
 <strong>Auxiliary Space</strong>: O(k)
 
+> The memset() function in C++ copies a single character for a specified number of time to an object.
+> void* memset( void* dest, int ch, size_t count );
+> - dest: Pointer to the object to copy the character.
+> - ch: The character to copy.
+> - count: Number of times to copy.
+
 ###### Explanation
 ```text
 Let's say we want to calculate C(4, 3),
