@@ -22,3 +22,25 @@ Using these operations, a Matrix can always be transformed into an <strong>Upper
 ![ZzjvgH.png](https://s2.ax1x.com/2019/07/20/ZzjvgH.png)
 
 Using row operations to convert a Matrix into <strong>Reduced Row Echelon Form</strong> is sometimes called <strong>Gauss–Jordan Elimination</strong>. Some authors use the term <strong>Gaussian Elimination</strong> to refer to the process until it has reached its Upper Triangular, or (unreduced)Row Echelon Form. For computational reasons, when solving systems of Linear Equations, it is sometimes preferable to stop row operations before the Matrix is completely reduced.
+
+## Definitions and example of algorithm
+The process of row reduction makes use of Elementary Row Operations, and can be divided into two parts. The first part (sometimes called <strong>Forward Elimination</strong>) reduces a given system to <strong>Row Echelon Form</strong>, from which one can tell whether there are no solutions, a unique solution, or infinitely many solutions. The second part (sometimes called <strong>Back Substitution</strong>) continues to use row operations until the solution is found; in other words, it puts the matrix into <strong>Reduced Row Echelon Form</strong>.
+
+Another point of view, which turns out to be very useful to analyze the algorithm, is that row reduction produces a <strong>Matrix Decomposition</strong> of the original matrix. The elementary row operations may be viewed as the multiplication on the left of the original matrix by <strong>Elementary Matrices</strong>. Alternatively, a sequence of elementary operations that reduces a single row may be viewed as multiplication by a <strong>Frobenius Matrix</strong>. Then the first part of the algorithm computes an <strong>LU Decomposition</strong>, while the second part writes the original matrix as the product of a uniquely determined invertible matrix and a uniquely determined reduced row echelon matrix.
+
+#### Row operations
+There are three types of Elementary Row Operations which may be performed on the rows of a matrix:
+1. Swap the positions of two rows.
+2. Multiply a row by a non-zero scalar.
+3. Add to one row a scalar multiple of another.
+
+If the Matrix is associated to a system of Linear Equations, then these operations do not change the solution set. Therefore, if one's goal is to solve a system of Linear Equations, then using these row operations could make the problem easier.
+
+#### Echelon form
+For each row in a Matrix, if the row does not consist of only zeros, then the leftmost nonzero entry is called the <strong>Leading Coefficient</strong>(or <strong>Pivot</strong>) of that row. So if two Leading Coefficients are in the same column, then a row operation of <ins>Type 3</ins> could be used to make one of those coefficients zero. Then by using the row swapping operation, one can always order the rows so that for every non-zero row, the Leading Coefficient is to the right of the Leading Coefficient of the row above. If this is the case, then matrix is said to be in <strong>Row Echelon Form</strong>. So the lower left part of the Matrix contains only zeros, and all of the zero rows are below the non-zero rows. The word "echelon" is used here because one can roughly think of the rows being ranked by their size, with the largest being at the top and the smallest being at the bottom.
+
+For example, the following Matrix is in Row Echelon Form, and its Leading Coefficients are shown in red:
+![Zzz4gg.png](https://s2.ax1x.com/2019/07/20/Zzz4gg.png)
+It is in Echelon Form because the zero row is at the bottom, and the Leading Coefficient of the second row (in the third column), is to the right of the Leading Coefficient of the first row (in the second column).
+
+A matrix is said to be in <strong>Reduced Row Echelon Form</strong> if furthermore all of the Leading Coefficients are equal to 1 (which can be achieved by using the Elementary Row Operation of <ins>Type 2</ins>), and in every column containing a Leading Coefficient, all of the other entries in that column are zero (which can be achieved by using Elementary Row Operations of <ins>Type 3</ins>).
