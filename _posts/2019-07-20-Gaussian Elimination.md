@@ -9,6 +9,11 @@ catalog: true
 tags:
   - Mathematics
 ---
+- [Overview](#overview)
+- [Definitions and example of algorithm](#definitions-and-example-of-algorithm)
+    - [Row operations](#row-operations)
+    - [Echelon form](#echelon-form)
+    - [Example of the algorithm](#example-of-the-algorithm)
 
 ## Overview
 <strong>Gaussian Elimination</strong>, also known as <strong>Row Reduction</strong>, is an algorithm in <strong>Linear Algebra</strong> for solving a <strong>System of Linear Equations</strong>. It is usually understood as a sequence of operations performed on the corresponding Matrix of coefficients. This method can also be used to find the <strong>Rank</strong> of a matrix, to calculate the <strong>Determinant</strong> of a matrix, and to calculate the inverse of an <strong>Invertible Square Matrix</strong>. The method is named after <i>Carl Friedrich Gauss</i>(1777–1855)
@@ -44,3 +49,16 @@ For example, the following Matrix is in Row Echelon Form, and its Leading Coeffi
 It is in Echelon Form because the zero row is at the bottom, and the Leading Coefficient of the second row (in the third column), is to the right of the Leading Coefficient of the first row (in the second column).
 
 A matrix is said to be in <strong>Reduced Row Echelon Form</strong> if furthermore all of the Leading Coefficients are equal to 1 (which can be achieved by using the Elementary Row Operation of <ins>Type 2</ins>), and in every column containing a Leading Coefficient, all of the other entries in that column are zero (which can be achieved by using Elementary Row Operations of <ins>Type 3</ins>).
+
+#### Example of the algorithm
+Suppose the goal is to find and describe the set of solutions to the following System of Linear Equations:
+![eSp8T1.png](https://s2.ax1x.com/2019/07/20/eSp8T1.png)
+
+The table below is the row reduction process applied simultaneously to the system of equations and its associated <strong>Augmented Matrix</strong>. In practice, one does not usually deal with the systems in terms of equations, but instead makes use of the augmented matrix, which is more suitable for computer manipulations. The row reduction procedure may be summarized as follows: eliminate `x` from all equations below `L1`, and then eliminate `y` from all equations below `L2`. This will put the system into <strong>Triangular Form</strong>. Then, using <strong>Back Substitution</strong>, each unknown can be solved for.
+![eSpYY6.png](https://s2.ax1x.com/2019/07/20/eSpYY6.png)
+The second column describes which row operations have just been performed. So for the first step, the `x` is eliminated from `L2` by adding `3/2 * L1` to `L2`. Next, `x` is eliminated from `L3` by adding `L1` to `L3`. These row operations are labelled in the table as
+![eSpxB9.png](https://s2.ax1x.com/2019/07/20/eSpxB9.png)
+
+Once `y` is also eliminated from the third row, the result is a system of Linear Equations in Triangular Form, and so the first part of the algorithm is complete. From a computational point of view, it is faster to solve the variables in reverse order, a process known as <strong>Back Substitution</strong>. One sees the solution is `z = −1`, `y = 3`, and `x = 2`. So there is a unique solution to the original system of equations.
+
+Instead of stopping once the Matrix is in Echelon Form, one could continue until the Matrix is in <strong>Reduced Row Echelon Form</strong>, as it is done in the table. The process of row reducing until the Matrix is reduced is sometimes referred to as <strong>Gauss–Jordan Elimination</strong>, to distinguish it from stopping after reaching echelon form.
