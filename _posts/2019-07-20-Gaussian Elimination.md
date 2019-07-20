@@ -14,6 +14,10 @@ tags:
     - [Row operations](#row-operations)
     - [Echelon form](#echelon-form)
     - [Example of the algorithm](#example-of-the-algorithm)
+- [Applications](#applications)
+    - [Computing determinants](#computing-determinants)
+    - [Finding the inverse of a matrix](#finding-the-inverse-of-a-matrix)
+    - [Computing ranks and bases](#computing-ranks-and-bases)
 
 ## Overview
 <strong>Gaussian Elimination</strong>, also known as <strong>Row Reduction</strong>, is an algorithm in <strong>Linear Algebra</strong> for solving a <strong>System of Linear Equations</strong>. It is usually understood as a sequence of operations performed on the corresponding Matrix of coefficients. This method can also be used to find the <strong>Rank</strong> of a matrix, to calculate the <strong>Determinant</strong> of a matrix, and to calculate the inverse of an <strong>Invertible Square Matrix</strong>. The method is named after <i>Carl Friedrich Gauss</i>(1777–1855)
@@ -62,3 +66,35 @@ The second column describes which row operations have just been performed. So fo
 Once `y` is also eliminated from the third row, the result is a system of Linear Equations in Triangular Form, and so the first part of the algorithm is complete. From a computational point of view, it is faster to solve the variables in reverse order, a process known as <strong>Back Substitution</strong>. One sees the solution is `z = −1`, `y = 3`, and `x = 2`. So there is a unique solution to the original system of equations.
 
 Instead of stopping once the Matrix is in Echelon Form, one could continue until the Matrix is in <strong>Reduced Row Echelon Form</strong>, as it is done in the table. The process of row reducing until the Matrix is reduced is sometimes referred to as <strong>Gauss–Jordan Elimination</strong>, to distinguish it from stopping after reaching echelon form.
+
+## Applications
+Historically, the first application of the Row Reduction method is for solving <strong>Systems of Linear Equations</strong>. Here are some other important applications of the algorithm.
+
+#### Computing determinants
+To explain how <strong>Gaussian Elimination</strong> allows the computation of the Determinant of a Square Matrix, we have to recall how the elementary row operations change the determinant:
+- Swapping two rows multiplies the determinant by −1
+- Multiplying a row by a nonzero scalar multiplies the determinant by the same scalar
+- Adding to one row a scalar multiple of another does not change the determinant.
+
+If <strong>Gaussian Elimination</strong> applied to a square matrix `A` produces a Row Echelon Matrix `B`, let `d` be the product of the scalars by which the determinant has been multiplied, using the above rules.Then the determinant of `A` is the quotient by `d` of the product of the elements of the diagonal of `B`:
+![eSPcfx.png](https://s2.ax1x.com/2019/07/20/eSPcfx.png)
+
+Computationally, for an `n × n` matrix, this method needs only `O(n^3)` arithmetic operations, while solving by elementary methods requires `O(2^n)` or `O(n!)` operations. Even on the fastest computers, the elementary methods are impractical for `n` above `20`.
+
+#### Finding the inverse of a matrix
+A variant of <strong>Gaussian Elimination</strong> called <strong>Gauss–Jordan Elimination</strong> can be used for finding the inverse of a matrix, if it exists. If `A` is an `n × n` square matrix, then one can use row reduction to compute its <strong>Inverse Matrix</strong>, if it exists. First, the `n × n` <strong>Identity Matrix</strong> is augmented to the right of `A`, forming an `n × 2n` <strong>Block Matrix</strong> `[A | I]`. Now through application of elementary row operations, find the Reduced Echelon Form of this `n × 2n` matrix. The matrix `A` is invertible if and only if the left block can be reduced to the Identity Matrix `I`; in this case the right block of the final Matrix is ![eSeGW9.png](https://s2.ax1x.com/2019/07/20/eSeGW9.png). If the algorithm is unable to reduce the left block to `I`, then `A` is not invertible.
+
+For example, consider the following matrix:
+![eSi08P.png](https://s2.ax1x.com/2019/07/20/eSi08P.png)
+To find the inverse of this matrix, one takes the following matrix augmented by the identity and row-reduces it as a `3 × 6` matrix:
+![eSih80.png](https://s2.ax1x.com/2019/07/20/eSih80.png)
+By performing row operations, one can check that the reduced row echelon form of this augmented matrix is
+![eSibVJ.png](https://s2.ax1x.com/2019/07/20/eSibVJ.png)
+One can think of each row operation as the left product by an Elementary Matrix. Denoting by `B` the product of these elementary matrices, we showed, on the left, that `BA = I`, and therefore, ![eSiXP1.png](https://s2.ax1x.com/2019/07/20/eSiXP1.png). On the right, we kept a record of `BI = B`, which we know is the inverse desired. This procedure for finding the inverse works for square matrices of any size.
+
+#### Computing ranks and bases
+The <strong>Gaussian Elimination</strong> algorithm can be applied to any `m × n` matrix `A`. In this way, for example, some `6 × 9` matrices can be transformed to a matrix that has a row echelon form like
+![eSeoWj.png](https://s2.ax1x.com/2019/07/20/eSeoWj.png)
+where the stars are arbitrary entries, and `a`,` b`, `c`, `d`, `e` are nonzero entries. This echelon matrix `T` contains a wealth of information about `A`: the <strong>Rank</strong> of `A` is `5`, since there are `5` nonzero rows in `T`; the <strong>Vector Space</strong> spanned by the columns of `A` has a basis consisting of its columns `1`, `3`, `4`, `7` and `9` (the columns with `a`, `b`, `c`, `d`, `e` in `T`), and the stars show how the other columns of `A` can be written as Linear Combinations of the basis columns. This is a consequence of the distributivity of the Dot Product in the expression of a linear map as a matrix.
+
+All of this applies also to the reduced row echelon form, which is a particular row echelon format.
