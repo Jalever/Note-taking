@@ -1570,7 +1570,6 @@ The shift() method is often used in condition inside while loop. In the followin
 The <strong>slice()</strong> method returns a shallow copy of a portion of an array into a new array object selected from <strong>begin</strong> to <strong>end</strong>(<strong>end</strong> not included). The original array will not be modified.
 ![Zvy8yt.png](https://s2.ax1x.com/2019/07/19/Zvy8yt.png)
 
-
 #### Syntax
 ![Zvy6mV.png](https://s2.ax1x.com/2019/07/19/Zvy6mV.png)
 
@@ -1614,7 +1613,62 @@ In the following example, <strong>slice</strong> creates a new array, <strong>ne
 Binding can be done with the .<strong>call</strong> function of <strong>Function.prototype</strong> and it can also be reduced using <strong>[].slice.call(arguments)</strong> instead of <strong>Array.prototype.slice.call</strong>. Anyway, it can be simplified using <strong>bind</strong>.
 ![Zv2P76.png](https://s2.ax1x.com/2019/07/19/Zv2P76.png)
 
+----------------------------------------------------------------------------
+## Array.prototype.some()
+The <strong>some()</strong> method tests whether at least one element in the array passes the test implemented by the provided function. It returns a <strong>Boolean</strong> value.
+> This method returns false for any condition put on an empty array.
+![epfZuD.png](https://s2.ax1x.com/2019/07/21/epfZuD.png)
 
+#### Syntax
+![epfKUA.png](https://s2.ax1x.com/2019/07/21/epfKUA.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>callback</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A function to test for each element, taking three arguments:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>index</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The index of the current element being processed in the array.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>array</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The array <strong>some()</strong> was called upon.<br/>
+&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A value to use as <strong>this</strong> when executing <strong>callback</strong>.<br/>
+
+###### Return Value
+&nbsp;&nbsp;<strong>true</strong> if the callback function returns a <ins>truthy</ins> value for at least one element in the array. Otherwise, <strong>false</strong>.
+
+#### Description
+The <strong>some()</strong> method executes the <strong>callback</strong> function once for each element present in the array until it finds the one where <strong>callback</strong> returns a truthy value (a value that becomes true when converted to a Boolean). If such an element is found, <strong>some()</strong> immediately returns <strong>true</strong>. Otherwise, <strong>some()</strong> returns <strong>false</strong>. <strong>callback</strong> is invoked only for indexes of the array with assigned values. It is not invoked for indexes which have been deleted or which have never been assigned values.
+
+<strong>callback</strong> is invoked with three arguments: the value of the element, the index of the element, and the Array object being traversed.
+
+If a <strong>thisArg</strong> parameter is provided to <strong>some()</strong>, it will be used as the callback's <strong>this</strong> value. Otherwise, the value <strong>undefined</strong> will be used as its <strong>this</strong> value. The <strong>this</strong> value ultimately observable by <strong>callback</strong> is determined according to the usual rules for determining the <strong>this</strong> seen by a function.
+
+<strong>some()</strong> does not mutate the array on which it is called.
+
+The range of elements processed by <strong>some()</strong> is set before the first invocation of <strong>callback</strong>. Elements appended to the array after the call to <strong>some()</strong> begins will not be visited by <strong>callback</strong>. If an existing, unvisited element of the array is changed by <strong>callback</strong>, its value passed to the visiting <strong>callback</strong> will be the value at the time that <strong>some()</strong> visits that element's index. Elements that are deleted are not visited.
+
+#### Examples
+###### Testing value of array elements
+The following example tests whether any element in the array is bigger than 10.
+![ep4jjf.png](https://s2.ax1x.com/2019/07/21/ep4jjf.png)
+
+###### Testing array elements using arrow functions
+Arrow functions provide a shorter syntax for the same test.
+![ep59EQ.png](https://s2.ax1x.com/2019/07/21/ep59EQ.png)
+
+###### Checking whether a value exists in an array
+To mimic the function of the <strong>includes()</strong> method, this custom function returns <strong>true</strong> if the element exists in the array:
+![ep5CNj.png](https://s2.ax1x.com/2019/07/21/ep5CNj.png)
+
+###### Checking whether a value exists using an arrow function
+![ep5P4s.png](https://s2.ax1x.com/2019/07/21/ep5P4s.png)
+
+###### Converting any value to Boolean
+![ep4XgP.png](https://s2.ax1x.com/2019/07/21/ep4XgP.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.sort()
