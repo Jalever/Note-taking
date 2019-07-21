@@ -1617,6 +1617,7 @@ Binding can be done with the .<strong>call</strong> function of <strong>Function
 ## Array.prototype.some()
 The <strong>some()</strong> method tests whether at least one element in the array passes the test implemented by the provided function. It returns a <strong>Boolean</strong> value.
 > This method returns false for any condition put on an empty array.
+
 ![epfZuD.png](https://s2.ax1x.com/2019/07/21/epfZuD.png)
 
 #### Syntax
