@@ -1673,52 +1673,60 @@ To mimic the function of the <strong>includes()</strong> method, this custom fun
 
 ----------------------------------------------------------------------------
 ## Array.prototype.sort()
-#### Definition
-&ensp;&ensp;The sort() method sorts the elements of an array in place and returns the array.<br/>
+The <strong>sort()</strong> method sorts the elements of an array in place and returns the sorted array. The default sort order is built upon converting the elements into strings, then comparing their sequences of <strong>UTF-16</strong> code units values.
 
-&ensp;&ensp;The default sort order is built upon converting the elements into strings, then comparing their sequences of UTF-16 code units values.
-If compareFunction is not supplied, all non-undefined array elements are sorted by converting them to strings and comparing strings in UTF-16 code units order. <br/>
-
-For example, "banana" comes before "cherry". In a numeric sort, 9 comes before 80, but because numbers are converted to strings, "80" comes before "9" in Unicode order.<br/>
-
-All `undefined` elements are sorted to the end of the array.<br/>
-
-If `compareFunction` is supplied, all `non-undefined` array elements are sorted according to the return value of the compare function (all `undefined` elements are sorted to the end of the array, with no call to `compareFunction`).
-
-If `a` and `b` are two elements being compared, then:
-
-* If `compareFunction(a, b)` is less than 0, sort `a` to an index lower than `b` (i.e. a comes first).
-	* ( a, b ) &#60; 0 =>  a, b
-
-* If `compareFunction(a, b)` returns 0, leave `a` and `b` unchanged with respect to each other, but sorted with respect to all different elements.
-
-* If `compareFunction(a, b)` is greater than 0, sort `b` to an index lower than `a` (i.e. b comes first).
-	* ( a, b ) &#62; 0 =>  b, a
+The time and space complexity of the sort cannot be guaranteed as it depends on the implementation.
+![epTzzn.png](https://s2.ax1x.com/2019/07/21/epTzzn.png)
 
 #### Syntax
-##### Parameters
-* compareFunction
-Specifies a function that defines the sort order.<br/>
-If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.  <br/>
-	* firstEl
-		* The first element for comparison.
-	* secondEl
-		* The second element for comparison.
+![ep7yWj.png](https://s2.ax1x.com/2019/07/21/ep7yWj.png)
 
-##### Return value
-The sorted array.
+###### Parameters
+&nbsp;&nbsp;<strong>compareFunction</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Specifies a function that defines the sort order. If omitted, the array elements are converted to strings, then sorted according to each character's Unicode code point value.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>firstEl</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The first element for comparison.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>secondEl</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The second element for comparison.<br/>
+
+###### Return Value
+&nbsp;&nbsp;The sorted array.
 > Note that the array is sorted in place, and no copy is made.
 
-#### Usage
-```
-var months = ['March', 'Jan', 'Feb', 'Dec'];
-months.sort();
-console.log(months);
-// expected output: Array ["Dec", "Feb", "Jan", "March"]
+#### Description
+If <strong>compareFunction</strong> is not supplied, all non-<strong>undefined</strong> array elements are sorted by converting them to strings and comparing strings in UTF-16 code units order. For example, "banana" comes before "cherry". In a numeric sort, 9 comes before 80, but because numbers are converted to strings, "80" comes before "9" in the Unicode order. All <strong>undefined</strong> elements are sorted to the end of the array.
 
-var array1 = [1, 30, 4, 21, 100000];
-array1.sort();
-console.log(array1);
-// expected output: Array [1, 100000, 21, 30, 4]
-```
----
+If <strong>compareFunction</strong> is supplied, all non-<strong>undefined</strong> array elements are sorted according to the return value of the compare function (all <strong>undefined</strong> elements are sorted to the end of the array, with no call to <strong>compareFunction</strong>). If <strong>a</strong> and <strong>b</strong> are two elements being compared, then:
+- If <strong>compareFunction(a, b)</strong> is less than 0, sort <strong>a</strong> to an index lower than <strong>b</strong> (i.e. <strong>a</strong> comes first).
+- If <strong>compareFunction(a, b)</strong> returns 0, leave <strong>a</strong> and <strong>b</strong> unchanged with respect to each other, but sorted with respect to all different elements. Note: the ECMAscript standard does not guarantee this behavior, thus, not all browsers (e.g. Mozilla versions dating back to at least 2003) respect this.
+- If <strong>compareFunction(a, b)</strong> is greater than 0, sort <strong>b</strong> to an index lower than <strong>a</strong> (i.e. <strong>b</strong> comes first).
+- <strong>compareFunction(a, b)</strong> must always return the same value when given a specific pair of elements <strong>a</strong> and <strong>b</strong> as its two arguments. If inconsistent results are returned, then the sort order is undefined.
+
+So, the compare function has the following form:
+![epXBT0.png](https://s2.ax1x.com/2019/07/21/epXBT0.png)
+
+To compare numbers instead of strings, the compare function can simply subtract <strong>b</strong> from <strong>a</strong>. The following function will sort the array in ascending order (if it doesn't contain <strong>Infinity</strong> and <strong>NaN</strong>):
+![epjC9S.png](https://s2.ax1x.com/2019/07/21/epjC9S.png)
+
+The <strong>sort</strong> method can be conveniently used with function expressions:
+![epjP1g.png](https://s2.ax1x.com/2019/07/21/epjP1g.png)
+
+ES2015 provides arrow function expressions with even shorter syntax.
+![epjEBn.png](https://s2.ax1x.com/2019/07/21/epjEBn.png)
+
+Objects can be sorted, given the value of one of their properties.
+![epvlPf.png](https://s2.ax1x.com/2019/07/21/epvlPf.png)
+![epv8xg.png](https://s2.ax1x.com/2019/07/21/epv8xg.png)
+
+#### Description
+###### Creating, displaying, and sorting an array
+The following example creates four arrays and displays the original array, then the sorted arrays. The numeric arrays are sorted without a compare function, then sorted using one.
+![epx9yQ.png](https://s2.ax1x.com/2019/07/21/epx9yQ.png)
+![epxies.png](https://s2.ax1x.com/2019/07/21/epxies.png)
+This example produces the following output. As the output shows, when a compare function is used, numbers sort correctly whether they are numbers or numeric strings.
+![epzEBd.png](https://s2.ax1x.com/2019/07/21/epzEBd.png)
+
+###### Sorting non-ASCII characters
+For sorting strings with non-ASCII characters, i.e. strings with accented characters(e, é, è, a, ä, etc.), strings from languages other than English, use <strong>String.localeCompare</strong>. This function can compare those characters so they appear in the right order.
+![e9p9yD.png](https://s2.ax1x.com/2019/07/21/e9p9yD.png)
