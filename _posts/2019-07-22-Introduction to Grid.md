@@ -22,6 +22,7 @@ tags:
         - [display](#display)
         - [grid-template-columns](#grid-template-columns)
         - [grid-template-rows](#grid-template-rows)
+        - [grid-template-areas](#grid-template-areas)
 
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
@@ -99,3 +100,24 @@ The `fr` unit allows you to set the size of a track as a fraction of the free sp
 
 The free space is calculated after any non-flexible items. In this example the total amount of free space available to the `fr` units doesn't include the 50px:
 ![eCvcZj.png](https://s2.ax1x.com/2019/07/22/eCvcZj.png)
+
+###### grid-template-areas
+Defines a grid template by referencing the names of the grid areas which are specified with the `grid-area` property. Repeating the name of a grid area causes the content to span those cells. A period signifies an empty cell. The syntax itself provides a visualization of the structure of the grid.
+
+Values:<br/>
+- <strong>&#60;grid-area-name&#62;</strong> - the name of a grid area specified with grid-area
+- <strong>.</strong> - a period signifies an empty grid cell
+- <strong>none</strong> - no grid areas are defined
+![ePwWrR.png](https://s2.ax1x.com/2019/07/22/ePwWrR.png)
+
+Example:
+![eP0ALn.png](https://s2.ax1x.com/2019/07/22/eP0ALn.png)
+
+That'll create a grid that's four columns wide by three rows tall. The entire top row will be comprised of the <strong>header</strong> area. The middle row will be comprised of two <strong>main</strong> areas, one empty cell, and one <strong>sidebar</strong> area. The last row is all <strong>footer</strong>.
+![eP0Mz4.png](https://s2.ax1x.com/2019/07/22/eP0Mz4.png)
+
+Each row in your declaration needs to have the same number of cells.
+
+You can use any number of adjacent periods to declare a single empty cell. As long as the periods have no spaces between them they represent a single cell.
+
+Notice that you're not naming lines with this syntax, just areas. When you use this syntax the lines on either end of the areas are actually getting named automatically. If the name of your grid area is <strong>foo</strong>, the name of the area's starting row line and starting column line will be <strong>foo-start</strong>, and the name of its last row line and last column line will be <strong>foo-end</strong>. This means that some lines might have multiple names, such as the far left line in the above example, which will have three names: header-start, main-start, and footer-start.
