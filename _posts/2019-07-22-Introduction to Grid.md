@@ -18,7 +18,7 @@ tags:
     - [Grid Cell](#grid-cell)
     - [Grid Area](#grid-area)
 - [Grid Properties Table of Contents](#grid-properties-table-of-contents)
-    - [Properties for the Grid Container](#properties-for-the-grid-container)
+    - [Properties for the Grid Container(Grid Container)](#properties-for-the-grid-containergrid-container)
         - [display](#display)
         - [grid-template-columns](#grid-template-columns)
         - [grid-template-rows](#grid-template-rows)
@@ -37,7 +37,18 @@ tags:
         - [grid-auto-rows](#grid-auto-rows)
         - [grid-auto-flow](#grid-auto-flow)
         - [grid](#grid)
-
+    - [Properties for the Children(Grid Items)](#properties-for-the-childrengrid-items)
+        - [grid-column-start](#grid-column-start)
+        - [grid-column-end](#grid-column-end)
+        - [grid-row-start](#grid-row-start)
+        - [grid-row-end](#grid-row-end)
+        - [grid-column](#grid-column)
+        - [grid-row](#grid-row)
+        - [grid-area](#grid-area)
+        - [justify-self](#justify-self)
+        - [align-self](#align-self)
+        - [place-self](#place-self)
+        
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
 
@@ -71,7 +82,7 @@ The total space surrounded by four grid lines. A grid area may be comprised of a
 ![eCbi8g.png](https://s2.ax1x.com/2019/07/22/eCbi8g.png)
 
 ## Grid Properties Table of Contents
-#### Properties for the Grid Container
+#### Properties for the Grid Container(Grid Container)
 ###### display
 Defines the element as a grid container and establishes a new grid formatting context for its contents.
 
@@ -343,3 +354,103 @@ It also accepts a more complex but quite handy syntax for setting everything at 
 ![eiQoM8.png](https://s2.ax1x.com/2019/07/22/eiQoM8.png)
 That's equivalent to this:
 ![eil9LF.png](https://s2.ax1x.com/2019/07/22/eil9LF.png)
+
+#### Properties for the Children(Grid Items)
+> Note: `float`, `display: inline-block`, `display: table-cell`, `vertical-align` and `column-*` properties have no effect on a grid item.
+
+###### grid-column-start
+###### grid-column-end
+###### grid-row-start
+###### grid-row-end
+Determines a grid item's location within the grid by referring to specific grid lines. `grid-column-start`/`grid-row-start` is the line where the item begins, and `grid-column-end`/`grid-row-end` is the line where the item ends.
+
+Values:
+- <strong>&#60;line&#62;</strong> - can be a number to refer to a numbered grid line, or a name to refer to a named grid line
+- <strong>span &#60;number&#62;</strong> - the item will span across the provided number of grid tracks
+- <strong>span &#60;name&#62;</strong> - the item will span across until it hits the next line with the provided name
+- <strong>auto</strong> - indicates auto-placement, an automatic span, or a default span of one
+![eic9aj.png](https://s2.ax1x.com/2019/07/22/eic9aj.png)
+
+Examples:
+![eiceLF.png](https://s2.ax1x.com/2019/07/22/eiceLF.png)
+![eicYLD.png](https://s2.ax1x.com/2019/07/22/eicYLD.png)
+
+If no `grid-column-end`/`grid-row-end` is declared, the item will span 1 track by default.
+
+Items can overlap each other. You can use `z-index` to control their stacking order.
+
+###### grid-column
+###### grid-row
+Shorthand for `grid-column-start` + `grid-column-end`, and `grid-row-start` + `grid-row-end`, respectively.
+
+Values:
+- <strong>&#60;start-line&#62;</strong> / <strong>&#60;end-line&#62;</strong> - each one accepts all the same values as the longhand version, including span
+![eigdnU.png](https://s2.ax1x.com/2019/07/22/eigdnU.png)
+
+Example:
+![eigo4A.png](https://s2.ax1x.com/2019/07/22/eigo4A.png)
+
+If no end line value is declared, the item will span 1 track by default.
+
+###### grid-area
+Gives an item a name so that it can be referenced by a template created with the `grid-template-areas` property. Alternatively, this property can be used as an even shorter shorthand for `grid-row-start` + `grid-column-start` + `grid-row-end` + `grid-column-end`.
+
+Values:
+- <strong>&#60;name&#62;</strong> - a name of your choosing
+- <strong>&#60;row-start&#62;</strong> / <strong>&#60;column-start&#62;</strong> / <strong>&#60;row-end&#62;</strong> / <strong>&#60;column-end&#62;</strong> - can be numbers or named lines
+![ei2wxP.png](https://s2.ax1x.com/2019/07/22/ei2wxP.png)
+Examples:
+
+As a way to assign a name to the item:
+![ei2c5j.png](https://s2.ax1x.com/2019/07/22/ei2c5j.png)
+As the short-shorthand for `grid-row-start` + `grid-column-start` + `grid-row-end` + `grid-column-end`:
+![ei2IqU.png](https://s2.ax1x.com/2019/07/22/ei2IqU.png)
+
+###### justify-self
+Aligns a grid item inside a cell along the <ins>inline (row) axis</ins> (as opposed to `align-self` which aligns along the <ins>block (column) axis</ins>). This value applies to a grid item inside a single cell.
+
+Values:
+- <strong>start</strong> - aligns the grid item to be flush with the start edge of the cell
+- <strong>end</strong> - aligns the grid item to be flush with the end edge of the cell
+- <strong>center</strong> - aligns the grid item in the center of the cell
+- <strong>stretch</strong> - fills the whole width of the cell (this is the default)
+![eiRpZD.png](https://s2.ax1x.com/2019/07/22/eiRpZD.png)
+
+Examples:
+![eiRAzt.png](https://s2.ax1x.com/2019/07/22/eiRAzt.png)
+![eiRneS.png](https://s2.ax1x.com/2019/07/22/eiRneS.png)
+![eiRlJs.png](https://s2.ax1x.com/2019/07/22/eiRlJs.png)
+![eiRJyV.png](https://s2.ax1x.com/2019/07/22/eiRJyV.png)
+
+To set alignment for all the items in a grid, this behavior can also be set on the grid container via the `justify-items` property.
+
+###### align-self
+Aligns a grid item inside a cell along the <ins>block (column) axis</ins> (as opposed to `justify-self` which aligns along the <ins>inline (row) axis</ins>). This value applies to the content inside a single grid item.
+
+Values:
+- <strong>start</strong> - aligns the grid item to be flush with the start edge of the cell
+- <strong>end</strong> - aligns the grid item to be flush with the end edge of the cell
+- <strong>center</strong> - aligns the grid item in the center of the cell
+- <strong>stretch</strong> - fills the whole height of the cell (this is the default)
+![eiRISI.png](https://s2.ax1x.com/2019/07/22/eiRISI.png)
+
+Examples:
+![eiRjYj.png](https://s2.ax1x.com/2019/07/22/eiRjYj.png)
+![eiWF7F.png](https://s2.ax1x.com/2019/07/22/eiWF7F.png)
+![eiWepR.png](https://s2.ax1x.com/2019/07/22/eiWepR.png)
+![eiW3Ae.png](https://s2.ax1x.com/2019/07/22/eiW3Ae.png)
+
+To align all the items in a grid, this behavior can also be set on the grid container via the `align-items` property.
+
+###### place-self
+`place-self` sets both the `align-self` and `justify-self` properties in a single declaration.
+
+Values:
+- <strong>auto</strong> - The “default” alignment for the layout mode.
+- <strong>&#60;align-self&#62;</strong> / <strong>&#60;justify-self&#62;</strong> - The first value sets align-self, the second value justify-self. If the second value is omitted, the first value is assigned to both properties.
+
+Examples:
+![eiW2j0.png](https://s2.ax1x.com/2019/07/22/eiW2j0.png)
+![eiW5EF.png](https://s2.ax1x.com/2019/07/22/eiW5EF.png)
+
+All major browsers except Edge support the `place-self` shorthand property.
