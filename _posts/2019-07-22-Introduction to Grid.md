@@ -23,6 +23,11 @@ tags:
         - [grid-template-columns](#grid-template-columns)
         - [grid-template-rows](#grid-template-rows)
         - [grid-template-areas](#grid-template-areas)
+        - [grid-template](#grid-template)
+        - [grid-column-gap](#grid-column-gap)
+        - [grid-row-gap](#grid-row-gap)
+        - [grid-gap](#grid-gap)
+
 
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
@@ -121,3 +126,44 @@ Each row in your declaration needs to have the same number of cells.
 You can use any number of adjacent periods to declare a single empty cell. As long as the periods have no spaces between them they represent a single cell.
 
 Notice that you're not naming lines with this syntax, just areas. When you use this syntax the lines on either end of the areas are actually getting named automatically. If the name of your grid area is <strong>foo</strong>, the name of the area's starting row line and starting column line will be <strong>foo-start</strong>, and the name of its last row line and last column line will be <strong>foo-end</strong>. This means that some lines might have multiple names, such as the far left line in the above example, which will have three names: header-start, main-start, and footer-start.
+
+###### grid-template
+A shorthand for setting <strong>grid-template-rows</strong>, <strong>grid-template-columns</strong>, and <strong>grid-template-areas</strong> in a single declaration.
+
+Values:<br/>
+- <strong>none</strong> - sets all three properties to their initial values
+- <strong>&#60;grid-template-rows&#62;</strong> / <strong>&#60;grid-template-columns&#62;</strong> - sets - `grid-template-columns` and - - `grid-template-rows` to the specified values, respectively, and sets `grid-template-areas` to `none`
+![ePRPAJ.png](https://s2.ax1x.com/2019/07/22/ePRPAJ.png)
+
+It also accepts a more complex but quite handy syntax for specifying all three. Here's an example:
+![ePRGgP.png](https://s2.ax1x.com/2019/07/22/ePRGgP.png)
+That's equivalent to this:
+![ePR5CR.png](https://s2.ax1x.com/2019/07/22/ePR5CR.png)
+Since `grid-template` doesn't reset the implicit grid properties (`grid-auto-columns`, `grid-auto-rows`, and `grid-auto-flow`), which is probably what you want to do in most cases, it's recommended to use the `grid` property instead of `grid-template`.
+
+###### grid-column-gap
+###### grid-row-gap
+Specifies the size of the grid lines. You can think of it like setting the width of the gutters between the columns/rows.
+
+Values:<br/>
+- &#60;line-size&#62; - a length value
+![ePfUYj.png](https://s2.ax1x.com/2019/07/22/ePfUYj.png)
+Example:
+![ePfB60.png](https://s2.ax1x.com/2019/07/22/ePfB60.png)
+![ePf2tJ.png](https://s2.ax1x.com/2019/07/22/ePf2tJ.png)
+The gutters are only created between the columns/rows, not on the outer edges.
+
+> Note: The `grid-` prefix will be removed and `grid-column-gap` and `grid-row-gap` renamed to `column-gap` and `row-gap`. The unprefixed properties are already supported in Chrome 68+, Safari 11.2 Release 50+ and Opera 54+.
+
+###### grid-gap
+A shorthand for `grid-row-gap` and `grid-column-gap`
+
+Values:<br/>
+- <strong>&#60;grid-row-gap&#62;</strong> <strong>&#60;grid-column-gap&#62;</strong> - length values
+![ePhUHO.png](https://s2.ax1x.com/2019/07/22/ePhUHO.png)
+Example:
+![ePhwUe.png](https://s2.ax1x.com/2019/07/22/ePhwUe.png)
+
+If no `grid-row-gap` is specified, it's set to the same value as `grid-column-gap`
+
+> Note: The `grid-` prefix will be removed and `grid-gap` renamed to `gap`. The unprefixed property is already supported in Chrome 68+, Safari 11.2 Release 50+ and Opera 54+.
