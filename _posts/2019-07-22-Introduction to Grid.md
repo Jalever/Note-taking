@@ -30,11 +30,16 @@ tags:
         - [justify-items](#justify-items)
         - [align-items](#align-items)
         - [place-items](#place-items)
-        
+        - [justify-content](#justify-content)
+        - [align-content](#align-content)
+        - [place-content](#place-content)
+
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
 
 <strong>CSS Grid Layout</strong> (aka "Grid"), is a two-dimensional grid-based layout system that aims to do nothing less than completely change the way we design grid-based user interfaces. <strong>CSS</strong> has always been used to lay out our web pages, but it's never done a very good job of it. First, we used <ins>table</ins>s, then <ins>float</ins>s, <ins>positioning</ins> and <ins>inline-block</ins>, but all of these methods were essentially hacks and left out a lot of important functionality (vertical centering, for instance). <strong>Flexbox</strong> helped out, but it's intended for simpler one-dimensional layouts, not complex two-dimensional ones (<strong>Flexbox</strong> and <strong>Grid</strong> actually work very well together). <strong>Grid</strong> is the very first <strong>CSS</strong> module created specifically to solve the layout problems we've all been hacking our way around for as long as we've been making websites.
+![ePOk6g.png](https://s2.ax1x.com/2019/07/22/ePOk6g.png)
+![ePOZ0s.png](https://s2.ax1x.com/2019/07/22/ePOZ0s.png)
 
 ## Important Terminology
 #### Grid Container
@@ -214,3 +219,55 @@ Values:<br/>
 - <strong>&#60;align-items&#62;</strong> / <strong>&#60;justify-items&#62;</strong> - The first value sets `align-items`, the second value `justify-items`. If the second value is omitted, the first value is assigned to both properties.
 
 All major browsers except Edge support the `place-items` shorthand property.
+
+###### justify-content
+Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the inline (row) axis (as opposed to `align-content` which aligns the grid along the block (column) axis).
+
+Values:
+- <strong>start</strong> - aligns the grid to be flush with the start edge of the grid container
+- <strong>end</strong> - aligns the grid to be flush with the end edge of the grid container
+- <strong>center</strong> - aligns the grid in the center of the grid container
+- <strong>stretch</strong> - resizes the grid items to allow the grid to fill the full width of the grid container
+- <strong>space-around</strong> - places an even amount of space between each grid item, with half-sized spaces on the far ends
+- <strong>space-between</strong> - places an even amount of space between each grid item, with no space at the far ends
+- <strong>space-evenly</strong> - places an even amount of space between each grid item, including the far ends
+![ePjLlT.png](https://s2.ax1x.com/2019/07/22/ePjLlT.png)
+
+Examples:
+![ePv9t1.png](https://s2.ax1x.com/2019/07/22/ePv9t1.png)
+![ePvk6O.png](https://s2.ax1x.com/2019/07/22/ePvk6O.png)
+![ePvVne.png](https://s2.ax1x.com/2019/07/22/ePvVne.png)
+![ePvnAA.png](https://s2.ax1x.com/2019/07/22/ePvnAA.png)
+![ePvQ9P.png](https://s2.ax1x.com/2019/07/22/ePvQ9P.png)
+![ePvGng.png](https://s2.ax1x.com/2019/07/22/ePvGng.png)
+![ePvqUA.png](https://s2.ax1x.com/2019/07/22/ePvqUA.png)
+
+###### align-content
+Sometimes the total size of your grid might be less than the size of its grid container. This could happen if all of your grid items are sized with non-flexible units like `px`. In this case you can set the alignment of the grid within the grid container. This property aligns the grid along the block (column) axis (as opposed to `justify-content` which aligns the grid along the inline (row) axis).
+
+Values:
+- <strong>start</strong> - aligns the grid to be flush with the start edge of the grid container
+- <strong>end</strong> - aligns the grid to be flush with the end edge of the grid container
+- <strong>center</strong> - aligns the grid in the center of the grid container
+- <strong>stretch</strong> - resizes the grid items to allow the grid to fill the full height of the grid container
+- <strong>space-around</strong> - places an even amount of space between each grid item, with half-sized spaces on the far ends
+- <strong>space-between</strong> - places an even amount of space between each grid item, with no space at the far ends
+- <strong>space-evenly</strong> - places an even amount of space between each grid item, including the far ends
+![ePzAdH.png](https://s2.ax1x.com/2019/07/22/ePzAdH.png)
+
+Examples:
+![ePzuSP.png](https://s2.ax1x.com/2019/07/22/ePzuSP.png)
+![ePz8oj.png](https://s2.ax1x.com/2019/07/22/ePz8oj.png)
+![ePzBmF.png](https://s2.ax1x.com/2019/07/22/ePzBmF.png)
+![ePzx0g.png](https://s2.ax1x.com/2019/07/22/ePzx0g.png)
+![eiSa4A.png](https://s2.ax1x.com/2019/07/22/eiSa4A.png)
+![eiS4g0.png](https://s2.ax1x.com/2019/07/22/eiS4g0.png)
+![eiS4g0.png](https://s2.ax1x.com/2019/07/22/eiS4g0.png)
+
+###### place-content
+`place-content` sets both the `align-content` and `justify-content` properties in a single declaration.
+
+Values:
+- <strong>&#60;align-content&#62;</strong> / <strong>&#60;justify-content&#62;</strong> - The first value sets `align-content`, the second value `justify-content`. If the second value is omitted, the first value is assigned to both properties.
+
+All major browsers except Edge support the `place-content` shorthand property.
