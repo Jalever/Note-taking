@@ -27,8 +27,10 @@ tags:
         - [grid-column-gap](#grid-column-gap)
         - [grid-row-gap](#grid-row-gap)
         - [grid-gap](#grid-gap)
-
-
+        - [justify-items](#justify-items)
+        - [align-items](#align-items)
+        - [place-items](#place-items)
+        
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
 
@@ -167,3 +169,48 @@ Example:
 If no `grid-row-gap` is specified, it's set to the same value as `grid-column-gap`
 
 > Note: The `grid-` prefix will be removed and `grid-gap` renamed to `gap`. The unprefixed property is already supported in Chrome 68+, Safari 11.2 Release 50+ and Opera 54+.
+
+###### justify-items
+Aligns grid items along the <ins>inline (row) axis</ins> (as opposed to `align-items` which aligns along the <ins>block (column) axis</ins>). This value applies to all grid items inside the container.
+
+Values:<br/>
+- <strong>start</strong> - aligns items to be flush with the start edge of their cell
+- <strong>end</strong> - aligns items to be flush with the end edge of their cell
+- <strong>center</strong> - aligns items in the center of their cell
+- <strong>stretch</strong> - fills the whole width of the cell (this is the default)
+![ePTJ00.png](https://s2.ax1x.com/2019/07/22/ePTJ00.png)
+
+Examples:
+![ePTNkT.png](https://s2.ax1x.com/2019/07/22/ePTNkT.png)
+![ePT2tO.png](https://s2.ax1x.com/2019/07/22/ePT2tO.png)
+![ePTL4S.png](https://s2.ax1x.com/2019/07/22/ePTL4S.png)
+![ePTvcj.png](https://s2.ax1x.com/2019/07/22/ePTvcj.png)
+![eP7qq1.png](https://s2.ax1x.com/2019/07/22/eP7qq1.png)
+![ePHAdP.png](https://s2.ax1x.com/2019/07/22/ePHAdP.png)
+![eP7dVP.png](https://s2.ax1x.com/2019/07/22/eP7dVP.png)
+![eP75PU.png](https://s2.ax1x.com/2019/07/22/eP75PU.png)
+This behavior can also be set on individual grid items via the `justify-self` property.
+
+###### align-items
+Aligns grid items along the <ins>block (column) axis</ins> (as opposed to `justify-items` which aligns along the <ins>inline (row) axis</ins>). This value applies to all grid items inside the container.
+
+Values:
+- <strong>start</strong> - aligns items to be flush with the start edge of their cell
+- <strong>end</strong> - aligns items to be flush with the end edge of their cell
+- <strong>center</strong> - aligns items in the center of their cell
+- <strong>stretch</strong> - fills the whole height of the cell (this is the default)
+![ePbpkV.png](https://s2.ax1x.com/2019/07/22/ePbpkV.png)
+Examples:
+![ePbVmR.png](https://s2.ax1x.com/2019/07/22/ePbVmR.png)
+![ePbl1e.png](https://s2.ax1x.com/2019/07/22/ePbl1e.png)
+![ePbah8.png](https://s2.ax1x.com/2019/07/22/ePbah8.png)
+![ePqSud.png](https://s2.ax1x.com/2019/07/22/ePqSud.png)
+This behavior can also be set on individual grid items via the `align-self` property.
+
+###### place-items
+`place-items` sets both the `align-items` and `justify-items` properties in a single declaration.
+
+Values:<br/>
+- <strong>&#60;align-items&#62;</strong> / <strong>&#60;justify-items&#62;</strong> - The first value sets `align-items`, the second value `justify-items`. If the second value is omitted, the first value is assigned to both properties.
+
+All major browsers except Edge support the `place-items` shorthand property.
