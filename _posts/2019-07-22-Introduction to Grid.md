@@ -33,6 +33,10 @@ tags:
         - [justify-content](#justify-content)
         - [align-content](#align-content)
         - [place-content](#place-content)
+        - [grid-auto-columns](#grid-auto-columns)
+        - [grid-auto-rows](#grid-auto-rows)
+        - [grid-auto-flow](#grid-auto-flow)
+        - [grid](#grid)
 
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
@@ -271,3 +275,71 @@ Values:
 - <strong>&#60;align-content&#62;</strong> / <strong>&#60;justify-content&#62;</strong> - The first value sets `align-content`, the second value `justify-content`. If the second value is omitted, the first value is assigned to both properties.
 
 All major browsers except Edge support the `place-content` shorthand property.
+
+###### grid-auto-columns
+###### grid-auto-rows
+Specifies the size of any auto-generated grid tracks (aka <ins>implicit grid tracks</ins>). Implicit tracks get created when there are more grid items than cells in the grid or when a grid item is placed outside of the explicit grid.
+
+Values:
+- <strong>&#60;track-size&#62;</strong> - can be a length, a percentage, or a fraction of the free space in the grid (using the `fr` unit)
+![eikAPg.png](https://s2.ax1x.com/2019/07/22/eikAPg.png)
+To illustrate how implicit grid tracks get created, think about this:
+![eikmMn.png](https://s2.ax1x.com/2019/07/22/eikmMn.png)
+This creates a 2 x 2 grid.
+
+But now imagine you use `grid-column` and `grid-row` to position your grid items like this:
+![eiksRH.png](https://s2.ax1x.com/2019/07/22/eiksRH.png)
+We told `.item-b` to start on column line 5 and end at column line 6, but we never defined a column line 5 or 6. Because we referenced lines that don't exist, implicit tracks with widths of 0 are created to fill in the gaps. We can use `grid-auto-columns` and `grid-auto-rows` to specify the widths of these implicit tracks:
+![eikfdf.png](https://s2.ax1x.com/2019/07/22/eikfdf.png)
+
+###### grid-auto-flow
+If you have grid items that you don't explicitly place on the grid, the <i>auto-placement</i> algorithm kicks in to automatically place the items. This property controls how the auto-placement algorithm works.
+
+Values:
+- <strong>row</strong> - tells the auto-placement algorithm to fill in each row in turn, adding new rows as necessary (default)
+- <strong>column</strong> - tells the auto-placement algorithm to fill in each column in turn, adding new columns as necessary
+- <strong>dense</strong> - tells the auto-placement algorithm to attempt to fill in holes earlier in the grid if smaller items come up later
+![eiAJk8.png](https://s2.ax1x.com/2019/07/22/eiAJk8.png)
+> <strong>dense</strong> only changes the visual order of your items and might cause them to appear out of order, which is bad for accessibility.
+
+Examples:
+
+Consider this HTML:
+![eiABmq.png](https://s2.ax1x.com/2019/07/22/eiABmq.png)
+You define a grid with five columns and two rows, and set `grid-auto-flow` to `row` (which is also the default):
+![eiAchF.png](https://s2.ax1x.com/2019/07/22/eiAchF.png)
+When placing the items on the grid, you only specify spots for two of them:
+![eiEC4S.png](https://s2.ax1x.com/2019/07/22/eiEC4S.png)
+
+Because we set `grid-auto-flow` to `row`, our grid will look like this. Notice how the three items we didn't place (<strong>item-b</strong>, <strong>item-c</strong> and <strong>item-d</strong>) flow across the available rows:
+![eiEDvd.png](https://s2.ax1x.com/2019/07/22/eiEDvd.png)
+
+If we instead set `grid-auto-flow` to `column`, <strong>item-b</strong>, <strong>item-c</strong> and <strong>item-d</strong> flow down the columns:
+![eiEv24.png](https://s2.ax1x.com/2019/07/22/eiEv24.png)
+![eiVprR.png](https://s2.ax1x.com/2019/07/22/eiVprR.png)
+
+###### grid
+A shorthand for setting all of the following properties in a single declaration: `grid-template-rows`, `grid-template-columns`, `grid-template-areas`, `grid-auto-rows`, `grid-auto-columns`, and `grid-auto-flow`
+> Note: You can only specify the explicit or the implicit grid properties in a single grid declaration
+
+Values:
+- <strong>none</strong> - sets all sub-properties to their initial values.
+- <strong>&#60;grid-template&#62;</strong> - works the same as the grid-template shorthand.
+- <strong>&#60;grid-template-rows&#62;</strong> / <strong>&#91; auto-flow && dense? &#93;</strong>	 <strong>&#60;grid-auto-columns&#62;?</strong> - sets grid-template-rows to the specified value. If the auto-flow keyword is to the right of the slash, it sets grid-auto-flow to column. If the dense keyword is specified additionally, the auto-placement algorithm uses a “dense” packing algorithm. If grid-auto-columns is omitted, it is set to auto.
+- <strong>&#91; auto-flow && dense? &#93;</strong> <strong>&#60;grid-auto-rows&#62;</strong>? / <strong>&#60;grid-template-columns&#62;</strong> - sets grid-template-columns to the specified value. If the auto-flow keyword is to the left of the slash, it sets grid-auto-flow to row. If the dense keyword is specified additionally, the auto-placement algorithm uses a “dense” packing algorithm. If grid-auto-rows is omitted, it is set to auto.
+
+Examples:
+
+The following two code blocks are equivalent:
+![eiMwjS.png](https://s2.ax1x.com/2019/07/22/eiMwjS.png)
+The following two code blocks are equivalent:
+![eiMyAs.png](https://s2.ax1x.com/2019/07/22/eiMyAs.png)
+The following two code blocks are equivalent:
+![eiQK5n.png](https://s2.ax1x.com/2019/07/22/eiQK5n.png)
+And the following two code blocks are equivalent:
+![eiQDxK.png](https://s2.ax1x.com/2019/07/22/eiQDxK.png)
+
+It also accepts a more complex but quite handy syntax for setting everything at once. You specify grid-template-areas, grid-template-rows and grid-template-columns, and all the other sub-properties are set to their initial values. What you're doing is specifying the line names and track sizes inline with their respective grid areas. This is easiest to describe with an example:
+![eiQoM8.png](https://s2.ax1x.com/2019/07/22/eiQoM8.png)
+That's equivalent to this:
+![eil9LF.png](https://s2.ax1x.com/2019/07/22/eil9LF.png)
