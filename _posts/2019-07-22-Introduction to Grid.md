@@ -9,6 +9,19 @@ catalog: true
 tags:
   - CSS
 ---
+- [Introduction](#introduction)
+- [Important Terminology](#important-terminology)
+    - [Grid Container](#grid-container)
+    - [Grid Item](#grid-item)
+    - [Grid Line](#grid-line)
+    - [Grid Track](#grid-track)
+    - [Grid Cell](#grid-cell)
+    - [Grid Area](#grid-area)
+- [Grid Properties Table of Contents](#grid-properties-table-of-contents)
+    - [Properties for the Grid Container](#properties-for-the-grid-container)
+        - [display](#display)
+        - [grid-template-columns](#grid-template-columns)
+        - [grid-template-rows](#grid-template-rows)
 
 ## Introduction
 <strong>CSS Grid Layout</strong> is the most powerful layout system available in <strong>CSS</strong>. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike <strong>Flexbox</strong> which is largely a 1-dimensional system. You work with <strong>Grid Layout</strong> by applying <strong>CSS</strong> rules both to a parent element (which becomes the <strong>Grid Container</strong>) and to that element's children (which become <strong>Grid Items</strong>).
@@ -39,3 +52,50 @@ The space between two adjacent row and two adjacent column grid lines. It's a si
 #### Grid Area
 The total space surrounded by four grid lines. A grid area may be comprised of any number of grid cells. Here's the grid area between row grid lines 1 and 3, and column grid lines 1 and 3.
 ![eCbi8g.png](https://s2.ax1x.com/2019/07/22/eCbi8g.png)
+
+## Grid Properties Table of Contents
+#### Properties for the Grid Container
+###### display
+Defines the element as a grid container and establishes a new grid formatting context for its contents.
+
+Values:
+- <strong>grid</strong> - generates a block-level grid
+- <strong>inline-grid</strong> - generates an inline-level grid
+
+![eCqio6.png](https://s2.ax1x.com/2019/07/22/eCqio6.png)
+
+###### grid-template-columns
+###### grid-template-rows
+Defines the columns and rows of the grid with a space-separated list of values. The values represent the track size, and the space between them represents the grid line.
+
+Values:
+- <strong>&#60;track-size&#62;</strong> - can be a length, a percentage, or a fraction of the free space in the grid (using the fr unit)
+- <strong>&#60;line-name&#62;</strong> - an arbitrary name of your choosing
+![eCjVAI.png](https://s2.ax1x.com/2019/07/22/eCjVAI.png)
+
+Examples:
+
+When you leave an empty space between the track values, the grid lines are automatically assigned positive and negative numbers:
+![eCj1Bj.png](https://s2.ax1x.com/2019/07/22/eCj1Bj.png)
+![eCjU3T.png](https://s2.ax1x.com/2019/07/22/eCjU3T.png)
+
+But you can choose to explicitly name the lines. Note the bracket syntax for the line names:
+![eCj28K.png](https://s2.ax1x.com/2019/07/22/eCj28K.png)
+![eCjRgO.png](https://s2.ax1x.com/2019/07/22/eCjRgO.png)
+
+Note that a line can have more than one name. For example, here the second line will have two names: row1-end and row2-start:
+![eCjWvD.png](https://s2.ax1x.com/2019/07/22/eCjWvD.png)
+
+If your definition contains repeating parts, you can use the `repeat()` notation to streamline things:
+![eCvF2T.png](https://s2.ax1x.com/2019/07/22/eCvF2T.png)
+Which is equivalent to this:
+![eCvMPx.png](https://s2.ax1x.com/2019/07/22/eCvMPx.png)
+
+If multiple lines share the same name, they can be referenced by their line name and count.
+![eCvGse.png](https://s2.ax1x.com/2019/07/22/eCvGse.png)
+
+The `fr` unit allows you to set the size of a track as a fraction of the free space of the grid container. For example, this will set each item to one third the width of the grid container:
+![eCvBz8.png](https://s2.ax1x.com/2019/07/22/eCvBz8.png)
+
+The free space is calculated after any non-flexible items. In this example the total amount of free space available to the `fr` units doesn't include the 50px:
+![eCvcZj.png](https://s2.ax1x.com/2019/07/22/eCvcZj.png)
