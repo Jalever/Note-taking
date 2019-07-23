@@ -9,64 +9,88 @@ catalog: true
 tags:
   - Data Structure
 ---
-- [Features](#features)
-- [Diagram](#diagram)
+- [Overview](#overview)
 - [Implementation in CPP](#implementation-in-cpp)
-- [Links](#links)
 
+## Overview
+<strong>Quicksort</strong>(sometimes called <strong>Partition-Exchange Sort</strong>) is an efficient sorting algorithm, serving as a systematic method for placing the elements of a Random Access File or an array in order. Developed by British computer scientist <strong>Tony Hoare</strong> in 1959 and published in 1961, it is still a commonly used algorithm for sorting. When implemented well, it can be about two or three times faster than its main competitors, <strong>Merge Sort</strong> and <strong>Heapsort</strong>.
 
-## Features
-- Not Stable
-- In-Place
-- Best Case: O(n * log(n))
-- Average Case: O(n * log(n))
-- Worst Case: O( n^2 )
+Quicksort is a Comparison Sort, meaning that it can sort items of any type for which a "less-than" relation (formally, a total order) is defined. In efficient implementations it is <ins>not a Stable Sort</ins>, meaning that the relative order of equal sort items is not preserved. Quicksort can operate <ins>in-place</ins> on an array, requiring small additional amounts of memory to perform the sorting. It is very similar to Selection Sort, except that it does not always choose worst-case partition.
 
-## Diagram
-[![V2jRcn.md.png](https://s2.ax1x.com/2019/06/12/V2jRcn.md.png)](https://imgchr.com/i/V2jRcn)
+Mathematical analysis of quicksort shows that, on average, the algorithm takes <strong>O(n log n)</strong> comparisons to sort `n` items. In the worst case, it makes <strong>O(n2)</strong> comparisons, though this behavior is rare.
 
-[![V2jWXq.md.png](https://s2.ax1x.com/2019/06/12/V2jWXq.md.png)](https://imgchr.com/i/V2jWXq)
-
-[![V2j4BV.md.png](https://s2.ax1x.com/2019/06/12/V2j4BV.md.png)](https://imgchr.com/i/V2j4BV)
-
+<table>
+    <thead>
+        <tr>
+            <td colspan="2">Features</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Class</td>
+            <td>Sorting Algorithm</td>
+        </tr>
+        <tr>
+            <td>Worst-case performance</td>
+            <td>O(n^2)</td>
+        </tr>
+        <tr>
+            <td>Best-case performance</td>
+            <td>O(n log n)(simple partition)<br/><br/>or O(n)(three-way partition and equal keys)</td>
+        </tr>
+        <tr>
+            <td>Average performance</td>
+            <td>O(n log n)</td>
+        </tr>
+        <tr>
+            <td>Worst-case space complexity</td>
+            <td>O(n) auxiliary (naive)<br/><br/>O(log n) auxiliary </td>
+        </tr>
+    </tbody>
+</table>
 
 ## Implementation in CPP
+![eFR2VS.png](https://s2.ax1x.com/2019/07/23/eFR2VS.png)
+![eFRhCj.png](https://s2.ax1x.com/2019/07/23/eFRhCj.png)
+![eFR48s.png](https://s2.ax1x.com/2019/07/23/eFR48s.png)
+![eFRIvq.png](https://s2.ax1x.com/2019/07/23/eFRIvq.png)
 ```cpp
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-void swap(int* a,int* b) {
+void Swap(int* a,int* b) {
 	int temp = *a;
 	*a = *b;
 	*b = temp;
 }
 
-void traverseArray(int arr[],int length) {
+void TraverseArray(int arr[],int length) {
 	for(int i = 0;i < length;++i) {
 		cout << arr[i] << "\t";
 	}
 }
 
-int partition(int arr[],int low,int high) {
-	int i = low - 1;
-	int pivot = arr[high];
+int Partition(int arr[],int leftmostIndex,int rightmostIndex) {
+	int pivot = arr[rightmostIndex];
+	int pivotIndex = leftmostIndex - 1;
 
-	for(int j = low;j < high;++j) {
-		if(arr[j] <= pivot) {
-			++i;
-			swap(&arr[i], &arr[j]);
+	for(int i=leftmostIndex;i < rightmostIndex;i++) {
+		if(arr[i] <= pivot) {
+			++pivotIndex;
+			::Swap(&arr[i], &arr[pivotIndex]);
 		}
 	}
 
-	swap(&arr[i+1], &arr[high]);
-	return i+1;
+	::Swap(&arr[pivotIndex+1], &arr[rightmostIndex]);
+	return pivotIndex+1;
 }
 
-void Sort(int arr[],int low,int high) {
-	if(low < high) {
-		int pi = partition(arr, low, high);
-		Sort(arr,low, pi-1);
-		Sort(arr, pi+1, high);
+void QuickSort(int arr[],int leftmostIndex, int rightmostIndex) {
+	if(leftmostIndex < rightmostIndex) {
+		int pivot = Partition(arr, leftmostIndex, rightmostIndex);
+		::QuickSort(arr, leftmostIndex, pivot-1);
+		::QuickSort(arr, pivot+1, rightmostIndex);
 	}
 }
 
@@ -74,16 +98,15 @@ int main() {
 	int arr[] = {90,23,101,45,65,23,67,89,34,23};
 	int length = sizeof(arr)/sizeof(arr[0]);
 	cout << "Original Array: " << endl;
-	traverseArray(arr, length);
+	TraverseArray(arr, length);
 
-	Sort(arr,0,length-1);
+	QuickSort(arr,0,length-1);
 
 	cout << "\nSorted Array: " << endl;
-	traverseArray(arr, length);
+	TraverseArray(arr, length);
 
 	return 0;
 }
-
 ```
 
 ## Links
