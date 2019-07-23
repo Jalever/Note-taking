@@ -120,16 +120,16 @@ The properties are overwritten by other objects that have the same properties la
 <strong>Copying symbol-typed properties</strong><br/>
 ![eAmvP1.png](https://s2.ax1x.com/2019/07/23/eAmvP1.png)
 
-<strong>Copying symbol-typed properties</strong><br/></strong><br/>
+<strong>Properties on the prototype chain and non-enumerable properties cannot be copied</strong><br/>
 ![eAnmxf.png](https://s2.ax1x.com/2019/07/23/eAnmxf.png)
 
-<strong>Primitives will be wrapped to objects</strong><br/></strong><br/>
+<strong>Primitives will be wrapped to objects</strong></strong><br/>
 ![eAn1aj.png](https://s2.ax1x.com/2019/07/23/eAn1aj.png)
 
-<strong>Exceptions will interrupt the ongoing copying task</strong><br/></strong><br/>
+<strong>Exceptions will interrupt the ongoing copying task</strong></strong><br/>
 ![eAnsiR.png](https://s2.ax1x.com/2019/07/23/eAnsiR.png)
 
-<strong>Copying accessors</strong><br/></strong><br/>
+<strong>Copying accessors</strong></strong><br/>
 ![eAuckj.png](https://s2.ax1x.com/2019/07/23/eAuckj.png)
 ![eAuf10.png](https://s2.ax1x.com/2019/07/23/eAuf10.png)
 
