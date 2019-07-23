@@ -13,7 +13,7 @@ tags:
 - [Browser Support](#browser-support)
 - [CSS Syntax](#css-syntax)
 - [Property Values](#property-values)
-            
+
 ## Definition and Usage
 The <strong>position</strong> property specifies the type of positioning method used for an element (static, relative, absolute, fixed, or sticky).
 ![eFnwse.png](https://s2.ax1x.com/2019/07/23/eFnwse.png)
@@ -53,7 +53,7 @@ The numbers in the table specify the first browser version that fully supports t
         </tr>
         <tr>
             <td>sticky</td>
-            <td>The element is positioned based on the user's scroll position<br/>A sticky element toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed).<br/>Note: Not supported in IE/Edge 15 or earlier. Supported in Safari from version 6.1 with a -webkit- prefix.</td>
+            <td>The element is positioned based on the user's scroll position<br/><br/>A sticky element toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed).<br/><br/>Note: Not supported in IE/Edge 15 or earlier. Supported in Safari from version 6.1 with a -webkit- prefix.</td>
         </tr>
         <tr>
             <td>initial</td>
