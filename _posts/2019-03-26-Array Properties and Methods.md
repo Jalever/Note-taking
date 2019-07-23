@@ -49,7 +49,6 @@ tags:
     - [Array.prototype.values()](#arrayprototypevalues)
 
 ----------------------------------------------------------------------------
-
 ## Array.from()
 The `Array.from()` method creates a new, shallow-copied `Array` instance from an array-like or iterable object.
 
@@ -1781,3 +1780,76 @@ If the specified number of elements to insert differs from the number of element
 
 ###### Remove all elements after index 2 (incl.)
 ![ekc7m8.png](https://s2.ax1x.com/2019/07/23/ekc7m8.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.toLocaleString()
+The <strong>toLocaleString()</strong> method returns a string representing the elements of the array. The elements are converted to Strings using their <strong>toLocaleString</strong> methods and these Strings are separated by a locale-specific String (such as a comma “,”).
+![ek4cv9.png](https://s2.ax1x.com/2019/07/23/ek4cv9.png)
+
+#### Syntax
+![ek5axH.png](https://s2.ax1x.com/2019/07/23/ek5axH.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>locales</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A string with a BCP 47 language tag, or an array of such strings. For the general form and interpretation of the `locales` argument, see the `Intl` page.<br/>
+&nbsp;&nbsp;<strong>options</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An object with configuration properties, for numbers see `Number.prototype.toLocaleString()`, and for dates see `Date.prototype.toLocaleString()`.<br/>
+
+###### Return Value
+&nbsp;&nbsp;A string representing the elements of the array.
+
+#### Examples
+#### Using locales and options
+The elements of the array are converted to strings using their `toLocaleString` methods.
+- Object: Object.prototype.toLocaleString()
+- Number: Number.prototype.toLocaleString()
+- Date: Date.prototype.toLocaleString()
+
+Always display the currency for the strings and numbers in the `prices` array:
+![ekI3lQ.png](https://s2.ax1x.com/2019/07/23/ekI3lQ.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.toString()
+The `toString()` method returns a string representing the specified array and its elements.
+![ekIwfU.png](https://s2.ax1x.com/2019/07/23/ekIwfU.png)
+
+#### Syntax
+![ekIr6J.png](https://s2.ax1x.com/2019/07/23/ekIr6J.png)
+###### Return Value
+A string representing the elements of the array.
+
+#### Description
+The `Array` object overrides the `toString` method of `Object`. For Array objects, the `toString` method joins the array and returns one string containing each array element separated by commas.
+
+JavaScript calls the `toString` method automatically when an array is to be represented as a text value or when an array is referred to in a string concatenation.
+
+----------------------------------------------------------------------------
+## Array.prototype.toString()
+The <strong>unshift()</strong> method adds one or more elements to the beginning of an array and returns the new length of the array.
+![ekLjVH.png](https://s2.ax1x.com/2019/07/23/ekLjVH.png)
+
+#### Syntax
+![ekO9RP.png](https://s2.ax1x.com/2019/07/23/ekO9RP.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>elementN</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The elements to add to the front of the array.<br/>
+
+###### Return Value
+&nbsp;&nbsp;The new length property of the object upon which the method was called.
+
+#### Description
+The <strong>unshift</strong> method inserts the given values to the beginning of an array-like object.
+
+<strong>unshift</strong> is intentionally generic; this method can be called or applied to objects resembling arrays. Objects which do not contain a <strong>length</strong> property reflecting the last in a series of consecutive, zero-based numerical properties may not behave in any meaningful manner.
+
+Please note that, if multiple elements are passed as parameters, they're inserted in chunk at the beginning of the object, in the exact same order they were passed as parameters. Hence, calling unshift with <strong>n</strong> arguments <strong>once</strong>, or calling it <strong>n</strong> times with <strong>1</strong> argument (with a loop, for example), don't yield the same results. See example:
+![ekOree.png](https://s2.ax1x.com/2019/07/23/ekOree.png)
+
+#### Examples
+![ekOsdH.png](https://s2.ax1x.com/2019/07/23/ekOsdH.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.toString()
