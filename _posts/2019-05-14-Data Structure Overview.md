@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Data Structure Overview
-subtitle: Data Structure学习笔记系列
+subtitle: An Elementary Guide to Data Structure
 date: 2019-05-14
 author: Jalever
-header-img: img/post-bg-star.jpg
+header-img: img/post-bg-business-sketchees.jpg
 catalog: true
 tags:
   - Data Structure
