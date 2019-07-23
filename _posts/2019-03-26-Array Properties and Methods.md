@@ -1730,3 +1730,54 @@ This example produces the following output. As the output shows, when a compare 
 ###### Sorting non-ASCII characters
 For sorting strings with non-ASCII characters, i.e. strings with accented characters(e, é, è, a, ä, etc.), strings from languages other than English, use <strong>String.localeCompare</strong>. This function can compare those characters so they appear in the right order.
 ![e9p9yD.png](https://s2.ax1x.com/2019/07/21/e9p9yD.png)
+
+----------------------------------------------------------------------------
+## Array.prototype.splice()
+The <strong>splice()</strong> method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+![ek0rVA.png](https://s2.ax1x.com/2019/07/23/ek0rVA.png)
+
+#### Syntax
+![ekBlz8.png](https://s2.ax1x.com/2019/07/23/ekBlz8.png)
+
+###### Parameters
+&nbsp;&nbsp;<strong>start</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The index at which to start changing the array. If greater than the length of the array, `start` will be set to the length of the array. If negative, it will begin that many elements from the end of the array (with origin -1, meaning -n is the index of the nth last element and is therefore equivalent to the index of `array.length - n`). If the absolute value of `start` is greater than the length of the array, it will begin from index 0. <br/>
+&nbsp;&nbsp;<strong>deleteCount</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An integer indicating the number of elements in the array to remove from `start`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If `deleteCount` is omitted, or if its value is equal to or larger than `array.length - start` (that is, if it is equal to or greater than the number of elements left in the array, starting at `start`), then all the elements from `start` to the end of the array will be deleted.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If `deleteCount` is 0 or negative, no elements are removed. In this case, you should specify at least one new element.<br/>
+&nbsp;&nbsp;<strong>item1, item2, ...</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The elements to add to the array, beginning from `start`. If you do not specify any elements, `splice()` will only remove elements from the array.
+
+###### Return Value
+&nbsp;&nbsp;An array containing the deleted elements. If only one element is removed, an array of one element is returned. If no elements are removed, an empty array is returned.
+
+#### Description
+If the specified number of elements to insert differs from the number of elements being removed, the array's length will be different at the end of the call.
+
+#### Examples
+###### Remove 0 (zero) elements from index 2, and insert "drum"
+![eks5lV.png](https://s2.ax1x.com/2019/07/23/eks5lV.png)
+
+###### Remove 0 (zero) elements from index 2, and insert "drum" and "guitar"
+![ekyqu8.png](https://s2.ax1x.com/2019/07/23/ekyqu8.png)
+
+###### Remove 1 element from index 3
+![ek6tPA.png](https://s2.ax1x.com/2019/07/23/ek6tPA.png)
+
+###### Remove 1 element from index 2, and insert "trumpet"
+![ek6qR1.png](https://s2.ax1x.com/2019/07/23/ek6qR1.png)
+
+###### Remove 2 elements from index 0, and insert "parrot", "anemone" and "blue"
+![ekcYeU.png](https://s2.ax1x.com/2019/07/23/ekcYeU.png)
+
+###### Remove 2 elements from index 2
+![ekc6eO.png](https://s2.ax1x.com/2019/07/23/ekc6eO.png)
+
+###### Remove 1 element from index -2
+![ekc5lt.png](https://s2.ax1x.com/2019/07/23/ekc5lt.png)
+
+###### Remove all elements after index 2 (incl.)
+![ekc7m8.png](https://s2.ax1x.com/2019/07/23/ekc7m8.png)

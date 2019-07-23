@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Centering in CSS
-subtitle: CSS学习笔记系列
+subtitle: A Complete Guide of CSS Centering
 date: 2019-03-27
 author: Jalever
-header-img: img/home_bg_tree.png
+header-img: img/css_bg_simple.png
 catalog: true
 tags:
   - CSS
