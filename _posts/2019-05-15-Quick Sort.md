@@ -14,6 +14,11 @@ tags:
 - [Algorithm](#algorithm)
     - [Lomuto partition scheme](#lomuto-partition-scheme)
     - [Hoare partition scheme](#hoare-partition-scheme)
+    - [Implementation issues](#implementation-issues)
+        - [Choice of pivot](#choice-of-pivot)
+        - [Repeated elements](#repeated-elements)
+        - [Optimizations](#optimizations)
+        - [Parallelization](#parallelization)
 - [Implementation in CPP](#implementation-in-cpp)
 
 ## Overview
@@ -87,7 +92,40 @@ The original partition scheme described by <strong>C.A.R. Hoare</strong> uses tw
 ![eEFVEt.png](https://s2.ax1x.com/2019/07/24/eEFVEt.png)
 The entire array is sorted by <strong>quicksort(A, 0, length&#40;A&#41;-1)</strong>.
 
+#### Implementation issues
+###### Choice of pivot
+In the very early versions of quicksort, the leftmost element of the partition would often be chosen as the pivot element. Unfortunately, this causes worst-case behavior on already sorted arrays, which is a rather common use-case. The problem was easily solved by choosing either a random index for the pivot, choosing the middle index of the partition or (especially for longer partitions) choosing the median of the first, middle and last element of the partition for the pivot (as recommended by <strong>Sedgewick</strong>). This "median-of-three" rule counters the case of sorted (or reverse-sorted) input, and gives a better estimate of the optimal pivot (the true median) than selecting any single element, when no information about the ordering of the input is known.
 
+Median-of-three code snippet for Lomuto partition:
+![eEAe1S.png](https://s2.ax1x.com/2019/07/24/eEAe1S.png)
+It puts a median into `A[hi]` first, then that new value of `A[hi]` is used for a pivot, as in a basic algorithm presented above.
+
+Specifically, the expected number of comparisons needed to sort `n` elements with random pivot selection is `1.386 n log n`. Median-of-three pivoting brings this down to `Cn, 2 ≈ 1.188 n log n`, at the expense of a three-percent increase in the expected number of swaps. An even stronger pivoting rule, for larger arrays, is to pick the ninther, a recursive median-of-three (Mo3), defined as
+![eEAM0s.png](https://s2.ax1x.com/2019/07/24/eEAM0s.png)
+Selecting a pivot element is also complicated by the existence of Integer Overflow. If the boundary indices of the subarray being sorted are sufficiently large, the naïve expression for the middle index, `(lo + hi)/2`, will cause overflow and provide an invalid pivot index. This can be overcome by using, for example, `lo + (hi−lo)/2` to index the middle element, at the cost of more complex arithmetic. Similar issues arise in some other methods of selecting the pivot element.
+
+###### Repeated elements
+With a partitioning algorithm such as the Lomuto partition scheme described above (even one that chooses good pivot values), quicksort exhibits poor performance for inputs that contain many repeated elements. The problem is clearly apparent when all the input elements are equal: at each recursion, the left partition is empty (no input values are less than the pivot), and the right partition has only decreased by one element (the pivot is removed). Consequently, the Lomuto partition scheme takes <strong>Quadratic Time</strong> to sort an array of equal values. However, with a partitioning algorithm such as the Hoare partition scheme, repeated elements generally results in better partitioning, and although needless swaps of elements equal to the pivot may occur, the running time generally decreases as the number of repeated elements increases (with memory cache reducing the swap overhead). In the case where all elements are equal, Hoare partition scheme needlessly swaps elements, but the partitioning itself is best case, as noted in the Hoare partition section above.
+
+To solve the Lomuto partition scheme problem(sometimes called the <strong>Dutch national flag problem</strong>), an alternative linear-time partition routine can be used that separates the values into three groups: values less than the pivot, values equal to the pivot, and values greater than the pivot. (Bentley and McIlroy call this a "fat partition" and note that it was already implemented in the <strong>qsort</strong> of Version 7 Unix.) The values equal to the pivot are already sorted, so only the less-than and greater-than partitions need to be recursively sorted. In pseudocode, the quicksort algorithm becomes
+![eEAxNq.png](https://s2.ax1x.com/2019/07/24/eEAxNq.png)
+
+The <strong>partition</strong> algorithm returns indices to the first ('leftmost') and to the last ('rightmost') item of the middle partition. Every item of the partition is equal to <strong>p</strong> and is therefore sorted. Consequently, the items of the partition need not be included in the recursive calls to <strong>quicksort</strong>.
+
+The best case for the algorithm now occurs when all elements are equal (or are chosen from a small set of k ≪ n elements). In the case of all equal elements, the modified quicksort will perform only two recursive calls on empty subarrays and thus finish in linear time (assuming the <strong>partition</strong> subroutine takes no longer than linear time).
+
+###### Optimizations
+Two other important optimizations, also suggested by Sedgewick and widely used in practice, are:
+- To make sure at most `O(log n)` space is used, recur first into the smaller side of the partition, then use a tail call to recur into the other, or update the parameters to no longer include the now sorted smaller side, and iterate to sort the larger side.
+- When the number of elements is below some threshold (perhaps ten elements), switch to a non-recursive sorting algorithm such as Insertion Sort that performs fewer swaps, comparisons or other operations on such small arrays. The ideal 'threshold' will vary based on the details of the specific implementation.
+- An older variant of the previous optimization: when the number of elements is less than the threshold `k`, simply stop; then after the whole array has been processed, perform insertion sort on it. Stopping the recursion early leaves the array k-sorted, meaning that each element is at most `k` positions away from its final sorted position. In this case, insertion sort takes `O(kn)` time to finish the sort, which is linear if `k` is a constant. Compared to the "many small sorts" optimization, this version may execute fewer instructions, but it makes suboptimal use of the Cache Memories in modern computers.
+
+###### Parallelization
+Quicksort's divide-and-conquer formulation makes it amenable to Parallelization using Task Parallelism. The partitioning step is accomplished through the use of a Parallel Prefix Sum algorithm to compute an index for each array element in its section of the partitioned array. Given an array of size `n`, the partitioning step performs `O(n)` work in `O(log n)` time and requires `O(n)` additional scratch space. After the array has been partitioned, the two partitions can be sorted recursively in parallel. Assuming an ideal choice of pivots, parallel quicksort sorts an array of size n in `O(n log n)` work in `O(log² n)` time using `O(n)` additional space.
+
+Quicksort has some disadvantages when compared to alternative sorting algorithms, like <strong>Merge Sort</strong>, which complicate its efficient parallelization. The depth of quicksort's divide-and-conquer tree directly impacts the algorithm's scalability, and this depth is highly dependent on the algorithm's choice of pivot. Additionally, it is difficult to parallelize the partitioning step efficiently in-place. The use of scratch space simplifies the partitioning step, but increases the algorithm's memory footprint and constant overheads.
+
+Other more sophisticated parallel sorting algorithms can achieve even better time bounds. For example, in 1991 David Powers described a parallelized quicksort (and a related <strong>Radix Sort</strong>) that can operate in `O(log n)` time on a CRCW (concurrent read and concurrent write) PRAM (parallel random-access machine)with n processors by performing partitioning implicitly.
 
 ## Implementation in CPP
 ![eFR2VS.png](https://s2.ax1x.com/2019/07/23/eFR2VS.png)
