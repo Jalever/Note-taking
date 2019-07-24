@@ -213,6 +213,7 @@ However, setting the generic <strong>prototype</strong> as the new object's prot
 #### Object.defineProperty()
 The static method <strong>Object.defineProperty()</strong> defines a new property directly on an object, or modifies an existing property on an object, and returns the object.
 > You call this method directly on the `Object` constructor rather than on an instance of type `Object`.
+
 ![eVgCIU.png](https://s2.ax1x.com/2019/07/24/eVgCIU.png)
 
 ###### Syntax
@@ -234,12 +235,47 @@ Property descriptors present in objects come in two main flavors: <strong>Data D
 
 Both data and accessor descriptors are <strong>object</strong>s. They share the following optional keys(The default value is in the case of defining properties using <strong>Object.defineProperty&#40;&#41;</strong>):
 
-&nbsp;&nbsp;configurable<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;- true if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.<br/>
+&nbsp;&nbsp;<b>configurable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- `true` if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `false`.<br/>
+&nbsp;&nbsp;<b>enumerable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- `true` if and only if this property shows up during enumeration of the properties on the corresponding object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `false`.<br/>
+
+A data descriptor also has the following optional keys:
+
+&nbsp;&nbsp;<b>value</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- The value associated with the property. Can be any valid JavaScript value (number, object, function, etc).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `undefined`.<br/>
+&nbsp;&nbsp;<b>writable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- true if and only if the value associated with the property may be changed with an assignment operator.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;- Defaults to false.<br/>
 
+An accessor descriptor also has the following optional keys:
 
+&nbsp;&nbsp;<b>get</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- A function which serves as a getter for the property, or `undefined` if there is no getter. When the property is accessed, this function is called without arguments and with `this` set to the object through which the property is accessed (this may not be the object on which the property is defined due to inheritance). The return value will be used as the value of the property.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `undefined`.<br/>
+&nbsp;&nbsp;<b>set</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- A function which serves as a setter for the property, or `undefined` if there is no setter. When the property is assigned to, this function is called with one argument (the value being assigned to the property) and with `this` set to the object through which the property is assigned.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `undefined`.<br/>
 
+If a descriptor has neither of `value`, `writable`, `get` and `set` keys, it is treated as a data descriptor. If a descriptor has both `value` or `writable` and `get` or `set` keys, an exception is thrown.
+![eVdrHH.png](https://s2.ax1x.com/2019/07/24/eVdrHH.png)
+
+Bear in mind that these attributes are not necessarily the descriptor's own properties. Inherited properties will be considered as well. In order to ensure these defaults are preserved, you might freeze the <strong>Object.prototype</strong> upfront, specify all options explicitly, or point to null with <strong>Object.create(null)</strong>.
+![eVfAk6.png](https://s2.ax1x.com/2019/07/24/eVfAk6.png)
+![eVfEtK.png](https://s2.ax1x.com/2019/07/24/eVfEtK.png)
+![eVfVfO.png](https://s2.ax1x.com/2019/07/24/eVfVfO.png)
+![eVfepD.png](https://s2.ax1x.com/2019/07/24/eVfepD.png)
+
+###### Examples
+<strong>Creating a property</strong><br/>
+When the property specified doesn't exist in the object, <strong>Object.defineProperty()</strong> creates a new property as described. Fields may be omitted from the descriptor, and default values for those fields are inputted.
+![eVhLGT.png](https://s2.ax1x.com/2019/07/24/eVhLGT.png)
+![eVhvM4.png](https://s2.ax1x.com/2019/07/24/eVhvM4.png)
+![eVhxsJ.png](https://s2.ax1x.com/2019/07/24/eVhxsJ.png)
+![eVhzL9.png](https://s2.ax1x.com/2019/07/24/eVhzL9.png)
 
 #### Object.defineProperties()
 The <strong>Object.defineProperties()</strong> method defines new or modifies existing properties directly on an object, returning the object.
