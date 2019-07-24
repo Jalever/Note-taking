@@ -213,8 +213,55 @@ However, setting the generic <strong>prototype</strong> as the new object's prot
 #### Object.defineProperty()
 Adds the named property described by a given descriptor to an object.
 
+
+
+
+
+
 #### Object.defineProperties()
-Adds the named properties described by the given descriptors to an object.
+The <strong>Object.defineProperties()</strong> method defines new or modifies existing properties directly on an object, returning the object.
+![eVJrH1.png](https://s2.ax1x.com/2019/07/24/eVJrH1.png)
+
+###### Syntax
+![eVtg6e.png](https://s2.ax1x.com/2019/07/24/eVtg6e.png)
+&nbsp;&nbsp;<strong>ParametersSection</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;obj<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object on which to define or modify properties.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;props<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An object whose keys represent the names of properties to be defined or modified and whose values are objects describing those properties. Each value in `props` must be either a data descriptor or an accessor descriptor; it cannot be both (see `Object.defineProperty()` for more details).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data descriptors and accessor descriptors may optionally contain the following keys:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>configurable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`true` if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `false`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>enumerable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`true` if and only if this property shows up during enumeration of the properties on the corresponding object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `false`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A data descriptor also has the following optional keys:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>value</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The value associated with the property. Can be any valid JavaScript value (number, object, function, etc).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `undefined`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>writable</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`true` if and only if the value associated with the property may be changed with an assignment operator.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `false`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An accessor descriptor also has the following optional keys:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>get</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A function which serves as a getter for the property, or `undefined` if there is no getter. The function's return value will be used as the value of the property.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `undefined`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>set</b><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A function which serves as a setter for the property, or `undefined` if there is no setter. The function will receive as its only argument the new value being assigned to the property.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `undefined`.<br/>
+
+If a descriptor has neither of `value`, `writable`, `get` and `set` keys, it is treated as a data descriptor. If a descriptor has both `value` or `writable` and `get` or `set` keys, an exception is thrown.
+![eVdrHH.png](https://s2.ax1x.com/2019/07/24/eVdrHH.png)
+
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+The object that was passed to the function.
+
+###### Description
+<strong>Object.defineProperties</strong>, in essence, defines all properties corresponding to the enumerable own properties of <strong>props</strong> on the object <strong>obj</strong> object.
+
+###### Example
+![eVdMcT.png](https://s2.ax1x.com/2019/07/24/eVdMcT.png)
 
 #### Object.entries()
 Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
