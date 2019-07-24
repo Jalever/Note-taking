@@ -166,6 +166,50 @@ If you wish to inherit from multiple objects, then mixins are a possibility.
 ![eELUbD.png](https://s2.ax1x.com/2019/07/24/eELUbD.png)
 <strong>Object.assign()</strong> copies properties from the <strong>OtherSuperClass</strong> prototype to the <strong>MyClass</strong> prototype, making them available to all instances of <strong>MyClass</strong>.
 
+&nbsp;&nbsp;<strong>Using propertiesObject argument with Object.create()</strong><br/>
+![eEj054.png](https://s2.ax1x.com/2019/07/24/eEj054.png)
+![eEjs2R.png](https://s2.ax1x.com/2019/07/24/eEjs2R.png)
+![eEjcKx.png](https://s2.ax1x.com/2019/07/24/eEjcKx.png)
+![eEjWVO.png](https://s2.ax1x.com/2019/07/24/eEjWVO.png)
+![eEjhIe.png](https://s2.ax1x.com/2019/07/24/eEjhIe.png)
+![eEjIGd.png](https://s2.ax1x.com/2019/07/24/eEjIGd.png)
+![eEjoRA.png](https://s2.ax1x.com/2019/07/24/eEjoRA.png)
+
+###### Custom and Null objects
+A new object created from a completely custom object (especially one created from the <strong>null</strong> object, which is basically a custom object with NO members) can behave in unexpected ways. This is especially true when debugging, since common object-property converting/detecting utility functions may generate errors, or simply lose information (especially if using silent error-traps that ignore errors). For example, here are two objects:
+![eEzG2d.png](https://s2.ax1x.com/2019/07/24/eEzG2d.png)
+As shown above, all seems normal so far. However, when attempting to actually use these objects, their differences quickly become apparent:
+![eEzDPg.png](https://s2.ax1x.com/2019/07/24/eEzDPg.png)
+Testing just a few of the many most basic built-in functions shows the magnitude of the problem more clearly:
+![eVSSRH.png](https://s2.ax1x.com/2019/07/24/eVSSRH.png)
+As said, these differences can make debugging even simple-seeming problems quickly go astray. For example:
+
+A simple common debugging function:
+![eVSPsI.png](https://s2.ax1x.com/2019/07/24/eVSPsI.png)
+Not such simple results: (especially if silent error-trapping had hidden the error messages)
+![eVS1e0.png](https://s2.ax1x.com/2019/07/24/eVS1e0.png)
+(But if same object is created simply in different order -- at least in some implementations...)
+![eVSwO1.png](https://s2.ax1x.com/2019/07/24/eVSwO1.png)
+Note that such a different order may arise statically via disparate fixed codings such as here, but also dynamically via whatever the order any such property-adding code-branches actually get executed at runtime as depends on inputs and/or random-variables. Then again, the actual iteration order is not guaranteed no matter what the order members are added.
+
+<strong>Some NON-solutions</strong><br/>
+A good solution for the missing object-methods is not immediately apparent.
+
+Adding the missing object-method directly from the standard-object does NOT work:
+![eVSITf.png](https://s2.ax1x.com/2019/07/24/eVSITf.png)
+Adding the missing object-method directly to new object's "prototype" does not work either, since new object does not have a real prototype (which is really the cause of ALL these problems) and one cannot be directly added:
+![eVSqpQ.png](https://s2.ax1x.com/2019/07/24/eVSqpQ.png)
+Adding the missing object-method by using the standard-object as new object's prototype does not work either:
+![eVSx00.png](https://s2.ax1x.com/2019/07/24/eVSx00.png)
+
+<strong>Some OK solutions</strong><br/>
+Again, adding the missing object-method directly from the <strong>standard-object</strong> does NOT work. However, adding the <strong>generic</strong> method directly, DOES:
+![eVp3jA.png](https://s2.ax1x.com/2019/07/24/eVp3jA.png)
+However, setting the generic <strong>prototype</strong> as the new object's prototype works even better:
+![eVpw9g.png](https://s2.ax1x.com/2019/07/24/eVpw9g.png)
+(In addition to all the string-related functions shown above, this also adds:)
+![eVpouR.png](https://s2.ax1x.com/2019/07/24/eVpouR.png)
+
 #### Object.defineProperty()
 Adds the named property described by a given descriptor to an object.
 
