@@ -211,9 +211,32 @@ However, setting the generic <strong>prototype</strong> as the new object's prot
 ![eVpouR.png](https://s2.ax1x.com/2019/07/24/eVpouR.png)
 
 #### Object.defineProperty()
-Adds the named property described by a given descriptor to an object.
+The static method <strong>Object.defineProperty()</strong> defines a new property directly on an object, or modifies an existing property on an object, and returns the object.
+> You call this method directly on the `Object` constructor rather than on an instance of type `Object`.
+![eVgCIU.png](https://s2.ax1x.com/2019/07/24/eVgCIU.png)
 
+###### Syntax
+![eVglJe.png](https://s2.ax1x.com/2019/07/24/eVglJe.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;obj<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object on which to define the property.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;prop<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The name or `Symbol` of the property to be defined or modified.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;descriptor<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The descriptor for the property being defined or modified.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The object that was passed to the function.<br/>
 
+###### Description
+This method allows a precise addition to or modification of a property on an object. <strong>Normal property addition through assignment</strong> creates properties which show up during property enumeration (`for...in` loop or `Object.keys` method), whose values may be <ins>changed</ins>, and which may be <ins>deleted</ins>. This method allows these extra details to be changed from their defaults. By default, values added using <strong>Object.defineProperty()</strong> are immutable.
+
+Property descriptors present in objects come in two main flavors: <strong>Data Descriptors</strong> and <strong>Accessor Descriptors</strong>. A <ins>data descriptor</ins> is a property that has a value, which may or may not be writable. An <ins>accessor descriptor</ins> is a property described by a getter-setter pair of functions. A descriptor must be one of these two flavors; it cannot be both.
+
+Both data and accessor descriptors are <strong>object</strong>s. They share the following optional keys(The default value is in the case of defining properties using <strong>Object.defineProperty&#40;&#41;</strong>):
+
+&nbsp;&nbsp;configurable<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- true if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to false.<br/>
 
 
 
@@ -224,10 +247,10 @@ The <strong>Object.defineProperties()</strong> method defines new or modifies ex
 
 ###### Syntax
 ![eVtg6e.png](https://s2.ax1x.com/2019/07/24/eVtg6e.png)
-&nbsp;&nbsp;<strong>ParametersSection</strong><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;obj<br/>
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object on which to define or modify properties.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;props<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>props</ins></strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An object whose keys represent the names of properties to be defined or modified and whose values are objects describing those properties. Each value in `props` must be either a data descriptor or an accessor descriptor; it cannot be both (see `Object.defineProperty()` for more details).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data descriptors and accessor descriptors may optionally contain the following keys:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>configurable</b><br/>
@@ -236,14 +259,18 @@ The <strong>Object.defineProperties()</strong> method defines new or modifies ex
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>enumerable</b><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`true` if and only if this property shows up during enumeration of the properties on the corresponding object.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `false`.<br/>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A data descriptor also has the following optional keys:<br/>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>value</b><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The value associated with the property. Can be any valid JavaScript value (number, object, function, etc).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `undefined`.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>writable</b><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`true` if and only if the value associated with the property may be changed with an assignment operator.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `false`.<br/>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An accessor descriptor also has the following optional keys:<br/>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>get</b><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A function which serves as a getter for the property, or `undefined` if there is no getter. The function's return value will be used as the value of the property.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Defaults to `undefined`.<br/>
