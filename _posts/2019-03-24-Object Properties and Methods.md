@@ -18,7 +18,7 @@ tags:
     - [Object.prototype](#objectprototype)
 - [Methods of the Object constructor](#methods-of-the-object-constructor)
     - [Object.assign()](#objectassign)
-    - [Object.create()](#object.create())
+    - [Object.create()](#objectcreate)
     - [Object.defineProperty()](#objectdefineproperty)
     - [Object.defineProperties()](#objectdefineproperties)
     - [Object.entries()](#object.entries)
@@ -134,7 +134,37 @@ The properties are overwritten by other objects that have the same properties la
 ![eAuf10.png](https://s2.ax1x.com/2019/07/23/eAuf10.png)
 
 #### Object.create()
-Creates a new object with the specified prototype object and properties.
+The <strong>Object.create()</strong> method creates a new object, using an existing object as the prototype of the newly created object.
+![eEIj1O.png](https://s2.ax1x.com/2019/07/24/eEIj1O.png)
+
+###### Syntax
+![eEoF4P.png](https://s2.ax1x.com/2019/07/24/eEoF4P.png)
+
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>proto</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be the prototype of the newly-created object.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>propertiesObject</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional. If specified and not `undefined`, an object whose enumerable own properties (that is, those properties defined upon itself and not enumerable properties along its prototype chain) specify property descriptors to be added to the newly-created object, with the corresponding property names. These properties correspond to the second argument of `Object.defineProperties()`.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A new object with the specified prototype object and properties.<br/>
+&nbsp;&nbsp;<strong>Exceptions</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `TypeError` exception if the `propertiesObject` parameter is `null` or a non-primitive-wrapper object.<br/>
+
+###### Examples
+&nbsp;&nbsp;<strong>Classical inheritance with Object.create()</strong><br/>
+Below is an example of how to use <strong>Object.create()</strong> to achieve classical inheritance. This is for single inheritance, which is all that JavaScript supports.
+![eEqFl6.png](https://s2.ax1x.com/2019/07/24/eEqFl6.png)
+![eEqGnS.png](https://s2.ax1x.com/2019/07/24/eEqGnS.png)
+
+`rect` take <strong>prototype.constructor</strong> of Shape
+![eELZvV.png](https://s2.ax1x.com/2019/07/24/eELZvV.png)
+
+set <strong>Object.prototype.constructor</strong> to Rectangle
+![eEL3CR.png](https://s2.ax1x.com/2019/07/24/eEL3CR.png)
+
+If you wish to inherit from multiple objects, then mixins are a possibility.
+![eELUbD.png](https://s2.ax1x.com/2019/07/24/eELUbD.png)
+<strong>Object.assign()</strong> copies properties from the <strong>OtherSuperClass</strong> prototype to the <strong>MyClass</strong> prototype, making them available to all instances of <strong>MyClass</strong>.
 
 #### Object.defineProperty()
 Adds the named property described by a given descriptor to an object.
