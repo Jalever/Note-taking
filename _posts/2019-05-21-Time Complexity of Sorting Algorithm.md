@@ -1,8 +1,8 @@
 ---
 layout: post
 title: (DS Sorting)Time Complexity of Sorting Algorithms
-subtitle: Data Structure Sorting学习笔记系列
-date: 2019-06-14
+subtitle: Data Structure Sorting
+date: 2019-05-21
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg
 catalog: true
@@ -29,9 +29,9 @@ tags:
     <tbody>
         <tr>
             <td>Selection Sort</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
+            <td>Ω(n<sup>2</sup>)</td>
+            <td>Ω(n<sup>2</sup>)</td>
+            <td>Ω(n<sup>2</sup>)</td>
             <td>O(1)</td>
         </tr>
         <tr>

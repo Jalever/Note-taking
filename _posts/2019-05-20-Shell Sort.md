@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Sorting)Shell Sort
-subtitle: Data Structure Sorting学习笔记系列
+subtitle: Data Structure Sorting
 date: 2019-05-20
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg

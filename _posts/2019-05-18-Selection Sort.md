@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Sorting)Selection Sort
-subtitle: Data Structure
+subtitle: Data Structure Sorting
 date: 2019-05-18
 author: Jalever
 header-img: img/post-bg-business-sketchees.jpg
