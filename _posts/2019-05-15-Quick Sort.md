@@ -19,6 +19,11 @@ tags:
         - [Repeated elements](#repeated-elements)
         - [Optimizations](#optimizations)
         - [Parallelization](#parallelization)
+    - [Formal analysis](#formal-analysis)
+        - [Worst-case analysis](#worst-case-analysis)
+        - [Best-case analysis](#best-case-analysis)
+        - [Average-case analysis](#average-case-analysis)
+    - [Space complexity](#space-complexity)
 - [Implementation in CPP](#implementation-in-cpp)
 
 ## Overview
@@ -41,7 +46,7 @@ Mathematical analysis of quicksort shows that, on average, the algorithm takes <
         </tr>
         <tr>
             <td>Worst-case performance</td>
-            <td>O(n^2)</td>
+            <td>O(n<sup>2</sup>)</td>
         </tr>
         <tr>
             <td>Best-case performance</td>
@@ -63,7 +68,7 @@ The quicksort algorithm was developed in 1959 by <strong>Tony Hoare</strong> whi
 
 <strong>Quicksort</strong> gained widespread adoption, appearing, for example, in Unix as the default library sort subroutine. Hence, it lent its name to the C standard library subroutine <strong>qsort</strong> and in the reference implementation of Java.
 
-<strong>Robert Sedgewick</strong>'s Ph.D. thesis in 1975 is considered a milestone in the study of Quicksort where he resolved many open problems related to the analysis of various pivot selection schemes including <strong>Samplesort</strong>, adaptive partitioning by <strong>Van Emden</strong> as well as derivation of expected number of comparisons and swaps. <strong>Bentley</strong> and <strong>McIlroy</strong> incorporated various improvements for use in programming libraries, including a technique to deal with equal elements and a pivot scheme known as <i>pseudomedian of nine</i>, where a sample of nine elements is divided into groups of three and then the median of the three medians from three groups is chosen. <strong>Jon Bentley</strong> described another simpler and compact partitioning scheme in his book <ins>Programming Pearls</ins> that he attributed to <strong>Nico Lomuto</strong>. Later Bentley wrote that he used Hoare's version for years but never really understood it but Lomuto's version was simple enough to prove correct. Bentley described Quicksort as the "most beautiful code I had ever written" in the same essay. Lomuto's partition scheme was also popularized by the textbook <ins>Introduction to Algorithms</ins> although it is inferior to Hoare's scheme because it does three times more swaps on average and degrades to `O(n^2)` runtime when all elements are equal.
+<strong>Robert Sedgewick</strong>'s Ph.D. thesis in 1975 is considered a milestone in the study of Quicksort where he resolved many open problems related to the analysis of various pivot selection schemes including <strong>Samplesort</strong>, adaptive partitioning by <strong>Van Emden</strong> as well as derivation of expected number of comparisons and swaps. <strong>Bentley</strong> and <strong>McIlroy</strong> incorporated various improvements for use in programming libraries, including a technique to deal with equal elements and a pivot scheme known as <i>pseudomedian of nine</i>, where a sample of nine elements is divided into groups of three and then the median of the three medians from three groups is chosen. <strong>Jon Bentley</strong> described another simpler and compact partitioning scheme in his book <ins>Programming Pearls</ins> that he attributed to <strong>Nico Lomuto</strong>. Later Bentley wrote that he used Hoare's version for years but never really understood it but Lomuto's version was simple enough to prove correct. Bentley described Quicksort as the "most beautiful code I had ever written" in the same essay. Lomuto's partition scheme was also popularized by the textbook <ins>Introduction to Algorithms</ins> although it is inferior to Hoare's scheme because it does three times more swaps on average and degrades to `O(n<sup>2</sup>)` runtime when all elements are equal.
 
 In 2009, <strong>Vladimir Yaroslavskiy</strong> proposed the new dual pivot Quicksort implementation. In the Java core library mailing lists, he initiated a discussion claiming his new algorithm to be superior to the runtime library's sorting method, which was at that time based on the widely used and carefully tuned variant of classic Quicksort by Bentley and McIlroy. Yaroslavskiy's Quicksort has been chosen as the new default sorting algorithm in Oracle's Java 7 runtime library after extensive empirical performance tests.
 
@@ -81,13 +86,13 @@ The pivot selection and partitioning steps can be done in several different ways
 Full example of quicksort on a random set of numbers. The shaded element is the <strong>pivot</strong>. It is always chosen as the last element of the partition. However, always choosing the last element in the partition as the pivot in this way results in poor performance <strong>&#40;O(n²)&#41;</strong> on already sorted arrays, or arrays of identical elements. Since sub-arrays of sorted/identical elements crop up a lot towards the end of a sorting procedure on a large set, versions of the quicksort algorithm that choose the pivot as the middle element run much more quickly than the algorithm described in this diagram on large sets of numbers.
 
 #### Lomuto partition scheme
-This scheme is attributed to <strong>Nico Lomuto</strong> and popularized by <strong>Bentley</strong> in his book <ins>Programming Pearls</ins> and Cormen et al. in their book <ins>Introduction to Algorithms</ins>. This scheme chooses a pivot that is typically the last element in the array. The algorithm maintains index `i` as it scans the array using another index `j` such that the elements `lo` through `i-1` (inclusive) are less than the pivot, and the elements `i` through `j` (inclusive) are equal to or greater than the pivot. As this scheme is more compact and easy to understand, it is frequently used in introductory material, although it is less efficient than Hoare's original scheme. This scheme degrades to `O(n^2)` when the array is already in order. There have been various variants proposed to boost performance including various ways to select pivot, deal with equal elements, use other sorting algorithms such as <strong>Insertion Sort</strong> for small arrays and so on. In pseudocode, a quicksort that sorts elements `lo` through `hi` (inclusive) of an array <strong>A</strong> can be expressed as:
+This scheme is attributed to <strong>Nico Lomuto</strong> and popularized by <strong>Bentley</strong> in his book <ins>Programming Pearls</ins> and Cormen et al. in their book <ins>Introduction to Algorithms</ins>. This scheme chooses a pivot that is typically the last element in the array. The algorithm maintains index `i` as it scans the array using another index `j` such that the elements `lo` through `i-1` (inclusive) are less than the pivot, and the elements `i` through `j` (inclusive) are equal to or greater than the pivot. As this scheme is more compact and easy to understand, it is frequently used in introductory material, although it is less efficient than Hoare's original scheme. This scheme degrades to `O(n<sup>2</sup>)` when the array is already in order. There have been various variants proposed to boost performance including various ways to select pivot, deal with equal elements, use other sorting algorithms such as <strong>Insertion Sort</strong> for small arrays and so on. In pseudocode, a quicksort that sorts elements `lo` through `hi` (inclusive) of an array <strong>A</strong> can be expressed as:
 ![eEibjJ.png](https://s2.ax1x.com/2019/07/24/eEibjJ.png)
 ![eEiLu9.png](https://s2.ax1x.com/2019/07/24/eEiLu9.png)
 Sorting the entire array is accomplished by <strong>Quicksort(A, 0, length&#40;A&#41; - 1)</strong>.
 
 #### Hoare partition scheme
-The original partition scheme described by <strong>C.A.R. Hoare</strong> uses two indices that start at the ends of the array being partitioned, then move toward each other, until they detect an inversion: a pair of elements, one greater than or equal to the pivot, one lesser or equal, that are in the wrong order relative to each other. The inverted elements are then swapped. When the indices meet, the algorithm stops and returns the final index. Hoare's scheme is more efficient than Lomuto's partition scheme because it does three times fewer swaps on average, and it creates efficient partitions even when all values are equal. Like Lomuto's partition scheme, Hoare's partitioning also would cause Quicksort to degrade to `O(n^2)` for already sorted input, if the pivot was chosen as the first or the last element. With the middle element as the pivot, however, sorted data results with (almost) no swaps in equally sized partitions leading to best case behavior of Quicksort, i.e. <strong>O(n log&#40;n&#41;)</strong>. Like others, Hoare's partitioning doesn't produce a stable sort. Note that in this scheme, the pivot's final location is not necessarily at the index that was returned, and the next two segments that the main algorithm recurs on are `(lo..p)` and `(p+1..hi)` as opposed to `(lo..p-1)` and `(p+1..hi)` as in Lomuto's scheme. However, the partitioning algorithm guarantees lo ≤ p < hi which implies both resulting partitions are non-empty, hence there's no risk of infinite recursion. In pseudocode,
+The original partition scheme described by <strong>C.A.R. Hoare</strong> uses two indices that start at the ends of the array being partitioned, then move toward each other, until they detect an inversion: a pair of elements, one greater than or equal to the pivot, one lesser or equal, that are in the wrong order relative to each other. The inverted elements are then swapped. When the indices meet, the algorithm stops and returns the final index. Hoare's scheme is more efficient than Lomuto's partition scheme because it does three times fewer swaps on average, and it creates efficient partitions even when all values are equal. Like Lomuto's partition scheme, Hoare's partitioning also would cause Quicksort to degrade to `O(n<sup>2</sup>)` for already sorted input, if the pivot was chosen as the first or the last element. With the middle element as the pivot, however, sorted data results with (almost) no swaps in equally sized partitions leading to best case behavior of Quicksort, i.e. <strong>O(n log&#40;n&#41;)</strong>. Like others, Hoare's partitioning doesn't produce a stable sort. Note that in this scheme, the pivot's final location is not necessarily at the index that was returned, and the next two segments that the main algorithm recurs on are `(lo..p)` and `(p+1..hi)` as opposed to `(lo..p-1)` and `(p+1..hi)` as in Lomuto's scheme. However, the partitioning algorithm guarantees lo ≤ p < hi which implies both resulting partitions are non-empty, hence there's no risk of infinite recursion. In pseudocode,
 ![eEFu8S.png](https://s2.ax1x.com/2019/07/24/eEFu8S.png)
 ![eEFVEt.png](https://s2.ax1x.com/2019/07/24/eEFVEt.png)
 The entire array is sorted by <strong>quicksort(A, 0, length&#40;A&#41;-1)</strong>.
@@ -127,7 +132,6 @@ Quicksort has some disadvantages when compared to alternative sorting algorithms
 
 Other more sophisticated parallel sorting algorithms can achieve even better time bounds. For example, in 1991 David Powers described a parallelized quicksort (and a related <strong>Radix Sort</strong>) that can operate in `O(log n)` time on a CRCW (concurrent read and concurrent write) PRAM (parallel random-access machine)with n processors by performing partitioning implicitly.
 
-
 #### Formal analysis
 ###### Worst-case analysis
 The most unbalanced partition occurs when one of the sublists returned by the partitioning routine is of size <strong>n − 1</strong>. This may occur if the pivot happens to be the <strong>smallest</strong> or <strong>largest</strong> element in the list, or in some implementations (e.g., the Lomuto partition scheme as described above) when <strong>all the elements are equal</strong>.
@@ -148,8 +152,48 @@ If each pivot has rank somewhere in the middle 50 percent, that is, between the 
 When the input is a random permutation, the pivot has a random rank, and so it is not guaranteed to be in the middle 50 percent. However, when we start from a random permutation, in each recursive call the pivot has a random rank in its list, and so it is in the middle 50 percent about half the time. That is good enough. Imagine that you flip a coin: heads means that the rank of the pivot is in the middle 50 percent, tail means that it isn't. Imagine that you are flipping a coin over and over until you get <strong>k</strong> heads. Although this could take a long time, on average only <strong>2k</strong> flips are required, and the chance that you won't get k heads after <strong>100k</strong> flips is highly improbable (this can be made rigorous using <strong>Chernoff Bounds</strong>). By the same argument, Quicksort's recursion will terminate on average at a call depth of only <strong>2log<sub>4/3</sub>n</strong>. But if its average call depth is <strong>O(log n)</strong>, and each level of the call tree processes at most <strong>n</strong> elements, the total amount of work done on average is the product, <strong>O(n log n)</strong>. Note that the algorithm does not have to verify that the pivot is in the middle half—if we hit it any constant fraction of the times, that is enough for the desired complexity.
 
 <strong>Using Recurrences</strong><br/>
+An alternative approach is to set up a Recurrence Relation for the <strong>T(n)</strong> factor, the time needed to sort a list of size <strong>n</strong>. In the most unbalanced case, a single quicksort call involves <strong>O(n)</strong> work plus two recursive calls on lists of size <strong>0</strong> and <strong>n−1</strong>, so the recurrence relation is
+![emOySH.png](https://s2.ax1x.com/2019/07/26/emOySH.png)
+This is the same relation as for Insertion Sort and Selection Sort, and it solves to worst case <strong>T(n) = O(n²)</strong>.
+
+In the most balanced case, a single quicksort call involves <strong>O(n)</strong> work plus two recursive calls on lists of size <strong>n/2</strong>, so the recurrence relation is
+![enPp90.png](https://s2.ax1x.com/2019/07/26/enPp90.png)
+
+The Master Theorem for Divide-and-Conquer Recurrences tells us that <strong>T(n) = O(n log n)</strong>.
+
+The outline of a formal proof of the <strong>O(n log n)</strong> expected time complexity follows. Assume that there are no duplicates as duplicates could be handled with linear time pre- and post-processing, or considered cases easier than the analyzed. When the input is a random permutation, the rank of the pivot is uniform random from <strong>0</strong> to <strong>n−1</strong>. Then the resulting parts of the partition have sizes <strong>i</strong> and <strong>n−i−1</strong>, and <strong>i</strong> is uniform random from <strong>0</strong> to <strong>n−1</strong>. So, averaging over all possible splits and noting that the number of comparisons for the partition is <strong>n−1</strong>, the average number of comparisons over all permutations of the input sequence can be estimated accurately by solving the recurrence relation:
+![enPVE9.png](https://s2.ax1x.com/2019/07/26/enPVE9.png)
+
+Solving the recurrence gives <strong>C(n) = 2n(ln n) &asymp; 1.39n log<sub>2</sub> n</strong>.
+
+This means that, on average, quicksort performs only about 39% worse than in its best case. In this sense, it is closer to the best case than the worst case. Also note that a Comparison Sort cannot use less than <strong>log<sub>2</sub>(n!)</strong> comparisons on average to sort <strong>n</strong> items and in case of large <strong>n</strong>, Stirling's approximation yields <strong>log<sub>2</sub>(n!) &asymp; n(log<sub>2</sub> n − log<sub>2</sub> e)</strong>, so quicksort is not much worse than an ideal comparison sort. This fast average runtime is another reason for quicksort's practical dominance over other sorting algorithms.
 
 <strong>Using a Binary Search Tree</strong><br/>
+To each execution of quicksort corresponds the following Binary Search Tree (BST): the initial pivot is the root node; the pivot of the left half is the root of the left subtree, the pivot of the right half is the root of the right subtree, and so on. The number of comparisons of the execution of quicksort equals the number of comparisons during the construction of the BST by a sequence of insertions. So, the average number of comparisons for randomized quicksort equals the average cost of constructing a BST when the values inserted (x<sub>1</sub>, x<sub>2</sub>,..., x<sub>n</sub>) form a random permutation.
+
+Consider a BST created by insertion of a sequence (<strong>x<sub>1</sub>, x<sub>2</sub>,..., x<sub>n</sub></strong>) of values forming a random permutation. Let <strong>C</strong> denote the cost of creation of the BST. We have ![enN4Ve.png](https://s2.ax1x.com/2019/07/26/enN4Ve.png), where <strong>C<sub>i,j</sub></strong> is an binary random variable expressing whether during the insertion of <strong>x<sub>i</sub></strong> there was a comparison to <strong>x<sub>j</sub></strong>.
+
+By Linearity of Expectation, the expected value <strong>E[C]</strong> of <strong>C</strong> is ![enUMxx.png](https://s2.ax1x.com/2019/07/26/enUMxx.png).
+
+Fix <strong>i</strong> and <strong>j<i</strong>. The values <strong>x<sub>1</sub>, x<sub>2</sub>,..., x<sub>n</sub></strong>, once sorted, define <strong>j+1</strong> intervals. The core structural observation is that <strong>x<sub>i</sub></strong> is compared to <strong>x<sub>j</sub></strong> in the algorithm if and only if <strong>x<sub>i</sub></strong> falls inside one of the two intervals adjacent to <strong>x<sub>j</sub></strong>.
+
+Observe that since (<strong>x<sub>1</sub>, x<sub>2</sub>,..., x<sub>n</sub></strong>) is a random permutation, (<strong>x<sub>1</sub>, x<sub>2</sub>,..., x<sub>j</sub>, x<sub>i</sub></strong>) is also a random permutation, so the probability that <strong>x<sub>i</sub></strong> is adjacent to <strong>x<sub>j</sub></strong> is exactly 2/(j+1).
+
+We end with a short calculation:
+![enPVE9.png](https://s2.ax1x.com/2019/07/26/enPVE9.png)
+
+#### Space complexity
+The space used by quicksort depends on the version used.
+
+The in-place version of quicksort has a space complexity of <strong>O(log n)</strong>, even in the worst case, when it is carefully implemented using the following strategies:
+- in-place partitioning is used. This unstable partition requires <strong>O(1)</strong> space.
+- After partitioning, the partition with the fewest elements is (recursively) sorted first, requiring at most <strong>O(log n)</strong> space. Then the other partition is sorted using Tail Recursion or iteration, which doesn't add to the call stack. This idea, as discussed above, was described by R.Sedgewick, and keeps the stack depth bounded by <strong>O(log n)</strong>.
+
+Quicksort with in-place and unstable partitioning uses only constant additional space before making any recursive call. Quicksort must store a constant amount of information for each nested recursive call. Since the best case makes at most <strong>O(log n)</strong> nested recursive calls, it uses <strong>O(log n)</strong> space. However, without Sedgewick's trick to limit the recursive calls, in the worst case quicksort could make <strong>O(n)</strong> nested recursive calls and need <strong>O(n)</strong> auxiliary space.
+
+From a bit complexity viewpoint, variables such as <ins>lo</ins> and <ins>hi</ins> do not use constant space; it takes <strong>O(log n)</strong> bits to index into a list of <strong>n</strong> items. Because there are such variables in every stack frame, quicksort using Sedgewick's trick requires <strong>O(&#40;log n&#41;<sup>2</sup>)</strong> bits of space. This space requirement isn't too terrible, though, since if the list contained distinct elements, it would need at least <strong>O(n log n)</strong> bits of space.
+
+Another, less common, not-in-place, version of quicksort uses <strong>O(n)</strong> space for working storage and can implement a stable sort. The working storage allows the input array to be easily partitioned in a stable manner and then copied back to the input array for successive recursive calls. Sedgewick's optimization is still appropriate.
 
 
 

@@ -2,7 +2,7 @@
 layout: post
 title: React Component
 subtitle: React Lifecycle Methods
-date: 2019-03-26
+date: 2019-03-25
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
