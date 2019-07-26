@@ -33,7 +33,6 @@ tags:
     - [useLayoutEffect](#uselayouteffect)
     - [useDebugValue](#usedebugvalue)
         - [Defer formatting debug values](#defer-formatting-debug-values)
-- [Hooks Tutorial](#hooks-tutorial)
 
 Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
 
@@ -73,61 +72,43 @@ If you update a State Hook to the same value as the current state, React will ba
 Note that React may still need to render that specific component again before bailing out. That shouldn’t be a concern because React won’t unnecessarily go “deeper” into the tree. If you’re doing expensive calculations while rendering, you can optimize them with `useMemo`.
 
 #### useEffect
+![enyfSg.png](https://s2.ax1x.com/2019/07/26/enyfSg.png)
 
-```javascript
-useEffect(didUpdate);
-```
+Accepts a function that contains imperative, possibly effectful code.
 
-Accepts a function that contains imperative, possibly effectful code.<br>
-`Mutations`, `subscriptions`, `timers`, `logging`, and other side effects are not allowed inside the main body of a function component (referred to as React’s render phase). <br>
-Instead, use `useEffect`. The function passed to `useEffect` will run after the render is committed to the screen. <br>
-Think of effects as an escape hatch from `React`’s purely functional world into the imperative world.<br>
-By default, effects run after every completed render, but you can choose to fire it only when certain values have changed.
+Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of a function component (referred to as React’s <strong>render phase</strong>). Doing so will lead to confusing bugs and inconsistencies in the UI.
+
+Instead, use `useEffect`. The function passed to `useEffect` will run after the render is committed to the screen. Think of effects as an escape hatch from React’s purely functional world into the imperative world.
+
+By default, effects run after every completed render, but you can choose to fire it <ins>only when certain values have changed</ins>.
 
 ###### Cleaning up an effect
-
-Often, effects create resources that need to be cleaned up before the component leaves the screen, such as a subscription or timer ID. To do this, the function passed to useEffect may return a clean-up function.
-For example, to create a subscription:
-
-```javascript
-useEffect(() => {
-  const subscription = props.source.subscribe();
-  return () => {
-    // Clean up the subscription
-    subscription.unsubscribe();
-  };
-});
-```
-
-The clean-up function runs before the component is removed from the UI to prevent memory leaks. Additionally, if a component renders multiple times (as they typically do), **_the previous effect is cleaned up before executing the next effect_**.
+Often, effects create resources that need to be cleaned up before the component leaves the screen, such as a subscription or timer ID. To do this, the function passed to `useEffect` may return a clean-up function. For example, to create a subscription:
+![en6n0I.png](https://s2.ax1x.com/2019/07/26/en6n0I.png)
+The clean-up function runs before the component is removed from the UI to prevent memory leaks. Additionally, if a component renders multiple times (as they typically do), the <strong>previous effect is cleaned up before executing the next effect</strong>. In our example, this means a new subscription is created on every update. To avoid firing an effect on every update, refer to the next section.
 
 ###### Timing of effects
+Unlike `componentDidMount` and `componentDidUpdate`, the function passed to `useEffect` fires <strong>after</strong> layout and paint, during a deferred event. This makes it suitable for the many common side effects, like setting up subscriptions and event handlers, because most types of work shouldn’t block the browser from updating the screen.
 
-`useEffect` is deferred until after the browser has painted, but it’s guaranteed to fire before any new renders.<br>
-`React` will always flush a previous render’s effects before starting a new update.
+However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called <strong>useLayoutEffect</strong>. It has the same signature as `useEffect`, and only differs in when it is fired.
+
+Although `useEffect` is deferred until after the browser has painted, it’s guaranteed to fire before any new renders. React will always flush a previous render’s effects before starting a new update.
 
 ###### Conditionally firing an effect
+The default behavior for effects is to fire the effect after every completed render. That way an effect is always recreated if one of its dependencies changes.
 
-The default behavior for effects is to fire the effect after every completed render.<br>
-However, this may be overkill in some cases, like the subscription example from the previous section.<br>
-To implement this, pass a second argument to useEffect that is the array of values that the effect depends on.<br>
-Our updated example now looks like this:
+However, this may be overkill in some cases, like the subscription example from the previous section. We don’t need to create a new subscription on every update, only if the `source` props has changed.
 
-```javascript
-useEffect(() => {
-  const subscription = props.source.subscribe();
-  return () => {
-    subscription.unsubscribe();
-  };
-}, [props.source]);
-```
+To implement this, pass a second argument to `useEffect` that is the array of values that the effect depends on. Our updated example now looks like this:
+![engUYV.png](https://s2.ax1x.com/2019/07/26/engUYV.png)
+Now the subscription will only be recreated when `props.source` changes.
 
-Now the subscription will only be recreated when `props.source` changes.<br>
+> Note
+> If you use this optimization, make sure the array includes <strong>all values from the component scope (such as props and state) that change over time and that are used by the effect.</strong> Otherwise, your code will reference stale values from previous renders.
+> If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array (<strong>[]</strong>) as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run. This isn’t handled as a special case — it follows directly from how the dependencies array always works.
+> If you pass an empty array (<strong>[]</strong>), the props and state as inside the effect will always have their initial values. While passing <strong>[]</strong> as the second argument is closer to the familiar <strong>componentDidMount</strong> and <strong>componentWillUnmount</strong> mental model, there are usually better solutions to avoid re-running effects too often. Also, don’t forget that React defers running <strong>useEffect</strong> until after the browser has painted, so doing extra work is less of a problem.
 
-> If you use this optimization, make sure the array includes all values from the component scope (such as `props` and `state`) that change over time and that are used by the effect. Otherwise, your code will reference stale values from previous renders.
-> If you want to run an effect and clean it up only once (on `mount` and `unmount`), you can pass an empty array (`[]`) as a second argument. This tells `React` that your effect doesn’t depend on any values from `props` or `state`, so it never needs to re-run.
-> If you pass an empty array (`[]`), the `props` and `state` as inside the effect will always have their initial values.
-> The array of dependencies is not passed as arguments to the effect function.
+The array of dependencies is not passed as arguments to the effect function. Conceptually, though, that’s what they represent: every value referenced inside the effect function should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
 
 #### useContext
 
@@ -322,15 +303,7 @@ function useFriendStatus(friendID) {
 }
 ```
 Don’t recommend adding debug values to every custom `Hook`.
+
 ###### Defer formatting debug values
 In some cases formatting a value for display might be an expensive operation.<br>
 It’s also unnecessary unless a Hook is actually inspected.
-
-## Hooks Tutorial
-1. [Introducing Hooks](https://jalever.github.io/2019/03/27/Introducing-Hooks/)
-2. [Hooks at a Glance](https://jalever.github.io/2019/03/27/Hooks-at-a-Glance/)
-3. [Using the State Hook](https://jalever.github.io/2019/03/27/Using-the-State-Hook/)
-4. [Using the Effect Hook](https://jalever.github.io/2019/03/27/Using-the-Effect-Hook/)
-5. [Rules of Hooks](https://jalever.github.io/2019/03/27/Rules-of-Hooks/)
-6. [Building Your Own Hooks](https://jalever.github.io/2019/03/27/Building-Your-Own-Hooks/)
-7. Hooks API Reference
