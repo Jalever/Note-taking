@@ -37,29 +37,29 @@ tags:
         <tr>
             <td>Bubble Sort</td>
             <td>Ω(n)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
+            <td>Ω(n<sup>2</sup>)</td>
+            <td>Ω(n<sup>2</sup>)</td>
             <td>O(1)</td>
         </tr>
         <tr>
             <td>Insertion Sort</td>
             <td>Ω(n)</td>
-            <td>Ω(n^2)</td>
-            <td>Ω(n^2)</td>
+            <td>Ω(n<sup>2</sup>)</td>
+            <td>Ω(n<sup>2</sup>)</td>
             <td>O(1)</td>
         </tr>
         <tr>
             <td>Shell Sort</td>
             <td>Ω(n log(n))</td>
-            <td>Θ(n(log(n))^2)</td>
-            <td>O(n(log(n))^2)</td>
+            <td>Θ(n(log(n))<sup>2</sup>)</td>
+            <td>O(n(log(n))<sup>2</sup>)</td>
             <td>O(1)</td>
         </tr>
         <tr>
             <td>Quicksort</td>
             <td>Ω(n log(n))</td>
             <td>Θ(n log(n))</td>
-            <td>O(n^2)</td>
+            <td>O(n<sup>2</sup>)</td>
             <td>O(log(n))</td>
         </tr>
         <tr>

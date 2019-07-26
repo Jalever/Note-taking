@@ -136,6 +136,25 @@ If this happens repeatedly in every partition, then each recursive call processe
 ![emOySH.png](https://s2.ax1x.com/2019/07/26/emOySH.png)
 ,so in that case Quicksort takes <strong>O(n²)</strong> time.
 
+###### Best-case analysis
+In the most balanced case, each time we perform a partition we <ins>divide the list into two nearly equal pieces</ins>. This means each recursive call processes a list of half the size. Consequently, we can make only <strong>log<sub>2</sub>n</strong> nested calls before we reach a list of size <strong>1</strong>. This means that the depth of the Call Tree is <strong>log<sub>2</sub>n</strong>. But no two calls at the same level of the Call Tree process the same part of the original list; thus, each level of calls needs only <strong>O(n)</strong> time all together (each call has some constant overhead, but since there are only <strong>O(n)</strong> calls at each level, this is subsumed in the <strong>O(n)</strong> factor). The result is that the algorithm uses only <strong>O(n log n)</strong> time.
+
+###### Average-case analysis
+To sort an array of <strong>n</strong> distinct elements, quicksort takes <strong>O(n log n)</strong> time in expectation, averaged over all <strong>n!</strong> permutations of <strong>n</strong> elements with Equal Probability. We list here three common proofs to this claim providing different insights into Quicksort's workings.
+
+<strong>Using Percentiles</strong><br/>
+If each pivot has rank somewhere in the middle 50 percent, that is, between the 25th percentile and the 75th percentile, then it splits the elements with at least 25% and at most 75% on each side. If we could consistently choose such pivots, we would only have to split the list at most <strong>log<sub>4/3</sub>n</strong> times before reaching lists of size <strong>1</strong>, yielding an <strong>O(n log n)</strong> algorithm.
+
+When the input is a random permutation, the pivot has a random rank, and so it is not guaranteed to be in the middle 50 percent. However, when we start from a random permutation, in each recursive call the pivot has a random rank in its list, and so it is in the middle 50 percent about half the time. That is good enough. Imagine that you flip a coin: heads means that the rank of the pivot is in the middle 50 percent, tail means that it isn't. Imagine that you are flipping a coin over and over until you get <strong>k</strong> heads. Although this could take a long time, on average only <strong>2k</strong> flips are required, and the chance that you won't get k heads after <strong>100k</strong> flips is highly improbable (this can be made rigorous using <strong>Chernoff Bounds</strong>). By the same argument, Quicksort's recursion will terminate on average at a call depth of only <strong>2log<sub>4/3</sub>n</strong>. But if its average call depth is <strong>O(log n)</strong>, and each level of the call tree processes at most <strong>n</strong> elements, the total amount of work done on average is the product, <strong>O(n log n)</strong>. Note that the algorithm does not have to verify that the pivot is in the middle half—if we hit it any constant fraction of the times, that is enough for the desired complexity.
+
+<strong>Using Recurrences</strong><br/>
+
+<strong>Using a Binary Search Tree</strong><br/>
+
+
+
+
+
 
 ## Implementation in CPP
 ![eFR2VS.png](https://s2.ax1x.com/2019/07/23/eFR2VS.png)
