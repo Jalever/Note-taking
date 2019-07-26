@@ -103,26 +103,35 @@ To implement this, pass a second argument to `useEffect` that is the array of va
 ![engUYV.png](https://s2.ax1x.com/2019/07/26/engUYV.png)
 Now the subscription will only be recreated when `props.source` changes.
 
-> Note
-> If you use this optimization, make sure the array includes <strong>all values from the component scope (such as props and state) that change over time and that are used by the effect.</strong> Otherwise, your code will reference stale values from previous renders.
-> If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array (<strong>[]</strong>) as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run. This isn’t handled as a special case — it follows directly from how the dependencies array always works.
+> Note<br/>
+> If you use this optimization, make sure the array includes <strong>all values from the component scope (such as props and state) that change over time and that are used by the effect.</strong> Otherwise, your code will reference stale values from previous renders.<br/>
+> If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array (<strong>[]</strong>) as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run. This isn’t handled as a special case — it follows directly from how the dependencies array always works.<br/>
 > If you pass an empty array (<strong>[]</strong>), the props and state as inside the effect will always have their initial values. While passing <strong>[]</strong> as the second argument is closer to the familiar <strong>componentDidMount</strong> and <strong>componentWillUnmount</strong> mental model, there are usually better solutions to avoid re-running effects too often. Also, don’t forget that React defers running <strong>useEffect</strong> until after the browser has painted, so doing extra work is less of a problem.
 
 The array of dependencies is not passed as arguments to the effect function. Conceptually, though, that’s what they represent: every value referenced inside the effect function should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
 
 #### useContext
+![enRE5t.png](https://s2.ax1x.com/2019/07/26/enRE5t.png)
+Accepts a context object (the value returned from `React.createContext`) and returns the current context value for that context. The current context value is determined by the `value` prop of the nearest `<MyContext.Provider>` above the calling component in the tree.
 
-```javascript
-const value = useContext(MyContext);
-```
+When the nearest `<MyContext.Provider>` above the component updates, this Hook will trigger a rerender with the latest context `value` passed to that `MyContext` provider.
 
-Accepts `a context object` (the value returned from React.createContext) and returns `the current context value` for that context. The `current context value` is determined by the value `prop` of the nearest `<MyContext.Provider>` above the calling component in the tree.<br>
-When the nearest `<MyContext.Provider>` above the component updates, this `Hook` will trigger a rerender with the latest context `value` passed to that `MyContext` provider.<br>
-Don’t forget that the argument to `useContext` must be the context object itself:<br>
-**_Correct_**: `useContext(MyContext)`<br>
-**_Incorrect_**: `useContext(MyContext.Consumer)`<br>
-**_Incorrect_**: `useContext(MyContext.Provider)`<br>
-A component calling `useContext` will always re-render when the context value changes.
+Don’t forget that the argument to `useContext` must be the context object itself:
+- <strong>Correct</strong>: `useContext(MyContext)`
+- <strong>Incorrect</strong>: `useContext(MyContext.Consumer)`
+- <strong>Incorrect</strong>: `useContext(MyContext.Provider)`
+
+A component calling `useContext` will always re-render when the context value changes. If re-rendering the component is expensive, you can <ins>optimize it by using memoization</ins>.
+![enfp0H.png](https://s2.ax1x.com/2019/07/26/enfp0H.png)
+![enfitI.png](https://s2.ax1x.com/2019/07/26/enfitI.png)
+![enfFht.png](https://s2.ax1x.com/2019/07/26/enfFht.png)
+![enfA9P.png](https://s2.ax1x.com/2019/07/26/enfA9P.png)
+![enfE1f.png](https://s2.ax1x.com/2019/07/26/enfE1f.png)
+
+> Tip<br/>
+> If you’re familiar with the context API before Hooks, `useContext(MyContext)` is equivalent to `static contextType = MyContext` in a class, or to `<MyContext.Consumer>`.<br/>
+> `useContext(MyContext)` only lets you read the context and subscribe to its changes. You still need a `<MyContext.Provider>` above in the tree to provide the value for this context.
+
 
 ## Additional Hooks
 
