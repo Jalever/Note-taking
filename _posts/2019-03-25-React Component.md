@@ -41,61 +41,39 @@ tags:
     - [state](#state)
 
 ## The Component Lifecycle
-
-Each component has several “lifecycle methods” that you can override to run code at particular times in the process.<br>
-You can use [this lifecycle diagram](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) as a cheat sheet.
-
-![Z2HJxg.jpg](https://s2.ax1x.com/2019/07/11/Z2HJxg.jpg)
+Each component has several “lifecycle methods” that you can override to run code at particular times in the process. You can use this lifecycle diagram as a cheat sheet.
+![eKP2xP.png](https://s2.ax1x.com/2019/07/27/eKP2xP.png)
 
 #### Mounting
-
-These methods are called in the following order when an instance of a component is being created and inserted into the `DOM`:
-
-- constructor()
+These methods are called in the following order when an instance of a component is being created and inserted into the DOM:
+- <strong>constructor()</strong>
 - static getDerivedStateFromProps()
-- render()
-- componentDidMount()
+- <strong>render()</strong>
+- <strong>componentDidMount()</strong>
 
-> legacy but avoid them:<br> > `UNSAFE_componentWillMount()`
+> These methods are considered legacy and you should avoid them in new code:<br/>
+> UNSAFE_componentWillMount()
 
 ###### constructor()
+![eKFu0U.png](https://s2.ax1x.com/2019/07/27/eKFu0U.png)
+<strong>If you don’t initialize state and you don’t bind methods, you don’t need to implement a constructor for your React component.</strong>
 
-```javascript
-constructor(props);
-```
+The constructor for a React component is called before it is mounted. When implementing the constructor for a `React.Component` subclass, you should call `super(props)` before any other statement. Otherwise, `this.props` will be undefined in the constructor, which can lead to bugs.
 
-&nbsp;&nbsp;If you don’t initialize state and you don’t bind methods, you don’t need to implement a constructor for your `React` component.<br>
-&nbsp;&nbsp;The constructor for a React component is called before it is mounted.<br>
-&nbsp;&nbsp;When implementing the constructor for a `React.Component` subclass, you should call `super(props)` before any other statement. Otherwise, `this.props` will be undefined in the constructor, which can lead to bugs.<br>
-Typically, in `React` constructors are only used for two purposes:
+Typically, in React constructors are only used for two purposes:
+- Initializing <ins>local state</ins> by assigning an object to `this.state`.
+- Binding <ins>event handler</ins> methods to an instance.
 
-- Initializing local state by assigning an object to this.state.
-- Binding event handler methods to an instance.
+You <strong>should not call setState()</strong> in the `constructor()`. Instead, if your component needs to use local state, <strong>assign the initial state to this.state</strong> directly in the constructor:
+![eKFv4J.png](https://s2.ax1x.com/2019/07/27/eKFv4J.png)
 
-&nbsp;&nbsp;You should not call `setState()` in the `constructor()`. Instead, if your component needs to use local state, assign the initial state to `this.state` directly in the constructor<br>
+Constructor is the only place where you should assign `this.state` directly. In all other methods, you need to use `this.setState()` instead.
 
-```javascript
-constructor(props) {
-  super(props);
-  // Don't call this.setState() here!
-  this.state = { counter: 0 };
-  this.handleClick = this.handleClick.bind(this);
-}
-```
-
-Avoid introducing any `side-effects` or `subscriptions` in the constructor. For those use cases, use `componentDidMount()` instead.<br>
-
-> Note
-> Avoid copying props into state!
-> The problem is that it’s both unnecessary (you can use `this.props.color` directly instead), and creates bugs (updates to the `color` prop won’t be reflected in the state).
-
-```javascript
-constructor(props) {
- super(props);
- // Don't do this!
- this.state = { color: props.color };
-}
-```
+Avoid introducing any side-effects or subscriptions in the constructor. For those use cases, use `componentDidMount()` instead.
+> Avoid copying props into state! This is a common mistake:<br/>
+> ![eKkiDK.png](https://s2.ax1x.com/2019/07/27/eKkiDK.png)<br/>
+> The problem is that it’s both unnecessary (you can use this.props.color directly instead), and creates bugs (updates to the color prop won’t be reflected in the state).<br/>
+> <strong>Only use this pattern if you intentionally want to ignore prop updates.</strong> In that case, it makes sense to rename the prop to be called `initialColor` or `defaultColor`. You can then force a component to “reset” its internal state by changing its key when necessary.
 
 ###### static getDerivedStateFromProps()
 
@@ -154,20 +132,18 @@ componentDidMount();
 &nbsp;&nbsp;In most cases, you should be able to assign the initial state in the `constructor()` instead. It can, however, be necessary for cases like `modals` and `tooltips` when you need to measure a `DOM` node before rendering something that depends on its size or position.
 
 #### Updating
-
-An update can be caused by changes to `props` or `state`. These methods are called in the following order when a component is being re-rendered:
+An update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:
 
 - static getDerivedStateFromProps()
 - shouldComponentUpdate()
-- render()
+- <strong>render()</strong>
 - getSnapshotBeforeUpdate()
-- componentDidUpdate()
-  > legacy but avoid them:<br>
-  >
-  > > `UNSAFE_componentWillUpdate()` <br> >> `UNSAFE_componentWillReceiveProps()`<br>
+- <strong>componentDidUpdate()</strong>
+> These methods are considered legacy and you should avoid them in new code:<br/><br/>
+> - UNSAFE_componentWillUpdate()<br/>
+> - UNSAFE_componentWillReceiveProps()<br/>
 
 ###### static getDerivedStateFromProps()
-
 ###### shouldComponentUpdate()
 
 ```javascript
@@ -262,21 +238,16 @@ componentDidUpdate(prevProps) {
 &nbsp;&nbsp;If you need to update the state in response to prop changes (for example, to reset it), you may compare `this.props` and `nextProps` and perform state transitions using `this.setState()` in this method.
 
 #### Unmounting
-
 This method is called when a component is being removed from the DOM:
-
-- componentWillUnmount()
+- <strong>componentWillUnmount()</strong>
 
 ###### componentWillUnmount()
-
 &nbsp;&nbsp;componentWillUnmount() is invoked immediately before a component is unmounted and destroyed.<br>
 &nbsp;&nbsp;Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in componentDidMount().<br>
 &nbsp;&nbsp;You should not call setState() in componentWillUnmount() because the component will never be re-rendered.
 
 #### Error Handling
-
-These methods are called when there is an error during rendering, in a `lifecycle method`, or in the `constructor` of any `child component`.
-
+These methods are called when there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
 - static getDerivedStateFromError()
 - componentDidCatch()
 
@@ -371,6 +342,9 @@ class ErrorBoundary extends React.Component {
 ```
 
 ## Other APIs
+Each component also provides some other APIs:
+- setState()
+- forceUpdate()
 
 #### setState()
 
@@ -405,9 +379,10 @@ component.forceUpdate(callback);
 3. `React` will still only update the `DOM` if the markup changes.
 
 ## Class Properties
+- defaultProps
+- displayName
 
 #### defaultProps
-
 1. `defaultProps` can be defined as a property on the component class itself, to set the default props for the class.
 2. This is used for undefined props, but not for null props.
 3. For example:
@@ -442,6 +417,8 @@ If `props.color` is set to null, it will remain null:
 1. The `displayName` string is used in debugging messages.
 
 ## Instance Properties
+- props
+- state
 
 #### props
 1. `this.props` contains the props that were defined by the caller of this component.
