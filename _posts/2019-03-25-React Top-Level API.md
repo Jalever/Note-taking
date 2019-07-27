@@ -45,39 +45,27 @@ React components can also be defined as functions which can be wrapped:
 - [React.memo](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactmemo)
 
 #### React.Component
-
-<ins>**_React.Component_**</ins> is the base class for React components when they are defined using ES6 classes:
-
-```javascript
-class Greeting extends React.Component {
-  render() {
-    return <h1>Hello, {this.props.name}</h1>;
-  }
-}
-```
+`React.Component` is the base class for React components when they are defined using ES6 classes:
+![eM1ta9.png](https://s2.ax1x.com/2019/07/27/eM1ta9.png)
 
 #### React.PureComponent
+`React.PureComponent` is similar to `React.Component`. The difference between them is that `React.Component` doesn’t implement `shouldComponentUpdate()`, but `React.PureComponent` implements it with a shallow prop and state comparison.
 
-<ins>**_React.PureComponent_**</ins> is similar to <ins>**_React.Component_**</ins>.<br>
-The difference between them is that <ins>**_React.Component_**</ins> doesn’t implement <ins>**_shouldComponentUpdate()_**</ins>, but <ins>**_React.PureComponent_**</ins> implements it with a shallow prop and state comparison.<br>
-If your React component’s <ins>**_render()_**</ins> function renders the same result given the same props and state, you can use <ins>**_React.PureComponent_**</ins> for a performance boost in some cases.<br>
+If your React component’s `render()` function renders the same result given the same props and state, you can use `React.PureComponent` for a performance boost in some cases.
 
-> `React.PureComponent`’s `shouldComponentUpdate()` only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences.<br>
+> `React.PureComponent`’s `shouldComponentUpdate()` only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only extend `PureComponent` when you expect to have simple props and state, or use `forceUpdate()` when you know deep data structures have changed. Or, consider using immutable objects to facilitate fast comparisons of nested data.<br/><br/>
+> Furthermore, `React.PureComponent`’s `shouldComponentUpdate()` skips prop updates for the whole component subtree. Make sure all the children components are also “pure”.
 
 #### React.memo
+![eM3SLF.png](https://s2.ax1x.com/2019/07/27/eM3SLF.png)
+`React.memo` is a Higher Order Component. It’s similar to `React.PureComponent` but for function components instead of classes.
 
-`React.memo` is a higher order component. It’s similar to `React.PureComponent`but for function components instead of classes.
+If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
 
-If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result.
-
-By default it will only shallowly compare complex objects in the props object.
-React components can also be defined as functions which can be wrapped
-
-![ZUS3ZD.png](https://s2.ax1x.com/2019/07/04/ZUS3ZD.png)
-
-If you want control over the comparison, you can also provide a custom comparison function as the second argument.
-
-![ZUpukQ.png](https://s2.ax1x.com/2019/07/04/ZUpukQ.png)
+By default it will only shallowly compare complex objects in the props object. If you want control over the comparison, you can also provide a custom comparison function as the second argument.
+![eM3doj.png](https://s2.ax1x.com/2019/07/27/eM3doj.png)
+This method only exists as a Performance Optimization. Do not rely on it to “prevent” a render, as this can lead to bugs.
+> Unlike the `shouldComponentUpdate()` method on class components, the `areEqual` function returns `true` if the props are equal and `false` if the props are not equal. This is the inverse from `shouldComponentUpdate`.
 
 ## Creating React Elements
 We recommend using JSX to describe what your UI should look like. Each JSX element is just syntactic sugar for calling `React.createElement()`. You will not typically invoke the following methods directly if you are using JSX.
@@ -85,20 +73,17 @@ We recommend using JSX to describe what your UI should look like. Each JSX eleme
 - [createFactory()](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactcreatefactory)
 
 #### React.createElement()
-
-Create and return a new `React element` of the given type. The type argument can be either a tag name string (such as <strong>div</strong> or <strong>span</strong>), a `React component` type (a <strong>class</strong> or a <strong>function</strong>), or a `React fragment` type.
+![eMGp59.png](https://s2.ax1x.com/2019/07/27/eMGp59.png)
+Create and return a new <strong>React element</strong> of the given type. The type argument can be either a tag name string (such as '`div`' or '`span`'), a <strong>React component</strong> type (a class or a function), or a <strong>React fragment</strong> type.
 
 Code written with JSX will be converted to use `React.createElement()`. You will not typically invoke `React.createElement()` directly if you are using JSX.
 
-![ZUpt7F.png](https://s2.ax1x.com/2019/07/04/ZUpt7F.png)
-
 #### React.createFactory()
+![eMGVbD.png](https://s2.ax1x.com/2019/07/27/eMGVbD.png)
 
-![ZU9puV.png](https://s2.ax1x.com/2019/07/04/ZU9puV.png)
+Return a function that produces React elements of a given type. Like <strong>React.createElement()</strong>, the type argument can be either a tag name string (such as '`div`' or '`span`'), a <strong>React component</strong> type (a class or a function), or a <strong>React fragment</strong> type.
 
-Return a function that produces React elements of a given type. Like `React.createElement()`, the type argument can be either a `tag name string` (such as <strong>div</strong> or <strong>span</strong>), a `React component type` (a <strong>class</strong> or a <strong>function</strong>), or a `React fragment type`.
-
-This helper is considered legacy, and we encourage you to either use `JSX` or use `React.createElement()` directly instead.
+This helper is considered legacy, and we encourage you to either use JSX or use `React.createElement()` directly instead.
 
 You will not typically invoke `React.createFactory()` directly if you are using JSX.
 
@@ -113,56 +98,41 @@ You will not typically invoke `React.createFactory()` directly if you are using 
     - [React.Children.toArray](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildrentoarray)
 
 #### cloneElement()
-
-![ZU9zPH.png](https://s2.ax1x.com/2019/07/04/ZU9zPH.png)
-
+![eMGIsK.png](https://s2.ax1x.com/2019/07/27/eMGIsK.png)
 Clone and return a new React element using `element` as the starting point. The resulting element will have the original element’s props with the new props merged in shallowly. New children will replace existing children. `key` and `ref` from the original element will be preserved.
 
 `React.cloneElement()` is almost equivalent to:
-
-![ZUCEdS.png](https://s2.ax1x.com/2019/07/04/ZUCEdS.png)
-
+![eMGbIH.png](https://s2.ax1x.com/2019/07/27/eMGbIH.png)
 However, it also preserves `ref`s. This means that if you get a child with a `ref` on it, you won’t accidentally steal it from your ancestor. You will get the same `ref` attached to your new element.
 
 #### isValidElement()
-
-![ZUC0L6.png](https://s2.ax1x.com/2019/07/04/ZUC0L6.png)
-
+![eMJPoQ.png](https://s2.ax1x.com/2019/07/27/eMJPoQ.png)
 Verifies the object is a React element. Returns `true` or `false`.
 
 #### React.Children
-
 `React.Children` provides utilities for dealing with the `this.props.children` opaque data structure.
 
 ###### React.Children.map
-![ZUC5ef.png](https://s2.ax1x.com/2019/07/04/ZUC5ef.png)
-
+![eMJmLT.png](https://s2.ax1x.com/2019/07/27/eMJmLT.png)
 Invokes a function on every immediate child contained within `children` with `this` set to `thisArg`. If `children` is an array it will be traversed and the function will be called for each child in the array. If children is `null` or `undefined`, this method will return `null` or `undefined` rather than an array.
-
 > If `children` is a `Fragment` it will be treated as a single child and not traversed.
 
 ###### React.Children.forEach
-![ZUCbWj.png](https://s2.ax1x.com/2019/07/04/ZUCbWj.png)
-
+![eMJawD.png](https://s2.ax1x.com/2019/07/27/eMJawD.png)
 Like `React.Children.map()` but does not return an array.
 
 ###### React.Children.count
-![ZUCXyq.png](https://s2.ax1x.com/2019/07/04/ZUCXyq.png)
-
+![eMJ0FH.png](https://s2.ax1x.com/2019/07/27/eMJ0FH.png)
 Returns the total number of components in `children`, equal to the number of times that a callback passed to `map` or `forEach` would be invoked.
 
 ###### React.Children.only
-![ZUCzwT.png](https://s2.ax1x.com/2019/07/04/ZUCzwT.png)
-
+![eMJ2m8.png](https://s2.ax1x.com/2019/07/27/eMJ2m8.png)
 Verifies that `children` has only one child (a React element) and returns it. Otherwise this method throws an error.
-
 > `React.Children.only()` does not accept the return value of `React.Children.map()` because it is an array rather than a `React` element.
 
 ###### React.Children.toArray
-![ZUPCY4.png](https://s2.ax1x.com/2019/07/04/ZUPCY4.png)
-
+![eMJL0U.png](https://s2.ax1x.com/2019/07/27/eMJL0U.png)
 Returns the `children` opaque data structure as a flat array with keys assigned to each child. Useful if you want to manipulate collections of children in your render methods, especially if you want to reorder or slice `this.props.children` before passing it down.
-
 > `React.Children.toArray()` changes keys to preserve the semantics of nested arrays when flattening lists of children. That is, `toArray` prefixes each key in the returned array so that each element’s key is scoped to the input array containing it.
 
 ## Fragments
@@ -171,9 +141,7 @@ React also provides a component for rendering multiple elements without a wrappe
 
 #### React.Fragment
 The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element
-
-![ZUi2rt.png](https://s2.ax1x.com/2019/07/04/ZUi2rt.png)
-
+![eMYUcq.png](https://s2.ax1x.com/2019/07/27/eMYUcq.png)
 You can also use it with the shorthand `<></>` syntax.
 
 ## Refs
@@ -182,20 +150,18 @@ You can also use it with the shorthand `<></>` syntax.
 
 #### React.CreateRef
 `React.createRef` creates a `ref` that can be attached to `React` elements via the `ref` attribute.
-
-![ZUFFqx.png](https://s2.ax1x.com/2019/07/04/ZUFFqx.png)
+![eMYsN4.png](https://s2.ax1x.com/2019/07/27/eMYsN4.png)
 
 #### React.forwardRef
 `React.forwardRef` creates a React component that forwards the `ref` attribute it receives to another component below in the tree.
 
 `React.forwardRef` accepts a rendering function as an argument. React will call this function with `props` and `ref` as two arguments. This function should return a React node.
-![ZUFLSH.png](https://s2.ax1x.com/2019/07/04/ZUFLSH.png)
-
+![eMY4HO.png](https://s2.ax1x.com/2019/07/27/eMY4HO.png)
 This technique is not very common but is particularly useful in two scenarios:
 
 ###### Forwarding refs to DOM components
 Consider a `FancyButton` component that renders the native button DOM element:
-![ZUkLNT.png](https://s2.ax1x.com/2019/07/04/ZUkLNT.png)
+![eMYLvt.png](https://s2.ax1x.com/2019/07/27/eMYLvt.png)
 
 React components hide their implementation details, including their rendered output. Other components using `FancyButton` usually will not need to obtain a ref to the inner `button` DOM element. This is good because it prevents components from relying on each other’s DOM structure too much.
 
@@ -204,9 +170,7 @@ Although such encapsulation is desirable for application-level components like `
 Ref forwarding is an opt-in feature that lets some components take a ref they receive, and pass it further down (in other words, “forward” it) to a child.
 
 In the example below, `FancyButton` uses `React.forwardRef` to obtain the `ref` passed to it, and then forward it to the DOM `button` that it renders:
-
-![ZUAiE6.png](https://s2.ax1x.com/2019/07/04/ZUAiE6.png)
-
+![eMYjDf.png](https://s2.ax1x.com/2019/07/27/eMYjDf.png)
 This way, components using `FancyButton` can get a ref to the underlying `button` DOM node and access it if necessary—just like if they used a DOM `button` directly.
 
 Here is a step-by-step explanation of what happens in the above example:
@@ -223,22 +187,20 @@ Here is a step-by-step explanation of what happens in the above example:
 
 ###### Forwarding refs in higher-order-components
 This technique can also be particularly useful with higher-order components (also known as `HOC`s). Let’s start with an example HOC that logs component props to the console:
-
-![ZUESJS.png](https://s2.ax1x.com/2019/07/04/ZUESJS.png)
+![eMti2n.png](https://s2.ax1x.com/2019/07/27/eMti2n.png)
 
 The “logProps” HOC passes all `props` through to the component it wraps, so the rendered output will be the same. For example, we can use this HOC to log all props that get passed to our “fancy button” component:
-
-![ZUEQy9.png](https://s2.ax1x.com/2019/07/04/ZUEQy9.png)
+![eMttaD.png](https://s2.ax1x.com/2019/07/27/eMttaD.png)
 
 There is one caveat to the above example: refs will not get passed through. That’s because `ref` is not a prop. Like `key`, it’s handled differently by React. If you add a ref to a HOC, the ref will refer to the outermost container component, not the wrapped component.
 
 This means that refs intended for our `FancyButton` component will actually be attached to the `LogProps` component:
-
-![ZUEwyd.png](https://s2.ax1x.com/2019/07/04/ZUEwyd.png)
+![eMtcdS.png](https://s2.ax1x.com/2019/07/27/eMtcdS.png)
 
 Fortunately, we can explicitly forward refs to the inner `FancyButton` component using the `React.forwardRef` API. `React.forwardRef` accepts a render function that receives `props` and `ref` parameters and returns a React node. For example:
-
-![ZUEsTP.png](https://s2.ax1x.com/2019/07/04/ZUEsTP.png)
+![eMNVSA.png](https://s2.ax1x.com/2019/07/27/eMNVSA.png)
+![eMNKw8.png](https://s2.ax1x.com/2019/07/27/eMNKw8.png)
+![eMN1YQ.png](https://s2.ax1x.com/2019/07/27/eMN1YQ.png)
 
 ## Suspense
 Suspense lets components “wait” for something before rendering. Today, Suspense only supports one use case: loading components dynamically with React.lazy. In the future, it will support other use cases like data fetching.
@@ -246,30 +208,30 @@ Suspense lets components “wait” for something before rendering. Today, Suspe
 - [React.Suspense](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactsuspense)
 
 #### React.lazy
-> `React.lazy` and Suspense are not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend `Loadable Components`.
-
-The `React.lazy` function lets you render a dynamic import as a regular component.
+`React.lazy()` lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren’t used during the initial render.
+![eMNcOx.png](https://s2.ax1x.com/2019/07/27/eMNcOx.png)
+Note that rendering `lazy` components requires that there’s a `<React.Suspense>` component higher in the rendering tree. This is how you specify a loading indicator.
 
 <strong>Before: </strong>
-![ZUVSTx.png](https://s2.ax1x.com/2019/07/04/ZUVSTx.png)
+![eMNopd.png](https://s2.ax1x.com/2019/07/27/eMNopd.png)
 
 <strong>After: </strong>
-![ZUVFpD.png](https://s2.ax1x.com/2019/07/04/ZUVFpD.png)
-
+![eMUCXq.png](https://s2.ax1x.com/2019/07/27/eMUCXq.png)
 This will automatically load the bundle containing the `OtherComponent` when this component gets rendered.
 
 `React.lazy` takes a function that must call a dynamic `import()`. This must return a `Promise` which resolves to a module with a `default` export containing a React component.
 
+> `React.lazy` and Suspense are not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend `Loadable Components`.
+
 #### React.Suspense
-If the module containing the `OtherComponent` is not yet loaded by the time `MyComponent` renders, we must show some fallback content while we’re waiting for it to load - such as a loading indicator. This is done using the `Suspense` component.
-![ZUV8Xj.png](https://s2.ax1x.com/2019/07/04/ZUV8Xj.png)
+`React.Suspense` let you specify the loading indicator in case some components in the tree below it are not yet ready to render. Today, lazy loading components is the <strong>only</strong> use case supported by `<React.Suspense>`:
+![eMaErt.png](https://s2.ax1x.com/2019/07/27/eMaErt.png)
+Note that `lazy` components can be deep inside the `Suspense` tree — it doesn’t have to wrap every one of them. The best practice is to place `<Suspense>` where you want to see a loading indicator, but to use `lazy()` wherever you want to do code splitting.
 
-The `fallback` prop accepts any React elements that you want to render while waiting for the component to load. You can place the `Suspense` component anywhere above the lazy component. You can even wrap multiple lazy components with a single `Suspense` component.
-
-![ZUVRN6.png](https://s2.ax1x.com/2019/07/04/ZUVRN6.png)
+> `React.lazy()` and `<React.Suspense>` are not yet supported by `ReactDOMServer`. This is a known limitation that will be resolved in the future.
 
 ## Hooks
-<i>Hooks</i> are a new addition in React 16.8. They let you use state and other React features without writing a class. 
+<i>Hooks</i> are a new addition in React 16.8. They let you use state and other React features without writing a class.
 - Basic Hooks
     - [useState](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usestate)
     - [useEffect](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#useeffect)
