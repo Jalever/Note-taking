@@ -261,95 +261,30 @@ These methods are called when there is an error during rendering, in a lifecycle
 - static getDerivedStateFromError()
 - componentDidCatch()
 
-`Error boundaries` are `React` components that catch `JavaScript` errors anywhere in their child component tree, `log those errors`, and `display a fallback UI` instead of the component tree that crashed.<br>
-A class component becomes an error boundary if it defines either (or both) of the lifecycle methods `static getDerivedStateFromError()` or `componentDidCatch()`.<br>
-Updating state from these lifecycles lets you capture an `unhandled JavaScript error` in the below tree and display a fallback UI.
+`Error boundaries` are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
 
-> Note
-> `Error boundaries` only catch errors in the components below them in the tree.
-> An error boundary can’t catch an error within itself.
+A class component becomes an error boundary if it defines either (or both) of the lifecycle methods `static getDerivedStateFromError()` or `componentDidCatch()`. Updating state from these lifecycles lets you capture an unhandled JavaScript error in the below tree and display a fallback UI.
+
+Only use error boundaries for recovering from unexpected exceptions; <strong>don’t try to use them for control flow</strong>.
+> Error boundaries only catch errors in the components below them in the tree. An error boundary can’t catch an error within itself.
 
 ###### static getDerivedStateFromError()
+![eKzYAs.png](https://s2.ax1x.com/2019/07/27/eKzYAs.png)
+This lifecycle is invoked after an error has been thrown by a descendant component. It receives the error that was thrown as a parameter and should return a value to update state.
+![eKzwcT.png](https://s2.ax1x.com/2019/07/27/eKzwcT.png)
 
-```javascript
-static getDerivedStateFromError(error)
-```
-
-This lifecycle is invoked after an error has been thrown by a descendant component.<br>
-It receives the error that was thrown as a parameter and should return a value to update state.
-
-```javascript
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
-```
-
-> `getDerivedStateFromError()` is called during the “render” phase, so side-effects are not permitted.
-> For those use cases, use `componentDidCatch()` instead.
+> `getDerivedStateFromError()` is called during the “render” phase, so side-effects are not permitted. For those use cases, use `componentDidCatch()` instead.
 
 ###### componentDidCatch()
+![eKzfgK.png](https://s2.ax1x.com/2019/07/27/eKzfgK.png)
+This lifecycle is invoked after an error has been thrown by a descendant component. It receives two parameters:
+1. <strong>error</strong> &minus; The error that was thrown.
+2. <strong>info</strong> &minus; An object with a `componentStack` key containing information about which component threw the error.
 
-```javascript
-componentDidCatch(error, info);
-```
-
-This lifecycle is invoked after an error has been thrown by a descendant component.<br>
-It receives two parameters:
-
-- error
-  - The error that was thrown.
-- info
-  - An object with a `componentStack key` containing information about which component threw the error.
-    `componentDidCatch()` is called during the “commit” phase, so side-effects are permitted.<br>
-
-```javascript
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, info) {
-    // Example "componentStack":
-    //   in ComponentThatThrows (created by App)
-    //   in ErrorBoundary (created by App)
-    //   in div (created by App)
-    //   in App
-    logComponentStackToMyService(info.componentStack);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
-```
+`componentDidCatch()` is called during the “commit” phase, so side-effects are permitted. It should be used for things like logging errors:
+![eMpFdH.png](https://s2.ax1x.com/2019/07/27/eMpFdH.png)
+![eMpEFA.png](https://s2.ax1x.com/2019/07/27/eMpEFA.png)
+> In the event of an error, you can render a fallback UI with `componentDidCatch()` by calling `setState`, but this will be deprecated in a future release. Use `static getDerivedStateFromError()` to handle fallback rendering instead.
 
 ## Other APIs
 Each component also provides some other APIs:
@@ -357,84 +292,74 @@ Each component also provides some other APIs:
 - forceUpdate()
 
 #### setState()
+![eM9sHg.png](https://s2.ax1x.com/2019/07/27/eM9sHg.png)
+`setState()` enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. This is the primary method you use to update the user interface in response to event handlers and server responses.
 
-```javascript
-setState(updater[, callback])
-```
+Think of `setState()` as a request rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. React does not guarantee that the state changes are applied immediately.
 
-1. `setState()` enqueues changes to the component state and tells `React` that this component and its children need to be re-rendered with the updated state. <br>
-2. For better perceived performance, React may delay `setState()`, and then update several components in a single pass. <br>
-3. `setState()` does not always immediately update the component. It may batch or defer the update until later.<br>
-4. `setState()` will always lead to a re-render unless `shouldComponentUpdate()` returns false. <br>
-5. The first argument is an updater function with the signature:
+`setState()` does not always immediately update the component. It may batch or defer the update until later. This makes reading `this.state` right after calling `setState()` a potential pitfall. Instead, use `componentDidUpdate` or a `setState` callback &#40;`setState(updater, callback)`&#41;, either of which are guaranteed to fire after the update has been applied. If you need to set the state based on the previous state, read about the `updater` argument below.
 
-```javascript
-(state, props) => stateChange;
-```
+`setState()` will always lead to a re-render unless `shouldComponentUpdate()` returns `false`. If mutable objects are being used and conditional rendering logic cannot be implemented in `shouldComponentUpdate()`, calling `setState()` only when the new state differs from the previous state will avoid unnecessary re-renders.
 
-6. `state` is a reference to the component state at the time the change is being applied.<br>
-7. It should not be directly mutated. Instead, changes should be represented by building a new object based on the input from `state` and `props`. <br>
-8. The second parameter to `setState()` is an optional callback function that will be executed once `setState` is completed and the component is re-rendered.<br>
-9. Generally we recommend using `componentDidUpdate()` for such logic instead.
-10. You may optionally pass an object as the first argument to `setState()` instead of a function.
+The first argument is an `updater` function with the signature:
+![eMPFwF.png](https://s2.ax1x.com/2019/07/27/eMPFwF.png)
+
+`state` is a reference to the component state at the time the change is being applied. It should not be directly mutated. Instead, changes should be represented by building a new object based on the input from `state` and `props`. For instance, suppose we wanted to increment a value in state by `props.step`:
+![eMPZWR.png](https://s2.ax1x.com/2019/07/27/eMPZWR.png)
+
+Both `state` and `props` received by the updater function are guaranteed to be up-to-date. The output of the updater is shallowly merged with `state`.
+
+The second parameter to `setState()` is an optional callback function that will be executed once `setState` is completed and the component is re-rendered. Generally we recommend using `componentDidUpdate()` for such logic instead.
+
+You may optionally pass an object as the first argument to `setState()` instead of a function:
+![eMPU6P.png](https://s2.ax1x.com/2019/07/27/eMPU6P.png)
+This performs a shallow merge of `stateChange` into the new state, e.g., to adjust a shopping cart item quantity:
+![eMPBTg.png](https://s2.ax1x.com/2019/07/27/eMPBTg.png)
+This form of `setState()` is also asynchronous, and multiple calls during the same cycle may be batched together. For example, if you attempt to increment an item quantity more than once in the same cycle, that will result in the equivalent of:
+![eMPfmT.png](https://s2.ax1x.com/2019/07/27/eMPfmT.png)
+Subsequent calls will override values from previous calls in the same cycle, so the quantity will only be incremented once. If the next state depends on the current state, we recommend using the updater function form, instead:
+![eMP47F.png](https://s2.ax1x.com/2019/07/27/eMP47F.png)
 
 #### forceUpdate()
+![eMiHUg.png](https://s2.ax1x.com/2019/07/27/eMiHUg.png)
+By default, when your component’s state or props change, your component will re-render. If your `render()` method depends on some other data, you can tell React that the component needs re-rendering by calling `forceUpdate()`.
 
-```javascript
-component.forceUpdate(callback);
-```
+Calling `forceUpdate()` will cause `render()` to be called on the component, skipping `shouldComponentUpdate()`. This will trigger the normal lifecycle methods for child components, including the `shouldComponentUpdate()` method of each child. React will still only update the DOM if the markup changes.
 
-1. If your `render()` method depends on some other data, you can tell `React` that the component needs re-rendering by calling `forceUpdate()`.
-2. Calling `forceUpdate()` will cause `render()` to be called on the component, skipping `shouldComponentUpdate()`.
-3. `React` will still only update the `DOM` if the markup changes.
+Normally you should try to avoid all uses of `forceUpdate()` and only read from `this.props` and `this.state` in `render()`.
 
 ## Class Properties
 - defaultProps
 - displayName
 
 #### defaultProps
-1. `defaultProps` can be defined as a property on the component class itself, to set the default props for the class.
-2. This is used for undefined props, but not for null props.
-3. For example:
-
-```javascript
-class CustomButton extends React.Component {
-  // ...
-}
-
-CustomButton.defaultProps = {
-  color: "blue"
-};
-```
-
-If `props.color` is not provided, it will be set by default to 'blue':
-
-```javascript
-render() {
- return <CustomButton /> ; // props.color will be set to blue
-}
-```
-
+`defaultProps` can be defined as a property on the component class itself, to set the default props for the class. This is used for undefined props, but not for null props. For example:
+![eMFWoF.png](https://s2.ax1x.com/2019/07/27/eMFWoF.png)
+If `props.color` is not provided, it will be set by default to <strong>'blue'</strong>:
+![eMF4JJ.png](https://s2.ax1x.com/2019/07/27/eMF4JJ.png)
 If `props.color` is set to null, it will remain null:
-
-```javascript
-  render() {
-    return <CustomButton color={null} /> ; // props.color will remain null
-  }
-```
+![eMEPIS.png](https://s2.ax1x.com/2019/07/27/eMEPIS.png)
 
 #### displayName
-1. The `displayName` string is used in debugging messages.
+The `displayName` string is used in debugging messages. Usually, you don’t need to set it explicitly because it’s inferred from the name of the function or class that defines the component. You might want to set it explicitly if you want to display a different name for debugging purposes or when you create a higher-order component.
+
+The container components created by HOCs show up in the React Developer Tools like any other component. To ease debugging, choose a display name that communicates that it’s the result of a HOC.
+
+The most common technique is to wrap the display name of the wrapped component. So if your higher-order component is named `withSubscription`, and the wrapped component’s display name is `CommentList`, use the display name `WithSubscription(CommentList)`:
+![eMEUZ6.png](https://s2.ax1x.com/2019/07/27/eMEUZ6.png)
 
 ## Instance Properties
 - props
 - state
 
 #### props
-1. `this.props` contains the props that were defined by the caller of this component.
-2. In particular, `this.props.children` is a special prop, typically defined by the child tags in the JSX expression rather than in the tag itself.
+`this.props` contains the props that were defined by the caller of this component.
+
+In particular, `this.props.children` is a special prop, typically defined by the child tags in the JSX expression rather than in the tag itself.
 
 #### state
-1. The state contains data specific to this component that may change over time.
-2. The state is user-defined, and it should be a plain JavaScript object.
-3. Never mutate `this.state` directly, as calling `setState()` afterwards may replace the mutation you made.
+The state contains data specific to this component that may change over time. The state is user-defined, and it should be a plain JavaScript object.
+
+If some value isn’t used for rendering or data flow (for example, a timer ID), you don’t have to put it in the state. Such values can be defined as fields on the component instance.
+
+Never mutate `this.state` directly, as calling `setState()` afterwards may replace the mutation you made. Treat `this.state` as if it were immutable.
