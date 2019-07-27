@@ -76,60 +76,87 @@ Avoid introducing any side-effects or subscriptions in the constructor. For thos
 > <strong>Only use this pattern if you intentionally want to ignore prop updates.</strong> In that case, it makes sense to rename the prop to be called `initialColor` or `defaultColor`. You can then force a component to “reset” its internal state by changing its key when necessary.
 
 ###### static getDerivedStateFromProps()
+![eKZYwV.png](https://s2.ax1x.com/2019/07/27/eKZYwV.png)
 
-```javascript
-static getDerivedStateFromProps(props, state)
-```
+`getDerivedStateFromProps` is invoked right before calling the render method, both on the initial mount and on subsequent updates. It should return an object to update the state, or null to update nothing.
 
-&nbsp;&nbsp;`getDerivedStateFromProps` is invoked right before calling the render method, both on the initial mount and on subsequent updates.<br>
-&nbsp;&nbsp;It should return an object to update the state, or null to update nothing.<br>
+This method exists for rare use cases where the state depends on changes in props over time. For example, it might be handy for implementing a `<Transition>` component that compares its previous and next children to decide which of them to animate in and out.
+
+Deriving state leads to verbose code and makes your components difficult to think about.
 Make sure you’re familiar with simpler alternatives:
+- If you need to <strong>perform a side effect</strong> (for example, data fetching or an animation) in response to a change in props, use componentDidUpdate lifecycle instead.
+- If you want to <strong>re-compute some data only when a prop changes</strong>, use a memoization helper instead.
+- If you want to <strong>“reset” some state when a prop changes</strong>, consider either making a component fully controlled or fully uncontrolled with a key instead.
 
-- If you need to **_perform a side effect_** (for example, `data fetching` or an `animation`) in response to a change in props, use `componentDidUpdate`lifecycle instead.
-- If you want to re-compute some data only when a prop changes, use a `memoization helper` instead.
-- If you want to “reset” some state when a prop changes, consider either making a component `fully controlled` or `fully uncontrolled with a key` instead.
-  Note that this method is fired on every render, regardless of the cause.This is in contrast to `UNSAFE_componentWillReceiveProps`, which only fires when the parent causes a re-render and not as a result of a local `setState`.
+This method doesn’t have access to the component instance. If you’d like, you can reuse some code between `getDerivedStateFromProps()` and the other class methods by extracting pure functions of the component props and state outside the class definition.
+
+Note that this method is fired on every render, regardless of the cause. This is in contrast to `UNSAFE_componentWillReceiveProps`, which only fires when the parent causes a re-render and not as a result of a local `setState`.
+
+<strong>When to Use Derived State</strong><br/>
+`getDerivedStateFromProps` exists for only one purpose. It enables a component to update its internal state as the result of <strong>changes in props</strong>. Our previous blog post provided some examples, like RECORDING THE CURRENT SCROLL DIRECTION BASED ON A CHANGING OFFSET PROP or LOADING EXTERNAL DATA SPECIFIED BY A SOURCE PROP.
+
+We did not provide many examples, because as a general rule, <strong>derived state should be used sparingly</strong>. All problems with derived state that we have seen can be ultimately reduced to either (1) unconditionally updating state from props or (2) updating state whenever props and state don’t match.
+- If you’re using derived state to memoize some computation based only on the current props, you don’t need derived state.
+- If you’re updating derived state unconditionally or updating it whenever props and state don’t match, your component likely resets its state too frequently.
+
+<strong>Updating state based on props</strong> or RECORDING THE CURRENT SCROLL DIRECTION BASED ON A CHANGING OFFSET PROP<br/>
+Here is an example of a component that uses the legacy `componentWillReceiveProps` lifecycle to update `state` based on new `props` values:
+![eKejUK.png](https://s2.ax1x.com/2019/07/27/eKejUK.png)
+Although the above code is not problematic in itself, the `componentWillReceiveProps` lifecycle is often mis-used in ways that do present problems. Because of this, the method will be deprecated.
+
+As of version 16.3, the recommended way to update `state` in response to `props` changes is with the new `static getDerivedStateFromProps` lifecycle. It is called when a component is created and each time it re-renders due to changes to props or state:
+![eKmEUf.png](https://s2.ax1x.com/2019/07/27/eKmEUf.png)
+
+You may notice in the example above that `props.currentRow` is mirrored in state (as `state.lastRow`). This enables `getDerivedStateFromProps` to access the previous props value in the same way as is done in `componentWillReceiveProps`.
+
+You may wonder why we don’t just pass previous props as a parameter to `getDerivedStateFromProps`. We considered this option when designing the API, but ultimately decided against it for two reasons:
+- A `prevProps` parameter would be null the first time `getDerivedStateFromProps` was called (after instantiation), requiring an if-not-null check to be added any time `prevProps` was accessed.
+- Not passing the previous props to this function is a step toward freeing up memory in future versions of React. (If React does not need to pass previous props to lifecycles, then it does not need to keep the previous `props` object in memory.)
+
+<strong>Fetching external data when props change</strong> or LOADING EXTERNAL DATA SPECIFIED BY A SOURCE PROP<br/>
+Here is an example of a component that fetches external data based on `props` values:
+![eKn701.png](https://s2.ax1x.com/2019/07/27/eKn701.png)
+![eKnqk6.png](https://s2.ax1x.com/2019/07/27/eKnqk6.png)
+The recommended upgrade path for this component is to move data updates into `componentDidUpdate`. You can also use the new `getDerivedStateFromProps` lifecycle to clear stale data before rendering the new props:
+![eKunns.png](https://s2.ax1x.com/2019/07/27/eKunns.png)
+![eKu44f.png](https://s2.ax1x.com/2019/07/27/eKu44f.png)
+![eKuIC8.png](https://s2.ax1x.com/2019/07/27/eKuIC8.png)
 
 ###### UNSAFE_componentWillMount()
+![eKKQrd.png](https://s2.ax1x.com/2019/07/27/eKKQrd.png)
+> This lifecycle was previously named `componentWillMount`. That name will continue to work until version 17. Use the `rename-unsafe-lifecycles codemod` to automatically update your components.
 
-`UNSAFE_componentWillMount()` is invoked just before mounting occurs. It is called before `render()`, therefore calling `setState()` synchronously in this method will not trigger an extra rendering.
+`UNSAFE_componentWillMount()` is invoked just before mounting occurs. It is called before `render()`, therefore calling `setState()` synchronously in this method will not trigger an extra rendering. Generally, we recommend using the `constructor()` instead for initializing state.
+
+Avoid introducing any side-effects or subscriptions in this method. For those use cases, use `componentDidMount()` instead.
+
+This is the only lifecycle method called on server rendering.
 
 ###### render()
+![eK345n.png](https://s2.ax1x.com/2019/07/27/eK345n.png)
+The `render()` method is the only required method in a class component.
 
-```javascript
-render();
-```
-
-The `render()` method is the only required method in a class component.<br>
 When called, it should examine `this.props` and `this.state` and return one of the following types:
+- <strong>React elements</strong>. Typically created via JSX. For example, `<div />` and `<MyComponent />` are React elements that instruct React to render a DOM node, or another user-defined component, respectively.
+- <strong>Arrays and fragments</strong>. Let you return multiple elements from render. See the documentation on fragments for more details.
+- <strong>Portals</strong>. Let you render children into a different DOM subtree. See the documentation on portals for more details.
+- <strong>String and numbers</strong>. These are rendered as text nodes in the DOM.
+- <strong>Booleans or null</strong>. Render nothing. (Mostly exists to support `return test && <Child />` pattern, where `test` is boolean.)
 
-- React elements
-  - Typically created via `JSX`. For example, `<div />` and `<MyComponent />` are `React` elements that instruct `React` to render a `DOM` node, or another `user-defined component`, respectively.
-- Arrays and fragments
-  - return multiple elements from render
-- Portals
-  - render children into a different `DOM` subtree
-- String and numbers
-  - rendered as text nodes in the `DOM`
-- Booleans or null
-  - Render nothing. (Mostly exists to support return `test` && `<Child />` pattern, where `test` is boolean.)
+The `render()` function should be pure, meaning that it does not modify component state, it returns the same result each time it’s invoked, and it does not directly interact with the browser.
 
-> Note
-> `render()` will not be invoked if shouldComponentUpdate() returns false.
+If you need to interact with the browser, perform your work in `componentDidMount()` or the other lifecycle methods instead. Keeping `render()` pure makes components easier to think about.
+
+> Note<br/>
+> `render()` will not be invoked if `shouldComponentUpdate()` returns false.
 
 ###### componentDidMount()
+![eK3o80.png](https://s2.ax1x.com/2019/07/27/eK3o80.png)
+`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
 
-```javascript
-componentDidMount();
-```
+This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in `componentWillUnmount()`.
 
-&nbsp;&nbsp;`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree).<br>
-&nbsp;&nbsp;Initialization that requires DOM nodes should go here.<br>
-&nbsp;&nbsp;If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
-&nbsp;&nbsp;This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in `componentWillUnmount()`.<br>
-&nbsp;&nbsp;You may call `setState()` immediately in `componentDidMount()`. It will trigger an extra rendering, but it will happen before the browser updates the screen.<br>
-&nbsp;&nbsp;This guarantees that even though the `render()` will be called twice in this case, the user won’t see the intermediate state. Use this pattern with caution because it often causes performance issues.<br>
-&nbsp;&nbsp;In most cases, you should be able to assign the initial state in the `constructor()` instead. It can, however, be necessary for cases like `modals` and `tooltips` when you need to measure a `DOM` node before rendering something that depends on its size or position.
+You <strong>may call setState() immediately</strong> in `componentDidMount()`. It will trigger an extra rendering, but it will happen before the browser updates the screen. This guarantees that even though the `render()` will be called twice in this case, the user won’t see the intermediate state. Use this pattern with caution because it often causes performance issues. In most cases, you should be able to assign the initial state in the `constructor()` instead. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
 
 #### Updating
 An update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:
