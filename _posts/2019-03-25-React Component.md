@@ -160,7 +160,6 @@ You <strong>may call setState() immediately</strong> in `componentDidMount()`. I
 
 #### Updating
 An update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:
-
 - static getDerivedStateFromProps()
 - shouldComponentUpdate()
 - <strong>render()</strong>
@@ -171,107 +170,91 @@ An update can be caused by changes to props or state. These methods are called i
 > - UNSAFE_componentWillReceiveProps()<br/>
 
 ###### static getDerivedStateFromProps()
+[Same as above](https://jalever.github.io/2019/03/25/React-Component/#static-getderivedstatefromprops)
+
 ###### shouldComponentUpdate()
+![eKo5n0.png](https://s2.ax1x.com/2019/07/27/eKo5n0.png)
 
-```javascript
-shouldComponentUpdate(nextProps, nextState);
-```
+Use `shouldComponentUpdate()` to let React know if a component’s output is not affected by the current change in state or props. The default behavior is to re-render on every state change, and in the vast majority of cases you should rely on the default behavior.
 
-&nbsp;&nbsp;Use `shouldComponentUpdate()` to let `React` know if a component’s output is not affected by the current change in `state` or `props`. <br>
-&nbsp;&nbsp;`shouldComponentUpdate()` is invoked before rendering when new `props` or `state` are being received. Defaults to `true`. This method is not called for the `initial render` or when `forceUpdate()` is used.<br>
-&nbsp;&nbsp;Consider using the built-in PureComponent instead of writing shouldComponentUpdate() by hand.<br>
-&nbsp;&nbsp;Note that returning false does not prevent child components from re-rendering when their state changes.<br>
-&nbsp;&nbsp;We do not recommend doing deep equality checks or using JSON.stringify() in shouldComponentUpdate().<br>
-if `shouldComponentUpdate()` returns false, then `UNSAFE_componentWillUpdate()`, `render()`, and `componentDidUpdate()` will not be invoked.<br>
+`shouldComponentUpdate()` is invoked before rendering when new props or state are being received. Defaults to `true`. This method is not called for the initial render or when `forceUpdate()` is used.
+
+This method only exists as a performance optimization. Do not rely on it to “prevent” a rendering, as this can lead to bugs. Consider using the built-in <strong>PureComponent</strong> instead of writing `shouldComponentUpdate()` by hand. `PureComponent` performs a shallow comparison of props and state, and reduces the chance that you’ll skip a necessary update.
+
+If you are confident you want to write it by hand, you may compare `this.props` with `nextProps` and `this.state` with `nextState` and return `false` to tell React the update can be skipped. Note that returning `false` does not prevent child components from re-rendering when their state changes.
+
+We do not recommend doing deep equality checks or using `JSON.stringify()` in `shouldComponentUpdate()`. It is very inefficient and will harm performance.
+
+Currently, if `shouldComponentUpdate()` returns `false`, then `UNSAFE_componentWillUpdate()`, `render()`, and `componentDidUpdate()` will not be invoked. In the future React may treat `shouldComponentUpdate()` as a hint rather than a strict directive, and returning `false` may still result in a re-rendering of the component.
 
 ###### render()
+[Same as above](https://jalever.github.io/2019/03/25/React-Component/#render)
 
 ###### getSnapshotBeforeUpdate()
+![eK71IO.png](https://s2.ax1x.com/2019/07/27/eK71IO.png)
+`getSnapshotBeforeUpdate()` is invoked right before the most recently rendered output is committed to e.g. the DOM. It enables your component to capture some information from the DOM (e.g. scroll position) before it is potentially changed. Any value returned by this lifecycle will be passed as a parameter to `componentDidUpdate()`.
 
-```javascript
-getSnapshotBeforeUpdate(prevProps, prevState);
-```
+This use case is not common, but it may occur in UIs like a chat thread that need to handle scroll position in a special way.
 
-&nbsp;&nbsp;`getSnapshotBeforeUpdate()` is invoked right before the most recently rendered output is committed to e.g. the `DOM`.<br>
-&nbsp;&nbsp;It enables your component to capture some information from the `DOM` (e.g. scroll position) before it is potentially changed.This use case is not common, but it may occur in UIs like a **_chat thread_** that need to handle scroll position in a special way.<br>
-&nbsp;&nbsp;Any value returned by this lifecycle will be passed as a parameter to `componentDidUpdate()`.
-&nbsp;&nbsp;A snapshot value (or `null`) should be returned.
+A snapshot value (or `null`) should be returned.
 
-```javascript
-class ScrollingList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.listRef = React.createRef();
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    // Are we adding new items to the list?
-    // Capture the scroll position so we can adjust scroll later.
-    if (prevProps.list.length < this.props.list.length) {
-      const list = this.listRef.current;
-      return list.scrollHeight - list.scrollTop;
-    }
-    return null;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // If we have a snapshot value, we've just added new items.
-    // Adjust scroll so these new items don't push the old ones out of view.
-    // (snapshot here is the value returned from getSnapshotBeforeUpdate)
-    if (snapshot !== null) {
-      const list = this.listRef.current;
-      list.scrollTop = list.scrollHeight - snapshot;
-    }
-  }
-
-  render() {
-    return <div ref={this.listRef}>{/* ...contents... */}</div>;
-  }
-}
-```
+For example:
+![eKHSYD.png](https://s2.ax1x.com/2019/07/27/eKHSYD.png)
+![eKHCSH.png](https://s2.ax1x.com/2019/07/27/eKHCSH.png)
+![eKHAmt.png](https://s2.ax1x.com/2019/07/27/eKHAmt.png)
+![eKHE0P.png](https://s2.ax1x.com/2019/07/27/eKHE0P.png)
+In the above examples, it is important to read the `scrollHeight` property in `getSnapshotBeforeUpdate` because there may be delays between “render” phase lifecycles (like `render`) and “commit” phase lifecycles (like `getSnapshotBeforeUpdate` and `componentDidUpdate`).
 
 ###### UNSAFE_componentWillUpdate()
+![eKHIBt.png](https://s2.ax1x.com/2019/07/27/eKHIBt.png)
+> This lifecycle was previously named `componentWillUpdate`. That name will continue to work until version 17. Use the rename-unsafe-lifecycles codemod to automatically update your components.
 
-`UNSAFE_componentWillUpdate()` is invoked just before rendering when new props or state are being received.
+`UNSAFE_componentWillUpdate()` is invoked just before rendering when new props or state are being received. Use this as an opportunity to perform preparation before an update occurs. This method is not called for the initial render.
+
+Note that you cannot call `this.setState()` here; nor should you do anything else (e.g. dispatch a Redux action) that would trigger an update to a React component before `UNSAFE_componentWillUpdate()` returns.
+
+Typically, this method can be replaced by `componentDidUpdate()`. If you were reading from the DOM in this method (e.g. to save a scroll position), you can move that logic to `getSnapshotBeforeUpdate()`.
+
+> `UNSAFE_componentWillUpdate()` will not be invoked if `shouldComponentUpdate()` returns false.
 
 ###### componentDidUpdate()
+![eKqFdP.png](https://s2.ax1x.com/2019/07/27/eKqFdP.png)
 
-```javascript
-componentDidUpdate(prevProps, prevState, snapshot);
-```
+componentDidUpdate() is invoked immediately after updating occurs. This method is not called for the initial render.
 
-`componentDidUpdate()` is invoked immediately after updating occurs. <br>
-&nbsp;&nbsp;This method is not called for the initial render.<br>
-&nbsp;&nbsp;This is also a good place to do `network requests` as long as you compare **_the current props_** to **_previous props_** (e.g. a network request may not be necessary if the props have not changed).
+Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
+![eKqoY8.png](https://s2.ax1x.com/2019/07/27/eKqoY8.png)
+You <strong>may call setState() immediately</strong> in `componentDidUpdate()` but note that <strong>it must be wrapped in a condition</strong> like in the example above, or you’ll cause an infinite loop. It would also cause an extra re-rendering which, while not visible to the user, can affect the component performance. If you’re trying to “mirror” some state to a prop coming from above, consider using the prop directly instead. Read more about why copying props into state causes bugs.
 
-```javascript
-componentDidUpdate(prevProps) {
-  // Typical usage (don't forget to compare props):
-  if (this.props.userID !== prevProps.userID) {
-    this.fetchData(this.props.userID);
-  }
-}
-```
+If your component implements the `getSnapshotBeforeUpdate()` lifecycle (which is rare), the value it returns will be passed as a third “snapshot” parameter to `componentDidUpdate()`. Otherwise this parameter will be undefined.
 
-&nbsp;&nbsp;You may call `setState()` immediately in `componentDidUpdate()` but note that it must be wrapped in a condition like in the example above, or you’ll cause an infinite loop. It would also cause an extra re-rendering which, while not visible to the user, can affect the component performance.<br>
-&nbsp;&nbsp;If your component implements the `getSnapshotBeforeUpdate()` lifecycle (which is rare), the value it returns will be passed as a third “snapshot” parameter to `componentDidUpdate()`. Otherwise this parameter will be `undefined`.
-
-> Note
-> `componentDidUpdate()` will not be invoked if `shouldComponentUpdate()` returns false
+> `componentDidUpdate()` will not be invoked if `shouldComponentUpdate()` returns false.
 
 ###### UNSAFE_componentWillReceiveProps()
+![eKbZuR.png](https://s2.ax1x.com/2019/07/27/eKbZuR.png)
+> This lifecycle was previously named `componentWillReceiveProps`. That name will continue to work until version 17. Use the rename-unsafe-lifecycles codemod to automatically update your components.
 
-&nbsp;&nbsp;`UNSAFE_componentWillReceiveProps()` is invoked before a mounted component receives new props.<br>
-&nbsp;&nbsp;If you need to update the state in response to prop changes (for example, to reset it), you may compare `this.props` and `nextProps` and perform state transitions using `this.setState()` in this method.
+> Using this lifecycle method often leads to bugs and inconsistencies<br/><br/>
+> - If you need to <strong>perform a side effect</strong> (for example, data fetching or an animation) in response to a change in props, use `componentDidUpdate` lifecycle instead.<br/>
+> - If you used `componentWillReceiveProps` for <strong>re-computing some data only when a prop changes</strong>, use a memoization helper instead.<br/>
+> - If you used `componentWillReceiveProps` to <strong>“reset” some state when a prop changes</strong>, consider either making a component <ins>fully controlled</ins> or <ins>fully uncontrolled with a key</ins> instead.
+
+`UNSAFE_componentWillReceiveProps()` is invoked before a mounted component receives new props. If you need to update the state in response to prop changes (for example, to reset it), you may compare `this.props` and `nextProps` and perform state transitions using `this.setState()` in this method.
+
+Note that if a parent component causes your component to re-render, this method will be called even if props have not changed. Make sure to compare the current and next values if you only want to handle changes.
+
+React doesn’t call `UNSAFE_componentWillReceiveProps()` with initial props during mounting. It only calls this method if some of component’s props may update. Calling `this.setState()` generally doesn’t trigger `UNSAFE_componentWillReceiveProps()`.
 
 #### Unmounting
 This method is called when a component is being removed from the DOM:
 - <strong>componentWillUnmount()</strong>
 
 ###### componentWillUnmount()
-&nbsp;&nbsp;componentWillUnmount() is invoked immediately before a component is unmounted and destroyed.<br>
-&nbsp;&nbsp;Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in componentDidMount().<br>
-&nbsp;&nbsp;You should not call setState() in componentWillUnmount() because the component will never be re-rendered.
+![eKbLa6.png](https://s2.ax1x.com/2019/07/27/eKbLa6.png)
+
+`componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in `componentDidMount()`.
+
+You <strong>should not call setState()</strong> in `componentWillUnmount()` because the component will never be re-rendered. Once a component instance is unmounted, it will never be mounted again.
 
 #### Error Handling
 These methods are called when there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
