@@ -37,6 +37,12 @@ tags:
 - [Hooks](#hooks)
 
 ## Components
+React components let you split the UI into independent, reusable pieces, and think about each piece in isolation. React components can be defined by subclassing `React.Component` or `React.PureComponent`.
+- [React.Component](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactcomponent)
+- [React.PureComponent](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactpurecomponent)
+
+React components can also be defined as functions which can be wrapped:
+- [React.memo](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactmemo)
 
 #### React.Component
 
@@ -74,6 +80,9 @@ If you want control over the comparison, you can also provide a custom compariso
 ![ZUpukQ.png](https://s2.ax1x.com/2019/07/04/ZUpukQ.png)
 
 ## Creating React Elements
+We recommend using JSX to describe what your UI should look like. Each JSX element is just syntactic sugar for calling `React.createElement()`. You will not typically invoke the following methods directly if you are using JSX.
+- [createElement()](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactcreateelement)
+- [createFactory()](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactcreatefactory)
 
 #### React.createElement()
 
@@ -94,6 +103,14 @@ This helper is considered legacy, and we encourage you to either use `JSX` or us
 You will not typically invoke `React.createFactory()` directly if you are using JSX.
 
 ## Transforming Elements
+`React` provides several APIs for manipulating elements:
+- [cloneElement() ](https://jalever.github.io/2019/03/25/React-Top-Level-API/#cloneelement)
+- [isValidElement()](https://jalever.github.io/2019/03/25/React-Top-Level-API/#isvalidelement)
+- [React.Children](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildren)
+    - [React.Children.forEach](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildrenforeach)
+    - [React.Children.count](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildrencount)
+    - [React.Children.only](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildrenonly)
+    - [React.Children.toArray](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactchildrentoarray)
 
 #### cloneElement()
 
@@ -149,9 +166,10 @@ Returns the `children` opaque data structure as a flat array with keys assigned 
 > `React.Children.toArray()` changes keys to preserve the semantics of nested arrays when flattening lists of children. That is, `toArray` prefixes each key in the returned array so that each element’s key is scoped to the input array containing it.
 
 ## Fragments
+React also provides a component for rendering multiple elements without a wrapper.
+- [React.Fragment](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactfragment)
 
 #### React.Fragment
-
 The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element
 
 ![ZUi2rt.png](https://s2.ax1x.com/2019/07/04/ZUi2rt.png)
@@ -159,9 +177,10 @@ The `React.Fragment` component lets you return multiple elements in a `render()`
 You can also use it with the shorthand `<></>` syntax.
 
 ## Refs
+- [React.createRef](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactcreateref)
+- [React.forwardRef](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactforwardref)
 
 #### React.CreateRef
-
 `React.createRef` creates a `ref` that can be attached to `React` elements via the `ref` attribute.
 
 ![ZUFFqx.png](https://s2.ax1x.com/2019/07/04/ZUFFqx.png)
@@ -223,6 +242,8 @@ Fortunately, we can explicitly forward refs to the inner `FancyButton` component
 
 ## Suspense
 Suspense lets components “wait” for something before rendering. Today, Suspense only supports one use case: loading components dynamically with React.lazy. In the future, it will support other use cases like data fetching.
+- [React.lazy](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactlazy)
+- [React.Suspense](https://jalever.github.io/2019/03/25/React-Top-Level-API/#reactsuspense)
 
 #### React.lazy
 > `React.lazy` and Suspense are not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend `Loadable Components`.
@@ -248,22 +269,16 @@ The `fallback` prop accepts any React elements that you want to render while wai
 ![ZUVRN6.png](https://s2.ax1x.com/2019/07/04/ZUVRN6.png)
 
 ## Hooks
-Hooks let you use `state` and `other React features` without writing a `class`.
-```javascript
-import React, { useState } from 'react';
-
-function Example() {
-  // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-```
-[Hooks API Reference](https://jalever.github.io/2019/03/27/Hooks-API-Reference/)
+<i>Hooks</i> are a new addition in React 16.8. They let you use state and other React features without writing a class. 
+- Basic Hooks
+    - [useState](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usestate)
+    - [useEffect](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#useeffect)
+    - [useContext](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usecontext)
+- Additional Hooks
+    - [useReducer](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usereducer)
+    - [useCallback](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usecallback)
+    - [useMemo](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usememo)
+    - [useRef](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#useref)
+    - [useImperativeHandle](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#useimperativehandle)
+    - [useLayoutEffect](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#uselayouteffect)
+    - [useDebugValue](https://jalever.github.io/2019/03/25/Hooks-API-Reference/#usedebugvalue)

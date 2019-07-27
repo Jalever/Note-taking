@@ -219,8 +219,8 @@ The signature is identical to useEffect, but it fires synchronously after all DO
 
 Prefer the standard useEffect when possible to avoid blocking visual updates.
 
-> If you’re migrating code from a class component, note `useLayoutEffect` fires in the same phase as `componentDidMount` and `componentDidUpdate`. However, <strong>we recommend starting with useEffect first</strong> and only trying `useLayoutEffect` if that causes a problem.<br/>
-> If you use server rendering, keep in mind that neither `useLayoutEffect` nor `useEffect` can run until the JavaScript is downloaded. This is why React warns when a server-rendered component contains `useLayoutEffect`. To fix this, either move that logic to `useEffect` (if it isn’t necessary for the first render), or delay showing that component until after the client renders (if the HTML looks broken until `useLayoutEffect` runs).<br/>
+> If you’re migrating code from a class component, note `useLayoutEffect` fires in the same phase as `componentDidMount` and `componentDidUpdate`. However, <strong>we recommend starting with useEffect first</strong> and only trying `useLayoutEffect` if that causes a problem.<br/><br/>
+> If you use server rendering, keep in mind that neither `useLayoutEffect` nor `useEffect` can run until the JavaScript is downloaded. This is why React warns when a server-rendered component contains `useLayoutEffect`. To fix this, either move that logic to `useEffect` (if it isn’t necessary for the first render), or delay showing that component until after the client renders (if the HTML looks broken until `useLayoutEffect` runs).<br/><br/>
 > To exclude a component that needs layout effects from the server-rendered HTML, render it conditionally with `showChild && <Child />` and defer showing it with `useEffect(() => { setShowChild(true); }, [])`. This way, the UI doesn’t appear broken before hydration.
 
 #### useDebugValue
