@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Controlled / Uncontrolled Components
+title: Controlled and Uncontrolled Components
 subtitle: React Terminology
 date: 2019-03-27
 author: Jalever
@@ -11,27 +11,15 @@ tags:
 ---
 
 - [Overview](#overview)
-- [Uncontrolled Components](#uncontrolled-components)
 - [Controlled Components](#controlled-components)
     - [The Reason Called Controlled](#the-reason-called-controlled)
+- [Uncontrolled Components](#uncontrolled-components)
+    - [Default Values](#default-values)
+    - [The file input Tag](#the-file-input-Tag)
 - [Conclusion](#conclusion)
 
 ## Overview
 In most cases, we recommend using `controlled components` to implement forms. In a `controlled component`, form data is handled by a <ins>React component</ins>. The alternative is `uncontrolled components`, where form data is handled by the <ins>DOM</ins> itself.
-
-
-## Uncontrolled Components
-Certain `DOM` elements such as `<input>`, `<textarea>`, and `<select>` that by default maintain state (***user input***) within the `DOM` layer.
-
-A `Uncontrolled Component` is one that stores its own state internally, and you query the `DOM` using a `ref` to find its current value when you need it.
-
-This is a bit more like traditional HTML.
-
-To write an uncontrolled component, instead of writing an event handler for every state update, you can use a ref to get form values from the DOM.
-
-For example, this code accepts a single name in an uncontrolled component:
-
-![ZtnzIx.png](https://s2.ax1x.com/2019/07/03/ZtnzIx.png)
 
 ## Controlled Components
 `Controlled components` keep that state inside of `React` either in the component rendering the input, a parent component somewhere in the tree, or a flux store.
@@ -44,7 +32,7 @@ A parent component "controls" it by handling the callback and managing its own s
 
 Every time you type a new character, `handleNameChange` is called. It takes in the new value of the input and sets it in the state.
 
-![ZtKXU1.png](https://s2.ax1x.com/2019/07/03/ZtKXU1.png)
+![eMMIr4.png](https://s2.ax1x.com/2019/07/27/eMMIr4.png)
 
 1. It starts out as an empty string — `''`.
 2. You type `a` and `handleNameChange` gets an `a` and calls `setState`. The input is then re-rendered to have the value of `a`.
@@ -67,6 +55,31 @@ A form element becomes “controlled” if you set its value via a prop. That’
 Each of the form elements, though, has a different prop for setting that value, so here’s a little table to summarize:
 
 ![Zt8HKK.png](https://s2.ax1x.com/2019/07/03/Zt8HKK.png)
+
+
+## Uncontrolled Components
+In most cases, we recommend using Controlled Components to implement forms. In a controlled component, form data is handled by a React component. The alternative is uncontrolled components, where form data is handled by the DOM itself.
+
+To write an uncontrolled component, instead of writing an event handler for every state update, you can <b>use a ref</b> to get form values from the DOM.
+
+For example, this code accepts a single name in an uncontrolled component:
+![eMKN1U.png](https://s2.ax1x.com/2019/07/27/eMKN1U.png)
+
+#### Default Values
+In the React rendering lifecycle, the `value` attribute on form elements will override the value in the DOM. With an uncontrolled component, you often want React to specify the initial value, but leave subsequent updates uncontrolled. To handle this case, you can specify a `defaultValue` attribute instead of `value`.
+![eMKfnH.png](https://s2.ax1x.com/2019/07/27/eMKfnH.png)
+Likewise, `<input type="checkbox">` and `<input type="radio">` support `defaultChecked`, and `<select>` and `<textarea>` supports `defaultValue`.
+
+#### The file input Tag
+In HTML, an `<input type="file">` lets the user choose one or more files from their device storage to be uploaded to a server or manipulated by JavaScript via the File API.
+![eMMSNq.png](https://s2.ax1x.com/2019/07/27/eMMSNq.png)
+In React, an `<input type="file" />` is always an uncontrolled component because its value can only be set by a user, and not programmatically.
+
+You should use the File API to interact with the files. The following example shows how to create a ref to the DOM node to access file(s) in a submit handler:
+![eMM8DH.png](https://s2.ax1x.com/2019/07/27/eMM8DH.png)
+![eMM6Vs.png](https://s2.ax1x.com/2019/07/27/eMM6Vs.png)
+
+
 
 ## Conclusion
 Both the controlled and uncontrolled form fields have their merit. Evaluate your specific situation and pick the approach — what works for you is good enough.
