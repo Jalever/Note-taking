@@ -167,100 +167,74 @@ If you return the same value from a Reducer Hook as the current state, React wil
 Note that React may still need to render that specific component again before bailing out. That shouldn’t be a concern because React won’t unnecessarily go “deeper” into the tree. If you’re doing expensive calculations while rendering, you can optimize them with `useMemo`.
 
 #### useCallback
-```javascript
-const memoizedCallback = useCallback(
-  () => {
-    doSomething(a, b);
-  },
-  [a, b],
-);
-```
-Returns a memoized callback.<br>
-Pass an inline callback and an array of dependencies.<br>
-`useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed.<br>
+![euvqB9.png](https://s2.ax1x.com/2019/07/27/euvqB9.png)
+
+Returns a `memoized` callback.
+
+Pass an inline callback and an array of dependencies. `useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. `shouldComponentUpdate`).
+
 `useCallback(fn, deps)` is equivalent to `useMemo(() => fn, deps)`.
-> The array of dependencies is not passed as arguments to the callback.
-> Every value referenced inside the callback should also appear in the dependencies array
+
+> The array of dependencies is not passed as arguments to the callback. Conceptually, though, that’s what they represent: every value referenced inside the callback should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
 
 #### useMemo
-Returns a memoized value.<br>
-Pass a “create” function and an array of dependencies.<br>
-`useMemo` will only recompute the memoized value when one of the dependencies has changed.<br>
-This optimization helps to avoid expensive calculations on every render.<br>
+![euvXA1.png](https://s2.ax1x.com/2019/07/27/euvXA1.png)
+
+Returns a `memoized` value.
+
+Pass a “create” function and an array of dependencies. `useMemo` will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+
 Remember that the function passed to `useMemo` runs during rendering. Don’t do anything there that you wouldn’t normally do while rendering. For example, side effects belong in `useEffect`, not `useMemo`.
-***If no array is provided, a new value will be computed on every render***.
-> The array of dependencies is not passed as arguments to the callback.
-> Every value referenced inside the callback should also appear in the dependencies array
+
+If no array is provided, a new value will be computed on every render.
+
+<strong>You may rely on useMemo as a performance optimization, not as a semantic guarantee.</strong> In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without `useMemo` — and then add it to optimize performance.
+
+> The array of dependencies is not passed as arguments to the function. Conceptually, though, that’s what they represent: every value referenced inside the function should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
 
 #### useRef
-```javascript
-const refContainer = useRef(initialValue);
-```
-`useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`).<br>
-The returned object will persist for the full lifetime of the component.<br>
-```javascript
-function TextInputWithFocusButton() {
-  const inputEl = useRef(null);
-  const onButtonClick = () => {
-    // `current` points to the mounted text input element
-    inputEl.current.focus();
-  };
-  return (
-    <>
-      <input ref={inputEl} type="text" />
-      <button onClick={onButtonClick}>Focus the input</button>
-    </>
-  );
-}
-```
-If you pass a ref object to React with `<div ref={myRef} />`, `React` will set its `.current` property to the corresponding `DOM` node whenever that node changes.<br>
-Keep in mind that `useRef` doesn’t notify you when its content changes.
+![eux9je.png](https://s2.ax1x.com/2019/07/27/eux9je.png)
+`useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.
+
+A common use case is to access a child imperatively:
+![euxYCV.png](https://s2.ax1x.com/2019/07/27/euxYCV.png)
+Essentially, `useRef` is like a “box” that can hold a mutable value in its `.current` property.
+
+You might be familiar with refs primarily as a way to access the DOM. If you pass a ref object to React with `<div ref={myRef} />`, React will set its `.current` property to the corresponding DOM node whenever that node changes.
+
+However, `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable value around similar to how you’d use instance fields in classes.
+
+This works because `useRef()` creates a plain JavaScript object. The only difference between `useRef()` and creating a `{current: ...}` object yourself is that `useRef` will give you the same ref object on every render.
+
+Keep in mind that `useRef` doesn’t notify you when its content changes. Mutating the `.current` property doesn’t cause a re-render. If you want to run some code when React attaches or detaches a ref to a DOM node, you may want to use a callback ref instead.
 
 #### useImperativeHandle
-```javascript
-useImperativeHandle(ref, createHandle, [deps])
-```
-`useImperativeHandle` customizes the instance value that is exposed to parent components when using `ref`.
-###### an use case
-```javascript
-function FancyInput(props, ref) {
-  const inputRef = useRef();
-  useImperativeHandle(ref, () => ({
-    focus: () => {
-      inputRef.current.focus();
-    }
-  }));
-  return <input ref={inputRef} ... />;
-}
-FancyInput = forwardRef(FancyInput);
-```
+![euxfDH.png](https://s2.ax1x.com/2019/07/27/euxfDH.png)
+`useImperativeHandle` customizes the instance value that is exposed to parent components when using `ref`. As always, imperative code using refs should be avoided in most cases. `useImperativeHandle` should be used with `forwardRef`:
+![eux7PP.png](https://s2.ax1x.com/2019/07/27/eux7PP.png)
+In this example, a parent component that renders `<FancyInput ref={fancyInputRef} />` would be able to call `fancyInputRef.current.focus()`.
 
 #### useLayoutEffect
-It fires synchronously after all `DOM` mutations.<br>
-Use this to read layout from the `DOM` and synchronously re-render.<br>
-Updates scheduled inside `useLayoutEffect` will be flushed synchronously, before the browser has a chance to paint.<br>
-`useLayoutEffect` fires in the same phase as `componentDidMount` and `componentDidUpdate`.
+The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+
+Prefer the standard useEffect when possible to avoid blocking visual updates.
+
+> If you’re migrating code from a class component, note `useLayoutEffect` fires in the same phase as `componentDidMount` and `componentDidUpdate`. However, <strong>we recommend starting with useEffect first</strong> and only trying `useLayoutEffect` if that causes a problem.<br/>
+> If you use server rendering, keep in mind that neither `useLayoutEffect` nor `useEffect` can run until the JavaScript is downloaded. This is why React warns when a server-rendered component contains `useLayoutEffect`. To fix this, either move that logic to `useEffect` (if it isn’t necessary for the first render), or delay showing that component until after the client renders (if the HTML looks broken until `useLayoutEffect` runs).<br/>
+> To exclude a component that needs layout effects from the server-rendered HTML, render it conditionally with `showChild && <Child />` and defer showing it with `useEffect(() => { setShowChild(true); }, [])`. This way, the UI doesn’t appear broken before hydration.
 
 #### useDebugValue
-```javascript
-useDebugValue(value)
-```
-`useDebugValue` can be used to display a label for custom hooks in `React DevTools`.
-```javascript
-function useFriendStatus(friendID) {
-  const [isOnline, setIsOnline] = useState(null);
+![euzYdA.png](https://s2.ax1x.com/2019/07/27/euzYdA.png)
+`useDebugValue` can be used to display a label for custom hooks in React DevTools.
 
-  // ...
-
-  // Show a label in DevTools next to this Hook
-  // e.g. "FriendStatus: Online"
-  useDebugValue(isOnline ? 'Online' : 'Offline');
-
-  return isOnline;
-}
-```
-Don’t recommend adding debug values to every custom `Hook`.
+For example, consider the `useFriendStatus` custom Hook described in “Building Your Own Hooks”:
+![euzUit.png](https://s2.ax1x.com/2019/07/27/euzUit.png)
+> We don’t recommend adding debug values to every custom Hook. It’s most valuable for custom Hooks that are part of shared libraries.
 
 ###### Defer formatting debug values
-In some cases formatting a value for display might be an expensive operation.<br>
-It’s also unnecessary unless a Hook is actually inspected.
+In some cases formatting a value for display might be an expensive operation. It’s also unnecessary unless a Hook is actually inspected.
+
+For this reason `useDebugValue` accepts a formatting function as an optional second parameter. This function is only called if the Hooks are inspected. It receives the debug value as a parameter and should return a formatted display value.
+
+For example a custom Hook that returned a `Date` value could avoid calling the `toDateString` function unnecessarily by passing the following formatter:
+![euzDsg.png](https://s2.ax1x.com/2019/07/27/euzDsg.png)
