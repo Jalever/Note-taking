@@ -16,6 +16,8 @@ tags:
 - [Uncontrolled Components](#uncontrolled-components)
     - [Default Values](#default-values)
     - [The file input Tag](#the-file-input-Tag)
+
+
 - [Conclusion](#conclusion)
 
 ## Overview
@@ -28,11 +30,11 @@ A `Controlled Component` is one that takes its current value through props and n
 
 A parent component "controls" it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 
-![ZtKVcF.png](https://s2.ax1x.com/2019/07/03/ZtKVcF.png)
+![eMMIr4.png](https://s2.ax1x.com/2019/07/27/eMMIr4.png)
 
 Every time you type a new character, `handleNameChange` is called. It takes in the new value of the input and sets it in the state.
 
-![eMMIr4.png](https://s2.ax1x.com/2019/07/27/eMMIr4.png)
+![ZtKXU1.png](https://s2.ax1x.com/2019/07/03/ZtKXU1.png)
 
 1. It starts out as an empty string — `''`.
 2. You type `a` and `handleNameChange` gets an `a` and calls `setState`. The input is then re-rendered to have the value of `a`.
