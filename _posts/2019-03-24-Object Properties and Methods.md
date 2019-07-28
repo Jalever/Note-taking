@@ -123,13 +123,14 @@ The properties are overwritten by other objects that have the same properties la
 <strong>Properties on the prototype chain and non-enumerable properties cannot be copied</strong><br/>
 ![eAnmxf.png](https://s2.ax1x.com/2019/07/23/eAnmxf.png)
 
-<strong>Primitives will be wrapped to objects</strong></strong><br/>
+<strong>Primitives will be wrapped to objects</strong><br/>
 ![eAn1aj.png](https://s2.ax1x.com/2019/07/23/eAn1aj.png)
 
-<strong>Exceptions will interrupt the ongoing copying task</strong></strong><br/>
-![eAnsiR.png](https://s2.ax1x.com/2019/07/23/eAnsiR.png)
+<strong>Exceptions will interrupt the ongoing copying task</strong><br/>
+![eQnrmd.png](https://s2.ax1x.com/2019/07/28/eQnrmd.png)
+![eQns0A.png](https://s2.ax1x.com/2019/07/28/eQns0A.png)
 
-<strong>Copying accessors</strong></strong><br/>
+<strong>Copying accessors</strong><br/>
 ![eAuckj.png](https://s2.ax1x.com/2019/07/23/eAuckj.png)
 ![eAuf10.png](https://s2.ax1x.com/2019/07/23/eAuf10.png)
 
@@ -215,6 +216,17 @@ The static method <strong>Object.defineProperty()</strong> defines a new propert
 > You call this method directly on the `Object` constructor rather than on an instance of type `Object`.
 
 ![eVgCIU.png](https://s2.ax1x.com/2019/07/24/eVgCIU.png)
+- Syntax
+- Description
+- Examples
+    - Creating a property
+    - Modifying a property
+        - Writable attribute
+        - Enumerable attribute
+        - Configurable attribute
+    - Adding properties and default values
+    - Custom Setters and Getters
+    - Custom Setters and Getters
 
 ###### Syntax
 ![eVglJe.png](https://s2.ax1x.com/2019/07/24/eVglJe.png)
@@ -249,7 +261,7 @@ A data descriptor also has the following optional keys:
 &nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `undefined`.<br/>
 &nbsp;&nbsp;<b>writable</b><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;- true if and only if the value associated with the property may be changed with an assignment operator.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to false.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Defaults to `false`.<br/>
 
 An accessor descriptor also has the following optional keys:
 
@@ -276,6 +288,57 @@ When the property specified doesn't exist in the object, <strong>Object.definePr
 ![eVhvM4.png](https://s2.ax1x.com/2019/07/24/eVhvM4.png)
 ![eVhxsJ.png](https://s2.ax1x.com/2019/07/24/eVhxsJ.png)
 ![eVhzL9.png](https://s2.ax1x.com/2019/07/24/eVhzL9.png)
+
+<strong>Modifying a property</strong><br/>
+When the property already exists, `Object.defineProperty()` attempts to modify the property according to the values in the descriptor and the object's current configuration. If the old descriptor had its `configurable` attribute set to `false` the property is said to be “non-configurable”. It is not possible to change any attribute of a non-configurable accessor property. For data properties, it is possible to modify the value if the property is writable, and it is possible to change `writable` attribute from `true` to `false`. It is not possible to switch between data and accessor property types when the property is non-configurable.
+
+A `TypeError` is thrown when attempts are made to change non-configurable property attributes (except `value` and `writable`, if permitted) unless the current and new values are the same.
+
+1.Writable attribute<br/>
+When the `writable` property attribute is set to `false`, the property is said to be “non-writable”. It cannot be reassigned.
+![eQK7WV.png](https://s2.ax1x.com/2019/07/28/eQK7WV.png)
+![eQKHzT.png](https://s2.ax1x.com/2019/07/28/eQKHzT.png)
+As seen in the example, trying to write into the non-writable property doesn't change it but doesn't throw an error either.
+
+2.Enumerable attribute<br/>
+The `enumerable` property attribute defines whether the property is picked by `Object.assign()` or `spread` operator. For non-`Symbols` properties it also defines whether it shows up in a `for...in` loop and `Object.keys()` or not.
+![eQMNYq.png](https://s2.ax1x.com/2019/07/28/eQMNYq.png)
+![eQMUf0.png](https://s2.ax1x.com/2019/07/28/eQMUf0.png)
+![eQMdpV.png](https://s2.ax1x.com/2019/07/28/eQMdpV.png)
+![eQMwlT.png](https://s2.ax1x.com/2019/07/28/eQMwlT.png)
+
+3.Configurable attribute<br/>
+The `configurable` attribute controls at the same time whether the property can be deleted from the object and whether its attributes (other than `value` and `writable`) can be changed.
+![eQMvjS.png](https://s2.ax1x.com/2019/07/28/eQMvjS.png)
+![eQQp7j.png](https://s2.ax1x.com/2019/07/28/eQQp7j.png)
+If the `configurable` attribute of `o.a` had been `true`, none of the errors would be thrown and the property would be deleted at the end.
+
+<strong>Adding properties and default values</strong><br/>
+It is important to consider the way default values of attributes are applied. There is often a difference between simply using dot notation to assign a value and using `Object.defineProperty()`, as shown in the example below.
+![eQQ4Cq.png](https://s2.ax1x.com/2019/07/28/eQQ4Cq.png)
+![eQQ580.png](https://s2.ax1x.com/2019/07/28/eQQ580.png)
+![eQQovT.png](https://s2.ax1x.com/2019/07/28/eQQovT.png)
+
+<strong>Custom Setters and Getters</strong><br/>
+The example below shows how to implement a self-archiving object. When `temperature` property is set, the `archive` array gets a log entry.
+![eQluM8.png](https://s2.ax1x.com/2019/07/28/eQluM8.png)
+![eQlKsS.png](https://s2.ax1x.com/2019/07/28/eQlKsS.png)
+In this example, a getter always returns the same value.
+![eQl1aj.png](https://s2.ax1x.com/2019/07/28/eQl1aj.png)
+
+<strong>Custom Setters and Getters</strong><br/>
+If an accessor property is inherited, its `get` and `set` methods will be called when the property is accessed and modified on descendant objects. If these methods use a variable to store the value, this value will be shared by all objects.
+![eQ1UfI.png](https://s2.ax1x.com/2019/07/28/eQ1UfI.png)
+This can be fixed by storing the value in another property. In `get` and `set` methods, `this` points to the object which is used to access or modify the property.
+![eQ1y7Q.png](https://s2.ax1x.com/2019/07/28/eQ1y7Q.png)
+Unlike accessor properties, value properties are always set on the object itself, not on a prototype. However, if a non-writable value property is inherited, it still prevents from modifying the property on the object.
+![eQ1hcV.png](https://s2.ax1x.com/2019/07/28/eQ1hcV.png)
+
+
+
+
+
+
 
 #### Object.defineProperties()
 The <strong>Object.defineProperties()</strong> method defines new or modifies existing properties directly on an object, returning the object.
