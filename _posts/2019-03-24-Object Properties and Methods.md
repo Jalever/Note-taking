@@ -399,13 +399,123 @@ Freezes an object: other code can't delete or change any properties.
 Returns a new object from an iterable of key-value pairs (reverses Object.entries).
 
 #### Object.getOwnPropertyDescriptor()
-Returns a property descriptor for a named property on an object.
+The `Object.getOwnPropertyDescriptor()` method returns a property descriptor for an own property (that is, one directly present on an object and not in the object's prototype chain) of a given object.
+![eQ8asf.png](https://s2.ax1x.com/2019/07/28/eQ8asf.png)
+
+###### Syntax
+![eQ8czq.png](https://s2.ax1x.com/2019/07/28/eQ8czq.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object in which to look for the property.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>prop</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The name or Symbol of the property whose description is to be retrieved.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A property descriptor of the given property if it exists on the object, undefined otherwise.<br/>
+
+###### Description
+This method permits examination of the precise description of a property. A property in JavaScript consists of either a string-valued name or a `Symbol` and a property descriptor.
+
+A property descriptor is a record with some of the following attributes:
+
+<strong>value</strong><br/>
+&nbsp;&nbsp;The value associated with the property (data descriptors only).
+
+<strong>writable</strong><br/>
+&nbsp;&nbsp;`true` if and only if the value associated with the property may be changed (data descriptors only).
+
+<strong>get</strong><br/>
+&nbsp;&nbsp;A function which serves as a getter for the property, or undefined if there is no getter (accessor descriptors only).
+
+<strong>set</strong><br/>
+&nbsp;&nbsp;A function which serves as a setter for the property, or `undefined` if there is no setter (accessor descriptors only).
+
+<strong>configurable</strong><br/>
+&nbsp;&nbsp;`true` if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.
+
+<strong>enumerable</strong><br/>
+&nbsp;&nbsp;`true` if and only if this property shows up during enumeration of the properties on the corresponding object.
+
+###### Examples
+![eQJGvt.png](https://s2.ax1x.com/2019/07/28/eQJGvt.png)
+![eQJtDf.png](https://s2.ax1x.com/2019/07/28/eQJtDf.png)
+![eQJaVS.png](https://s2.ax1x.com/2019/07/28/eQJaVS.png)
+![eQJdUg.png](https://s2.ax1x.com/2019/07/28/eQJdUg.png)
+![eQJw5Q.png](https://s2.ax1x.com/2019/07/28/eQJw5Q.png)
 
 #### Object.getOwnPropertyDescriptors()
-Returns an object containing all own property descriptors for an object.
+The `Object.getOwnPropertyDescriptors()` method returns all own property descriptors of a given object.
+![eQY7Wj.png](https://s2.ax1x.com/2019/07/28/eQY7Wj.png)
+
+###### Syntax
+![eQYvwT.png](https://s2.ax1x.com/2019/07/28/eQYvwT.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object for which to get all own property descriptors.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An object containing all own property descriptors of an object. Might be an empty object, if there are no properties.<br/>
+
+###### Description
+This method permits examination of the precise description of all own properties of an object. A property in JavaScript consists of either a string-valued name or a `Symbol` and a property descriptor.
+
+A property descriptor is a record with some of the following attributes:
+
+<strong>value</strong><br/>
+&nbsp;&nbsp;The value associated with the property (data descriptors only).
+
+<strong>writable</strong><br/>
+&nbsp;&nbsp;`true` if and only if the value associated with the property may be changed (data descriptors only).
+
+<strong>get</strong><br/>
+&nbsp;&nbsp;A function which serves as a getter for the property, or `undefined` if there is no getter (accessor descriptors only).
+
+<strong>set</strong><br/>
+&nbsp;&nbsp;A function which serves as a setter for the property, or `undefined` if there is no setter (accessor descriptors only).
+
+<strong>configurable</strong><br/>
+&nbsp;&nbsp;`true` if and only if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.
+
+<strong>enumerable</strong><br/>
+&nbsp;&nbsp;`true` if and only if this property shows up during enumeration of the properties on the corresponding object.
+
+###### Examples
+<strong>Creating a shallow clone</strong><br/>
+Whereas the `Object.assign()` method will only copy enumerable and own properties from a source object to a target object, you are able to use this method and `Object.create()` for a shallow copy between two unknown objects:
+![eQtrn0.png](https://s2.ax1x.com/2019/07/28/eQtrn0.png)
+
+<strong>Creating a subclass</strong><br/>
+A typical way of creating a subclass is to define the subclass, set its prototype to an instance of the superclass, and then define properties on that instance. This can get awkward especially for getters and setters. Instead, you can use this code to set the prototype:
+![eQthcR.png](https://s2.ax1x.com/2019/07/28/eQthcR.png)
 
 #### Object.getOwnPropertyNames()
-Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
+The `Object.getOwnPropertyNames()` method returns an array of all properties (including non-enumerable properties except for those which use Symbol) found directly in a given object.
+![eQUAIO.png](https://s2.ax1x.com/2019/07/28/eQUAIO.png)
+
+###### Syntax
+![eQauhF.png](https://s2.ax1x.com/2019/07/28/eQauhF.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose enumerable and non-enumerable properties are to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array of strings that corresponds to the properties found directly in the given object.<br/>
+
+###### Description
+`Object.getOwnPropertyNames()` returns an array whose elements are strings corresponding to the enumerable and non-enumerable properties found directly in a given object `obj`. The ordering of the enumerable properties in the array is consistent with the ordering exposed by a `for...in` loop (or by `Object.keys()`) over the properties of the object. The ordering of the non-enumerable properties in the array and the ordering among the enumerable properties is not defined.
+
+###### Examples
+<strong>Using Object.getOwnPropertyNames()</strong><br/>
+![eQ2sDU.png](https://s2.ax1x.com/2019/07/28/eQ2sDU.png)
+![eQ2gUJ.png](https://s2.ax1x.com/2019/07/28/eQ2gUJ.png)
+![eQ2WCR.png](https://s2.ax1x.com/2019/07/28/eQ2WCR.png)
+![eQ2f81.png](https://s2.ax1x.com/2019/07/28/eQ2f81.png)
+![eQ2hgx.png](https://s2.ax1x.com/2019/07/28/eQ2hgx.png)
+If you want only the enumerable properties, see `Object.keys()` or use a `for...in` loop &#40;note that this will also return enumerable properties found along the prototype chain for the object unless the latter is filtered with `hasOwnProperty()`&#41;.
+
+Items on the prototype chain are not listed:
+![eQ2IKK.png](https://s2.ax1x.com/2019/07/28/eQ2IKK.png)
+
+<strong>Get non-enumerable properties only</strong><br/>
+This uses the `Array.prototype.filter()` function to remove the enumerable keys &#40;obtained with `Object.keys()`&#41; from a list of all keys &#40;obtained with `Object.getOwnPropertyNames()`&#41; thus giving only the non-enumerable keys as output.
+![eQ2bUH.png](https://s2.ax1x.com/2019/07/28/eQ2bUH.png)
 
 #### Object.getOwnPropertySymbols()
 Returns an array of all symbol properties found directly upon a given object.
