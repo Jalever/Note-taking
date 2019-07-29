@@ -423,10 +423,78 @@ Using `Array Destructuring`, you can iterate through objects easily.
 ![e1TvM4.png](https://s2.ax1x.com/2019/07/29/e1TvM4.png)
 
 #### Object.freeze()
-Freezes an object: other code can't delete or change any properties.
+The `Object.freeze()` method <strong>freezes</strong> an object. A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed. In addition, freezing an object also prevents its prototype from being changed. `freeze()` returns the same object that was passed in.
+![e1H8tx.png](https://s2.ax1x.com/2019/07/29/e1H8tx.png)
+
+###### Syntax
+![e1Ht1O.png](https://s2.ax1x.com/2019/07/29/e1Ht1O.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object to freeze.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The object that was passed to the function.<br/>
+
+###### Description
+Nothing can be added to or removed from the properties set of a frozen object. Any attempt to do so will fail, either silently or by throwing a `TypeError` exception (most commonly, but not exclusively, when in strict mode).
+
+For data properties of a frozen object, values cannot be changed, the writable and configurable attributes are set to false. Accessor properties (getters and setters) work the same (and still give the illusion that you are changing the value). Note that values that are objects can still be modified, unless they are also frozen. As an object, an array can be frozen; after doing so, its elements cannot be altered and no elements can be added to or removed from the array.
+
+`freeze()` returns the same object that was passed into the function. It does not create a frozen copy.
+
+###### Examples
+<strong>Freezing objects</strong><br/>
+![e1qhYq.png](https://s2.ax1x.com/2019/07/29/e1qhYq.png)
+![e1q7XF.png](https://s2.ax1x.com/2019/07/29/e1q7XF.png)
+
+<strong>Freezing arrays</strong><br/>
+![e1L3As.png](https://s2.ax1x.com/2019/07/29/e1L3As.png)
+The object being frozen is immutable. However, it is not necessarily constant. The following example shows that a frozen object is not constant (freeze is shallow).
+![e1LzUs.png](https://s2.ax1x.com/2019/07/29/e1LzUs.png)
+To be a constant object, the entire reference graph (direct and indirect references to other objects) must reference only immutable frozen objects. The object being frozen is said to be immutable because the entire object state (values and references to other objects) within the whole object is fixed. Note that strings, numbers, and booleans are always immutable and that Functions and Arrays are objects.
+
+1.What is "shallow freeze"?<br/>
+The result of calling `Object.freeze(object)` only applies to the immediate properties of `object` itself and will prevent future property addition, removal or value re-assignment operations only on `object`. If the value of those properties are objects themselves, those objects are not frozen and may be the target of property addition, removal or value re-assignment operations.
+![e1XkWt.png](https://s2.ax1x.com/2019/07/29/e1XkWt.png)
+To make an object immutable, recursively freeze each property which is of type object (deep freeze). Use the pattern on a case-by-case basis based on your design when you know the object contains no Cycles in the reference graph, otherwise an endless loop will be triggered. An enhancement to `deepFreeze()` would be to have an internal function that receives a path (e.g. an Array) argument so you can suppress calling `deepFreeze()` recursively when an object is in the process of being made immutable. You still run a risk of freezing an object that shouldn't be frozen, such as [window].
+![e1XYOU.png](https://s2.ax1x.com/2019/07/29/e1XYOU.png)
+![e1XUw4.png](https://s2.ax1x.com/2019/07/29/e1XUw4.png)
+
+###### Usage notes
+In ES5, if the argument to this method is not an object (a primitive), then it will cause a `TypeError`. In ES2015, a non-object argument will be treated as if it were a frozen ordinary object, and be simply returned.
+![e1Xo1P.png](https://s2.ax1x.com/2019/07/29/e1Xo1P.png)
+
+<strong>Comparison to Object.seal()</strong><br/>
+Objects sealed with `Object.seal()` can have their existing properties changed. Existing properties in objects frozen with `Object.freeze()` are made immutable.
 
 #### Object.fromEntries()
-Returns a new object from an iterable of key-value pairs (reverses Object.entries).
+The `Object.fromEntries()` method transforms a list of key-value pairs into an object.
+![e1jdu8.png](https://s2.ax1x.com/2019/07/29/e1jdu8.png)
+
+###### Syntax
+![e1jwDS.png](https://s2.ax1x.com/2019/07/29/e1jwDS.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>iterable</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An iterable such as Array or Map or other objects implementing the iterable protocol.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A new object whose properties are given by the entries of the iterable.<br/>
+
+###### Description
+The `Object.fromEntries()` method takes a list of key-value pairs and returns a new object whose properties are given by those entries. The iterable argument is expected to be an object that implements an `@@iterator` method, that returns an iterator object, that produces a two element array-like object, whose first element is a value that will be used as a property key, and whose second element is the value to associate with that property key.
+
+`Object.fromEntries()` performs the reverse of `Object.entries()`.
+
+###### Examples
+<strong>Converting a Map to an Object</strong><br/>
+With `Object.fromEntries`, you can convert from `Map` to `Object`:
+![e1jH81.png](https://s2.ax1x.com/2019/07/29/e1jH81.png)
+
+<strong>Converting an Array to an Object</strong><br/>
+With `Object.fromEntries`, you can convert from `Array` to `Object`:
+![e1vuPs.png](https://s2.ax1x.com/2019/07/29/e1vuPs.png)
+
+<strong>Object transformations</strong><br/>
+With `Object.fromEntries`, its reverse method `Object.entries()`, and Array Manipulation Methods, you are able to transform objects like this:
+![e1vUi9.png](https://s2.ax1x.com/2019/07/29/e1vUi9.png)
 
 #### Object.getOwnPropertyDescriptor()
 The `Object.getOwnPropertyDescriptor()` method returns a property descriptor for an own property (that is, one directly present on an object and not in the object's prototype chain) of a given object.
@@ -548,13 +616,76 @@ This uses the `Array.prototype.filter()` function to remove the enumerable keys 
 ![eQ2bUH.png](https://s2.ax1x.com/2019/07/28/eQ2bUH.png)
 
 #### Object.getOwnPropertySymbols()
-Returns an array of all symbol properties found directly upon a given object.
+The `Object.getOwnPropertySymbols()` method returns an array of all symbol properties found directly upon a given object.
+![e1xFY9.png](https://s2.ax1x.com/2019/07/29/e1xFY9.png)
+
+###### Syntax
+![e1xQFH.png](https://s2.ax1x.com/2019/07/29/e1xQFH.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose symbol properties are to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array of all symbol properties found directly upon the given object.<br/>
+
+###### Description
+Similar to `Object.getOwnPropertyNames()`, you can get all symbol properties of a given object as an array of symbols. Note that `Object.getOwnPropertyNames()` itself does not contain the symbol properties of an object and only the string properties.
+
+As all objects have no own symbol properties initially, `Object.getOwnPropertySymbols()` returns an empty array unless you have set symbol properties on your object.
+
+###### Examples
+![e1zPnf.png](https://s2.ax1x.com/2019/07/29/e1zPnf.png)
 
 #### Object.getPrototypeOf()
-Returns the prototype of the specified object.
+The `Object.getPrototypeOf()` method returns the prototype (i.e. the value of the internal <strong>&lsqb;&lsqb;Prototype&rsqb;&rsqb;</strong> property) of the specified object.
+![e3SeaD.png](https://s2.ax1x.com/2019/07/29/e3SeaD.png)
+
+###### Syntax
+![e3SQxI.png](https://s2.ax1x.com/2019/07/29/e3SQxI.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose prototype is to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The prototype of the given object. If there are no inherited properties, `null` is returned.<br/>
+
+###### Examples
+![e3StIg.png](https://s2.ax1x.com/2019/07/29/e3StIg.png)
+
+###### Notes
+In ES5, it will throw a `TypeError` exception if the obj parameter isn't an object. In ES2015, the parameter will be coerced to an `Object`.
+![e3SDs0.png](https://s2.ax1x.com/2019/07/29/e3SDs0.png)
 
 #### Object.is()
-Compares if two values are the same value. Equates all NaN values (which differs from both Abstract Equality Comparison and Strict Equality Comparison).
+The `Object.is()` method determines whether two values are the same value.
+
+###### Syntax
+![e3SHoD.png](https://s2.ax1x.com/2019/07/29/e3SHoD.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>value1</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The first value to compare.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>value2</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The second value to compare.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `Boolean` indicating whether or not the two arguments are the same value.<br/>
+
+###### Description
+`Object.is()` determines whether two values are the same value. Two values are the same if one of the following holds:
+
+- both `undefined`
+- both `null`
+- both `true` or both `false`
+- both strings of the same length with the same characters in the same order
+- both the same object (means both object have same reference)
+- both numbers and
+    - both `+0`
+    - both `-0`
+    - both `NaN`
+    - or both non-zero and both not `NaN` and both have the same value
+This is not the same as being equal according to the `==` operator. The `==` operator applies various coercions to both sides (if they are not the same Type) before testing for equality (resulting in such behavior as `"" == false` being `true`), but `Object.is` doesn't coerce either value.
+
+This is also not the same as being equal according to the `===` operator. The `===` operator (and the `==` operator as well) treats the number values `-0` and `+0` as equal and treats `Number.NaN` as not equal to `NaN`.
+
+###### Examples
+![e3ks1g.png](https://s2.ax1x.com/2019/07/29/e3ks1g.png)
 
 #### Object.isExtensible()
 Determines if extending of an object is allowed.
