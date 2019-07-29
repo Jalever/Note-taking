@@ -390,7 +390,37 @@ The object that was passed to the function.
 ![eVdMcT.png](https://s2.ax1x.com/2019/07/24/eVdMcT.png)
 
 #### Object.entries()
-Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
+The `Object.entries()` method returns an array of a given object's own enumerable string-keyed property `[key, value]` pairs, in the same order as that provided by a `for...in` loop (the difference being that a for-in loop enumerates properties in the prototype chain as well). The order of the array returned by <strong>Object.entries()</strong> does not depend on how an object is defined. If there is a need for certain ordering then the array should be sorted first like `Object.entries(obj).sort((a, b) => b[0].localeCompare(a[0]))`;.
+![e1Tm5V.png](https://s2.ax1x.com/2019/07/29/e1Tm5V.png)
+
+###### Syntax
+![e1TQv4.png](https://s2.ax1x.com/2019/07/29/e1TQv4.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose own enumerable string-keyed property `[key, value]` pairs are to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array of the given object's own enumerable string-keyed property `[key, value]` pairs.<br/>
+
+###### Description
+`Object.entries()` returns an array whose elements are arrays corresponding to the enumerable string-keyed property `[key, value]` pairs found directly upon `object`. The ordering of the properties is the same as that given by looping over the property values of the object manually.
+
+###### Examples
+![e1TDrd.png](https://s2.ax1x.com/2019/07/29/e1TDrd.png)
+![e1TrqA.png](https://s2.ax1x.com/2019/07/29/e1TrqA.png)
+![e1TyVI.png](https://s2.ax1x.com/2019/07/29/e1TyVI.png)
+![e1T6at.png](https://s2.ax1x.com/2019/07/29/e1T6at.png)
+![e1T2Pf.png](https://s2.ax1x.com/2019/07/29/e1T2Pf.png)
+![e1TWRS.png](https://s2.ax1x.com/2019/07/29/e1TWRS.png)
+![e1Tfxg.png](https://s2.ax1x.com/2019/07/29/e1Tfxg.png)
+![e1T4MQ.png](https://s2.ax1x.com/2019/07/29/e1T4MQ.png)
+
+<strong>Converting an Object to a Map</strong><br/>
+The `new Map()` constructor accepts an iterable of `entries`. With `Object.entries`, you can easily convert from `Object` to `Map`:
+![e1TLGT.png](https://s2.ax1x.com/2019/07/29/e1TLGT.png)
+
+<strong>Iterating through an Object</strong><br/>
+Using `Array Destructuring`, you can iterate through objects easily.
+![e1TvM4.png](https://s2.ax1x.com/2019/07/29/e1TvM4.png)
 
 #### Object.freeze()
 Freezes an object: other code can't delete or change any properties.
