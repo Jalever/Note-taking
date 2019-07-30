@@ -688,19 +688,111 @@ This is also not the same as being equal according to the `===` operator. The `=
 ![e3ks1g.png](https://s2.ax1x.com/2019/07/29/e3ks1g.png)
 
 #### Object.isExtensible()
-Determines if extending of an object is allowed.
+The `Object.isExtensible()` method determines if an object is extensible (whether it can have new properties added to it).
+![e8j0ED.png](https://s2.ax1x.com/2019/07/30/e8j0ED.png)
+
+###### Syntax
+![e8jhVS.png](https://s2.ax1x.com/2019/07/30/e8jhVS.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be checked.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `Boolean` indicating whether or not the given object is extensible.<br/>
+
+###### Description
+Objects are extensible by default: they can have new properties added to them, and (in engines that support `__proto__`  their __proto__ property) can be modified. An object can be marked as non-extensible using `Object.preventExtensions()`, `Object.seal()`, or `Object.freeze()`.
+
+###### Examples
+![e8vmPH.png](https://s2.ax1x.com/2019/07/30/e8vmPH.png)
 
 #### Object.isFrozen()
-Determines if an object was frozen.
+The `Object.isFrozen()` determines if an object is frozen.
+![e8zlE8.png](https://s2.ax1x.com/2019/07/30/e8zlE8.png)
+
+###### Syntax
+![e8z34g.png](https://s2.ax1x.com/2019/07/30/e8z34g.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be checked.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `Boolean` indicating whether or not the given object is frozen.<br/>
+
+###### Description
+An object is frozen if and only if it is not extensible, all its properties are non-configurable, and all its data properties (that is, properties which are not accessor properties with getter or setter components) are non-writable.
+
+###### Examples
+![eGSvO1.png](https://s2.ax1x.com/2019/07/30/eGSvO1.png)
+![eGSzex.png](https://s2.ax1x.com/2019/07/30/eGSzex.png)
+![eGpSw6.png](https://s2.ax1x.com/2019/07/30/eGpSw6.png)
+![eGpCFO.png](https://s2.ax1x.com/2019/07/30/eGpCFO.png)
+![eGpPYD.png](https://s2.ax1x.com/2019/07/30/eGpPYD.png)
+![eGpkSH.png](https://s2.ax1x.com/2019/07/30/eGpkSH.png)
+![eGpAld.png](https://s2.ax1x.com/2019/07/30/eGpAld.png)
 
 #### Object.isSealed()
-Determines if an object is sealed.
+The `Object.isSealed()` method determines if an object is sealed.
+![eGpMtS.png](https://s2.ax1x.com/2019/07/30/eGpMtS.png)
+
+###### Syntax
+![eGpD1J.png](https://s2.ax1x.com/2019/07/30/eGpD1J.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be checked.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `Boolean` indicating whether or not the given object is sealed.<br/>
+
+###### Description
+Returns `true` if the object is sealed, otherwise `false`. An object is sealed if it is not extensible and if all its properties are non-configurable and therefore not removable (but not necessarily non-writable).
+
+###### Examples
+![eGPLAx.png](https://s2.ax1x.com/2019/07/30/eGPLAx.png)
+![eGiPHI.png](https://s2.ax1x.com/2019/07/30/eGiPHI.png)
+![eGiegg.png](https://s2.ax1x.com/2019/07/30/eGiegg.png)
+![eGiMbn.png](https://s2.ax1x.com/2019/07/30/eGiMbn.png)
 
 #### Object.keys()
-Returns an array containing the names of all of the given object's own enumerable string properties.
+The `Object.keys()` method returns an array of a given object's own property names, in the same order as we get with a normal loop.
+![eGFwQg.png](https://s2.ax1x.com/2019/07/30/eGFwQg.png)
+
+###### Syntax
+![eGFbY6.png](https://s2.ax1x.com/2019/07/30/eGFbY6.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object of which the enumerable's own properties are to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array of strings that represent all the enumerable properties of the given object.<br/>
+
+###### Description
+`Object.keys()` returns an array whose elements are strings corresponding to the enumerable properties found directly upon `object`. The ordering of the properties is the same as that given by looping over the properties of the object manually.
+
+###### Examples
+![eGkx3T.png](https://s2.ax1x.com/2019/07/30/eGkx3T.png)
 
 #### Object.preventExtensions()
-Prevents any extensions of an object.
+The `Object.preventExtensions()` method prevents new properties from ever being added to an object (i.e. prevents future extensions to the object).
+![eGmkpq.png](https://s2.ax1x.com/2019/07/30/eGmkpq.png)
+
+###### Syntax
+![eGmmBF.png](https://s2.ax1x.com/2019/07/30/eGmmBF.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be made non-extensible.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The object being made non-extensible.<br/>
+
+###### Description
+An object is extensible if new properties can be added to it. `Object.preventExtensions()` marks an object as no longer extensible, so that it will never have properties beyond the ones it had at the time it was marked as non-extensible. Note that the properties of a non-extensible object, in general, may still be deleted. Attempting to add new properties to a non-extensible object will fail, either silently or by throwing a `TypeError` (most commonly, but not exclusively, when in strict mode).
+
+`Object.preventExtensions()` only prevents addition of own properties. Properties can still be added to the object prototype.
+
+This method makes the <strong>&lbrack;&lbrack;prototype&rbrack;&rbrack;</strong> of the target immutable; any <strong>&lbrack;&lbrack;prototype&rbrack;&rbrack;</strong> re-assignment will throw a TypeError. This behavior is specific to the internal <strong>&lbrack;&lbrack;prototype&rbrack;&rbrack;</strong> property, other properties of the target object will remain mutable.
+
+There is no way to make an object extensible again once it has been made non-extensible.
+
+###### Examples
+![eGuWpn.png](https://s2.ax1x.com/2019/07/30/eGuWpn.png)
+![eGuHk4.png](https://s2.ax1x.com/2019/07/30/eGuHk4.png)
+![eGuvX6.png](https://s2.ax1x.com/2019/07/30/eGuvX6.png)
 
 #### Object.seal()
 Prevents other code from deleting properties of an object.
@@ -714,17 +806,73 @@ Returns an array containing the values that correspond to all of a given object'
 ## Object instances and Object prototype object
 All objects in JavaScript are descended from <strong>Object</strong>; all objects inherit methods and properties from <strong>Object.prototype</strong>, although they may be overridden. For example, other constructors' prototypes override the <strong>constructor</strong> property and provide their own <strong>toString()</strong> methods. Changes to the <strong>Object</strong> prototype object are propagated to all objects unless the properties and methods subject to those changes are overridden further along the prototype chain.
 
-
 #### Properties
 ###### Object.prototype.constructor
 Specifies the function that creates an object's prototype.
 
 #### Methods
 ###### Object.prototype.hasOwnProperty()
-Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
+The `hasOwnProperty()` method returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).
+![eGlA39.png](https://s2.ax1x.com/2019/07/30/eGlA39.png)
+
+###### Syntax
+![eGlmB6.png](https://s2.ax1x.com/2019/07/30/eGlmB6.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>prop</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The String name or Symbol of the property to test.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A Boolean indicating whether or not the object has the specified property as own property.<br/>
+
+###### Description
+All descendents of `Object` inherit the `hasOwnProperty` method. This method can be used to determine whether an object has the specified property as a direct property of that object; unlike the `in` operator, this method does not check for a property in the object's prototype chain. If an `Object` is an `Array`, `hasOwnProperty`  method can check whether an index exists.
+
+###### Note
+`hasOwnProperty` returns true even if the value of the property is `null` or `undefined`.
+![eGlcD0.png](https://s2.ax1x.com/2019/07/30/eGlcD0.png)
+
+###### Examples
+<strong>Using hasOwnProperty to test for a property's existence</strong><br/>
+The following example determines whether the `o` object contains a property named `prop`:
+![eGlbb6.png](https://s2.ax1x.com/2019/07/30/eGlbb6.png)
+
+<strong>Direct vs. inherited properties</strong><br/>
+The following example differentiates between direct properties and properties inherited through the prototype chain:
+![eGlz2d.png](https://s2.ax1x.com/2019/07/30/eGlz2d.png)
+
+<strong>Iterating over the properties of an object</strong><br/>
+The following example shows how to iterate over the properties of an object without executing on inherited properties. Note that the `for...in` loop is already only iterating enumerable items, so one should not assume based on the lack of non-enumerable properties shown in the loop that `hasOwnProperty` itself is confined strictly to enumerable items (as with `Object.getOwnPropertyNames()`).
+![eG13IU.png](https://s2.ax1x.com/2019/07/30/eG13IU.png)
+
+<strong>Using hasOwnProperty as a property name</strong><br/>
+JavaScript does not protect the property name `hasOwnProperty`; thus, if the possibility exists that an object might have a property with this name, it is necessary to use an external `hasOwnProperty` to get correct results:
+![eG1as1.png](https://s2.ax1x.com/2019/07/30/eG1as1.png)
+Note that in the last case there are no newly created objects.
 
 ###### Object.prototype.isPrototypeOf()
-Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
+The `isPrototypeOf()` method checks if an object exists in another object's prototype chain.
+![eG3l6A.png](https://s2.ax1x.com/2019/07/30/eG3l6A.png)
+
+###### Syntax
+![eG3NtS.png](https://s2.ax1x.com/2019/07/30/eG3NtS.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>object</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose prototype chain will be searched.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A `Boolean` indicating whether the calling object lies in the prototype chain of the specified object.<br/>
+&nbsp;&nbsp;<strong>Errors thrown</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>TypeError</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A `TypeError` is thrown if `prototypeObj` is undefined or null.<br/>
+
+###### Description
+The `isPrototypeOf()` method allows you to check whether or not an object exists within another object's prototype chain.
+
+###### Examples
+This example demonstrates that `Baz.prototype`, `Bar.prototype`, `Foo.prototype` and `Object.prototype` exist in the prototype chain for object `baz`:
+![eG8SBt.png](https://s2.ax1x.com/2019/07/30/eG8SBt.png)
+`isPrototypeOf()` method, along with the `instanceof` operator particularly comes in handy if you have code that can only function when dealing with objects descended from a specific prototype chain, e.g., to guarantee that certain methods or properties will be present on that object.
+
+For example, check if `baz` object descends from `Foo.prototype`:
+![eG8CAf.png](https://s2.ax1x.com/2019/07/30/eG8CAf.png)
 
 ###### Object.prototype.propertyIsEnumerable()
 Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
