@@ -795,13 +795,49 @@ There is no way to make an object extensible again once it has been made non-ext
 ![eGuvX6.png](https://s2.ax1x.com/2019/07/30/eGuvX6.png)
 
 #### Object.seal()
-Prevents other code from deleting properties of an object.
+The `Object.seal()` method seals an object, preventing new properties from being added to it and marking all existing properties as non-configurable. Values of present properties can still be changed as long as they are writable.
+![eYtfwd.png](https://s2.ax1x.com/2019/07/31/eYtfwd.png)
+
+###### Syntax
+![eYthTA.png](https://s2.ax1x.com/2019/07/31/eYthTA.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object which should be sealed.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The object being sealed.<br/>
+
+###### Description
+By default, objects are extensible (new properties can be added to them). Sealing an object prevents new properties from being added and marks all existing properties as non-configurable. This has the effect of making the set of properties on the object fixed and immutable. Making all properties non-configurable also prevents them from being converted from data properties to accessor properties and vice versa, but it does not prevent the values of data properties from being changed. Attempting to delete or add properties to a sealed object, or to convert a data property to accessor or vice versa, will fail, either silently or by throwing a `TypeError` (most commonly, although not exclusively, when in strict mode code).
+
+The prototype chain remains untouched. However, the `__proto__`  property is sealed as well.
+
+###### Examples
+![eYNIHJ.png](https://s2.ax1x.com/2019/07/31/eYNIHJ.png)
+![eYNTE9.png](https://s2.ax1x.com/2019/07/31/eYNTE9.png)
+![eYNvuD.png](https://s2.ax1x.com/2019/07/31/eYNvuD.png)
+![eYNxDe.png](https://s2.ax1x.com/2019/07/31/eYNxDe.png)
 
 #### Object.setPrototypeOf()
 Sets the prototype (i.e., the internal [[Prototype]] property).
 
 #### Object.values()
-Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
+The `Object.values()` method returns an array of a given object's own enumerable property values, in the same order as that provided by a `for...in` loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).
+![eYU12V.png](https://s2.ax1x.com/2019/07/31/eYU12V.png)
+
+###### Syntax
+![eYUYb4.png](https://s2.ax1x.com/2019/07/31/eYUYb4.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>obj</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The object whose enumerable own property values are to be returned.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;An array containing the given object's own enumerable property values.<br/>
+
+###### Description
+`Object.values()` returns an array whose elements are the enumerable property values found on the object. The ordering of the properties is the same as that given by looping over the property values of the object manually.
+
+###### Examples
+![eYapsU.png](https://s2.ax1x.com/2019/07/31/eYapsU.png)
+![eYaFo9.png](https://s2.ax1x.com/2019/07/31/eYaFo9.png)
 
 ## Object instances and Object prototype object
 All objects in JavaScript are descended from <strong>Object</strong>; all objects inherit methods and properties from <strong>Object.prototype</strong>, although they may be overridden. For example, other constructors' prototypes override the <strong>constructor</strong> property and provide their own <strong>toString()</strong> methods. Changes to the <strong>Object</strong> prototype object are propagated to all objects unless the properties and methods subject to those changes are overridden further along the prototype chain.
@@ -875,13 +911,108 @@ For example, check if `baz` object descends from `Foo.prototype`:
 ![eG8CAf.png](https://s2.ax1x.com/2019/07/30/eG8CAf.png)
 
 ###### Object.prototype.propertyIsEnumerable()
-Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
+The `propertyIsEnumerable()` method returns a Boolean indicating whether the specified property is enumerable.
+![eYMFIS.png](https://s2.ax1x.com/2019/07/31/eYMFIS.png)
+
+###### Syntax
+![eYMZxs.png](https://s2.ax1x.com/2019/07/31/eYMZxs.png)
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong><ins>prop</ins></strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The name of the property to test.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A Boolean indicating whether the specified property is enumerable.<br/>
+
+###### Description
+Every object has a `propertyIsEnumerable` method. This method can determine whether the specified property in an object can be enumerated by a `for...in` loop, with the exception of properties inherited through the prototype chain. If the object does not have the specified property, this method returns `false`.
+
+###### Examples   
+<strong>A basic use of propertyIsEnumerable</strong><br/>
+The following example shows the use of `propertyIsEnumerable` on objects and arrays:
+![eYMGRJ.png](https://s2.ax1x.com/2019/07/31/eYMGRJ.png)
+
+<strong>User-defined vs. built-in objects</strong><br/>
+The following example demonstrates the enumerability of user-defined vs. built-in properties:
+![eYMrJe.png](https://s2.ax1x.com/2019/07/31/eYMrJe.png)
+
+<strong>Direct vs. inherited properties</strong><br/>
+![eYMbyn.png](https://s2.ax1x.com/2019/07/31/eYMbyn.png)
+![eYMqLq.png](https://s2.ax1x.com/2019/07/31/eYMqLq.png)
 
 ###### Object.prototype.toLocaleString()
-Calls toString().
+The `toLocaleString()` method returns a string representing the object. This method is meant to be overridden by derived objects for locale-specific purposes.
+![eYQ4n1.png](https://s2.ax1x.com/2019/07/31/eYQ4n1.png)
+
+###### Syntax
+![eYQ7tO.png](https://s2.ax1x.com/2019/07/31/eYQ7tO.png)
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A string representing the object.<br/>
+
+###### Description
+`Object`'s `toLocaleString` returns the result of calling `toString()`.
+
+This function is provided to give objects a generic `toLocaleString` method, even though not all may use it. See the list below.
+
+<strong>Objects overriding toLocaleString</strong><br/>
+- Array: Array.prototype.toLocaleString()
+- Number: Number.prototype.toLocaleString()
+- Date: Date.prototype.toLocaleString()
 
 ###### Object.prototype.toString()
-Returns a string representation of the object.
+The `toString()` method returns a string representing the object.
+![eY38Tx.png](https://s2.ax1x.com/2019/07/31/eY38Tx.png)
+
+###### Syntax
+![eY3a1e.png](https://s2.ax1x.com/2019/07/31/eY3a1e.png)
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A string representing the object.<br/>
+
+###### Description
+Every object has a `toString()` method that is automatically called when the object is to be represented as a text value or when an object is referred to in a manner in which a string is expected. By default, the `toString()` method is inherited by every object descended from `Object`. If this method is not overridden in a custom object, `toString()` returns "[object type]", where `type` is the object type. The following code illustrates this:
+![eY3ch8.png](https://s2.ax1x.com/2019/07/31/eY3ch8.png)
+
+###### Examples
+<strong>Overriding the default toString method</strong><br/>
+You can create a function to be called in place of the default `toString()` method. The `toString()` method takes no arguments and should return a string. The `toString()` method you create can be any value you want, but it will be most useful if it carries information about the object.
+
+The following code defines the `Dog` object type and creates `theDog`, an object of type `Dog`:
+![eY8ZDA.png](https://s2.ax1x.com/2019/07/31/eY8ZDA.png)
+If you call the `toString()` method on this custom object, it returns the default value inherited from `Object`:
+![eY81gg.png](https://s2.ax1x.com/2019/07/31/eY81gg.png)
+The following code creates and assigns `dogToString()` to override the default `toString()` method. This function generates a string containing the name, breed, color, and sex of the object, in the form &quot;`property = value`;&quot;.
+![eY8XPf.png](https://s2.ax1x.com/2019/07/31/eY8XPf.png)
+With the preceding code in place, any time `theDog` is used in a string context, JavaScript automatically calls the `dogToString()` function, which returns the following string:
+![eYGprj.png](https://s2.ax1x.com/2019/07/31/eYGprj.png)
+
+<strong>Using toString() to detect object class</strong><br/>
+`toString()` can be used with every object and allows you to get its class. To use the `Object.prototype.toString()` with every object, you need to call `Function.prototype.call()` or `Function.prototype.apply()` on it, passing the object you want to inspect as the first parameter called `thisArg`.
+![eYGQd1.png](https://s2.ax1x.com/2019/07/31/eYGQd1.png)
 
 ###### Object.prototype.valueOf()
-Returns the primitive value of the specified object.
+The `valueOf()` method returns the primitive value of the specified object.
+![eYJ87n.png](https://s2.ax1x.com/2019/07/31/eYJ87n.png)
+
+###### Syntax
+![eYJUpT.png](https://s2.ax1x.com/2019/07/31/eYJUpT.png)
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The primitive value of the specified object.<br/>
+
+###### Description
+JavaScript calls the `valueOf` method to convert an object to a primitive value. You rarely need to invoke the `valueOf` method yourself; JavaScript automatically invokes it when encountering an object where a primitive value is expected.
+
+By default, the `valueOf` method is inherited by every object descended from `Object`. Every built-in core object overrides this method to return an appropriate value. If an object has no primitive value, `valueOf` returns the object itself.
+
+You can use `valueOf` within your own code to convert a built-in object into a primitive value. When you create a custom object, you can override `Object.prototype.valueOf()` to call a custom method instead of the default `Object` method.
+
+<strong>Overriding valueOf for custom objects</strong><br/>
+You can create a function to be called in place of the default `valueOf` method. Your function must take no arguments.
+
+Suppose you have an object type `MyNumberType` and you want to create a `valueOf` method for it. The following code assigns a user-defined function to the object's `valueOf` method:
+![eYJWcD.png](https://s2.ax1x.com/2019/07/31/eYJWcD.png)
+With the preceding code in place, any time an object of type `MyNumberType` is used in a context where it is to be represented as a primitive value, JavaScript automatically calls the function defined in the preceding code.
+
+An object's `valueOf` method is usually invoked by JavaScript, but you can invoke it yourself as follows:
+![eYJ5Bd.png](https://s2.ax1x.com/2019/07/31/eYJ5Bd.png)
+
+###### Examples
+<strong>Using valueOf</strong><br/>
+![eYJIHA.png](https://s2.ax1x.com/2019/07/31/eYJIHA.png)
