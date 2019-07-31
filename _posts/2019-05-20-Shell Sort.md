@@ -10,10 +10,14 @@ tags:
   - Data Structure
 ---
 
+- [Overview](#overview)
 - [Features](#features)
-- [Implementation in C](#implementation-in-c)
+- [Description](#description)
 - [Pseudocode](#pseudocode)
-- [Links](#links)
+- [Implementation in C](#implementation-in-c)
+
+## Overview
+<strong>Shellsort</strong>, also known as <strong>Shell sort</strong> or <strong>Shell's method</strong>, is an in-place Comparison Sort. It can be seen as either a generalization of sorting by exchange (Bubble Sort) or sorting by insertion (Insertion Sort). The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared. Starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange. Donald Shell published the first version of this sort in 1959. The running time of Shellsort is heavily dependent on the gap sequence it uses. For many practical variants, determining their time complexity remains an open problem.
 
 ## Features
 <table>
@@ -33,7 +37,7 @@ tags:
         </tr>
         <tr>
             <td>Worst-case performance</td>
-            <td>O(n2) (worst known worst case gap sequence)</td>
+            <td>O(n<sup>2</sup>) (worst known worst case gap sequence)</td>
         </tr>
         <tr>
             <td>Best-case performance</td>
@@ -49,6 +53,17 @@ tags:
         </tr>
     </tbody>
 </table>
+
+## Description
+Shellsort is a generalization of Insertion Sort that allows the exchange of items that are far apart. The idea is to arrange the list of elements so that, starting anywhere, considering every `hth` element gives a sorted list. Such a list is said to be `h-sorted`. Equivalently, it can be thought of as `h` interleaved lists, each individually sorted. Beginning with large values of `h`, this rearrangement allows elements to move long distances in the original list, reducing large amounts of disorder quickly, and leaving less work for smaller `h-sort` steps to do. If the list is then `k-sorted` for some smaller integer `k`, then the list remains `h-sorted`. Following this idea for a decreasing sequence of `h` values ending in 1 is guaranteed to leave a sorted list in the end.
+
+An example run of Shellsort with gaps `5`, `3` and `1` is shown below.
+![eYnwdS.png](https://s2.ax1x.com/2019/07/31/eYnwdS.png)
+The first pass, 5-sorting, performs insertion sort on five separate subarrays `(a1, a6, a11)`, `(a2, a7, a12)`, `(a3, a8)`, `(a4, a9)`, `(a5, a10)`. For instance, it changes the subarray `(a1, a6, a11)` from `(62, 17, 25)` to `(17, 25, 62)`. The next pass, 3-sorting, performs insertion sort on the three subarrays `(a1, a4, a7, a10)`, `(a2, a5, a8, a11)`, `(a3, a6, a9, a12)`. The last pass, 1-sorting, is an ordinary insertion sort of the entire array `(a1,..., a12)`.
+
+As the example illustrates, the subarrays that Shellsort operates on are initially short; later they are longer but almost ordered. In both cases insertion sort works efficiently.
+
+Shellsort is <strong>not stable</strong>: it may change the relative order of elements with equal values. It is an adaptive sorting algorithm in that it executes faster when the input is partially sorted.
 
 ## Pseudocode
 ```js
@@ -78,6 +93,9 @@ foreach (gap in gaps)
 ```
 
 ## Implementation in C
+![eYnIJJ.png](https://s2.ax1x.com/2019/07/31/eYnIJJ.png)
+![eYnTzR.png](https://s2.ax1x.com/2019/07/31/eYnTzR.png)
+![eYnbsx.png](https://s2.ax1x.com/2019/07/31/eYnbsx.png)
 ```cpp
 #include <stdio.h>
 
@@ -118,6 +136,3 @@ int main()
 }
 
 ```
-
-## Links
-[Origin Article](https://www.geeksforgeeks.org/shellsort/)

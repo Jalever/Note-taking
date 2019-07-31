@@ -9,6 +9,11 @@ catalog: true
 tags:
   - Typescript
 ---
+- [The Benefits of Using TypeScript](#the-benefits-of-using-typeScript)
+- [Static Typing](#static-typing)
+- [Interfaces](#interfaces)
+- [Classes](#classes)
+- [Generics](#generics)
 
 ## The Benefits of Using TypeScript
 JavaScript is pretty good as it is and you may wonder Do I really need to learn TypeScript? Technically, you do not need to learn TypeScript to be a good developer, most people do just fine without it. However, working with TypeScript definitely has its benefits:
@@ -47,6 +52,20 @@ The order of the properties does NOT matter. We just need the required propertie
 ![eGYf56.png](https://s2.ax1x.com/2019/07/30/eGYf56.png)
 
 ## Classes
+When building large scale apps, the object oriented style of programming is preferred by many developers, most notably in languages such as Java or C#. TypeScript offers a class system that is very similar to the one in these languages, including inheritance, abstract classes, interface implementations, setters/getters, and more.
+
+It's also fair to mention that since the most recent JavaScript update (ECMAScript 2015), classes are native to vanilla JS and can be used without TypeScript. The two implementation are very similar but have their differences, TypeScript being a bit more strict.
+
+Continuing with the food theme, here is a simple TypeScript class:
+![eGRq58.png](https://s2.ax1x.com/2019/07/30/eGRq58.png)
+![eGROPS.png](https://s2.ax1x.com/2019/07/30/eGROPS.png)
+Anyone who has written at least a bit of Java or C# should find this syntax comfortably familiar. The same goes for inheritance:
+![eGWmrR.png](https://s2.ax1x.com/2019/07/30/eGWmrR.png)
+![eGWKVx.png](https://s2.ax1x.com/2019/07/30/eGWKVx.png)
 
 ## Generics
-## Modules
+Generics are templates that allow the same function to accept arguments of various different types. Creating reusable components using generics is better than using the any data type, as generics preserve the types of the variables that go in and out of them.
+
+A quick example would be a script that receives an argument and returns an array containing that same argument.
+![eGWNqI.png](https://s2.ax1x.com/2019/07/30/eGWNqI.png)
+The first time we called the function we manually set the type to string. This isn't required as the compiler can see what argument has been passed and automatically decide what type suits it best, like in the second call. Although it's not mandatory, providing the type every time is considered good practice as the compiler might fail to guess the right type in more complex scenarios.

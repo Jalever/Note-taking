@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Graph)BFS
-subtitle: Data Structure学习笔记系列
+subtitle: Data Structure Traverse
 date: 2019-05-30
 author: Jalever
 header-img: img/post-bg-star.jpg
