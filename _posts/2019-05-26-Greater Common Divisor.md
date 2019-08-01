@@ -4,11 +4,12 @@ title: Greater Common Divisor
 subtitle: Mathematical Algorithms
 date: 2019-05-26
 author: Jalever
-header-img: img/home-bg-math.jpg
+header-img: img/math_bg_simple.png
 catalog: true
 tags:
-  - Algorithm
+  - Mathematics
 ---
+
 ## Binary GCD Algorithm
 
 ## Implementation in C
