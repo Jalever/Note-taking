@@ -109,5 +109,104 @@ Example usage:
 ![eUmgYD.png](https://s2.ax1x.com/2019/08/01/eUmgYD.png)
 
 ###### Function.prototype.bind()
+The `bind()` method creates a new function that, when called, has its `this` keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+![eUG8gK.png](https://s2.ax1x.com/2019/08/01/eUG8gK.png)
+
+<strong>Syntax</strong><br/>
+![eUG580.png](https://s2.ax1x.com/2019/08/01/eUG580.png)
+
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The value to be passed as the `this` parameter to the target function when the bound function is called. The value is ignored if the bound function is constructed using the `new` operator. When using `bind` to create a function(supplied as a callback) inside a `setTimeout`, any primitive value passed as `thisArg` is converted to object. If no arguments are provided to `bind`, the `this` of the executing scope is treated as the `thisArg` for the new function.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>arg1, arg2, ...</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arguments to prepend to arguments provided to the bound function when invoking the target function.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;A copy of the given function with the specified this `value` and initial arguments.<br/>
+
+<strong>Description</strong><br/>
+The `bind()` function creates a new <strong>bound function</strong>, which is an exotic function object (a term from ECMAScript 2015) that wraps the original function object. Calling the bound function generally results in the execution of its wrapped function.
+
+A bound function has the following internal properties:
+
+- <strong>&lsqb;&lsqb;BoundTargetFunction&rsqb;&rsqb;</strong> - the wrapped function object;
+- <strong>&lsqb;&lsqb;BoundThis&rsqb;&rsqb;</strong> - the value that is always passed as this value when calling the wrapped function.
+- <strong>&lsqb;&lsqb;BoundArguments&rsqb;&rsqb;</strong> - a list of values whose elements are used as the first arguments to any call to the wrapped function.
+- <strong>&lsqb;&lsqb;Call&rsqb;&rsqb;</strong> - executes code associated with this object. Invoked via a function call expression. The arguments to the internal method are a this value and a list containing the arguments passed to the function by a call expression.
+When a bound function is called, it calls internal method <strong>&lsqb;&lsqb;Call&rsqb;&rsqb;</strong> on <strong>&lsqb;&lsqb;BoundTargetFunction&rsqb;&rsqb;</strong>, with following arguments <strong>Call(boundThis, args)</strong>. Where, <strong>boundThis</strong> is <strong>&lsqb;&lsqb;BoundThis&rsqb;&rsqb;</strong>, <strong>args</strong> is <strong>&lsqb;&lsqb;BoundArguments&rsqb;&rsqb;</strong> followed by the arguments passed by the function call.
+
+A bound function may also be constructed using the <strong>new</strong> operator: doing so acts as though the target function had instead been constructed. The provided <strong>this</strong> value is ignored, while prepended arguments are provided to the emulated function.
+
+<strong>Examples</strong><br/>
+1.<ins>Creating a bound function</ins><br/>
+The simplest use of `bind()` is to make a function that, no matter how it is called, is called with a particular `this` value. A common mistake for new JavaScript programmers is to extract a method from an object, then to later call that function and expect it to use the original object as its `this` (e.g. by using that method in callback-based code). Without special care, however, the original object is usually lost. Creating a bound function from the function, using the original object, neatly solves this problem:
+![eUJ7Wt.png](https://s2.ax1x.com/2019/08/01/eUJ7Wt.png)
+
+2.<ins>Partially applied functions</ins><br/>
+The next simplest use of `bind()` is to make a function with pre-specified initial arguments. These arguments (if any) follow the provided `this` value and are then inserted at the start of the arguments passed to the target function, followed by the arguments passed to the bound function, whenever the bound function is called.
+![eUYMSx.png](https://s2.ax1x.com/2019/08/01/eUYMSx.png)
+![eUYQl6.png](https://s2.ax1x.com/2019/08/01/eUYQl6.png)
+![eUY1OO.png](https://s2.ax1x.com/2019/08/01/eUY1OO.png)
+
+3.<ins>With setTimeout()</ins><br/>
+By default within `window.setTimeout()`, the `this` keyword will be set to the `window` (or `global`) object. When working with class methods that require `this` to refer to class instances, you may explicitly bind `this` to the callback function, in order to maintain the instance.
+![eUtCAH.png](https://s2.ax1x.com/2019/08/01/eUtCAH.png)
+
+3.<ins>Bound functions used as constructors</ins><br/>
+Bound functions are automatically suitable for use with the `new` operator to construct new instances created by the target function. When a bound function is used to construct a value, the provided `this` is ignored. However, provided arguments are still prepended to the constructor call:
+![eUUX3n.png](https://s2.ax1x.com/2019/08/01/eUUX3n.png)
+![eUaMUe.png](https://s2.ax1x.com/2019/08/01/eUaMUe.png)
+Note that you need do nothing special to create a bound function for use with `new`. The corollary is that you need do nothing special to create a bound function to be called plainly, even if you would rather require the bound function to only be called using `new`.
+![eUdViQ.png](https://s2.ax1x.com/2019/08/01/eUdViQ.png)
+If you wish to support the use of a bound function only using new, or only by calling it, the target function must enforce that restriction.
+
+4.<ins>Creating shortcuts</ins><br/>
+`bind()` is also helpful in cases where you want to create a shortcut to a function which requires a specific `this` value.
+
+Take `Array.prototype.slice`, for example, which you want to use for converting an array-like object to a real array. You could create a shortcut like this:
+![eUwPp9.png](https://s2.ax1x.com/2019/08/01/eUwPp9.png)
+With `bind()`, this can be simplified. In the following piece of code, `slice` is a bound function to the `apply()` function of `Function.prototype`, with the `this` value set to the `slice()` function of `Array.prototype`. This means that additional `apply()` calls can be eliminated:
+![eUwZTO.png](https://s2.ax1x.com/2019/08/01/eUwZTO.png)
+
 ###### Function.prototype.call()
+The call() method calls a function with a given this value and arguments provided individually.
+> While the syntax of this function is almost identical to that of `apply()`, the fundamental difference is that `call()` accepts an <strong>argument list</strong>, while `apply()` accepts a <strong>single array of arguments</strong>.
+![eUKUfS.png](https://s2.ax1x.com/2019/08/01/eUKUfS.png)
+
+<strong>Syntax</strong><br/>
+![eUK2fU.png](https://s2.ax1x.com/2019/08/01/eUK2fU.png)
+
+&nbsp;&nbsp;<strong>Parameters</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>thisArg</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional. The value of `this` provided for the call to a `function`. Note that `this` may not be the actual value seen by the method: if the method is a function in non-strict mode, `null` and `undefined` will be replaced with the global object and primitive values will be converted to objects.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>arg1, arg2, ...</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional. Arguments for the function.<br/>
+&nbsp;&nbsp;<strong>Return value</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The result of calling the function with the specified `this` value and arguments.<br/>
+
+<strong>Description</strong><br/>
+The `call()` allows for a function/method belonging to one object to be assigned and called for a different object.
+
+`call()` provides a new value of <strong>this</strong> to the function/method. With `call`, you can write a method once and then inherit it in another object, without having to rewrite the method for the new object.
+
+
+<strong>Examples</strong><br/>
+1.<ins>Using `call` to chain constructors for an object</ins><br/>
+You can use call to chain constructors for an object, similar to Java. In the following example, the constructor for the `Product` object is defined with two parameters, `name` and `price`. Two other functions `Food` and `Toy` invoke `Product` passing `this` and `name` and `price`. Product initializes the properties `name` and `price`, both specialized functions define the `category`.
+![eUMrge.png](https://s2.ax1x.com/2019/08/01/eUMrge.png)
+
+2.<ins>Using call to invoke an anonymous function</ins><br/>
+In this example, we create an anonymous function and use `call` to invoke it on every object in an array. The main purpose of the anonymous function here is to add a print function to every object, which is able to print the right index of the object in the array. Passing the object as `this` value was not strictly necessary, but is done for explanatory purpose.
+![eUQBaq.png](https://s2.ax1x.com/2019/08/01/eUQBaq.png)
+
+3.<ins>Using call to invoke a function and specifying the context for 'this'</ins><br/>
+In the example below, when we call `greet`, the value of `this` will be bound to object `obj`.
+![eUQ4d1.png](https://s2.ax1x.com/2019/08/01/eUQ4d1.png)
+
+4.<ins>Using call to invoke a function and without specifying the first argument</ins><br/>
+In the example below, we invoke the `display` function without passing the first argument. If the first argument is not passed, the value of `this` is bound to the global object.
+![eUQvdI.png](https://s2.ax1x.com/2019/08/01/eUQvdI.png)
+> The value of this will be undefined in strict mode. See below.
+
+![eUlEes.png](https://s2.ax1x.com/2019/08/01/eUlEes.png)
+
 ###### Function.prototype.toString()
