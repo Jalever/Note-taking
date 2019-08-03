@@ -82,10 +82,70 @@ The default way to “resolve” URLs is to join the match.url string to the “
 If you attempt to do this when the match is null, you will end up with a <strong>TypeError</strong>. This means that it is considered unsafe to attempt to join “relative” paths inside of a &lt;Route&gt; when using the children prop.
 
 A similar, but more subtle situation occurs when you use a pathless <Route> inside of a &lt;Route&gt; that generates a null match object.
+
 ![err3BF.png](https://s2.ax1x.com/2019/08/03/err3BF.png)
+
 Pathless &lt;Route&gt;s inherit their <strong>match</strong> object from their parent. If their parent match is <strong>null</strong>, then their match will also be <strong>null</strong>. This means that<br/>
 a) any child routes/links will have to be absolute because there is no parent to resolve with and<br/>
 b) a pathless route whose parent <strong>match</strong> can be <strong>null</strong> will need to use the <strong>children</strong> prop to render.
+
+###### location
+Locations represent where the app is now, where you want it to go, or even where it was. It looks like this:
+![er4Dk6.png](https://s2.ax1x.com/2019/08/03/er4Dk6.png)
+The router will provide you with a location object in a few places:
+- <strong>Route component</strong> as `this.props.location`
+- <strong>Route render</strong> as `({ location }) => ()`
+- <strong>Route children</strong> as `({ location }) => ()`
+- <strong>withRouter</strong> as `this.props.location`
+
+It is also found on <strong>history.location</strong> but you shouldn’t use that because its mutable. You can read more about that in the <strong>history</strong> doc.
+
+A location object is never mutated so you can use it in the lifecycle hooks to determine when navigation happens, this is really useful for data fetching and animation.
+![er4XBn.png](https://s2.ax1x.com/2019/08/03/er4XBn.png)
+You can provide locations instead of strings to the various places that navigate:
+- Web Link to
+- Native Link to
+- Redirect to
+- history.push
+- history.replace
+
+Normally you just use a string, but if you need to add some “location state” that will be available whenever the app returns to that specific location, you can use a location object instead. This is useful if you want to branch UI based on navigation history instead of just paths (like modals).
+![er5eN6.png](https://s2.ax1x.com/2019/08/03/er5eN6.png)
+
+Finally, you can pass a location to the following components:
+- Route
+- Switch
+
+This will prevent them from using the actual location in the router’s state. This is useful for animation and pending navigation, or any time you want to trick a component into rendering at a different location than the real one.
+
+###### history
+The term “history” and "history object" in this documentation refers to <ins>the history package</ins>[a NPM Package], which is one of only 2 major dependencies of React Router (besides <strong>React</strong> itself), and which provides several different implementations for managing session history in JavaScript in various environments.
+
+The following terms are also used:
+- <strong>browser history</strong> &dash; A DOM-specific implementation, useful in web browsers that support the HTML5 history API
+- <strong>hash history</strong> &dash; A DOM-specific implementation for legacy web browsers
+- <strong>memory history</strong> &dash; An in-memory history implementation, useful in testing and non-DOM environments like React Native
+
+history objects typically have the following properties and methods:
+
+- <strong>length</strong> &dash; (number) The number of entries in the history stack
+- <strong>action</strong> &dash; (string) The current action (PUSH, REPLACE, or POP)
+- <strong>location</strong> &dash; (object) The current location. May have the following properties:
+- <strong>pathname</strong> &dash; (string) The path of the URL
+- <strong>search</strong> &dash; (string) The URL query string
+- <strong>hash</strong> &dash; (string) The URL hash fragment
+- <strong>state</strong> &dash; (object) location-specific state that was provided to e.g. push(path, state) when this location was pushed onto the stack. Only available in browser and memory history.
+- <strong>push(path, [state])</strong> &dash; (function) Pushes a new entry onto the history stack
+- <strong>replace(path, [state])</strong> &dash; (function) Replaces the current entry on the history stack
+- <strong>go(n)</strong> &dash; (function) Moves the pointer in the history stack by n entries
+- <strong>goBack()</strong> &dash; (function) Equivalent to go(-1)
+- <strong>goForward()</strong> &dash; (function) Equivalent to go(1)
+- <strong>block(prompt)</strong> &dash; (function) Prevents navigation
+
+<strong>history is mutable.</strong>
+
+The <strong>history</strong> object is mutable. Therefore it is recommended to access the <strong>location</strong> from the render props of &lt;Route&gt;, not from <strong>history.location</strong>. This ensures your assumptions about React are correct in lifecycle hooks. For example:
+![er5O2D.png](https://s2.ax1x.com/2019/08/03/er5O2D.png)
 
 #### path
 data type: `string` | `string[]`
