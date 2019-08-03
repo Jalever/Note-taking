@@ -1,0 +1,192 @@
+---
+layout: post
+title: (React Router)Getting started with React Router
+subtitle: React Router API Reference
+date: 2019-08-03
+author: Jalever
+header-img: img/post_2019_react_bg_shadow.jpg
+catalog: true
+tags:
+  - React
+---
+
+## Route
+The Route component is perhaps the most important component in React Router to understand and learn to use well. Its most basic responsibility is to render some UI when a location matches the route’s path.
+
+Consider the following code:
+![eD2fSA.png](https://s2.ax1x.com/2019/08/03/eD2fSA.png)
+If the location of the app is `/` then the UI hierarchy will be something like:
+![eD2hQI.png](https://s2.ax1x.com/2019/08/03/eD2hQI.png)
+And if the location of the app is `/news` then the UI hierarchy will be:
+![eDRElR.png](https://s2.ax1x.com/2019/08/03/eDRElR.png)
+
+#### Route render methods
+There are 3 ways to render something with a <Route>:
+- <Route component>
+- <Route render>
+- <Route children>
+
+Each is useful in different circumstances. You should use only one of these props on a given <Route>.
+
+###### <Route component>
+A React component to render only when the location matches. It will be rendered with route props.
+![eDWSgA.png](https://s2.ax1x.com/2019/08/03/eDWSgA.png)
+When you use <strong>component</strong> (instead of <strong>render</strong> or <strong>children</strong>) the router uses <strong>React.createElement</strong> to create a new <strong>React element</strong> from the given component. That means if you provide an inline function to the <strong>component</strong> prop, you would create a new component every render. This results in the existing component unmounting and the new component mounting instead of just updating the existing component. When using an inline function for inline rendering, use the render or the children prop.
+
+###### <Route render>
+This allows for convenient inline rendering and wrapping without the undesired remounting explained above.
+
+Instead of having a new <strong>React element</strong> created for you using the <strong>component</strong> prop, you can pass in a function to be called when the location matches. The render prop function has access to all the same <strong>route props</strong> (<strong>match</strong>, <strong>location</strong> and <strong>history</strong>) as the component render prop.
+![eDfGeP.png](https://s2.ax1x.com/2019/08/03/eDfGeP.png)
+
+> <strong><Route component></strong> takes precedence over <strong><Route render></strong> so don’t use both in the same <Route>.
+
+###### <Route children>
+Sometimes you need to render whether the path matches the location or not. In these cases, you can use the function <strong>children</strong> prop. It works exactly like <strong>render</strong> except that it gets called whether there is a match or not.
+
+The <strong>children</strong> render prop receives all the same <strong>route props</strong> as the <strong>component</strong> and <strong>render</strong> methods, except when a route fails to match the URL, then <strong>match</strong> is <strong>null</strong>. This allows you to dynamically adjust your UI based on whether or not the route matches. Here we’re adding an active class if the route matches
+![eDhp0P.png](https://s2.ax1x.com/2019/08/03/eDhp0P.png)
+This could also be useful for animations:
+![eD7FhV.png](https://s2.ax1x.com/2019/08/03/eD7FhV.png)
+
+> Both <strong><Route component></strong> and <strong><Route render></strong> take precedence over <strong><Route children></strong> so don’t use more than one in the same <strong><Route></strong>.
+
+#### Route props
+All three <strong>render methods</strong> will be passed the same three route props
+- match
+- location
+- history
+
+#### path
+data type: string | string[]
+
+Any valid URL path or array of paths that <strong>path-to-regexp@^1.7.0</strong> understands.
+![eDbJwd.png](https://s2.ax1x.com/2019/08/03/eDbJwd.png)
+Routes without a <strong>path</strong> always match.
+
+#### exact
+data type: bool
+
+When true, will only match if the path matches the <strong>location.pathname</strong> exactly.
+<table>
+    <thead>
+        <tr>
+            <td>path</td>
+            <td>location.pathname</td>
+            <td>exact</td>
+            <td>matches?</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/one</td>
+            <td>/one/two</td>
+            <td>true</td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>/one</td>
+            <td>/one/two</td>
+            <td>false</td>
+            <td>yes</td>
+        </tr>
+    </tbody>
+</table>
+
+#### strict
+data type: bool
+
+When true, a path that has a trailing slash will only match a <strong>location.pathname</strong> with a trailing slash. This has no effect when there are additional URL segments in the <strong>location.pathname</strong>.
+![eDLMrD.png](https://s2.ax1x.com/2019/08/03/eDLMrD.png)
+<table>
+    <thead>
+        <tr>
+            <td>path</td>
+            <td>location.pathname</td>
+            <td>matches?</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/one</td>
+            <td>/one</td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>/one</td>
+            <td>/one/</td>
+            <td>yes</td>
+        </tr>
+        <tr>
+            <td>/one</td>
+            <td>/one/two</td>
+            <td>yes</td>
+        </tr>
+    </tbody>
+</table>
+
+> <strong>strict</strong> can be used to enforce that a <strong>location.pathname</strong> has no trailing slash, but in order to do this both <strong>strict</strong> and <strong>exact</strong> must be true.
+
+![eDLE5R.png](https://s2.ax1x.com/2019/08/03/eDLE5R.png)
+<table>
+    <thead>
+        <tr>
+            <td>path</td>
+            <td>location.pathname</td>
+            <td>matches?</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/one</td>
+            <td>/one</td>
+            <td>yes</td>
+        </tr>
+        <tr>
+            <td>/one</td>
+            <td>/one/</td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>/one</td>
+            <td>/one/two</td>
+            <td>no</td>
+        </tr>
+    </tbody>
+</table>
+
+#### sensitive
+data type: bool
+
+When <strong>true</strong>, will match if the path is <strong>case sensitive</strong>.
+![eDLxdH.png](https://s2.ax1x.com/2019/08/03/eDLxdH.png)
+<table>
+    <thead>
+        <tr>
+            <td>path</td>
+            <td>location.pathname</td>
+            <td>sensitive</td>
+            <td>matches?</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/one</td>
+            <td>/one</td>
+            <td>true</td>
+            <td>yes</td>
+        </tr>
+        <tr>
+            <td>/One</td>
+            <td>/one</td>
+            <td>true</td>
+            <td>no</td>
+        </tr>
+        <tr>
+            <td>/One</td>
+            <td>/one</td>
+            <td>false</td>
+            <td>no</td>
+        </tr>
+    </tbody>
+</table>
