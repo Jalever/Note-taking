@@ -31,12 +31,12 @@ Each is useful in different circumstances. You should use only one of these prop
 ###### &lt;Route component&gt;
 A React component to render only when the location matches. It will be rendered with route props.
 ![eDWSgA.png](https://s2.ax1x.com/2019/08/03/eDWSgA.png)
-When you use <strong>component (instead of <strong>render or <strong>children) the router uses <strong>React.createElement to create a new <strong>React element from the given component. That means if you provide an inline function to the <strong>component prop, you would create a new component every render. This results in the existing component unmounting and the new component mounting instead of just updating the existing component. When using an inline function for inline rendering, use the render or the children prop.
+When you use <strong>component</strong> (instead of <strong>render</strong> or <strong>children</strong>) the router uses <strong>React.createElement</strong> to create a new <strong>React element</strong> from the given component. That means if you provide an inline function to the <strong>component</strong> prop, you would create a new component every render. This results in the existing component unmounting and the new component mounting instead of just updating the existing component. When using an inline function for inline rendering, use the <strong>render</strong> or the <strong>children</strong> prop.
 
 ###### &lt;Route render&gt;
 This allows for convenient inline rendering and wrapping without the undesired remounting explained above.
 
-Instead of having a new <strong>React element created for you using the <strong>component</strong> prop, you can pass in a function to be called when the location matches. The render prop function has access to all the same <strong>route props</strong> (<strong>match</strong>, <strong>location</strong> and <strong>history</strong>) as the component render prop.
+Instead of having a new <strong>React element</strong> created for you using the <strong>component</strong> prop, you can pass in a function to be called when the location matches. The <strong>render</strong> prop function has access to all the same <strong>route props</strong> (<strong>match</strong>, <strong>location</strong> and <strong>history</strong>) as the component render prop.
 ![eDfGeP.png](https://s2.ax1x.com/2019/08/03/eDfGeP.png)
 
 > <strong>&lt;Route component&gt;</strong> takes precedence over <strong>&lt;Route render&gt;</strong> so don’t use both in the same &lt;Route&gt;.
@@ -122,25 +122,25 @@ This will prevent them from using the actual location in the router’s state. T
 The term “history” and "history object" in this documentation refers to <ins>the history package</ins>[a NPM Package], which is one of only 2 major dependencies of React Router (besides <strong>React</strong> itself), and which provides several different implementations for managing session history in JavaScript in various environments.
 
 The following terms are also used:
-- <strong>browser history</strong> &dash; A DOM-specific implementation, useful in web browsers that support the HTML5 history API
-- <strong>hash history</strong> &dash; A DOM-specific implementation for legacy web browsers
-- <strong>memory history</strong> &dash; An in-memory history implementation, useful in testing and non-DOM environments like React Native
+- <strong>browser history</strong> - A DOM-specific implementation, useful in web browsers that support the HTML5 history API
+- <strong>hash history</strong> - A DOM-specific implementation for legacy web browsers
+- <strong>memory history</strong> - An in-memory history implementation, useful in testing and non-DOM environments like React Native
 
 history objects typically have the following properties and methods:
 
-- <strong>length</strong> &dash; (number) The number of entries in the history stack
-- <strong>action</strong> &dash; (string) The current action (PUSH, REPLACE, or POP)
-- <strong>location</strong> &dash; (object) The current location. May have the following properties:
-- <strong>pathname</strong> &dash; (string) The path of the URL
-- <strong>search</strong> &dash; (string) The URL query string
-- <strong>hash</strong> &dash; (string) The URL hash fragment
-- <strong>state</strong> &dash; (object) location-specific state that was provided to e.g. push(path, state) when this location was pushed onto the stack. Only available in browser and memory history.
-- <strong>push(path, [state])</strong> &dash; (function) Pushes a new entry onto the history stack
-- <strong>replace(path, [state])</strong> &dash; (function) Replaces the current entry on the history stack
-- <strong>go(n)</strong> &dash; (function) Moves the pointer in the history stack by n entries
-- <strong>goBack()</strong> &dash; (function) Equivalent to go(-1)
-- <strong>goForward()</strong> &dash; (function) Equivalent to go(1)
-- <strong>block(prompt)</strong> &dash; (function) Prevents navigation
+- <strong>length</strong> - (number) The number of entries in the history stack
+- <strong>action</strong> - (string) The current action (PUSH, REPLACE, or POP)
+- <strong>location</strong> - (object) The current location. May have the following properties:
+- <strong>pathname</strong> - (string) The path of the URL
+- <strong>search</strong> - (string) The URL query string
+- <strong>hash</strong> - (string) The URL hash fragment
+- <strong>state</strong> - (object) location-specific state that was provided to e.g. push(path, state) when this location was pushed onto the stack. Only available in browser and memory history.
+- <strong>push(path, [state])</strong> - (function) Pushes a new entry onto the history stack
+- <strong>replace(path, [state])</strong> - (function) Replaces the current entry on the history stack
+- <strong>go(n)</strong> - (function) Moves the pointer in the history stack by n entries
+- <strong>goBack()</strong> - (function) Equivalent to go(-1)
+- <strong>goForward()</strong> - (function) Equivalent to go(1)
+- <strong>block(prompt)</strong> - (function) Prevents navigation
 
 <strong>history is mutable.</strong>
 
@@ -215,7 +215,7 @@ When true, a path that has a trailing slash will only match a <strong>location.p
     </tbody>
 </table>
 
-> <strong>strict can be used to enforce that a <strong>location.pathname has no trailing slash, but in order to do this both <strong>strict and <strong>exact must be true.
+> <strong>strict</strong> can be used to enforce that a <strong>location.pathname</strong> has no trailing slash, but in order to do this both <strong>strict</strong> and <strong>exact</strong> must be true.
 
 ![eDLE5R.png](https://s2.ax1x.com/2019/08/03/eDLE5R.png)
 <table>
@@ -248,7 +248,7 @@ When true, a path that has a trailing slash will only match a <strong>location.p
 #### sensitive
 data type: `bool`
 
-When <strong>true, will match if the path is <strong>case sensitive.
+When <strong>true</strong>, will match if the path is <strong>case sensitive</strong>.
 ![eDLxdH.png](https://s2.ax1x.com/2019/08/03/eDLxdH.png)
 <table>
     <thead>
