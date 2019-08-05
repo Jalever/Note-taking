@@ -18,6 +18,33 @@ tags:
         - [children](#children)
         - [basename](#basename)
         - [basename](#basename)
+    - [HashRouter](#hashrouter)
+        - [basename](#basename)
+        - [getUserConfirmation](#getuserconfirmation)
+        - [hashType](#hashtype)
+        - [children](#children)
+    - [MemoryRouter](#memoryrouter)
+        - [initialEntries](#initialentries)
+        - [initialIndex](#initialindex)
+        - [getUserConfirmation](#getuserconfirmation)
+        - [keyLength](#keylength)
+        - [children](#children)
+    - [StaticRouter](#staticrouter)
+        - [basename](#basename)
+        - [location](#location)
+        - [location](#location)
+        - [context](#context)
+        - [children](#children)
+- [Switch](#switch)
+    - [location](#location)
+    - [children](#children)
+- [Link](#Link)
+    - [to](#to)
+    - [to](#to)
+    - [to](#to)
+    - [replace](#replace)
+    - [innerRef](#innerRef)
+    - [innerRef](#innerRef)
 - [Route](#route)
     - [Route render methods](#route-render-methods)
         - [Route component](#route-component)
@@ -88,6 +115,191 @@ data type: <strong>node</strong>
 
 A single child element to render.
 
+#### &lt;HashRouter&gt;
+A &lt;Router&gt; that uses the hash portion of the URL (i.e. `window.location.hash`) to keep your UI in sync with the URL.  
+> Hash history does not support `location.key` or `location.state`.
+
+![egFkZQ.png](https://s2.ax1x.com/2019/08/05/egFkZQ.png)
+
+###### basename
+data type: <strong>string</strong>
+
+The base URL for all locations. A properly formatted basename should have a leading slash, but no trailing slash.
+![egF8o9.png](https://s2.ax1x.com/2019/08/05/egF8o9.png)
+
+###### getUserConfirmation
+data type: <strong>func</strong>
+
+A function to use to confirm navigation. Defaults to using `window.confirm`.
+![egFyFA.png](https://s2.ax1x.com/2019/08/05/egFyFA.png)
+
+###### hashType
+data type: <strong>string</strong>
+
+The type of encoding to use for `window.location.hash`. Available values are:
+- <strong>slash</strong> - Creates hashes like `#/` and `#/sunshine/lollipops`
+- <strong>noslash</strong> - Creates hashes like `#` and `#sunshine/lollipops`
+- <strong>hashbang</strong> - Creates `ajax crawlable`(deprecated by Google) hashes like `#!/` and `#!/sunshine/lollipops`
+
+Defaults to <strong>slash</strong>.
+
+###### children
+data type: <strong>node</strong>
+
+A single child element to render.
+
+#### &lt;MemoryRouter&gt;
+A &lt;Router&gt; that keeps the history of your “URL” in memory (does not read or write to the address bar). Useful in tests and non-browser environments like `React Native`.
+![egmCfH.png](https://s2.ax1x.com/2019/08/05/egmCfH.png)
+
+###### initialEntries
+data type: <strong>array</strong>
+
+An array of <strong>locations</strong> in the history stack. These may be full-blown location objects with `{ pathname, search, hash, state }` or simple string URLs.
+![egmutg.png](https://s2.ax1x.com/2019/08/05/egmutg.png)
+
+###### initialIndex
+data type: <strong>number</strong>
+
+The initial location’s index in the array of <strong>initialEntries</strong>.
+
+###### getUserConfirmation
+data type: <strong>func</strong>
+
+A function to use to confirm navigation. You must use this option when using &lt;MemoryRouter&gt; directly with a &lt;Prompt&gt;.
+
+###### keyLength
+data type: <strong>number</strong>
+
+The length of <strong>location.key</strong>. Defaults to 6.
+![egmah4.png](https://s2.ax1x.com/2019/08/05/egmah4.png)
+
+###### children
+data type: <strong>node</strong>
+
+A single child element to render.
+
+#### &lt;StaticRouter&gt;
+A &lt;Router&gt; that never changes location.
+
+This can be useful in server-side rendering scenarios when the user isn’t actually clicking around, so the location never actually changes. Hence, the name: static. It’s also useful in simple tests when you just need to plug in a location and make assertions on the render output.
+
+Here’s an example node server that sends a 302 status code for <strong>&lt;Redirect&gt;</strong>s and regular HTML for other requests:
+![egnzJe.png](https://s2.ax1x.com/2019/08/05/egnzJe.png)
+![eguSRH.png](https://s2.ax1x.com/2019/08/05/eguSRH.png)
+
+###### basename
+data type: <strong>string</strong>
+
+The base URL for all locations. A properly formatted basename should have a leading slash, but no trailing slash.
+![egu50P.png](https://s2.ax1x.com/2019/08/05/egu50P.png)
+
+###### location
+data type: <strong>string</strong>
+
+The URL the server received, probably `req.url` on a node server.
+![egKip4.png](https://s2.ax1x.com/2019/08/05/egKip4.png)
+
+###### location
+data type: <strong>object</strong>
+
+A location object shaped like `{ pathname, search, hash, state }`
+![egKKhD.png](https://s2.ax1x.com/2019/08/05/egKKhD.png)
+
+###### context
+data type: <strong>object</strong>
+
+A plain JavaScript object. During the render, components can add properties to the object to store information about the render.
+![egKa4S.png](https://s2.ax1x.com/2019/08/05/egKa4S.png)
+When a &lt;Route&gt; matches, it will pass the context object to the component it renders as the `staticContext` prop.
+
+After the render, these properties can be used to to configure the server’s response.
+![egKbE6.png](https://s2.ax1x.com/2019/08/05/egKbE6.png)
+
+###### children
+data type: <strong>node</strong>  
+
+A single child element to render.
+
+---------------------------------------------------------------------------------------
+
+## Switch
+Renders the first child &lt;Route&gt; or &lt;Redirect&gt; that matches the location.
+
+&lt;Switch&gt; is unique in that it renders a route exclusively. In contrast, every &lt;Route&gt; that matches the location renders inclusively. Consider this code:
+![eg8i9K.png](https://s2.ax1x.com/2019/08/05/eg8i9K.png)
+If the URL is `/about`, then &lt;About&gt;, &lt;User&gt;, and &lt;NoMatch&gt; will all render because they all match the path. This is by design, allowing us to compose &lt;Route&gt;s into our apps in many ways, like sidebars and breadcrumbs, bootstrap tabs, etc.
+
+Occasionally, however, we want to pick only one &lt;Route&gt; to render. If we’re at `/about` we don’t want to also match `/:user` (or show our “404” page). Here’s how to do it with Switch:
+![eg8VnH.png](https://s2.ax1x.com/2019/08/05/eg8VnH.png)
+Now, if we’re at `/about`, &lt;Switch&gt; will start looking for a matching &lt;Route&gt;. <strong>&lt;Route path="/about"/&gt;</strong> will match and &lt;Switch&gt; will stop looking for matches and render &lt;About&gt;. Similarly, if we’re at `/michael` then &lt;User&gt; will render.
+
+This is also useful for animated transitions since the matched &lt;Route&gt; is rendered in the same position as the previous one.
+![eg8R4x.png](https://s2.ax1x.com/2019/08/05/eg8R4x.png)
+
+#### location
+data type: <strong>object</strong>
+
+A <strong>location</strong> object to be used for matching children elements instead of the current history location (usually the current browser URL).
+
+#### children
+data type: <strong>node</strong>
+
+All children of a <strong>&lt;Switch&gt;</strong> should be <strong>&lt;Route&gt;</strong> or <strong>&lt;Redirect&gt;</strong> elements. Only the first child to match the current location will be rendered.
+
+<strong>&lt;Route&gt;</strong> elements are matched using their <strong>path</strong> prop and <strong>&lt;Redirect&gt;</strong> elements are matched using their <strong>from</strong> prop. A <strong>&lt;Route&gt;</strong> with no <strong>path</strong> prop or a <strong>&lt;Redirect&gt;</strong> with no <strong>from</strong> prop will always match the current location.
+
+When you include a <strong>&lt;Redirect&gt;</strong> in a <strong>&lt;Switch&gt;</strong>, it can use any of the <strong>&lt;Route&gt;</strong>'s location matching props: <ins>path</ins>, <ins>exact</ins>, and <ins>strict</ins>. <strong>from</strong> is just an alias for the <strong>path</strong> prop.
+
+If a <strong>location</strong> prop is given to the <strong>&lt;Switch&gt;</strong>, it will override the <strong>location</strong> prop on the matching child element.
+---------------------------------------------------------------------------------------
+## Link
+Provides declarative, accessible navigation around your application.
+![egadeS.png](https://s2.ax1x.com/2019/08/05/egadeS.png)
+
+#### to
+data type: <strong>string</strong>
+
+A string representation of the Link location, created by concatenating the location’s pathname, search, and hash properties.
+![egasWn.png](https://s2.ax1x.com/2019/08/05/egasWn.png)
+
+#### to
+data type: <strong>object</strong>
+
+An object that can have any of the following properties:
+- <strong>pathname</strong>: A string representing the path to link to.
+- <strong>search</strong>: A string representation of query parameters.
+- <strong>hash</strong>: A hash to put in the URL, e.g. #a-hash.
+- <strong>state</strong>: State to persist to the location.
+
+![egdP6P.png](https://s2.ax1x.com/2019/08/05/egdP6P.png)
+
+#### to
+data type: <strong>function</strong>
+
+A function to which current location is passed as an argument and which should return location representation as a string or as an object
+![egdq9s.png](https://s2.ax1x.com/2019/08/05/egdq9s.png)
+
+#### replace
+data type: <strong>bool</strong>
+
+When <strong>true</strong>, clicking the link will replace the current entry in the history stack instead of adding a new one.
+![egwZDK.png](https://s2.ax1x.com/2019/08/05/egwZDK.png)
+
+#### innerRef
+data type: <strong>function</strong>
+
+Allows access to the underlying <strong>ref</strong> of the component
+![egwB2n.png](https://s2.ax1x.com/2019/08/05/egwB2n.png)
+
+#### innerRef
+data type: <strong>RefObject</strong>
+
+Get the underlying <strong>ref</strong> of the component with React.createRef()
+![egw2aF.png](https://s2.ax1x.com/2019/08/05/egw2aF.png)
+
+
+---------------------------------------------------------------------------------------
 ## Route
 The Route component is perhaps the most important component in React Router to understand and learn to use well. Its most basic responsibility is to render some UI when a location matches the route’s path.
 
