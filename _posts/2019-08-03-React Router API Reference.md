@@ -45,6 +45,28 @@ tags:
     - [replace](#replace)
     - [innerRef](#innerRef)
     - [innerRef](#innerRef)
+- [NavLink](#navlink)
+    - [activeClassName](#activeclassname)
+    - [activeStyle](#activestyle)
+    - [exact](#exact)
+    - [isActive](#isactive)
+    - [location](#location)
+    - [aria-current](#aria-current)
+- [Redirect](#Redirect)
+    - [to](#to)
+    - [to](#to)
+    - [push](#push)
+    - [from](#from)
+    - [exact](#exact)
+    - [strict](#strict)
+    - [sensitive](#sensitive)
+- [matchPath](#matchpath)
+    - [pathname](#pathname)
+    - [props](#props)
+    - [returns](#returns)
+- [withRouter](#withrouter)
+    - [Component.WrappedComponent](#componentwrappedcomponent)
+    - [Component.WrappedComponent](#componentwrappedcomponent)
 - [Route](#route)
     - [Route render methods](#route-render-methods)
         - [Route component](#route-component)
@@ -298,6 +320,134 @@ data type: <strong>RefObject</strong>
 Get the underlying <strong>ref</strong> of the component with React.createRef()
 ![egw2aF.png](https://s2.ax1x.com/2019/08/05/egw2aF.png)
 
+---------------------------------------------------------------------------------------
+## NavLink
+A special version of the &lt;Link&gt; that will add styling attributes to the rendered element when it matches the current URL.
+![e2mmIU.png](https://s2.ax1x.com/2019/08/05/e2mmIU.png)
+
+#### activeClassName
+data type: <strong>string</strong>
+
+The class to give the element when it is <strong>active</strong>. The default given class is active. This will be joined with the <strong>className</strong> prop.
+![e2mMRJ.png](https://s2.ax1x.com/2019/08/05/e2mMRJ.png)
+
+#### activeStyle
+data type: <strong>object</strong>
+
+The styles to apply to the element when it is active.
+![e2m4Qs.png](https://s2.ax1x.com/2019/08/05/e2m4Qs.png)
+
+#### exact
+data type: <strong>bool</strong>
+
+When <strong>true</strong>, the active <strong>class/style</strong> will only be applied if the location is matched exactly.
+![e2nESH.png](https://s2.ax1x.com/2019/08/05/e2nESH.png)
+
+#### isActive
+data type: <strong>func</strong>
+
+A function to add extra logic for determining whether the link is active. This should be used if you want to do more than verify that the link’s pathname matches the current URL’s <strong>pathname</strong>.
+![e2nwkT.png](https://s2.ax1x.com/2019/08/05/e2nwkT.png)
+
+#### location
+data type: <strong>object</strong>
+
+The <strong>isActive</strong> compares the current history location (usually the current browser URL). To compare to a different location, a <strong>location</strong> can be passed.
+
+#### aria-current
+data type: <strong>string</strong>
+
+The value of the <strong>aria-current</strong> attribute used on an active link. Available values are:
+- <strong>page</strong> - used to indicate a link within a set of pagination links
+- <strong>step</strong> - used to indicate a link within a step indicator for a step-based process
+- <strong>location</strong> - used to indicate the image that is visually highlighted as the current component of a flow chart
+- <strong>date</strong> - used to indicate the current date within a calendar
+- <strong>time</strong> - used to indicate the current time within a timetable
+- <strong>true</strong> - used to indicate if the NavLink is active
+
+Defaults to <strong>page</strong>.
+
+---------------------------------------------------------------------------------------
+## Redirect
+Rendering a <Redirect> will navigate to a new location. The new location will override the current location in the history stack, like server-side redirects (HTTP 3xx) do.
+![e2KDy9.png](https://s2.ax1x.com/2019/08/05/e2KDy9.png)
+
+#### to
+data type: <strong>string</strong>
+
+The URL to redirect to. Any valid URL path that <strong>path-to-regexp@^1.7.0</strong> understands. All URL parameters that are used in to must be covered by <strong>from</strong>.
+![e2K8Ln.png](https://s2.ax1x.com/2019/08/05/e2K8Ln.png)
+
+#### to
+data type: <strong>object</strong>
+
+A location to redirect to. pathname can be any valid URL path that <strong>path-to-regexp@^1.7.0</strong> understands.
+![e2KRJO.png](https://s2.ax1x.com/2019/08/05/e2KRJO.png)
+The <strong>state</strong> object can be accessed via <strong>this.props.location.state</strong> in the redirected-to component. This new <strong>referrer</strong> key (which is not a special name) would then be accessed via <strong>this.props.location.state.referrer</strong> in the Login component pointed to by the pathname `/login`
+
+#### push
+data type: <strong>bool</strong>
+
+When <strong>true</strong>, redirecting will push a new entry onto the history instead of replacing the current one.
+![e2MikV.png](https://s2.ax1x.com/2019/08/05/e2MikV.png)
+
+#### from
+data type: <strong>string</strong>
+
+A pathname to redirect from. Any valid URL path that <strong>path-to-regexp@^1.7.0</strong> understands. All matched URL parameters are provided to the pattern in <strong>to</strong>. Must contain all parameters that are used in <strong>to</strong>. Additional parameters not used by <strong>to</strong> are ignored.
+
+This can only be used to match a location when rendering a &lt;Redirect&gt; inside of a &lt;Switch&gt;.
+![e2ldW8.png](https://s2.ax1x.com/2019/08/05/e2ldW8.png)
+
+#### exact
+data type: <strong>bool</strong>
+
+Match <strong>from</strong> exactly; equivalent to <strong>Route.exact</strong>.
+
+#### strict
+data type: <strong>bool</strong>
+
+Match <strong>from</strong> strictly; equivalent to <strong>Route.strict</strong>.
+
+#### sensitive
+data type: <strong>bool</strong>
+
+Match <strong>from</strong> case sensitive; equivalent to <strong>Route.sensitive</strong>.
+
+---------------------------------------------------------------------------------------
+## matchPath
+This lets you use the same matching code that &lt;Route&gt; uses except outside of the normal render cycle, like gathering up data dependencies before rendering on the server.
+![e2GNng.png](https://s2.ax1x.com/2019/08/05/e2GNng.png)
+
+#### pathname
+The first argument is the pathname you want to match. If you’re using this on the server with Node.js, it would be <strong>req.path</strong>.
+
+#### props
+The second argument are the props to match against, they are identical to the matching props <strong>Route</strong> accepts. It could also be a string or an array of strings as shortcut for `{ path }`:
+![e2Go36.png](https://s2.ax1x.com/2019/08/05/e2Go36.png)
+
+#### returns    
+It returns an object when provided pathname does match path <strong>prop</strong> or <strong>null</strong> otherwise.
+
+---------------------------------------------------------------------------------------
+## withRouter
+You can get access to the <strong>history</strong> object’s properties and the closest &lt;Route&gt;'s <strong>match</strong> via the withRouter higher-order component. <strong>withRouter</strong> will pass updated <strong>match</strong>, <strong>location</strong>, and <strong>history</strong> props to the wrapped component whenever it renders.
+![e28SII.png](https://s2.ax1x.com/2019/08/05/e28SII.png)
+<strong>withRouter</strong> does not subscribe to location changes like React Redux’s <strong>connect</strong> does for state changes. Instead, re-renders after location changes propagate out from the <Router> component. This means that <strong>withRouter</strong> does not re-render on route transitions unless its parent component re-renders.
+
+Static Methods and Properties
+
+All non-react specific static methods and properties of the wrapped component are automatically copied to the "connected" component.
+
+#### Component.WrappedComponent
+The wrapped component is exposed as the static property WrappedComponent on the returned component, which can be used for testing the component in isolation, among other things.
+![e28JeJ.png](https://s2.ax1x.com/2019/08/05/e28JeJ.png)
+
+#### Component.WrappedComponent
+data type: <strong>func</strong>
+
+A function that will be passed as the ref prop to the wrapped component.
+![e28RYt.png](https://s2.ax1x.com/2019/08/05/e28RYt.png)
 
 ---------------------------------------------------------------------------------------
 ## Route
