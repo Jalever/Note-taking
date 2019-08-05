@@ -10,6 +10,84 @@ tags:
   - React
 ---
 
+- [Router](#router)
+    - [BrowserRouter](#browserrouter)
+        - [getUserConfirmation](#getuserconfirmation)
+        - [forceRefresh](#forcerefresh)
+        - [keyLength](#keylength)
+        - [children](#children)
+        - [basename](#basename)
+        - [basename](#basename)
+- [Route](#route)
+    - [Route render methods](#route-render-methods)
+        - [Route component](#route-component)
+        - [Route render](#route-render)
+        - [Route children](#route-children)
+    - [Route props](#route-props)
+        - [match](#match)
+        - [location](#location)
+        - [history](#history)
+    - [path](#path)
+    - [exact](#exact)
+    - [strict](#strict)
+    - [sensitive](#sensitive)
+
+## Router
+The common low-level interface for all router components. Typically apps will use one of the high-level routers instead:
+- &lt;BrowserRouter&gt;
+- &lt;HashRouter&gt;
+- &lt;MemoryRouter&gt;
+- &lt;NativeRouter&gt;
+- &lt;StaticRouter&gt;
+
+The most common use-case for using the low-level &lt;Router&gt; is to synchronize a custom history with a state management lib like `Redux` or `Mobx`. Note that this is not required to use state management libs alongside `React Router`, it’s only for deep integration.
+![egCNz8.png](https://s2.ax1x.com/2019/08/05/egCNz8.png)
+
+<strong>history</strong><br/>
+data type: <strong>object</strong>
+
+A <strong>history</strong> object to use for navigation.
+![egCfL4.png](https://s2.ax1x.com/2019/08/05/egCfL4.png)
+
+<strong>children</strong><br/>
+data type: <strong>node</strong>
+
+A single child element to render.
+![egC5w9.png](https://s2.ax1x.com/2019/08/05/egC5w9.png)
+
+#### &lt;BrowserRouter&gt;
+A &lt;Router&gt; that uses the HTML5 history API (pushState, replaceState and the popstate event) to keep your UI in sync with the URL.
+![egCzTA.png](https://s2.ax1x.com/2019/08/05/egCzTA.png)
+
+###### basename
+data type: <strong>string</strong>
+
+The base URL for all locations. If your app is served from a sub-directory on your server, you’ll want to set this to the sub-directory. A properly formatted basename should have a leading slash, but no trailing slash.
+![egPnkn.png](https://s2.ax1x.com/2019/08/05/egPnkn.png)
+
+###### getUserConfirmation
+data type: <strong>func</strong>
+
+A function to use to confirm navigation. Defaults to using `window.confirm`.
+![egPY79.png](https://s2.ax1x.com/2019/08/05/egPY79.png)
+
+###### forceRefresh
+data type: <strong>bool</strong>
+
+If true the router will use full page refreshes on page navigation. You probably only want this in browsers that don’t support the HTML5 history API.
+![egPB6O.png](https://s2.ax1x.com/2019/08/05/egPB6O.png)
+
+###### keyLength
+data type: <strong>number</strong>
+
+The length of `location.key`. Defaults to 6.
+![egPbAs.png](https://s2.ax1x.com/2019/08/05/egPbAs.png)
+
+###### children
+data type: <strong>node</strong>
+
+A single child element to render.
+
 ## Route
 The Route component is perhaps the most important component in React Router to understand and learn to use well. Its most basic responsibility is to render some UI when a location matches the route’s path.
 
