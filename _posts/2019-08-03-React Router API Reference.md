@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (React Router)Getting started with React Router
-subtitle: React Router API Reference
+title: (React Router)React Router API Reference
+subtitle: Getting started with React Router
 date: 2019-08-03
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
@@ -274,6 +274,7 @@ All children of a <strong>&lt;Switch&gt;</strong> should be <strong>&lt;Route&gt
 When you include a <strong>&lt;Redirect&gt;</strong> in a <strong>&lt;Switch&gt;</strong>, it can use any of the <strong>&lt;Route&gt;</strong>'s location matching props: <ins>path</ins>, <ins>exact</ins>, and <ins>strict</ins>. <strong>from</strong> is just an alias for the <strong>path</strong> prop.
 
 If a <strong>location</strong> prop is given to the <strong>&lt;Switch&gt;</strong>, it will override the <strong>location</strong> prop on the matching child element.
+
 ---------------------------------------------------------------------------------------
 ## Link
 Provides declarative, accessible navigation around your application.
