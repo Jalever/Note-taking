@@ -11,6 +11,8 @@ tags:
 ---
 
 - [createStore](#createstore)
+- [Store](#store)
+- [combineReducers(reducers)](#combinereducersreducers)
 
 ## createStore
 Creates a Redux store that holds the complete state tree of your app.
@@ -49,6 +51,8 @@ An object that holds the complete state of your app. The only way to change its 
 - For universal apps that run on the server, create a store instance with every request so that they are isolated. Dispatch a few data fetching actions to a store instance and wait for them to complete before rendering the app on the server.
 - When a store is created, Redux dispatches a dummy action to your reducer to populate the store with the initial state. You are not meant to handle the dummy action directly. Just remember that your reducer should return some kind of initial state if the state given to it as the first argument is <strong>undefined</strong>, and you're all set.
 - To apply multiple store enhancers, you may use <strong>compose()</strong>.
+
+---------------------------------------------------------------------------------------
 
 ## Store
 A store holds the whole <strong>state tree</strong> of your application. The only way to change the state inside it is to dispatch an <strong>action</strong> on it.
@@ -130,3 +134,46 @@ It is an advanced API. You might need this if your app implements code splitting
 &nbsp;&nbsp;&nbsp;&nbsp;Data Type: <ins><em>Function</em></ins><br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;The next reducer for the store to use.
+
+---------------------------------------------------------------------------------------
+
+## combineReducers(reducers)
+As your app grows more complex, you'll want to split your <strong>reducing function</strong> into separate functions, each managing independent parts of the <strong>state</strong>.
+
+The <strong>combineReducers</strong> helper function turns an object whose values are different reducing functions into a single reducing function you can pass to <strong>createStore</strong>.
+
+The resulting reducer calls every child reducer, and gathers their results into a single state object. <ins><em>The state produced by <strong>combineReducers()</strong> namespaces the states of each reducer under their keys as passed to <strong>combineReducers()</strong></em></ins>
+
+Example:
+![eW4tAg.png](https://s2.ax1x.com/2019/08/06/eW4tAg.png)
+
+You can control state key names by using different keys for the reducers in the passed object. For example, you may call <strong>combineReducers({ todos: myTodosReducer, counter: myCounterReducer })</strong> for the state shape to be <strong>{ todos, counter }</strong>.
+
+A popular convention is to name reducers after the state slices they manage, so you can use ES6 property shorthand notation: <strong>combineReducers({ counter, todos })</strong>. This is equivalent to writing <strong>combineReducers({ counter: counter, todos: todos })</strong>.
+
+#### Arguments
+<strong>reducers</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Data Type: <ins><em>Object</em></ins><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;An object whose values correspond to different reducing functions that need to be combined into one. See the notes below for some rules every passed reducer must follow.
+
+#### Returns
+&nbsp;&nbsp;&nbsp;&nbsp;Data Type: <ins><em>Function</em></ins><br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;A reducer that invokes every reducer inside the <strong>reducers</strong> object, and constructs a state object with the same shape.
+
+#### Notes
+This function is mildly opinionated and is skewed towards helping beginners avoid common pitfalls. This is why it attempts to enforce some rules that you don't have to follow if you write the root reducer manually.
+
+Any reducer passed to <strong>combineReducers</strong> must satisfy these rules:
+- For any action that is not recognized, it must return the <strong>state</strong> given to it as the first argument.
+- It must never return <strong>undefined</strong>. It is too easy to do this by mistake via an early <strong>return</strong> statement, so <strong>combineReducers</strong> throws if you do that instead of letting the error manifest itself somewhere else.
+- If the <strong>state</strong> given to it is <strong>undefined</strong>, it must return the initial state for this specific reducer. According to the previous rule, the initial state must not be <strong>undefined</strong> either. It is handy to specify it with ES6 optional arguments syntax, but you can also explicitly check the first argument for being <strong>undefined</strong>.
+
+While <strong>combineReducers</strong> attempts to check that your reducers conform to some of these rules, you should remember them, and do your best to follow them. <strong>combineReducers</strong> will check your reducers by passing <strong>undefined</strong> to them; this is done even if you specify initial state to <strong>Redux.createStore(combineReducers(...), initialState)</strong>. Therefore, you must ensure your reducers work properly when receiving <strong>undefined</strong> as state, even if you never intend for them to actually receive <strong>undefined</strong> in your own code.
+
+#### Example
+![eWIskF.png](https://s2.ax1x.com/2019/08/06/eWIskF.png)
+![eWIyY4.png](https://s2.ax1x.com/2019/08/06/eWIyY4.png)
+![eWo4vn.png](https://s2.ax1x.com/2019/08/06/eWo4vn.png)
+![eWoX8J.png](https://s2.ax1x.com/2019/08/06/eWoX8J.png)
