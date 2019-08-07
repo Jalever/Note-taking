@@ -12,8 +12,10 @@ tags:
 
 - [createStore](#createstore)
 - [Store](#store)
+- [applyMiddleware()](#applyMiddleware)
 - [combineReducers(reducers)](#combinereducersreducers)
 - [bindActionCreators](#bindactioncreators)
+- [compose()](#compose)
 
 ## createStore
 Creates a Redux store that holds the complete state tree of your app.
@@ -276,3 +278,29 @@ An object mimicking the original object, but with each function immediately disp
 ![e5Pfe0.png](https://s2.ax1x.com/2019/08/07/e5Pfe0.png)
 ![e5PzFO.png](https://s2.ax1x.com/2019/08/07/e5PzFO.png)
 ![e5is76.png](https://s2.ax1x.com/2019/08/07/e5is76.png)
+
+---------------------------------------------------------------------------------------
+## compose()
+Composes functions from right to left.
+
+This is a functional programming utility, and is included in Redux as a convenience.
+You might want to use it to apply several Store Enhancers in a row.
+
+#### Arguments
+![e5XVpt.png](https://s2.ax1x.com/2019/08/07/e5XVpt.png)
+
+Data Type: <ins><em>arguments</em></ins>
+
+The functions to compose. Each function is expected to accept a single parameter. Its return value will be provided as an argument to the function standing to the left, and so on. The exception is the right-most argument which can accept multiple parameters, as it will provide the signature for the resulting composed function.
+
+#### Returns
+Data Type: <ins><em>Function</em></ins>
+
+The final function obtained by composing the given functions from right to left.
+
+#### Example
+This example demonstrates how to use <strong>compose</strong> to enhance a <strong>store</strong> with <strong>applyMiddleware</strong> and a few developer tools from the <strong>redux-devtools</strong> package.
+![e5jrVg.png](https://s2.ax1x.com/2019/08/07/e5jrVg.png)
+
+#### Tips
+All <strong>compose</strong> does is let you write deeply nested function transformations without the rightward drift of the code. Don't give it too much credit!
