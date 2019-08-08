@@ -9,6 +9,17 @@ catalog: true
 tags:
   - React
 ---
+- [mapStateToProps](#mapstatetoprops)
+    - [Defining mapStateToProps](#defining-mapstatetoprops)
+    - [Usage Guidelines](#usage-guidelines)
+    - [mapStateToProps and Performance](#mapstatetoprops-and-performance)
+    - [Behavior and Gotchas](#behavior-and-gotchas)
+- [mapDispatchToProps](#mapdispatchtoprops)
+    - [Approaches for Dispatching](#approaches-for-dispatching)
+    - [Two Forms of mapDispatchToProps](#two-forms-of-mapdispatchtoprops)
+    - [Defining mapDispatchToProps As A Function](#defining-mapdispatchtoprops-as-a-function)
+    - [Defining mapDispatchToProps As An Object](#defining-mapdispatchtoprops-as-an-object)
+    - [Common Problems](#common-problems)
 
 ## mapStateToProps
 As the first argument passed in to <strong>connect</strong>, <strong>mapStateToProps</strong> is used for selecting the part of the data from the store that the connected component needs. It’s frequently referred to as just <strong>mapState</strong> for short.
@@ -110,3 +121,134 @@ If the formal definition of the function contains one mandatory parameter, <em><
 ![eoW78g.png](https://s2.ax1x.com/2019/08/08/eoW78g.png)
 It will receive <em><ins>ownProps</ins></em> when the formal definition of the function contains zero or two mandatory parameters:
 ![eoWOrn.png](https://s2.ax1x.com/2019/08/08/eoWOrn.png)
+
+## mapDispatchToProps
+As the second argument passed in to <strong>connect</strong>, <strong>mapDispatchToProps</strong> is used for dispatching actions to the store.
+
+<strong>dispatch</strong> is a function of the Redux store. You call <strong>store.dispatch</strong> to dispatch an action. This is the only way to trigger a state change.
+
+With React Redux, your components never access the store directly - <strong>connect</strong> does it for you. React Redux gives you two ways to let components dispatch actions:
+
+- By default, a connected component receives <strong>props.dispatch</strong> and can dispatch actions itself.
+- <strong>connect</strong> can accept an argument called <strong>mapDispatchToProps</strong>, which lets you create functions that dispatch when called, and pass those functions as props to your component.
+
+The <strong>mapDispatchToProps</strong> functions are normally referred to as <strong>mapDispatch</strong> for short, but the actual variable name used can be whatever you want.
+
+#### Approaches for Dispatching
+###### Default: dispatch as a Prop
+If you don't specify the second argument to <strong>connect()</strong>, your component will receive <strong>dispatch</strong> by default. For example:
+![eoTZdA.png](https://s2.ax1x.com/2019/08/08/eoTZdA.png)
+Once you have connected your component in this way, your component receives <strong>props.dispatch</strong>. You may use it to dispatch actions to the store.
+![eoT2Jx.png](https://s2.ax1x.com/2019/08/08/eoT2Jx.png)
+
+###### Providing A mapDispatchToProps Parameter
+Providing a mapDispatchToProps allows you to specify which actions your component might need to dispatch. It lets you provide action dispatching functions as props. Therefore, instead of calling props.dispatch(() => increment()), you may call props.increment() directly. There are a few reasons why you might want to do that.
+
+<strong>More Declarative</strong><br/>
+First, encapsulating the dispatch logic into function makes the implementation more declarative. Dispatching an action and letting the Redux store handle the data flow is how to implement the behavior, rather than what it does.
+
+A good example would be dispatching an action when a button is clicked. Connecting the button directly probably doesn't make sense conceptually, and neither does having the button reference <em><ins>dispatch</ins></em>.
+![eo7x9x.png](https://s2.ax1x.com/2019/08/08/eo7x9x.png)
+Once you've wrapped all our action creators with functions that dispatch the actions, the component is free of the need of <em><ins>dispatch</ins></em>. Therefore, if you define your own <em><ins>mapDispatchToProps</ins></em>, the connected component will no longer receive <em><ins>dispatch</ins></em>.
+
+<strong>Pass Down Action Dispatching Logic to ( Unconnected ) Child Components</strong><br/>
+In addition, you also gain the ability to pass down the action dispatching functions to child ( likely unconnected ) components. This allows more components to dispatch actions, while keeping them "unaware" of Redux.
+![eobksU.png](https://s2.ax1x.com/2019/08/08/eobksU.png)
+This is what React Redux’s <em><ins>connect</ins></em> does — it encapsulates the logic of talking to the Redux store and lets you not worry about it. And this is what you should totally make full use of in your implementation.
+
+#### Two Forms of mapDispatchToProps
+The <strong>mapDispatchToProps</strong> parameter can be of two forms. While the function form allows more customization, the object form is easy to use.
+
+- <strong><ins>Function form</ins></strong>: Allows more customization, gains access to <strong>dispatch</strong> and optionally <strong>ownProps</strong>
+![eoLfqU.png](https://s2.ax1x.com/2019/08/08/eoLfqU.png)
+
+- <strong><ins>Object shorthand form</ins></strong>: More declarative and easier to use
+![eoxsgA.png](https://s2.ax1x.com/2019/08/08/eoxsgA.png)
+
+> We recommend using the object form of `mapDispatchToProps` unless you specifically need to customize dispatching behavior in some way.
+
+#### Defining mapDispatchToProps As A Function
+Defining mapDispatchToProps as a function gives you the most flexibility in customizing the functions your component receives, and how they dispatch actions. You gain access to dispatch and ownProps. You may use this chance to write customized functions to be called by your connected components.
+
+###### Arguments
+![eoLmgx.png](https://s2.ax1x.com/2019/08/08/eoLmgx.png)
+
+<strong>dispatch</strong><br/>
+The <ins><em>mapDispatchToProps</em></ins> function will be called with <ins><em>dispatch</em></ins> as the first argument. You will normally make use of this by returning new functions that call <ins><em>dispatch()</em></ins> inside themselves, and either pass in a plain action object directly or pass in the result of an action creator.
+![eoLfqU.png](https://s2.ax1x.com/2019/08/08/eoLfqU.png)
+You will also likely want to forward arguments to your action creators:
+![eoLbxx.png](https://s2.ax1x.com/2019/08/08/eoLbxx.png)
+
+<strong>ownProps ( optional )</strong><br/>
+If your <ins><em>mapDispatchToProps</em></ins> function is declared as taking two parameters, it will be called with <ins><em>dispatch</em></ins> as the first parameter and the <ins><em>props</em></ins> passed to the connected component as the second parameter, and will be re-invoked whenever the connected component receives new props.
+
+This means, instead of re-binding new <ins><em>props</em></ins> to action dispatchers upon component re-rendering, you may do so when your component's <ins><em>props</em></ins> change.
+![eoXZX6.png](https://s2.ax1x.com/2019/08/08/eoXZX6.png)
+
+###### Return
+Your <ins><em>mapDispatchToProps</em></ins> function should return a plain object:
+- Each field in the object will become a separate prop for your own component, and the value should normally be a function that dispatches an action when called.
+- If you use action creators ( as oppose to plain object actions ) inside <ins><em>dispatch</em></ins>, it is a convention to simply name the field key the same name as the action creator:
+![eoXr3n.png](https://s2.ax1x.com/2019/08/08/eoXr3n.png)
+The return of the <ins><em>mapDispatchToProps</em></ins> function will be merged to your connected component as props. You may call them directly to dispatch its action.
+![eoXXUe.png](https://s2.ax1x.com/2019/08/08/eoXXUe.png)
+
+###### Defining the mapDispatchToProps Function with bindActionCreators
+Wrapping these functions by hand is tedious, so Redux provides a function to simplify that.
+> `bindActionCreators` turns an object whose values are action creators, into an object with the same keys, but with every action creator wrapped into a `dispatch` call so they may be invoked directly
+
+<strong>bindActionCreators</strong> accepts two parameters:
+- A <strong>function</strong> (an action creator) or an <strong>object</strong> (each field an action creator)
+- <strong>dispatch</strong>
+
+The wrapper functions generated by <strong>bindActionCreators</strong> will automatically forward all of their arguments, so you don't need to do that by hand.
+![eojcRA.png](https://s2.ax1x.com/2019/08/08/eojcRA.png)
+To use <strong>bindActionCreators</strong> in our <strong>mapDispatchToProps</strong> function:
+![eojOs0.png](https://s2.ax1x.com/2019/08/08/eojOs0.png)
+
+###### Manually Injecting dispatch
+If the <strong>mapDispatchToProps</strong> argument is supplied, the component will no longer receive the default <strong>dispatch</strong>. You may bring it back by adding it manually to the return of your <strong>mapDispatchToProps</strong>, although most of the time you shouldn’t need to do this:
+![eovRfJ.png](https://s2.ax1x.com/2019/08/08/eovRfJ.png)
+
+#### Defining mapDispatchToProps As An Object
+You’ve seen that the setup for dispatching Redux actions in a React component follows a very similar process: define an action creator, wrap it in another function that looks like <strong>(…args) => dispatch(actionCreator(…args))</strong>, and pass that wrapper function as a prop to your component.
+
+Because this is so common, <strong>connect</strong> supports an “object shorthand” form for the <strong>mapDispatchToProps</strong> argument: if you pass an object full of action creators instead of a function, <strong>connect</strong> will automatically call <strong>bindActionCreators</strong> for you internally.
+
+It's recommend always using the “object shorthand” form of <strong>mapDispatchToProps</strong>, unless you have a specific reason to customize the dispatching behavior.
+
+Note that:
+- Each field of the <strong>mapDispatchToProps</strong> object is assumed to be an action creator
+- Your component will no longer receive <strong>dispatch</strong> as a prop
+
+![eoxwND.png](https://s2.ax1x.com/2019/08/08/eoxwND.png)
+Therefore, our <strong>mapDispatchToProps</strong> can simply be:
+![eoxsgA.png](https://s2.ax1x.com/2019/08/08/eoxsgA.png)
+Since the actual name of the variable is up to you, you might want to give it a name like <strong>actionCreators</strong>, or even define the object inline in the call to <strong>connect</strong>:
+![eoxqbV.png](https://s2.ax1x.com/2019/08/08/eoxqbV.png)
+
+#### Common Problems
+<strong>Why is my component not receiving dispatch?</strong><br/>
+Also known as
+![eTJouj.png](https://s2.ax1x.com/2019/08/08/eTJouj.png)
+This is a common error that happens when you try to call <em><ins>this.props.dispatch</ins></em> , but <em><ins>dispatch</ins></em> is not injected to your component.
+
+<em><ins>dispatch</ins></em> is injected to your component only when:
+
+1.You do not provide mapDispatchToProps
+
+&nbsp;&nbsp;&nbsp;&nbsp;The default <em><ins>mapDispatchToProps</ins></em> is simply <em><ins>dispatch => ({ dispatch })</ins></em>. If you do not provide <em><ins>mapDispatchToProps</ins></em>, <em><ins>dispatch</ins></em> will be provided as mentioned above.
+
+&nbsp;&nbsp;&nbsp;&nbsp;In another words, if you do:
+![eTYwaq.png](https://s2.ax1x.com/2019/08/08/eTYwaq.png)
+
+2.Your customized mapDispatchToProps function return specifically contains dispatch
+
+&nbsp;&nbsp;&nbsp;&nbsp;You may bring back <em><ins>dispatch</ins></em> by providing your customized <em><ins>mapDispatchToProps</ins></em> function:
+![eTYrGT.png](https://s2.ax1x.com/2019/08/08/eTYrGT.png)
+&nbsp;&nbsp;&nbsp;&nbsp;Or alternatively, with <em><ins>bindActionCreators</ins></em>:
+![eTYHQe.png](https://s2.ax1x.com/2019/08/08/eTYHQe.png)
+
+<strong>Can I mapDispatchToProps without mapStateToProps in Redux?</strong><br/>
+Yes. You can skip the first parameter by passing <em><ins>undefined</ins></em> or <em><ins>null</ins></em>. Your component will not subscribe to the store, and will still receive the dispatch props defined by <em><ins>mapDispatchToProps</ins></em>.
+![eTtBmd.png](https://s2.ax1x.com/2019/08/08/eTtBmd.png)
