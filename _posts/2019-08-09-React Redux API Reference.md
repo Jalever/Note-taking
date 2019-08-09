@@ -9,6 +9,10 @@ catalog: true
 tags:
   - React
 ---
+- [connect()](#connect)
+- [Provider](#provider)
+- [connectAdvanced()](#connectadvanced)
+- [batch()](#batch)
 
 ## connect()
 #### Overview
@@ -160,7 +164,7 @@ You may wish to override <em><ins>areStatePropsEqual</ins></em> to use <em><ins>
 You may wish to override <em><ins>areMergedPropsEqual</ins></em> to implement a <em><ins>deepEqual</ins></em> if your selectors produce complex props. ex: nested objects, new arrays, etc. (The deep equal check may be faster than just re-rendering.)
 
 <strong>forwardRef</strong><br/>
-If <em><ins>&lt;{forwardRef : true}&gt;</ins></em> has been passed to <em><ins>&lt;connect&gt;</ins></em>, adding a ref to the connected wrapper component will actually return the instance of the wrapped component.
+If <em><ins>{forwardRef : true}</ins></em> has been passed to <em><ins>&lt;connect&gt;</ins></em>, adding a ref to the connected wrapper component will actually return the instance of the wrapped component.
 
 
 
@@ -228,3 +232,102 @@ If your <strong>mapStateToProps</strong> or <strong>mapDispatchToProps</strong> 
 
 The factory functions are commonly used with memoized selectors. This gives you the ability to create component-instance-specific selectors inside the closure:
 ![eHazAH.png](https://s2.ax1x.com/2019/08/09/eHazAH.png)
+
+## Provider
+#### Overview
+
+#### Props
+###### store
+Type: Redux Store
+
+The single Redux <strong>store</strong> in your application.
+
+###### children
+ReactElement
+
+The root of your component hierarchy.
+
+###### context
+You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well. Failure to provide the correct context results in runtime error:  
+> Could not find "store" in the context of "Connect(MyComponent)". Either wrap the root component in a <strong>&lt;Provider&gt;</strong>, or pass a custom React context provider to <strong>&lt;Provider&gt;</strong> and the corresponding React context consumer to Connect(Todo) in connect options.
+
+> You do not need to provide custom context in order to access the store. React Redux exports the context instance it uses by default so that you can access the store by:
+![ebtKrF.png](https://s2.ax1x.com/2019/08/09/ebtKrF.png)
+
+#### Example Usage
+In the example below, the <strong>&lt;App /&gt;</strong> component is our root-level component. This means it’s at the very top of our component hierarchy.
+
+###### Vanilla React Example
+![ebYVXD.png](https://s2.ax1x.com/2019/08/09/ebYVXD.png)
+
+###### Usage with React Router
+![ebY8c8.png](https://s2.ax1x.com/2019/08/09/ebY8c8.png)
+
+## connectAdvanced()
+![ebQJoV.png](https://s2.ax1x.com/2019/08/09/ebQJoV.png)
+Connects a React component to a Redux store. It is the base for connect() but is less opinionated about how to combine state, props, and dispatch into your final props. It makes no assumptions about defaults or memoization of results, leaving those responsibilities to the caller.
+
+It does not modify the component class passed to it; instead, it returns a new, connected component class for you to use.
+
+Most applications will not need to use this, as the default behavior in connect is intended to work for most use cases.
+
+#### Arguments
+###### selectorFactory
+![eblfhT.png](https://s2.ax1x.com/2019/08/09/eblfhT.png)
+Type: <strong>Function</strong>
+
+Initializes a selector function (during each instance's constructor). That selector function is called any time the connector component needs to compute new props, as a result of a store state change or receiving new props. The result of <strong>selector</strong> is expected to be a plain object, which is passed as the props to the wrapped component. If a consecutive call to <strong>selector</strong> returns the same object (<strong>===</strong>) as its previous call, the component will not be re-rendered. It's the responsibility of <strong>selector</strong> to return that previous object when appropriate.
+
+###### connectOptions
+Type: <strong>Object</strong>
+
+If specified, further customizes the behavior of the connector.
+
+&nbsp;&nbsp;<strong>getDisplayName</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>Function</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;computes the connector component's displayName property relative to that of the wrapped component. Usually overridden by wrapper functions. Default value: <em><ins>name => 'ConnectAdvanced('+name+')'</ins></em>
+
+&nbsp;&nbsp;<strong>methodName</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>String</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;shown in error messages. Usually overridden by wrapper functions. Default value: <em><ins>'connectAdvanced'</ins></em>
+
+&nbsp;&nbsp;<strong>renderCountProp</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>String</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;if defined, a property named this value will be added to the props passed to the wrapped component. Its value will be the number of times the component has been rendered, which can be useful for tracking down unnecessary re-renders. Default value: <em><ins>undefined</ins></em>
+
+&nbsp;&nbsp;<strong>shouldHandleStateChanges</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>Boolean</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;controls whether the connector component subscribes to redux store state changes. If set to false, it will only re-render when parent component re-renders. Default value: <em><ins>true</ins></em>
+
+&nbsp;&nbsp;<strong>forwardRef</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>Boolean</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;If true, adding a ref to the connected wrapper component will actually return the instance of the wrapped component.
+
+&nbsp;&nbsp;Additionally, any extra options passed via <em><ins>connectOptions</ins></em> will be passed through to your <em><ins>selectorFactory</ins></em> in the <em><ins>factoryOptions</ins></em> argument.
+
+#### Returns
+A higher-order React component class that builds props from the store state and passes them to the wrapped component. A higher-order component is a function which accepts a component argument and returns a new component.
+
+###### Static Properties
+&nbsp;&nbsp;<strong>WrappedComponent</strong><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Type: <em><ins>Component</ins></em><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;The original component class passed to <em><ins>connectAdvanced(...)(Component)</ins></em>.
+
+###### Static Methods
+All the original static methods of the component are hoisted.
+
+#### Remarks
+Since <strong>connectAdvanced</strong> returns a higher-order component, it needs to be invoked two times. The first time with its arguments as described above, and a second time, with the component: <strong>connectAdvanced(selectorFactory)(MyComponent)</strong>.
+
+<strong>connectAdvanced</strong> does not modify the passed React component. It returns a new, connected component, that you should use instead.
+
+#### Examples
+<strong>Inject todos of a specific user depending on props, and inject props.userId into the action</strong><br/>
+![eblCkV.png](https://s2.ax1x.com/2019/08/09/eblCkV.png)
+
+## batch()
+![ebmCFg.png](https://s2.ax1x.com/2019/08/09/ebmCFg.png)
+React's <strong>unstable_batchedUpdate()</strong> API allows any React updates in an event loop tick to be batched together into a single render pass. React already uses this internally for its own event handler callbacks. This API is actually part of the renderer packages like ReactDOM and React Native, not the React core itself.
+
+Since React-Redux needs to work in both ReactDOM and React Native environments, we've taken care of importing this API from the correct renderer at build time for our own use. We also now re-export this function publicly ourselves, renamed to <strong>batch()</strong>. You can use it to ensure that multiple actions dispatched outside of React only result in a single render update, like this:
+![ebmnTU.png](https://s2.ax1x.com/2019/08/09/ebmnTU.png)

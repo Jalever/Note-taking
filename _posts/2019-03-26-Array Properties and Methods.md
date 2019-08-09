@@ -99,7 +99,8 @@ In ES2015, the class syntax allows for sub-classing of both built-in and user de
 ![Zcy728.png](https://s2.ax1x.com/2019/07/10/Zcy728.png)
 
 ###### Sequence generator (range)
-![Zc6ow9.png](https://s2.ax1x.com/2019/07/10/Zc6ow9.png)
+![ebCVUI.png](https://s2.ax1x.com/2019/08/09/ebCVUI.png)
+![ebCrZ9.png](https://s2.ax1x.com/2019/08/09/ebCrZ9.png)
 
 ----------------------------------------------------------------------------
 ## Array.isArray()
@@ -206,13 +207,13 @@ The `copyWithin()` method shallow copies part of an array to another location in
 
 &nbsp;&nbsp;<strong>start</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to start copying elements from. If negative, <strong>start</strong> will be counted from the end.
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to start copying elements from. If negative, <strong>start</strong> will be counted from the end.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;If <strong>start</strong> is omitted, <strong>copyWithin</strong> will copy from index 0.
 
 
 &nbsp;&nbsp;<strong>end</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to end copying elements from. <strong>copyWithin</strong> copies up to but not including <strong>end</strong>. If negative, <strong>end</strong> will be counted from the end.
+&nbsp;&nbsp;&nbsp;&nbsp;Zero-based index at which to end copying elements from. <strong>copyWithin</strong> copies up to but not including <strong>end</strong>. If negative, <strong>end</strong> will be counted from the end.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;If <strong>end</strong> is omitted, <strong>copyWithin</strong> will copy until the last index (default to <strong>arr.length</strong>).
 
 ###### Return Value
