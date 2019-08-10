@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Tree)Tree Overview
-subtitle: Data Structure Tree学习笔记系列
+subtitle: Data Structure Tree
 date: 2019-06-27
 author: Jalever
 header-img: img/post-bg-star.jpg
@@ -80,25 +80,10 @@ A root node will have a depth of 0.
 
 ## Representation by codes
 #### Static representation of tree
-```cpp
-#define MAXNODE 500  
-struct treenode {  
-    int root;  
-    int father;  
-    int son;  
-    int next;   
-}
-```
+![eXPzB8.png](https://s2.ax1x.com/2019/08/10/eXPzB8.png)
 
 #### Dynamic representation of tree
-```cpp
-struct treenode {  
-    int root;  
-    struct treenode *father;   
-    struct treenode *son   
-    struct treenode *next;   
-}  
-```
+![eXiYDK.png](https://s2.ax1x.com/2019/08/10/eXiYDK.png)
 
 ## Types of Tree
 The tree data structure can be classified into six different categories.
@@ -110,18 +95,14 @@ General Tree stores the elements in a hierarchical order in which the top level 
 
 #### Forests
 Forest can be defined as the set of disjoint trees which can be obtained by deleting the root node and the edges which connects root node to the first level node.
-
 [![Zkh7vD.md.png](https://s2.ax1x.com/2019/06/24/Zkh7vD.md.png)](https://imgchr.com/i/Zkh7vD)
-
 
 #### Binary Tree
 Binary tree is a data structure in which each node can have at most 2 children. The node present at the top most level is called the `root node`. A node with the 0 children is called `leaf node`. Binary Trees are used in the applications like expression evaluation and many more.
-
 ![V41OqH.png](https://s2.ax1x.com/2019/06/14/V41OqH.png)
 
 ###### Full Binary Tree
 A full Binary tree is a special type of binary tree in which every parent node has either two or no children.
-
 ![V41vdA.png](https://s2.ax1x.com/2019/06/14/V41vdA.png)
 
 ###### Complete Binary Tree
@@ -140,10 +121,7 @@ Binary search tree is an ordered binary tree. All the elements in the left sub-t
 Expression trees are used to evaluate the simple arithmetic expressions. Expression tree is basically a binary tree where internal nodes are represented by `operators` while the leaf nodes are represented by `operands`. Expression trees are widely used to solve algebraic expressions like (a+b)*(a-b).
 
 Consider the following example:
-
-```cpp
-(a + b) / (a*b - c) + d
-```
+![eXkW1s.png](https://s2.ax1x.com/2019/08/10/eXkW1s.png)
 
 [![Zk4rdA.md.png](https://s2.ax1x.com/2019/06/24/Zk4rdA.md.png)](https://imgchr.com/i/Zk4rdA)
 

@@ -390,86 +390,19 @@ The range of elements processed by `filter()` is set before the first invocation
 #### Examples
 ###### Filtering out all small values
 The following example uses `filter()` to create a filtered array that has all elements with values less than 10 removed.
-```js
-function isBigEnough(value) {
-  return value >= 10;
-}
-
-var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
-// filtered is [12, 130, 44]
-```
+![eLSRMD.png](https://s2.ax1x.com/2019/08/10/eLSRMD.png)
 
 ###### Filtering invalid entries from JSON
 The following example uses `filter()` to create a filtered json of all elements with non-zero, numeric `id`.
-```js
-var arr = [
-  { id: 15 },
-  { id: -1 },
-  { id: 0 },
-  { id: 3 },
-  { id: 12.2 },
-  { },
-  { id: null },
-  { id: NaN },
-  { id: 'undefined' }
-];
-
-var invalidEntries = 0;
-
-function isNumber(obj) {
-  return obj !== undefined && typeof(obj) === 'number' && !isNaN(obj);
-}
-
-function filterByID(item) {
-  if (isNumber(item.id) && item.id !== 0) {
-    return true;
-  }
-  invalidEntries++;
-  return false;
-}
-
-var arrByID = arr.filter(filterByID);
-
-console.log('Filtered Array\n', arrByID);
-// Filtered Array
-// [{ id: 15 }, { id: -1 }, { id: 3 }, { id: 12.2 }]
-
-console.log('Number of Invalid Entries = ', invalidEntries);
-// Number of Invalid Entries = 5
-```
+![eLS4Zd.png](https://s2.ax1x.com/2019/08/10/eLS4Zd.png)
+![eLS5dA.png](https://s2.ax1x.com/2019/08/10/eLS5dA.png)
 
 ###### Searching in array
 Following example uses `filter()` to filter array content based on search criteria
-```js
-var fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
-
-/**
- * Filter array items based on search criteria (query)
- */
-function filterItems(arr, query) {
-  return arr.filter(function(el) {
-      return el.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-  })
-}
-
-console.log(filterItems(fruits, 'ap')); // ['apple', 'grapes']
-console.log(filterItems(fruits, 'an')); // ['banana', 'mango', 'orange']
-```
+![eLS7JP.png](https://s2.ax1x.com/2019/08/10/eLS7JP.png)
 
 ###### Searching in array
-```js
-const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
-
-/**
- * Filter array items based on search criteria (query)
- */
-const filterItems = (arr, query) => {
-  return arr.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-};
-
-console.log(filterItems(fruits, 'ap')); // ['apple', 'grapes']
-console.log(filterItems(fruits, 'an')); // ['banana', 'mango', 'orange']
-```
+![eLSbz8.png](https://s2.ax1x.com/2019/08/10/eLSbz8.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.find()
@@ -516,83 +449,18 @@ The range of elements processed by `find` is set before the first invocation of 
 
 #### Examples
 ###### Find an object in an array by one of its properties
-```js
-const inventory = [
-    {name: 'apples', quantity: 2},
-    {name: 'bananas', quantity: 0},
-    {name: 'cherries', quantity: 5}
-];
-
-function isCherries(fruit) {
-    return fruit.name === 'cherries';
-}
-
-console.log(inventory.find(isCherries));
-// { name: 'cherries', quantity: 5 }
-```
+![eLppiq.png](https://s2.ax1x.com/2019/08/10/eLppiq.png)
 
 ###### Using ES2015 arrow function
-```js
-const inventory = [
-    {name: 'apples', quantity: 2},
-    {name: 'bananas', quantity: 0},
-    {name: 'cherries', quantity: 5}
-];
-
-const result = inventory.find( fruit => fruit.name === 'cherries' );
-
-console.log(result) // { name: 'cherries', quantity: 5 }
-```
+![eLpPzT.png](https://s2.ax1x.com/2019/08/10/eLpPzT.png)
 
 ###### Find a prime number in an array
 The following example finds an element in the array that is a prime number (or returns `undefined` if there is no prime number).
-```js
-function isPrime(element, index, array) {
-  let start = 2;
-  while (start <= Math.sqrt(element)) {
-    if (element % start++ < 1) {
-      return false;
-    }
-  }
-  return element > 1;
-}
-
-console.log([4, 6, 8, 12].find(isPrime)); // undefined, not found
-console.log([4, 5, 8, 12].find(isPrime)); // 5
-```
+![eLpVeJ.png](https://s2.ax1x.com/2019/08/10/eLpVeJ.png)
 
 The following examples show that non-existent and deleted elements are visited and that the value passed to the callback is their value when visited.
-
-```js
-// Declare array with no element at index 2, 3 and 4
-const array = [0,1,,,,5,6];
-
-// Shows all indexes, not just those that have been assigned values
-array.find(function(value, index) {
-  console.log('Visited index ' + index + ' with value ' + value);
-});
-
-// Shows all indexes, including deleted
-array.find(function(value, index) {
-
-  // Delete element 5 on first iteration
-  if (index == 0) {
-    console.log('Deleting array[5] with value ' + array[5]);
-    delete array[5];
-  }
-  // Element 5 is still visited even though deleted
-  console.log('Visited index ' + index + ' with value ' + value);
-});
-// expected output:
-// Deleting array[5] with value 5
-// Visited index 0 with value 0
-// Visited index 1 with value 1
-// Visited index 2 with value undefined
-// Visited index 3 with value undefined
-// Visited index 4 with value undefined
-// Visited index 5 with value undefined
-// Visited index 6 with value 6
-```
+![eLpnF1.png](https://s2.ax1x.com/2019/08/10/eLpnF1.png)
+![eLpKW6.png](https://s2.ax1x.com/2019/08/10/eLpKW6.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.findIndex()
@@ -605,7 +473,6 @@ The `findIndex()` method returns the <strong>index</strong> of the first element
 ###### Parameters
 &nbsp;&nbsp;<strong>callback</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;A function to execute on each value in the array until the function returns `true`, indicating that the satisfying element was found. It takes three arguments:
-
 
 &nbsp;&nbsp;&nbsp;&nbsp;<strong>element</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The current element being processed in the array.
@@ -622,10 +489,8 @@ The `findIndex()` method returns the <strong>index</strong> of the first element
 &nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Optional object to use as `this` when executing `callback`.
 
-
 ###### Return Value
 &nbsp;&nbsp;The index of the first element in the array that passes the test. Otherwise, `-1`.
-
 
 #### Description
 The `findIndex` method executes the `callback` function once for every index `0..length-1` (inclusive) in the array until it finds the one where `callback` returns a truthy value (a value that coerces to `true`).
@@ -645,33 +510,11 @@ The range of elements processed by `findIndex` is set before the first invocatio
 #### Examples
 ###### Find the index of a prime number in an array
 The following example returns the index of the first element in the array that is a prime number, or -1 if there is no prime number.
-```js
-function isPrime(element, index, array) {
-  var start = 2;
-  while (start <= Math.sqrt(element)) {
-    if (element % start < 1) {
-      return false;
-    } else {
-      start++;
-    }
-  }
-  return element > 2;
-}
-
-console.log([4, 6, 8, 12].findIndex(isPrime)); // -1, not found
-console.log([4, 6, 7, 12].findIndex(isPrime)); // 2 (array[2] is 7)
-```
+![eLp3Oe.png](https://s2.ax1x.com/2019/08/10/eLp3Oe.png)
 
 ###### Find index using arrow function
 The following example finds the index of a fruit using an arrow function:
-```js
-const fruits = ["apple", "banana", "cantaloupe", "blueberries", "grapefruit"];
-
-const index = fruits.findIndex(fruit => fruit === "blueberries");
-
-console.log(index); // 3
-console.log(fruits[index]); // blueberries
-```
+![eLpJwd.png](https://s2.ax1x.com/2019/08/10/eLpJwd.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.flat()

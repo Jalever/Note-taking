@@ -13,6 +13,7 @@ tags:
 - [Provider](#provider)
 - [connectAdvanced()](#connectadvanced)
 - [batch()](#batch)
+- [Hooks](#hooks)
 
 ## connect()
 #### Overview
@@ -264,6 +265,15 @@ In the example below, the <strong>&lt;App /&gt;</strong> component is our root-l
 ![ebY8c8.png](https://s2.ax1x.com/2019/08/09/ebY8c8.png)
 
 ## connectAdvanced()
+- [Arguments](#arguments)
+    - [selectorFactory](#selectorfactory)
+    - [connectOptions](#connectoptions)
+- [Returns](#returns)
+    - [Static Properties](#static-properties)
+    - [Static Methods](#static-methods)
+- [Remarks](#remarks)
+- [Examples](#examples)
+
 ![ebQJoV.png](https://s2.ax1x.com/2019/08/09/ebQJoV.png)
 Connects a React component to a Redux store. It is the base for connect() but is less opinionated about how to combine state, props, and dispatch into your final props. It makes no assumptions about defaults or memoization of results, leaving those responsibilities to the caller.
 
@@ -331,3 +341,122 @@ React's <strong>unstable_batchedUpdate()</strong> API allows any React updates i
 
 Since React-Redux needs to work in both ReactDOM and React Native environments, we've taken care of importing this API from the correct renderer at build time for our own use. We also now re-export this function publicly ourselves, renamed to <strong>batch()</strong>. You can use it to ensure that multiple actions dispatched outside of React only result in a single render update, like this:
 ![ebmnTU.png](https://s2.ax1x.com/2019/08/09/ebmnTU.png)
+
+## Hooks
+
+- [Using Hooks in a React Redux App](#using hooks in a react redux app)
+    - [useSelector()](#useselector)
+    - [useDispatch()](#usedispatch)
+    - [useStore()](#usestore)
+- [Usage Warnings](#useselector)
+    - [Stale Props and "Zombie Children"](#stale-props-and-zombie-children)
+    - [Performance](#performance)
+
+React's new "hooks" APIs give function components the ability to use local component state, execute side effects, and more.
+
+React Redux now offers a set of hook APIs as an alternative to the existing <strong>connect()</strong> Higher Order Component. These APIs allow you to subscribe to the Redux store and dispatch actions, without having to wrap your components in <strong>connect()</strong>.
+
+These hooks were first added in v7.1.0.
+
+#### Using Hooks in a React Redux App
+As with connect(), you should start by wrapping your entire application in a <Provider> component to make the store available throughout the component tree:
+![eOnT6H.png](https://s2.ax1x.com/2019/08/10/eOnT6H.png)
+From there, you may import any of the listed React Redux hooks APIs and use them within your function components.
+
+###### useSelector()
+![eOlzOe.png](https://s2.ax1x.com/2019/08/10/eOlzOe.png)
+Allows you to extract data from the Redux store state, using a selector function.
+
+The selector is approximately equivalent to the mapStateToProps argument to connect conceptually. The selector will be called with the entire Redux store state as its only argument. The selector will be run whenever the function component renders. <strong>useSelector()</strong> will also subscribe to the Redux store, and run your selector whenever an action is dispatched.
+
+However, there are some differences between the selectors passed to <strong>useSelector()</strong> and a <strong>mapState</strong> function:
+- The selector may return any value as a result, not just an object. The return value of the selector will be used as the return value of the <strong>useSelector()</strong> hook.
+- When an action is dispatched, <strong>useSelector()</strong> will do a shallow comparison of the previous selector result value and the current result value. If they are different, the component will be forced to re-render. If they are the same, the component will not re-render.
+- The selector function does not receive an <strong>ownProps</strong> argument. However, props can be used through closure (see the examples below) or by using a curried selector.
+- Extra care must be taken when using memoizing selectors.
+- <strong>useSelector()</strong> uses strict <strong>===</strong> reference equality checks by default, not shallow equality (see the following section for more details).
+
+You may call <strong>useSelector()</strong> multiple times within a single function component. Each call to <strong>useSelector()</strong> creates an individual subscription to the Redux store. Because of the React update batching behavior used in React Redux v7, a dispatched action that causes multiple <strong>useSelector()</strong>s in the same component to return new values should only result in a single re-render.
+
+<strong>Equality Comparisons and Updates</strong><br/>
+When the function component renders, the provided selector function will be called and its result will be returned from the <strong>useSelector()</strong> hook. (A cached result may be returned if the selector has been run and hasn't changed.)
+
+However, when an action is dispatched to the Redux store, <strong>useSelector()</strong> only forces a re-render if the selector result appears to be different than the last result. As of v7.1.0-alpha.5, the default comparison is a strict <strong>===</strong> reference comparison. This is different than <strong>connect()</strong>, which uses shallow equality checks on the results of <strong>mapState</strong> calls to determine if re-rendering is needed. This has several implications on how you should use <strong>useSelector()</strong>.
+
+With <strong>mapState</strong>, all individual fields were returned in a combined object. It didn't matter if the return object was a new reference or not - <strong>connect()</strong> just compared the individual fields. With <strong>useSelector()</strong>, returning a new object every time will always force a re-render by default. If you want to retrieve multiple values from the store, you can:
+- Call <strong>useSelector()</strong> multiple times, with each call returning a single field value
+- Use Reselect or a similar library to create a memoized selector that returns multiple values in one object, but only returns a new object when one of the values has changed.
+- Use the <strong>shallowEqual</strong> function from React-Redux as the <strong>equalityFn</strong> argument to <strong>useSelector()</strong>, like:
+![eO39jU.png](https://s2.ax1x.com/2019/08/10/eO39jU.png)
+The optional comparison function also enables using something like Lodash's <strong>_.isEqual()</strong> or Immutable.js's comparison capabilities.
+
+<strong>useSelector Examples</strong><br/>
+Basic usage:
+![eO3ngK.png](https://s2.ax1x.com/2019/08/10/eO3ngK.png)
+Using props via closure to determine what to extract:
+![eO37P1.png](https://s2.ax1x.com/2019/08/10/eO37P1.png)
+
+<strong>Using memoizing selectors</strong><br/>
+When using <strong>useSelector</strong> with an inline selector as shown above, a new instance of the selector is created whenever the component is rendered. This works as long as the selector does not maintain any state. However, memoizing selectors (e.g. created via <strong>createSelector</strong> from <strong>reselect</strong>) do have internal state, and therefore care must be taken when using them. Below you can find typical usage scenarios for memoizing selectors.
+
+When the selector does only depend on the state, simply ensure that it is declared outside of the component so that the same selector instance is used for each render:
+![eOJng0.png](https://s2.ax1x.com/2019/08/10/eOJng0.png)
+The same is true if the selector depends on the component's props, but will only ever be used in a single instance of a single component:
+![eOJXrT.png](https://s2.ax1x.com/2019/08/10/eOJXrT.png)
+However, when the selector is used in multiple component instances and depends on the component's props, you need to ensure that each component instance gets its own selector instance
+![eOYyeU.png](https://s2.ax1x.com/2019/08/10/eOYyeU.png)
+![eOYWWR.png](https://s2.ax1x.com/2019/08/10/eOYWWR.png)
+
+###### useDispatch()
+![eOYqFH.png](https://s2.ax1x.com/2019/08/10/eOYqFH.png)
+This hook returns a reference to the <strong>dispatch</strong> function from the Redux store. You may use it to dispatch actions as needed.
+
+Examples
+![eOtQk4.png](https://s2.ax1x.com/2019/08/10/eOtQk4.png)
+When passing a callback using <strong>dispatch</strong> to a child component, it is recommended to memoize it with <strong>useCallback</strong>, since otherwise child components may render unnecessarily due to the changed reference.
+![eOtYX6.png](https://s2.ax1x.com/2019/08/10/eOtYX6.png)
+
+###### useStore()
+![eOtRHS.png](https://s2.ax1x.com/2019/08/10/eOtRHS.png)
+This hook returns a reference to the same Redux store that was passed in to the <strong>&lt;Provider&gt;</strong> component.
+
+This hook should probably not be used frequently. Prefer <strong>useSelector()</strong> as your primary choice. However, this may be useful for less common scenarios that do require access to the store, such as replacing reducers.
+
+Examples
+![eONiDK.png](https://s2.ax1x.com/2019/08/10/eONiDK.png)
+
+#### Usage Warnings
+###### Stale Props and "Zombie Children"
+One of the most difficult aspects of React Redux's implementation is ensuring that if your <strong>mapStateToProps</strong> function is defined as <strong>(state, ownProps)</strong>, it will be called with the "latest" props every time. Up through version 4, there were recurring bugs reported involving edge case situations, such as errors thrown from a <strong>mapState</strong> function for a list item whose data had just been deleted.
+
+Starting with version 5, React Redux has attempted to guarantee that consistency with <strong>ownProps</strong>. In version 7, that is implemented using a custom <strong>Subscription</strong> class internally in <strong>connect()</strong>, which forms a nested hierarchy. This ensures that connected components lower in the tree will only receive store update notifications once the nearest connected ancestor has been updated. However, this relies on each <strong>connect()</strong> instance overriding part of the internal React context, supplying its own unique <strong>Subscription</strong> instance to form that nesting, and rendering the <strong>&lt;ReactReduxContext.Provider&gt;</strong> with that new context value.
+
+With hooks, there is no way to render a context provider, which means there's also no nested hierarchy of subscriptions. Because of this, the "stale props" and "zombie child" issues may potentially re-occur in an app that relies on using hooks instead of <strong>connect()</strong>.
+
+Specifically, "stale props" means any case where:
+- a selector function relies on this component's props to extract data
+- a parent component would re-render and pass down new props as a result of an action
+- but this component's selector function executes before this component has had a chance to re-render with those new props
+
+Depending on what props were used and what the current store state is, this may result in incorrect data being returned from the selector, or even an error being thrown.
+
+"Zombie child" refers specifically to the case where:
+
+- Multiple nested connected components are mounted in a first pass, causing a child component to subscribe to the store before its parent
+- An action is dispatched that deletes data from the store, such as a todo item
+- The parent component would stop rendering that child as a result
+- However, because the child subscribed first, its subscription runs before the parent stops rendering it. When it reads a value from the store based on props, that data no longer exists, and if the extraction logic is not careful, this may result in an error being thrown.
+
+<strong>useSelector()</strong> tries to deal with this by catching all errors that are thrown when the selector is executed due to a store update (but not when it is executed during rendering). When an error occurs, the component will be forced to render, at which point the selector is executed again. This works as long as the selector is a pure function and you do not depend on the selector throwing errors.
+
+If you prefer to deal with this issue yourself, here are some possible options for avoiding these problems altogether with <strong>useSelector()</strong>:
+
+- Don't rely on props in your selector function for extracting data
+- In cases where you do rely on props in your selector function and those props may change over time, or the data you're extracting may be based on items that can be deleted, try writing the selector functions defensively. Don't just reach straight into <strong>state.todos[props.id].name</strong> - read <strong>state.todos[props.id]</strong> first, and verify that it exists before trying to read <strong>todo.name</strong>.
+- Because <strong>connect</strong> adds the necessary <strong>Subscription</strong> to the context provider and delays evaluating child subscriptions until the connected component has re-rendered, putting a connected component in the component tree just above the component using <strong>useSelector</strong> will prevent these issues as long as the connected component gets re-rendered due to the same store update as the hooks component.
+
+###### Performance
+As mentioned earlier, by default <strong>useSelector()</strong> will do a reference equality comparison of the selected value when running the selector function after an action is dispatched, and will only cause the component to re-render if the selected value changed. However, unlike <strong>connect()</strong>, <strong>useSelector()</strong> does not prevent the component from re-rendering due to its parent re-rendering, even if the component's props did not change.
+
+If further performance optimizations are necessary, you may consider wrapping your function component in <strong>React.memo()</strong>:
+![eOUAs0.png](https://s2.ax1x.com/2019/08/10/eOUAs0.png)
