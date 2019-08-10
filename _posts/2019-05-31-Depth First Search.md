@@ -24,6 +24,11 @@ The data structure which is being used in DFS is stack. The process is similar t
 ![Z1zJdP.png](https://s2.ax1x.com/2019/06/30/Z1zJdP.png)
 ![Z1zYIf.png](https://s2.ax1x.com/2019/06/30/Z1zYIf.png)
 
+![eXMCU1.png](https://s2.ax1x.com/2019/08/10/eXMCU1.png)
+![eXMFC6.png](https://s2.ax1x.com/2019/08/10/eXMFC6.png)
+![eXMAgO.png](https://s2.ax1x.com/2019/08/10/eXMAgO.png)
+![eXMZKe.png](https://s2.ax1x.com/2019/08/10/eXMZKe.png)
+
 ```cpp
 #include <iostream>
 

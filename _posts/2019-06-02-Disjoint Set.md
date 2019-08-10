@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (DS Graph)Disjoint Set (Or Union-Find)[Detect Cycle in an Undirected Graph]
-subtitle: Data Structure Graph
+title: (DS Graph)Disjoint Set
+subtitle: Data Structure Graph Cycle
 date: 2019-06-02
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
