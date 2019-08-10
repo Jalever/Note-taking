@@ -533,98 +533,24 @@ The `flat()` method creates a new array with all sub-array elements concatenated
 
 #### Examples
 ###### Flattening nested arrays
-```js
-var arr1 = [1, 2, [3, 4]];
-arr1.flat();
-
-// [1, 2, 3, 4]
-
-var arr2 = [1, 2, [3, 4, [5, 6]]];
-arr2.flat();
-
-// [1, 2, 3, 4, [5, 6]]
-
-var arr3 = [1, 2, [3, 4, [5, 6]]];
-arr3.flat(2);
-
-// [1, 2, 3, 4, 5, 6]
-```
+![eXv2ng.png](https://s2.ax1x.com/2019/08/11/eXv2ng.png)
 
 ###### Flattening and array holes
 The flat method removes empty slots in arrays:
-```js
-var arr4 = [1, 2, , 4, 5];
-arr4.flat();
-
-// [1, 2, 4, 5]
-```
+![eXvW7j.png](https://s2.ax1x.com/2019/08/11/eXvW7j.png)
 
 #### Alternative
 ###### reduce and concat
-```js
-var arr1 = [1, 2, [3, 4]];
-arr1.flat();
-
-//to flat single level array
-
-arr1.reduce((acc, val) => acc.concat(val), []);// [1, 2, 3, 4]
-
-//or
-const flatSingle = arr => [].concat(...arr);
-```
+![eXvhAs.png](https://s2.ax1x.com/2019/08/11/eXvhAs.png)
 
 ###### Deep level flatten use recursion with reduce and concat
-```js
-var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
-
-function flattenDeep(arr1) {
-   return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []);
-}
-flattenDeep(arr1);
-
-// [1, 2, 3, 1, 2, 3, 4, 2, 3, 4]
-```
+![eXvo90.png](https://s2.ax1x.com/2019/08/11/eXvo90.png)
 
 ###### Non Recursive flatten deep using a stack
-```js
-var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
-function flatten(input) {
-  const stack = [...input];
-  const res = [];
-  while (stack.length) {
-    // pop value from stack
-
-    const next = stack.pop();
-    if (Array.isArray(next)) {
-
-      // push back array items, won't modify the original input
-
-      stack.push(...next);
-    } else {
-      res.push(next);
-    }
-  }
-
-  //reverse to restore input order
-
-  return res.reverse();
-}
-flatten(arr1);// [1, 2, 3, 1, 2, 3, 4, 2, 3, 4]
-```
+![eXvx41.png](https://s2.ax1x.com/2019/08/11/eXvx41.png)
 
 ###### recursive flatten deep
-```js
-function flatten(array) {
-  var flattend = [];
-  !(function flat(array) {
-    array.forEach(function(el) {
-      if (Array.isArray(el)) flat(el);
-      else flattend.push(el);
-    });
-  })(array);
-  return flattend;
-}
-```
+![eXxFDe.png](https://s2.ax1x.com/2019/08/11/eXxFDe.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.flatMap()
@@ -660,60 +586,20 @@ See `Array.prototype.map()` for a detailed description of the callback function.
 
 #### Examples
 ###### map() and flatMap()
-```js
-let arr1 = [1, 2, 3, 4];
-
-arr1.map(x => [x * 2]);
-// [[2], [4], [6], [8]]
-
-arr1.flatMap(x => [x * 2]);
-// [2, 4, 6, 8]
-
-// only one level is flattened
-arr1.flatMap(x => [[x * 2]]);
-// [[2], [4], [6], [8]]
-```
+![eXxfKO.png](https://s2.ax1x.com/2019/08/11/eXxfKO.png)
 While the above could have been achieved by using map itself, here is an example that better showcases the use of `flatMap`.
 
 Let's generate a list of words from a list of sentences.
-```js
-let arr1 = ["it's Sunny in", "", "California"];
-
-arr1.map(x => x.split(" "));
-// [["it's","Sunny","in"],[""],["California"]]
-
-arr1.flatMap(x => x.split(" "));
-// ["it's","Sunny","in", "", "California"]
-```
+![eXxhrD.png](https://s2.ax1x.com/2019/08/11/eXxhrD.png)
 Notice, the output list length can be different from the input list length.
 
 ###### For adding and removing items during a map()
 `flatMap` can be used as a way to add and remove items (modify the number of items) during a `map`. In other words, it allows you to map many items to many items (by handling each input item separately), rather than always one-to-one. In this sense, it works like the opposite of filter. Simply return a 1-element array to keep the item, a multiple-element array to add items, or a 0-element array to remove the item.
-```js
-// Let's say we want to remove all the negative numbers and split the odd numbers into an even number and a 1
-let a = [5, 4, -3, 20, 17, -33, -4, 18]
-//       |\  \  x   |  | \   x   x   |
-//      [4,1, 4,   20, 16, 1,       18]
-
-a.flatMap( (n) =>
-  (n < 0) ?      [] :
-  (n % 2 == 0) ? [n] :
-                 [n-1, 1]
-)
-
-// expected output: [4, 1, 4, 20, 16, 1, 18]
-```
+![eXxTIA.png](https://s2.ax1x.com/2019/08/11/eXxTIA.png)
 
 #### Alternative
 ###### reduce() and concat()
-```js
-var arr1 = [1, 2, 3, 4];
-
-arr1.flatMap(x => [x * 2]);
-// is equivalent to
-arr1.reduce((acc, x) => acc.concat([x * 2]), []);
-// [2, 4, 6, 8]
-```
+![eXxqRP.png](https://s2.ax1x.com/2019/08/11/eXxqRP.png)
 
 Note, however, that this is inefficient and should be avoided for large arrays: in each iteration, it creates a new temporary array that must be garbage-collected, and it copies elements from the current accumulator array into a new array instead of just adding the new elements to the existing array.
 

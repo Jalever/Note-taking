@@ -2,7 +2,7 @@
 layout: post
 title: (DS Graph)Disjoint Set
 subtitle: Data Structure Graph Cycle
-date: 2019-06-02
+date: 2019-06-03
 author: Jalever
 header-img: img/post-bg-algorithm.jpg
 catalog: true
