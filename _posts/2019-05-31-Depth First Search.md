@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (DS Graph)DFS
+title: (DS Graph)Depth First Search
 subtitle: Data Structure Traverse
 date: 2019-05-31
 author: Jalever
@@ -20,16 +20,15 @@ The data structure which is being used in DFS is stack. The process is similar t
 
 ## Implementation of Adajacent List
 ![Z1zKRe.png](https://s2.ax1x.com/2019/06/30/Z1zKRe.png)
-
 ![Z1z3qI.png](https://s2.ax1x.com/2019/06/30/Z1z3qI.png)
-
 ![Z1zJdP.png](https://s2.ax1x.com/2019/06/30/Z1zJdP.png)
-
 ![Z1zYIf.png](https://s2.ax1x.com/2019/06/30/Z1zYIf.png)
 
 ```cpp
 #include <iostream>
+
 #include <list>
+
 using namespace std;
 
 class Graph {

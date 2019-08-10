@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (DS Linked List)Circular Singly Linked List
-subtitle: Data Structure Linked List学习笔记系列
+subtitle: Data Structure Linked List
 date: 2019-06-22
 author: Jalever
 header-img: img/post-bg-js-version.jpg

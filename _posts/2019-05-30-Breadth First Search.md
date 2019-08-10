@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (DS Graph)BFS
+title: (DS Graph)Breadth First Search
 subtitle: Data Structure Traverse
 date: 2019-05-30
 author: Jalever
@@ -20,15 +20,17 @@ The algorithm of breadth first search is given below. The algorithm starts with 
 
 ## Implementation of Adajacent List
 ![Z1xdD1.png](https://s2.ax1x.com/2019/06/30/Z1xdD1.png)
-
 ![Z1xBE6.png](https://s2.ax1x.com/2019/06/30/Z1xBE6.png)
-
 ![Z1xDUK.png](https://s2.ax1x.com/2019/06/30/Z1xDUK.png)
-
 ![Z1xyCD.png](https://s2.ax1x.com/2019/06/30/Z1xyCD.png)
 
+![eXmrBn.png](https://s2.ax1x.com/2019/08/10/eXmrBn.png)
+![eXm7Ax.png](https://s2.ax1x.com/2019/08/10/eXm7Ax.png)
+![eXmO3D.png](https://s2.ax1x.com/2019/08/10/eXmO3D.png)
+![eXmXge.png](https://s2.ax1x.com/2019/08/10/eXmXge.png)
 ```cpp
 #include <iostream>
+
 #include <list>
 
 using namespace std;
