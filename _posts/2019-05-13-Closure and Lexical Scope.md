@@ -1,9 +1,9 @@
 ---
-layout:     post
-title:      Closure and Lexical Scope
-subtitle:   Web Development学习笔记系列
-date:       2019-05-13
-author:     Jalever
+layout: post
+title: Closure and Lexical Scope
+subtitle: Web Development
+date: 2019-05-13
+author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Throttle and Debounce
-subtitle: Web Development
+subtitle: Debouncing and Throttling Explained Through Examples
 date: 2019-03-27
 author: Jalever
 header-img: img/post-bg-js-version.jpg
