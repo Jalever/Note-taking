@@ -634,10 +634,10 @@ The `forEach()` method executes a provided function once for each array element.
 &nbsp;&nbsp;undefined.
 
 #### Description
-`forEach()` calls a provided `callback` function once for each element in an array in ascending order. It is not invoked for index properties that have been deleted or are uninitialized (i.e. on sparse arrays).
+`forEach()` calls a provided `callback` function once for each element in an array in ascending order. It is not invoked for index properties that have been deleted or are uninitialized (i.e. on Sparse Arrays).
+> <strong>Sparse Array</strong>: an array of data in which many elements have a value of zero. This is in contrast to a dense array, where most of the elements have non-zero values or are “full” of numbers.
 
 `callback` is invoked with three arguments:
-
 1. the value of the element
 2. the index of the element
 3. the Array object being traversed
@@ -657,126 +657,38 @@ The range of elements processed by `forEach()` is set before the first invocatio
 > - Array.prototype.every()
 > - Array.prototype.some()
 > - Array.prototype.find()
-> - Array.prototype.findIndex()
+> - Array.prototype.findIndex()<br/>
 > The other Array methods: `every()`, `some()`, `find()`, and `findIndex()` test the array elements with a predicate returning a truthy value to determine if further iteration is required.
 
 #### Examples
 ###### Converting a for loop to forEach
-```js
-const items = ['item1', 'item2', 'item3'];
-const copy = [];
-
-// before
-for (let i=0; i<items.length; i++) {
-  copy.push(items[i]);
-}
-
-// after
-items.forEach(function(item){
-  copy.push(item);
-});
-```
+![exJJxA.png](https://s2.ax1x.com/2019/08/12/exJJxA.png)
 
 ###### Printing the contents of an array
 > Note: In order to display the content of an array in the console, you can use `console.table()` which will print a formated version of the array. The following example illustrates another way of doing so, using forEach().
 
 The following code logs a line for each element in an array:
-
-```js
-function logArrayElements(element, index, array) {
-  console.log('a[' + index + '] = ' + element);
-}
-
-// Notice that index 2 is skipped since there is no item at
-// that position in the array.
-[2, 5, , 9].forEach(logArrayElements);
-// logs:
-// a[0] = 2
-// a[1] = 5
-// a[3] = 9
-```
+![exJs2j.png](https://s2.ax1x.com/2019/08/12/exJs2j.png)
 
 ###### Using thisArg
 The following (contrived) example updates an object's properties from each entry in the array:
-```js
-function Counter() {
-  this.sum = 0;
-  this.count = 0;
-}
-Counter.prototype.add = function(array) {
-  array.forEach(function(entry) {
-    this.sum += entry;
-    ++this.count;
-  }, this);
-  // ^---- Note
-};
+![exJgrq.png](https://s2.ax1x.com/2019/08/12/exJgrq.png)
 
-const obj = new Counter();
-obj.add([2, 5, 9]);
-obj.count;
-// 3
-obj.sum;
-// 16
-```
 Since the `thisArg` parameter (`this`) is provided to `forEach()`, it is passed to `callback` each time it's invoked, for use as its `this` value.
-> If passing the function argument using an arrow function expression the thisArg parameter can be omitted as arrow functions lexically bind the this value.
+> If passing the function argument using an arrow function expression the <strong>thisArg</strong> parameter can be omitted as arrow functions lexically bind the this value.
 
 ###### An object copy function
 The following code creates a copy of a given object. There are different ways to create a copy of an object; the following is just one way and is presented to explain how `Array.prototype.forEach()` works by using ECMAScript 5 `Object.*` meta property functions.
-```js
-function copy(obj) {
-  const copy = Object.create(Object.getPrototypeOf(obj));
-  const propNames = Object.getOwnPropertyNames(obj);
-
-  propNames.forEach(function(name) {
-    const desc = Object.getOwnPropertyDescriptor(obj, name);
-    Object.defineProperty(copy, name, desc);
-  });
-
-  return copy;
-}
-
-const obj1 = { a: 1, b: 2 };
-const obj2 = copy(obj1); // obj2 looks like obj1 now
-```
+![exJfaT.png](https://s2.ax1x.com/2019/08/12/exJfaT.png)
 
 ###### If the array is modified during iteration, other elements might be skipped.
 The following example logs "one", "two", "four". When the entry containing the value "two" is reached, the first entry of the whole array is shifted off, which results in all remaining entries moving up one position. Because element "four" is now at an earlier position in the array, "three" will be skipped. `forEach()` does not make a copy of the array before iterating.
-```js
-var words = ['one', 'two', 'three', 'four'];
-words.forEach(function(word) {
-  console.log(word);
-  if (word === 'two') {
-    words.shift();
-  }
-});
-// one
-// two
-// fou
-```
+![exYAdf.png](https://s2.ax1x.com/2019/08/12/exYAdf.png)
+![exYeJg.png](https://s2.ax1x.com/2019/08/12/exYeJg.png)
 
 ###### Flatten an array
 The following example is only here for learning purpose. If you want to flatten an array using built-in methods you can use `Array.prototype.flat()` (expected to be part of ES2019 and already implemented in some browsers).
-```js
-function flatten(arr) {
-  const result = []
-
-  arr.forEach((i) => {
-    if (Array.isArray(i)) {
-      result.push(...flatten(i))
-    } else {
-      result.push(i)
-    }
-  })
-
-  return result
-}
-
-// Usage
-const problem = [1, 2, 3, [4, 5, [6, 7], 8, 9]]
-
-flatten(problem) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
-```
+![exYmWQ.png](https://s2.ax1x.com/2019/08/12/exYmWQ.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.includes()
