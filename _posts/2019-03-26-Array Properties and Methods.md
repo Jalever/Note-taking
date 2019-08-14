@@ -714,50 +714,23 @@ The `includes()` method determines whether an array includes a certain value amo
 > Technically speaking, `includes()` uses the sameValueZero algorithm to determine whether the given element is found.
 
 #### Examples
-```js
-[1, 2, 3].includes(2);     // true
-[1, 2, 3].includes(4);     // false
-[1, 2, 3].includes(3, 3);  // false
-[1, 2, 3].includes(3, -1); // true
-[1, 2, NaN].includes(NaN); // true
-```
+![mpTzuD.png](https://s2.ax1x.com/2019/08/13/mpTzuD.png)
 
 ###### fromIndex is greater than or equal to the array length
 If `fromIndex` is greater than or equal to the length of the array, `false` is returned. The array will not be searched.
-```js
-var arr = ['a', 'b', 'c'];
-
-arr.includes('c', 3);   // false
-arr.includes('c', 100); // false
-```
+![mp7PUA.png](https://s2.ax1x.com/2019/08/13/mp7PUA.png)
 
 ###### Computed index is less than 0
 If `fromIndex` is negative, the computed index is calculated to be used as a position in the array at which to begin searching for `valueToFind`. If the computed index is less or equal than `-1 * array.length`, the entire array will be searched.
-```js
-// array length is 3
-// fromIndex is -100
-// computed index is 3 + (-100) = -97
-
-var arr = ['a', 'b', 'c'];
-
-arr.includes('a', -100); // true
-arr.includes('b', -100); // true
-arr.includes('c', -100); // true
-arr.includes('a', -2); // false
-```
+![mp7i4I.png](https://s2.ax1x.com/2019/08/13/mp7i4I.png)
 
 ###### includes() used as a generic method
 `includes()` method is intentionally generic. It does not require `this` value to be an Array object, so it can be applied to other kinds of objects (e.g. array-like objects). The example below illustrates `includes()` method called on the function's arguments object.
-```js
-(function() {
-  console.log([].includes.call(arguments, 'a')); // true
-  console.log([].includes.call(arguments, 'd')); // false
-})('a','b','c');
-```
+![mp7kCt.png](https://s2.ax1x.com/2019/08/13/mp7kCt.png)
 
 ----------------------------------------------------------------------------
 ## Array.prototype.indexOf()
-The `indexOf()` method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+The `indexOf()` method returns the first index at which a given element can be found in the array, or `-1` if it is not present.
 ![ZLdgU0.png](https://s2.ax1x.com/2019/07/17/ZLdgU0.png)
 
 #### Syntax
@@ -769,10 +742,10 @@ The `indexOf()` method returns the first index at which a given element can be f
 
 &nbsp;&nbsp;<strong>fromIndex</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;The index to start the search at. If the index is greater than or equal to the array's length, -1 is returned, which means the array will not be searched. If the provided index value is a negative number, it is taken as the offset from the end of the array. Note: if the provided index is negative, the array is still searched from front to back. If the provided index is 0, then the whole array will be searched. Default: 0 (entire array is searched).
+&nbsp;&nbsp;&nbsp;&nbsp;The index to start the search at. If the index is greater than or equal to the array's length, `-1` is returned, which means the array will not be searched. If the provided index value is a negative number, it is taken as the offset from the end of the array. Note: if the provided index is negative, the array is still searched from front to back. If the provided index is `0`, then the whole array will be searched. Default: `0` (entire array is searched).
 
 ###### Return Value
-&nbsp;&nbsp;The first index of the element in the array; -1 if not found.
+&nbsp;&nbsp;The first index of the element in the array; `-1` if not found.
 
 #### Description
 `indexOf()` compares `searchElement` to elements of the Array using strict equality (the same method used by the `===` or triple-equals operator).
@@ -835,7 +808,7 @@ The `keys()` method returns a new <strong>Array Iterator</strong> object that co
 
 ----------------------------------------------------------------------------
 ## Array.prototype.lastIndexOf()
-The `lastIndexOf()` method returns the last index at which a given element can be found in the array, or -1 if it is not present. The array is searched backwards, starting at `fromIndex`.
+The `lastIndexOf()` method returns the last index at which a given element can be found in the array, or `-1` if it is not present. The array is searched backwards, starting at `fromIndex`.
 ![ZL6Rc6.png](https://s2.ax1x.com/2019/07/17/ZL6Rc6.png)
 
 #### Syntax
@@ -847,7 +820,7 @@ The `lastIndexOf()` method returns the last index at which a given element can b
 
 &nbsp;&nbsp;<strong>fromIndex</strong><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Optional<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;The index at which to start searching backwards. Defaults to the array's length minus one (`arr.length - 1`), i.e. the whole array will be searched. If the index is greater than or equal to the length of the array, the whole array will be searched. If negative, it is taken as the offset from the end of the array. Note that even when the index is negative, the array is still searched from back to front. If the calculated index is less than 0, -1 is returned, i.e. the array will not be searched.
+&nbsp;&nbsp;&nbsp;&nbsp;The index at which to start searching backwards. Defaults to the array's length minus one (`arr.length - 1`), i.e. the whole array will be searched. If the index is greater than or equal to the length of the array, the whole array will be searched. If negative, it is taken as the offset from the end of the array. Note that even when the index is negative, the array is still searched from back to front. If the calculated index is less than `0`, `-1` is returned, i.e. the array will not be searched.
 
 ###### Return Value
 &nbsp;&nbsp;The last index of the element in the array; `-1` if not found.
