@@ -58,7 +58,7 @@ In `form.onclick` handler:
 - `event.target` is the actual element inside the form that was clicked.
 
 Check it out:
-<iframe src="https://javascript.info/article/bubbling-and-capturing/bubble-target/" sandbox></iframe>
+<iframe src="https://javascript.info/article/bubbling-and-capturing/bubble-target/"></iframe>
 
 It’s possible that <strong>event.target</strong> could equal <strong>this</strong> – it happens when the click is made directly on the <strong>&lt;form&gt;</strong> element.
 
