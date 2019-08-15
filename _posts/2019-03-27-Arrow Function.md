@@ -2,7 +2,7 @@
 layout: post
 title: Arrow Function
 subtitle: Javascript Functions
-date: 2019-07-19
+date: 2019-03-27
 author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
