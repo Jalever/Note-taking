@@ -58,7 +58,12 @@ In `form.onclick` handler:
 - `event.target` is the actual element inside the form that was clicked.
 
 Check it out:
-<iframe src="https://javascript.info/article/bubbling-and-capturing/bubble-target/"></iframe>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="css,result" data-user="Jalever" data-slug-hash="YzKqNWV" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Bubbling and Capturing">
+  <span>See the Pen <a href="https://codepen.io/Jalever/pen/YzKqNWV/">
+  Bubbling and Capturing</a> by Jalever Chen (<a href="https://codepen.io/Jalever">@Jalever</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 It’s possible that <strong>event.target</strong> could equal <strong>this</strong> – it happens when the click is made directly on the <strong>&lt;form&gt;</strong> element.
 
