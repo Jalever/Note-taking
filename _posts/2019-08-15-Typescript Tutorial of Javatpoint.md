@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Typescript Tutorial
+title: Typescript Handbook
 subtitle: Wrap up of Typescript Handbook
 date: 2019-08-15
 author: Jalever
@@ -98,15 +98,15 @@ A decorator is a special of data type which can be attached to a <strong>class d
 A decorator is an experimental feature which may change in future releases. To enable support for the decorator, we must enable the <strong>experimentalDecorators</strong> compiler option either on the <strong>command line</strong> or in our <strong>tsconfig.json</strong>.
 
 ## Generics
-- [Introduction]](#introduction)
-- [Hello World of Generics]](#hello-world-of-generics)
-- [Working with Generic Type Variables]](#working-with-generic-type-variables)
-- [Generic Types]](#generic-types)
-- [Generic Classes]](#generic-classes)
-- [Generic Constraints]](#generic-constraints)
-    - [Using Type Parameters in Generic Constraints]](#using-type-parameters-in-generic-constraints)
-    - [Using Class Types in Generics]](#using-class-types-in-generics)
-    - [Generic Constraints]](#generic-constraints)
+- [Introduction](#introduction)
+- [Hello World of Generics](#hello-world-of-generics)
+- [Working with Generic Type Variables](#working-with-generic-type-variables)
+- [Generic Types](#generic-types)
+- [Generic Classes](#generic-classes)
+- [Generic Constraints](#generic-constraints)
+    - [Using Type Parameters in Generic Constraints](#using-type-parameters-in-generic-constraints)
+    - [Using Class Types in Generics](#using-class-types-in-generics)
+    - [Generic Constraints](#generic-constraints)
 
 #### Introduction
 A major part of software engineering is building components that not only have well-defined and consistent APIs, but are also reusable. Components that are capable of working on the data of today as well as the data of tomorrow will give you the most flexible capabilities for building up large software systems.
@@ -200,3 +200,128 @@ When creating factories in TypeScript using generics, it is necessary to refer t
 ![mZinIO.png](https://s2.ax1x.com/2019/08/16/mZinIO.png)
 A more advanced example uses the prototype property to infer and constrain relationships between the constructor function and the instance side of class types.
 ![mZilzd.png](https://s2.ax1x.com/2019/08/16/mZilzd.png)
+
+## Functions
+
+- [Introduction](#introduction)
+- [Functions](#functions)
+- [Function Types](#function-types)
+    - [Typing the function](#typing-the-function)
+    - [Writing the function type](#writing-the-function-type)
+    - [Inferring the types](#inferring-the-types)
+- [Optional and Default Parameters](#optional-and-default-parameters)
+- [Rest Parameters](#rest-parameters)
+- [this](#this)
+    - [this and arrow functions](#this-and-arrow-functions)
+    - [this parameters](#this-parameters)
+    - [this parameters in callbacks](#this-parameters-in-callbacks)
+- [Overloads](#overloads)
+
+#### Introduction
+Functions are the fundamental building block of any application in JavaScript. They’re how you build up layers of abstraction, mimicking classes, information hiding, and modules. In TypeScript, while there are classes, namespaces, and modules, functions still play the key role in describing how to <strong><ins>do</ins></strong> things. TypeScript also adds some new capabilities to the standard JavaScript functions to make them easier to work with.
+
+#### Functions
+To begin, just as in JavaScript, TypeScript functions can be created both as a named function or as an anonymous function. This allows you to choose the most appropriate approach for your application, whether you’re building a list of functions in an API or a one-off function to hand off to another function.
+
+To quickly recap what these two approaches look like in JavaScript:
+![mepL6I.png](https://s2.ax1x.com/2019/08/16/mepL6I.png)
+Just as in JavaScript, functions can refer to variables outside of the function body. When they do so, they’re said to <strong><ins>capture</ins></strong> these variables. While understanding how this works (and the trade-offs when using this technique) is outside of the scope of this article, having a firm understanding how this mechanic works is an important piece of working with JavaScript and TypeScript.
+![me9En0.png](https://s2.ax1x.com/2019/08/16/me9En0.png)
+
+#### Function Types
+###### Typing the function
+Let’s add types to our simple examples from earlier:
+![me91j1.png](https://s2.ax1x.com/2019/08/16/me91j1.png)
+We can add types to each of the parameters and then to the function itself to add a return type. TypeScript can figure the return type out by looking at the return statements, so we can also optionally leave this off in many cases.
+
+###### Writing the function type
+Now that we’ve typed the function, let’s write the full type of the function out by looking at each piece of the function type.
+![meCMa8.png](https://s2.ax1x.com/2019/08/16/meCMa8.png)
+A function’s type has the same two parts: the type of the arguments and the return type. When writing out the whole function type, both parts are required. We write out the parameter types just like a parameter list, giving each parameter a name and a type. This name is just to help with readability. We could have instead written:
+![meCYMn.png](https://s2.ax1x.com/2019/08/16/meCYMn.png)
+As long as the parameter types line up, it’s considered a valid type for the function, regardless of the names you give the parameters in the function type.
+
+The second part is the return type. We make it clear which is the return type by using a fat arrow (<strong>=></strong>) between the parameters and the return type. As mentioned before, this is a required part of the function type, so if the function doesn’t return a value, you would use <strong>void</strong> instead of leaving it off.
+
+Of note, only the parameters and the return type make up the function type. Captured variables are not reflected in the type. In effect, captured variables are part of the “hidden state” of any function and do not make up its API
+
+###### Inferring the types
+In playing with the example, you may notice that the TypeScript compiler can figure out the type even if you only have types on one side of the equation:
+![meCrRJ.png](https://s2.ax1x.com/2019/08/16/meCrRJ.png)
+This is called “contextual typing”, a form of type inference. This helps cut down on the amount of effort to keep your program typed.
+
+#### Optional and Default Parameters
+In TypeScript, every parameter is assumed to be required by the function. This doesn’t mean that it can’t be given <strong>null</strong> or <strong>undefined</strong>, but rather, when the function is called, the compiler will check that the user has provided a value for each parameter. The compiler also assumes that these parameters are the only parameters that will be passed to the function. In short, the number of arguments given to a function has to match the number of parameters the function expects.
+![mei0gJ.png](https://s2.ax1x.com/2019/08/16/mei0gJ.png)
+In JavaScript, every parameter is optional, and users may leave them off as they see fit. When they do, their value is <strong>undefined</strong>. We can get this functionality in TypeScript by adding a <strong>?</strong> to the end of parameters we want to be optional. For example, let’s say we want the last name parameter from above to be optional:
+![meivvj.png](https://s2.ax1x.com/2019/08/16/meivvj.png)
+Any optional parameters must follow required parameters. Had we wanted to make the first name optional, rather than the last name, we would need to change the order of parameters in the function, putting the first name last in the list.
+
+In TypeScript, we can also set a value that a parameter will be assigned if the user does not provide one, or if the user passes <strong>undefined</strong> in its place. These are called default-initialized parameters. Let’s take the previous example and default the last name to "<strong>Smith</strong>".
+![meFPaV.png](https://s2.ax1x.com/2019/08/16/meFPaV.png)
+Default-initialized parameters that come after all required parameters are treated as optional, and just like optional parameters, can be omitted when calling their respective function. This means optional parameters and trailing default parameters will share commonality in their types, so both
+![meFeM9.png](https://s2.ax1x.com/2019/08/16/meFeM9.png)
+and
+![meFQIK.png](https://s2.ax1x.com/2019/08/16/meFQIK.png)
+share the same type <strong>(firstName: string, lastName?: string) => string</strong>. The default value of <strong>lastName</strong> disappears in the type, only leaving behind the fact that the parameter is optional.
+
+Unlike plain optional parameters, default-initialized parameters don’t need to occur after required parameters. If a default-initialized parameter comes before a required parameter, users need to explicitly pass <strong>undefined</strong> to get the default initialized value. For example, we could write our last example with only a default initializer on <strong>firstName</strong>:
+![meFYMd.png](https://s2.ax1x.com/2019/08/16/meFYMd.png)
+
+#### Rest Parameters
+Required, optional, and default parameters all have one thing in common: they talk about one parameter at a time. Sometimes, you want to work with multiple parameters as a group, or you may not know how many parameters a function will ultimately take. In JavaScript, you can work with the arguments directly using the <strong>arguments</strong> variable that is visible inside every function body.
+
+In TypeScript, you can gather these arguments together into a variable:
+![mekoAP.png](https://s2.ax1x.com/2019/08/16/mekoAP.png)
+<strong><ins>Rest parameters</ins></strong> are treated as a boundless number of optional parameters. When passing arguments for a rest parameter, you can use as many as you want; you can even pass none. The compiler will build an array of the arguments passed in with the name given after the ellipsis(...), allowing you to use it in your function.
+
+The ellipsis is also used in the type of the function with rest parameters:
+![mekvBn.png](https://s2.ax1x.com/2019/08/16/mekvBn.png)
+
+#### this
+Learning how to use <strong>this</strong> in JavaScript is something of a rite of passage. Since TypeScript is a superset of JavaScript, TypeScript developers also need to learn how to use <strong>this</strong> and how to spot when it’s not being used correctly. Fortunately, TypeScript lets you catch incorrect uses of <strong>this</strong> with a couple of techniques.
+
+###### this and arrow functions
+In JavaScript, <strong>this</strong> is a variable that’s set when a function is called. This makes it a very powerful and flexible feature, but it comes at the cost of always having to know about the context that a function is executing in. This is notoriously confusing, especially when returning a function or passing a function as an argument.
+
+Let’s look at an example:
+![menu4I.png](https://s2.ax1x.com/2019/08/16/menu4I.png)
+Notice that <strong>createCardPicker</strong> is a function that itself returns a function. If we tried to run the example, we would get an error instead of the expected alert box. This is because the <strong>this</strong> being used in the function created by <strong>createCardPicker</strong> will be set to <strong>window</strong> instead of our <strong>deck</strong> object. That’s because we call <strong>cardPicker()</strong> on its own. A top-level non-method syntax call like this will use <strong>window</strong> for <strong>this</strong>. (Note: under strict mode, this will be <strong>undefined</strong> rather than <strong>window</strong>).
+
+We can fix this by making sure the function is bound to the correct <strong>this</strong> before we return the function to be used later. This way, regardless of how it’s later used, it will still be able to see the original <strong>deck</strong> object. To do this, we change the function expression to use the ECMAScript 6 arrow syntax. Arrow functions capture the <strong>this</strong> where the function is created rather than where it is invoked:
+![men25R.png](https://s2.ax1x.com/2019/08/16/men25R.png)
+Even better, TypeScript will warn you when you make this mistake if you pass the <strong>--noImplicitThis</strong> flag to the compiler. It will point out that <strong>this</strong> in <strong>this.suits&#91;pickedSuit&#93;</strong> is of type <strong>any</strong>.
+
+###### this parameters
+Unfortunately, the type of <strong>this.suits&#91;pickedSuit&#93;</strong> is still <strong>any</strong>. That’s because <strong>this</strong> comes from the function expression inside the object literal. To fix this, you can provide an explicit <strong>this</strong> parameter. <strong>this</strong> parameters are fake parameters that come first in the parameter list of a function:
+![meKju8.png](https://s2.ax1x.com/2019/08/16/meKju8.png)
+Let’s add a couple of interfaces to our example above, <strong>Card</strong> and <strong>Deck</strong>, to make the types clearer and easier to reuse:
+![meM1v6.png](https://s2.ax1x.com/2019/08/16/meM1v6.png)
+![meM8KK.png](https://s2.ax1x.com/2019/08/16/meM8KK.png)
+Now TypeScript knows that <strong>createCardPicker</strong> expects to be called on a <strong>Deck</strong> object. That means that <strong>this</strong> is of type <strong>Deck</strong> now, not <strong>any</strong>, so <strong>--noImplicitThis</strong> will not cause any errors.
+
+###### this parameters in callbacks
+You can also run into errors with <strong>this</strong> in callbacks, when you pass functions to a library that will later call them. Because the library that calls your callback will call it like a normal function, <strong>this</strong> will be <strong>undefined</strong>. With some work you can use <strong>this</strong> parameters to prevent errors with callbacks too. First, the library author needs to annotate the callback type with <strong>this</strong>:
+![mes1kd.png](https://s2.ax1x.com/2019/08/16/mes1kd.png)
+<strong>this: void</strong> means that <strong>addClickListener</strong> expects <strong>onclick</strong> to be a function that does not require a <strong>this</strong> type. Second, annotate your calling code with <strong>this</strong>:
+![me6WFJ.png](https://s2.ax1x.com/2019/08/16/me6WFJ.png)
+With <strong>this</strong> annotated, you make it explicit that <strong>onClickBad</strong> must be called on an instance of <strong>Handler</strong>. Then TypeScript will detect that <strong>addClickListener</strong> requires a function that has <strong>this: void</strong>. To fix the error, change the type of <strong>this</strong>:
+![me6XYd.png](https://s2.ax1x.com/2019/08/16/me6XYd.png)
+Because <strong>onClickGood</strong> specifies its <strong>this</strong> type as <strong>void</strong>, it is legal to pass to <strong>addClickListener</strong>. Of course, this also means that it can’t use <strong>this.info</strong>. If you want both then you’ll have to use an arrow function:
+![mecEfs.png](https://s2.ax1x.com/2019/08/16/mecEfs.png)
+This works because arrow functions use the outer <strong>this</strong>, so you can always pass them to something that expects <strong>this: void</strong>. The downside is that one arrow function is created per object of type Handler. Methods, on the other hand, are only created once and attached to Handler’s prototype. They are shared between all objects of type Handler.
+
+#### Overloads  
+JavaScript is inherently a very dynamic language. It’s not uncommon for a single JavaScript function to return different types of objects based on the shape of the arguments passed in.
+![megjMt.png](https://s2.ax1x.com/2019/08/16/megjMt.png)
+![megxqf.png](https://s2.ax1x.com/2019/08/16/megxqf.png)
+Here, the <strong>pickCard</strong> function will return two different things based on what the user has passed in. If the users passes in an object that represents the deck, the function will pick the card. If the user picks the card, we tell them which card they’ve picked. But how do we describe this to the type system?
+
+The answer is to supply multiple function types for the same function as a list of overloads. This list is what the compiler will use to resolve function calls. Let’s create a list of overloads that describe what our <strong>pickCard</strong> accepts and what it returns.
+![me21zR.png](https://s2.ax1x.com/2019/08/16/me21zR.png)
+![me2NdO.png](https://s2.ax1x.com/2019/08/16/me2NdO.png)
+With this change, the overloads now give us type checked calls to the <strong>pickCard</strong> function.
+
+In order for the compiler to pick the correct type check, it follows a similar process to the underlying JavaScript. It looks at the overload list and, proceeding with the first overload, attempts to call the function with the provided parameters. If it finds a match, it picks this overload as the correct overload. For this reason, it’s customary to order overloads from most specific to least specific.
+
+Note that the <strong>function pickCard(x): any</strong> piece is not part of the overload list, so it only has two overloads: one that takes an object and one that takes a number. Calling <strong>pickCard</strong> with any other parameter types would cause an error.
