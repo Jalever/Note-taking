@@ -9,6 +9,7 @@ catalog: true
 tags:
   - Typescript
 ---
+
 - [The Benefits of Using TypeScript](#the-benefits-of-using-typeScript)
 - [Static Typing](#static-typing)
 - [Interfaces](#interfaces)
