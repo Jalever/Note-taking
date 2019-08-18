@@ -12,6 +12,10 @@ tags:
 
 - [Typescript Type](#typescript-type)
 - [Generic](#generic)
+- [Functions](#functions)
+- [Enum](#enum)
+- [Type Inference](#type-inference)
+- [Type Compatibility](#type-compatibility)
 
 ## Typescript Type
 The TypeScript language supports different types of values. It provides data types for the JavaScript to transform it into a strongly typed programing language. JavaScript doesn't support data types, but with the help of TypeScript, we can use the data types feature in JavaScript. TypeScript plays an important role when the object-oriented programmer wants to use the type feature in any scripting language or object-oriented programming language. The Type System checks the validity of the given values before the program uses them. It ensures that the code behaves as expected.
@@ -325,3 +329,218 @@ With this change, the overloads now give us type checked calls to the <strong>pi
 In order for the compiler to pick the correct type check, it follows a similar process to the underlying JavaScript. It looks at the overload list and, proceeding with the first overload, attempts to call the function with the provided parameters. If it finds a match, it picks this overload as the correct overload. For this reason, it’s customary to order overloads from most specific to least specific.
 
 Note that the <strong>function pickCard(x): any</strong> piece is not part of the overload list, so it only has two overloads: one that takes an object and one that takes a number. Calling <strong>pickCard</strong> with any other parameter types would cause an error.
+
+## Enum
+Enums allow us to define a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases. TypeScript provides both numeric and string-based enums.
+
+#### Numeric enums
+We’ll first start off with numeric enums, which are probably more familiar if you’re coming from other languages. An enum can be defined using the <strong>enum</strong> keyword.
+![mudlP1.png](https://s2.ax1x.com/2019/08/17/mudlP1.png)
+Above, we have a numeric enum where <strong>Up</strong> is initialized with <strong>1</strong>. All of the following members are auto-incremented from that point on. In other words, <strong>Direction.Up</strong> has the value <strong>1</strong>, <strong>Down</strong> has <strong>2</strong>, <strong>Left</strong> has <strong>3</strong>, and <strong>Right</strong> has <strong>4</strong>.
+
+If we wanted, we could leave off the initializers entirely:
+![mud18x.png](https://s2.ax1x.com/2019/08/17/mud18x.png)
+Here, <strong>Up</strong> would have the value <strong>0</strong>, <strong>Down</strong> would have <strong>1</strong>, etc. This auto-incrementing behavior is useful for cases where we might not care about the member values themselves, but do care that each value is distinct from other values in the same enum.
+
+Using an enum is simple: just access any member as a property off of the enum itself, and declare types using the name of the enum:
+![mu0phn.png](https://s2.ax1x.com/2019/08/17/mu0phn.png)
+Numeric enums can be mixed in computed and constant members (see below). The short story is, enums without initializers either need to be first, or have to come after numeric enums initialized with numeric constants or other constant enum members. In other words, the following isn’t allowed:
+![muDQeO.png](https://s2.ax1x.com/2019/08/17/muDQeO.png)
+
+#### String enums
+String enums are a similar concept, but have some subtle runtime differences as documented below. In a string enum, each member has to be constant-initialized with a string literal, or with another string enum member.
+![murN4J.png](https://s2.ax1x.com/2019/08/17/murN4J.png)
+While string enums don’t have auto-incrementing behavior, string enums have the benefit that they “serialize” well. In other words, if you were debugging and had to read the runtime value of a numeric enum, the value is often opaque - it doesn’t convey any useful meaning on its own (though Reverse Mapping can often help), string enums allow you to give a meaningful and readable value when your code runs, independent of the name of the enum member itself.
+
+#### Heterogeneous enums
+Technically enums can be mixed with string and numeric members, but it’s not clear why you would ever want to do so:
+![mur7VS.png](https://s2.ax1x.com/2019/08/17/mur7VS.png)
+Unless you’re really trying to take advantage of JavaScript’s runtime behavior in a clever way, it’s advised that you don’t do this.
+
+#### Computed and constant members
+Each enum member has a value associated with it which can be either constant or computed. An enum member is considered constant if:
+
+- It is the first member in the enum and it has no initializer, in which case it’s assigned the value <strong>0</strong>:
+![mus0iQ.png](https://s2.ax1x.com/2019/08/17/mus0iQ.png)
+- It does not have an initializer and the preceding enum member was a numeric constant. In this case the value of the current enum member will be the value of the preceding enum member plus one.
+![musDRs.png](https://s2.ax1x.com/2019/08/17/musDRs.png)
+- The enum member is initialized with a constant enum expression. A constant enum expression is a subset of TypeScript expressions that can be fully evaluated at compile time. An expression is a constant enum expression if it is:
+
+1. a literal enum expression (basically a string literal or a numeric literal)
+2. a reference to previously defined constant enum member (which can originate from a different enum)
+3. a parenthesized constant enum expression
+4. one of the <strong><ins>&plus;</ins></strong>, <strong><ins>&minus;</ins></strong>, <strong><ins>&sim;</ins></strong> unary operators applied to constant enum expression
+5. <strong><ins>&sol;</ins></strong>, <strong><ins>&minus;</ins></strong>, <strong><ins>&ast;</ins></strong>, <strong><ins>&sol;</ins></strong>, <strong><ins>&percnt;</ins></strong>, <strong><ins>&lt;&lt;</ins></strong>, <strong><ins>&gt;&gt;</ins></strong>, <strong><ins>&gt;&gt;&gt;</ins></strong>, <strong><ins>&amp;</ins></strong>, <strong><ins>&verbar;</ins></strong>, <strong><ins>&Hat;</ins></strong> binary operators with constant enum expressions as operands
+
+&npsp;&npsp;It is a compile time error for constant enum expressions to be evaluated to NaN or Infinity.
+
+In all other cases enum member is considered computed.
+![muyg1A.png](https://s2.ax1x.com/2019/08/17/muyg1A.png)
+
+#### Union enums and enum member types
+There is a special subset of constant enum members that aren’t calculated: literal enum members. A literal enum member is a constant enum member with no initialized value, or with values that are initialized to
+- any string literal (e.g. "<strong>foo</strong>", <strong>"bar"</strong>, <strong>"baz"</strong>)
+- any numeric literal (e.g. <strong>1</strong>, <strong>100</strong>)
+- a unary minus applied to any numeric literal (e.g. <strong>-1</strong>, <strong>-100</strong>)
+When all members in an enum have literal enum values, some special semantics come to play.
+
+The first is that enum members also become types as well! For example, we can say that certain members can only have the value of an enum member:
+![mu6hvR.png](https://s2.ax1x.com/2019/08/17/mu6hvR.png)
+The other change is that enum types themselves effectively become a union of each enum member. While we haven’t discussed union types yet, all that you need to know is that with union enums, the type system is able to leverage the fact that it knows the exact set of values that exist in the enum itself. Because of that, TypeScript can catch silly bugs where we might be comparing values incorrectly. For example:
+![mu6b5D.png](https://s2.ax1x.com/2019/08/17/mu6b5D.png)
+In that example, we first checked whether <strong>x</strong> was not <strong>E.Foo</strong>. If that check succeeds, then our <strong>&#124;&#124;</strong> will short-circuit, and the body of the ‘if’ will run. However, if the check didn’t succeed, then x can only be <strong>E.Foo</strong>, so it doesn’t make sense to see whether it’s equal to <strong>E.Bar</strong>.
+
+#### Enums at runtime
+Enums are real objects that exist at runtime. For example, the following enum
+![mucUZ6.png](https://s2.ax1x.com/2019/08/17/mucUZ6.png)
+can actually be passed around to functions
+![mugu6A.png](https://s2.ax1x.com/2019/08/17/mugu6A.png)
+
+#### Enums at compile time
+Even though Enums are real objects that exist at runtime, the <strong>keyof</strong> keyword works differently than you might expect for typical objects. Instead, use <strong>keyof</strong> <strong>typeof</strong> to get a Type that represents all Enum keys as strings.
+![mu2zrR.png](https://s2.ax1x.com/2019/08/17/mu2zrR.png)
+
+#### Reverse mappings
+In addition to creating an object with property names for members, numeric enums members also get a reverse mapping from enum values to enum names. For example, in this example:
+![muRJMj.png](https://s2.ax1x.com/2019/08/17/muRJMj.png)
+TypeScript might compile this down to something like the the following JavaScript:
+![muRrz4.png](https://s2.ax1x.com/2019/08/17/muRrz4.png)
+In this generated code, an enum is compiled into an object that stores both forward (`name -> value`) and reverse (`value -> name`) mappings. References to other enum members are always emitted as property accesses and never inlined.
+
+Keep in mind that string enum members do not get a reverse mapping generated at all.
+
+#### const enums
+In most cases, enums are a perfectly valid solution. However sometimes requirements are tighter. To avoid paying the cost of extra generated code and additional indirection when accessing enum values, it’s possible to use <strong>const</strong> enums. Const enums are defined using the const modifier on our enums:
+![muRRdx.png](https://s2.ax1x.com/2019/08/17/muRRdx.png)
+Const enums can only use constant enum expressions and unlike regular enums they are completely removed during compilation. Const enum members are inlined at use sites. This is possible since const enums cannot have computed members.
+![muR5WD.png](https://s2.ax1x.com/2019/08/17/muR5WD.png)
+in generated code will become
+![muRTQH.png](https://s2.ax1x.com/2019/08/17/muRTQH.png)
+
+#### Ambient enums
+Ambient enums are used to describe the shape of already existing enum types.
+![muRxfS.png](https://s2.ax1x.com/2019/08/17/muRxfS.png)
+One important difference between ambient and non-ambient enums is that, in regular enums, members that don’t have an initializer will be considered constant if its preceding enum member is considered constant. In contrast, an ambient (and non-const) enum member that does not have initializer is always considered computed.
+
+## Type Inference
+#### Introduction
+In this section, we will cover type inference in TypeScript. Namely, we’ll discuss where and how types are inferred.
+
+#### Basics  
+In TypeScript, there are several places where type inference is used to provide type information when there is no explicit type annotation. For example, in this code
+![mMvdzQ.png](https://s2.ax1x.com/2019/08/18/mMvdzQ.png)
+The type of the <strong>x</strong> variable is inferred to be <strong>number</strong>. This kind of inference takes place when initializing variables and members, setting parameter default values, and determining function return types.
+
+In most cases, type inference is straightforward. In the following sections, we’ll explore some of the nuances in how types are inferred.
+
+#### Best common type
+When a type inference is made from several expressions, the types of those expressions are used to calculate a “best common type”. For example,
+![mQpFfK.png](https://s2.ax1x.com/2019/08/18/mQpFfK.png)
+To infer the type of `x` in the example above, we must consider the type of each array element. Here we are given two choices for the type of the array: `number` and `null`. The best common type algorithm considers each candidate type, and picks the type that is compatible with all the other candidates.
+
+Because the best common type has to be chosen from the provided candidate types, there are some cases where types share a common structure, but no one type is the super type of all candidate types. For example:
+![mQiSgK.png](https://s2.ax1x.com/2019/08/18/mQiSgK.png)
+Ideally, we may want `zoo` to be inferred as an `Animal[]`, but because there is no object that is strictly of type `Animal` in the array, we make no inference about the array element type. To correct this, instead explicitly provide the type when no one type is a super type of all other candidates:
+![mQVxCd.png](https://s2.ax1x.com/2019/08/18/mQVxCd.png)
+When no best common type is found, the resulting inference is the union array type, `(Rhino | Elephant | Snake)[]`.
+
+#### Contextual Typing
+Type inference also works in “the other direction” in some cases in TypeScript. This is known as “contextual typing”. Contextual typing occurs when the type of an expression is implied by its location. For example:
+![mQZRMt.png](https://s2.ax1x.com/2019/08/18/mQZRMt.png)
+Here, the Typescript type checker used the type of the `Window.onmousedown` function to infer the type of the function expression on the right hand side of the assignment. When it did so, it was able to infer the type of the `mouseEvent` parameter, which does contain a `button` property, but not a `kangaroo` property.
+
+Typescript is smart enough to infer the type of things in other contexts as well:
+![mQZfqf.png](https://s2.ax1x.com/2019/08/18/mQZfqf.png)
+Based on the fact that the above function is being assigned to `Window.onscroll`, Typescript knows that `uiEvent` is a `UIEvent`, and not a `MouseEvent` like the previous example. `UIEvent` objects contain no `button` property, and so Typescript will throw an error.
+
+If this function were not in a contextually typed position, the function’s argument would implicitly have type `any`, and no error would be issued (unless you are using the `--noImplicitAny` option):
+![mQZHRs.png](https://s2.ax1x.com/2019/08/18/mQZHRs.png)
+We can also explicitly give type information to the function’s argument to override any contextual type:
+![mQeCW9.png](https://s2.ax1x.com/2019/08/18/mQeCW9.png)
+However, this code will log `undefined`, since `uiEvent` has no property called `button`.
+
+Contextual typing applies in many cases. Common cases include arguments to function calls, right hand sides of assignments, type assertions, members of object and array literals, and return statements. The contextual type also acts as a candidate type in best common type. For example:
+![mQeksx.png](https://s2.ax1x.com/2019/08/18/mQeksx.png)
+In this example, best common type has a set of four candidates: `Animal`, `Rhino`, `Elephant`, and `Snake`. Of these, `Animal` can be chosen by the best common type algorithm.
+
+## Type Compatibility
+#### Introduction
+Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types based solely on their members. This is in contrast with nominal typing. Consider the following code:
+![mQmyjI.png](https://s2.ax1x.com/2019/08/18/mQmyjI.png)
+In nominally-typed languages like C# or Java, the equivalent code would be an error because the Person class does not explicitly describe itself as being an implementer of the `Named` interface.
+
+TypeScript’s structural type system was designed based on how JavaScript code is typically written. Because JavaScript widely uses anonymous objects like function expressions and object literals, it’s much more natural to represent the kinds of relationships found in JavaScript libraries with a structural type system instead of a nominal one
+
+###### A Note on Soundness
+TypeScript’s type system allows certain operations that can’t be known at compile-time to be safe. When a type system has this property, it is said to not be “sound”. The places where TypeScript allows unsound behavior were carefully considered, and throughout this document we’ll explain where these happen and the motivating scenarios behind them.
+
+#### Starting out
+The basic rule for TypeScript’s structural type system is that `x` is compatible with `y` if `y` has at least the same members as `x`. For example:
+![mQuCWQ.png](https://s2.ax1x.com/2019/08/18/mQuCWQ.png)
+To check whether `y` can be assigned to `x`, the compiler checks each property of `x` to find a corresponding compatible property in `y`. In this case, `y` must have a member called `name` that is a string. It does, so the assignment is allowed.
+
+The same rule for assignment is used when checking function call arguments:
+![mQuQSJ.png](https://s2.ax1x.com/2019/08/18/mQuQSJ.png)
+Note that `y` has an extra `location` property, but this does not create an error. Only members of the target type (`Named` in this case) are considered when checking for compatibility.
+
+This comparison process proceeds recursively, exploring the type of each member and sub-member.
+
+#### Comparing two functions
+While comparing primitive types and object types is relatively straightforward, the question of what kinds of functions should be considered compatible is a bit more involved. Let’s start with a basic example of two functions that differ only in their parameter lists:
+![mQKdEV.png](https://s2.ax1x.com/2019/08/18/mQKdEV.png)
+To check if `x` is assignable to `y`, we first look at the parameter list. Each parameter in `x` must have a corresponding parameter in `y` with a compatible type. Note that the names of the parameters are not considered, only their types. In this case, every parameter of `x` has a corresponding compatible parameter in `y`, so the assignment is allowed.
+
+The second assignment is an error, because `y` has a required second parameter that `x` does not have, so the assignment is disallowed.
+
+You may be wondering why we allow ‘discarding’ parameters like in the example `y = x`. The reason for this assignment to be allowed is that ignoring extra function parameters is actually quite common in JavaScript. For example, `Array.forEach` provides three parameters to the callback function: the array element, its index, and the containing array. Nevertheless, it’s very useful to provide a callback that only uses the first parameter:
+![mQKyv9.png](https://s2.ax1x.com/2019/08/18/mQKyv9.png)
+Now let’s look at how return types are treated, using two functions that differ only by their return type:
+![mQKgD1.png](https://s2.ax1x.com/2019/08/18/mQKgD1.png)
+The type system enforces that the source function’s return type be a subtype of the target type’s return type.
+
+###### Function Parameter Bivariance
+When comparing the types of function parameters, assignment succeeds if either the source parameter is assignable to the target parameter, or vice versa. This is unsound because a caller might end up being given a function that takes a more specialized type, but invokes the function with a less specialized type. In practice, this sort of error is rare, and allowing this enables many common JavaScript patterns. A brief example:
+![mQQvcQ.png](https://s2.ax1x.com/2019/08/18/mQQvcQ.png)
+![mQlSns.png](https://s2.ax1x.com/2019/08/18/mQlSns.png)
+
+###### Optional Parameters and Rest Parameters
+When comparing functions for compatibility, optional and required parameters are interchangeable. Extra optional parameters of the source type are not an error, and optional parameters of the target type without corresponding parameters in the source type are not an error.
+
+When a function has a rest parameter, it is treated as if it were an infinite series of optional parameters.
+
+This is unsound from a type system perspective, but from a runtime point of view the idea of an optional parameter is generally not well-enforced since passing `undefined` in that position is equivalent for most functions.
+
+The motivating example is the common pattern of a function that takes a callback and invokes it with some predictable (to the programmer) but unknown (to the type system) number of arguments:
+![mQlj56.png](https://s2.ax1x.com/2019/08/18/mQlj56.png)
+
+###### Functions with overloads
+When a function has overloads, each overload in the source type must be matched by a compatible signature on the target type. This ensures that the target function can be called in all the same situations as the source function.
+
+#### Enums
+Enums are compatible with numbers, and numbers are compatible with enums. Enum values from different enum types are considered incompatible. For example,
+![mQ11Zn.png](https://s2.ax1x.com/2019/08/18/mQ11Zn.png)
+
+#### Classes
+Classes work similarly to object literal types and interfaces with one exception: they have both a static and an instance type. When comparing two objects of a class type, only members of the instance are compared. Static members and constructors do not affect compatibility.
+![mQ1gzD.png](https://s2.ax1x.com/2019/08/18/mQ1gzD.png)
+
+###### Private and protected members in classes
+Private and protected members in a class affect their compatibility. When an instance of a class is checked for compatibility, if the target type contains a private member, then the source type must also contain a private member that originated from the same class. Likewise, the same applies for an instance with a protected member. This allows a class to be assignment compatible with its super class, but not with classes from a different inheritance hierarchy which otherwise have the same shape.
+
+#### Generics  
+Because TypeScript is a structural type system, type parameters only affect the resulting type when consumed as part of the type of a member. For example,
+![mQ3X9K.png](https://s2.ax1x.com/2019/08/18/mQ3X9K.png)
+In the above, x and y are compatible because their structures do not use the type argument in a differentiating way. Changing this example by adding a member to Empty<T> shows how this works:
+![mQ8pBd.png](https://s2.ax1x.com/2019/08/18/mQ8pBd.png)
+In this way, a generic type that has its type arguments specified acts just like a non-generic type.
+
+For generic types that do not have their type arguments specified, compatibility is checked by specifying any in place of all unspecified type arguments. The resulting types are then checked for compatibility, just as in the non-generic case.
+
+For example,
+![mQ83CV.png](https://s2.ax1x.com/2019/08/18/mQ83CV.png)
+
+#### Advanced Topics
+###### Subtype vs Assignment
+So far, we’ve used “compatible”, which is not a term defined in the language spec. In TypeScript, there are two kinds of compatibility: subtype and assignment. These differ only in that assignment extends subtype compatibility with rules to allow assignment to and from `any`, and to and from `enum` with corresponding numeric values.
+
+Different places in the language use one of the two compatibility mechanisms, depending on the situation. For practical purposes, type compatibility is dictated by assignment compatibility, even in the cases of the `implements` and `extends` clauses.

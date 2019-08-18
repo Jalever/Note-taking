@@ -36,11 +36,9 @@ This is the main problem with the linear queue, although we have space available
 
 ## Circular Queue
 One of the solution of this problem is <ins>Circular Queue</ins>. In the circular queue, the first index comes right after the last index. You can think of a circular queue as shown in the following figure.
-
 ![ZJCwR0.png](https://s2.ax1x.com/2019/07/02/ZJCwR0.png)
 
 Circular queue will be full when `front = -1` and `rear = max-1`. Implementation of circular queue is similar to that of a linear queue. Only the logic part that is implemented in the case of insertion and deletion is different from that in a linear queue.
-
 ![ZJPmOU.png](https://s2.ax1x.com/2019/07/02/ZJPmOU.png)
 
 ## Time Complexity
@@ -70,90 +68,27 @@ There are three scenario of inserting an element in a queue.
 1. If `(rear + 1)%maxsize = front`, the queue is full. In that case, overflow occurs and therefore, insertion can not be performed in the queue.
 2. If `rear != max - 1`, then rear will be incremented to the `mod(maxsize)` and the new value will be inserted at the rear end of the queue.
 3. If `front != 0` and `rear = max - 1`, then it means that queue is not full therefore, set the value of rear to 0 and insert the new element there.
-
-```cpp
-void Insertion() {
-	int value;
-	cout << "Please Enter a value: ";
-	cin >> value;
-
-	if((rear+1)%MAXSIZE == front) {
-		cout << "OVERFLOW..." << endl;
-		return;
-	} else if(front == -1 && rear == -1) {
-		front = 0;
-		rear = 0;
-	} else if(rear == MAXSIZE-1 && front != 0) {
-		rear = 0;
-	} else {
-		rear = (rear+1)%MAXSIZE;
-	}
-
-	Queue[rear] = value;
-
-	cout << "\nInsert a Value Successfully!" << endl;
-}
-```
+![mmD7tA.png](https://s2.ax1x.com/2019/08/16/mmD7tA.png)
 
 #### Deletion
 To delete an element from the circular queue, we must check for the three following conditions.
 
 1. If `front = -1`, then there are no elements in the queue and therefore this will be the case of an underflow condition.
 2. If there is only one element in the queue, in this case, the condition `rear = front` holds and therefore, both are set to -1 and the queue is deleted completely.
-3. If `front = max -1` then, the value is deleted from the front end the value of front is set to 0.
+3. If `front = max -1` then, the value is deleted from the front and the value of front is set to 0.
 4. Otherwise, the value of front is incremented by 1 and then delete the element at the front end.
-
-```cpp
-void Deletion() {
-	if(front == -1 && rear == -1) {
-		cout << "UNDERFLOW..." << endl;
-		return;
-	} else if(front == rear) {
-		front = -1;
-		rear = -1;
-	} else if(front == MAXSIZE-1) {
-		front = 0;
-	} else {
-		front = front + 1;
-	}
-}
-```
+![mmrgEQ.png](https://s2.ax1x.com/2019/08/16/mmrgEQ.png)
 
 #### Display
-
 ![ZJAiuV.png](https://s2.ax1x.com/2019/07/02/ZJAiuV.png)
-```cpp
-void Display() {
-
-	int i;
-    if({front == -1) {
-        printf("\nCircular Queue is Empty!!!\n");
-    } else {
-        i = front;
-
-        cout << "\nCircular Queue Elements are : \n";
-        if(front <= rear){
-            while(i <= rear)
-                cout << Queue[i++] << " ";
-        } else {
-            while(i <= MAXSIZE - 1){
-                cout << Queue[i++] << " ";
-            }
-
-            i = 0;
-
-            while(i <= rear) {
-                cout << Queue[i++] << " ";
-            }
-        }
-    }
-}
-```
+![mms8Gn.png](https://s2.ax1x.com/2019/08/16/mms8Gn.png)
 
 ## Implementation in CPP
 ```cpp
 #include <iostream>
+
 #define MAXSIZE 5
+
 using namespace std;
 
 int front = -1, rear = -1;

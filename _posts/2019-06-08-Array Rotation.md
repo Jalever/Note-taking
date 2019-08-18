@@ -12,18 +12,15 @@ tags:
 
 ## Program for array rotation
 #### Overview
-Write a function rotate(ar[], d, n) that rotates arr[] of size n by d elements
-
+Write a function `rotate(ar[], d, n)` that rotates `arr[]` of size `n` by `d` elements
 ![VcY9vd.png](https://s2.ax1x.com/2019/06/11/VcY9vd.png)
-
-Rotation of the above array by 2 will make array
-
+Rotation of the above array by `2` will make array
 ![VcYQrn.png](https://s2.ax1x.com/2019/06/11/VcYQrn.png)
 
 #### Juggling Algorithm
 Instead of moving one by one, divide the array in different sets
 where number of sets is equal to GCD of n and d and move the elements within sets.
-If GCD is 1 as is for the above example array (n = 7 and d =2), then elements will be moved within one set only, we just start with temp = arr[0] and keep moving arr[I+d] to arr[I] and finally store temp at the right place.
+If GCD is `1` as is for the above example array (`n = 7` and `d =2`), then elements will be moved within one set only, we just start with `temp = arr[0]` and keep moving `arr[I+d]` to `arr[I]` and finally store temp at the right place.
 
 #### Diagram
 ![Vcb3cT.png](https://s2.ax1x.com/2019/06/11/Vcb3cT.png)
@@ -98,6 +95,3 @@ Time complexity : O(n)
 
 ###### Auxiliary Space
 Auxiliary Space : O(1)
-
-## Links
-[Original Article Program for Array Rotation](https://www.geeksforgeeks.org/array-rotation/)
