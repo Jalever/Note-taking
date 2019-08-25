@@ -33,9 +33,15 @@ If GCD is `1` as is for the above example array (`n = 7` and `d =2`), then eleme
     - Euclidean algorithm uses a division algorithm such as long division in combination with the observation that the gcd of two numbers also divides their difference. To compute gcd(48,18), divide 48 by 18 to get a quotient of 2 and a remainder of 12. Then divide 18 by 12 to get a quotient of 1 and a remainder of 6. Then divide 12 by 6 to get a remainder of 0, which means that 6 is the gcd.
 
 #### Implementation
-![evq3U1.png](https://s2.ax1x.com/2019/08/11/evq3U1.png)
-![evqJC6.png](https://s2.ax1x.com/2019/08/11/evqJC6.png)
-![evqtgO.png](https://s2.ax1x.com/2019/08/11/evqtgO.png)
+<strong>Time Complexity</strong><br/>
+Time complexity : O(n)
+
+<strong>Auxiliary Space</strong><br/>
+Auxiliary Space : O(1)
+
+![m25HBj.png](https://s2.ax1x.com/2019/08/25/m25HBj.png)
+![m25ONq.png](https://s2.ax1x.com/2019/08/25/m25ONq.png)
+![m25vCV.png](https://s2.ax1x.com/2019/08/25/m25vCV.png)
 ```cpp
 #include <iostream>
 
@@ -46,7 +52,7 @@ int getGCD(int a,int b) {
 		return a;
 	}
 
-	return getGCD(b, a%b);
+	return ::getGCD(b, a%b);
 }
 
 void Traversal(int arr[], int length) {
@@ -54,34 +60,34 @@ void Traversal(int arr[], int length) {
         cout << arr[i] << " ";
 }
 
-void Rotate(int arr[],int length,int gap) {
-	int gcd = ::getGCD(length, gap);
+void Rotate(int arr[],int length,int needToBeRotated) {
+	int round = ::getGCD(length, needToBeRotated);
 
-	for(int i = 0;i < gcd;i++) {
+	for(int i = 0;i < round;i++) {
 		int temp = arr[i];
-		int previousRoundIndex = i;
+		int previousIndex = i;
 
 		while(1) {
-			int nextRoundIndex = previousRoundIndex + gap;
+			int nextIndex = previousIndex + needToBeRotated;
 
-			if(nextRoundIndex >= length) {
-				nextRoundIndex -= length;
+			if(nextIndex >= length) {
+				nextIndex -= length;
 			}
 
-			if(nextRoundIndex == i) {
+			if(nextIndex == i) {
 				break;
 			}
 
-			arr[previousRoundIndex] = arr[nextRoundIndex];
-			previousRoundIndex = nextRoundIndex;
+			arr[previousIndex] = arr[nextIndex];
+			previousIndex = nextIndex;
 		}
 
-		arr[previousRoundIndex] = temp;
+		arr[previousIndex] = temp;
 	}
 }
 
 int main() {
-	int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+	int arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	int length = sizeof(arr) / sizeof(arr[0]);
 	::Rotate(arr, length, 2);
 	::Traversal(arr, length);
@@ -89,9 +95,3 @@ int main() {
     return 0;
 }
 ```
-
-###### Time Complexity
-Time complexity : O(n)
-
-###### Auxiliary Space
-Auxiliary Space : O(1)
