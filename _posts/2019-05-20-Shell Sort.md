@@ -101,15 +101,16 @@ foreach (gap in gaps)
 
 using namespace std;
 
-void Shellsort(int arr[], int length) {
-	for(int gap=length/2;gap > 0;gap = gap/2) {
+void Shellsort(int arr[],int length) {
+	for(int gap = length/2;gap > 0;gap = gap/2) {
 		for(int i = gap;i < length;i++) {
 			int temp = arr[i];
 
 			int j;
-			for(j = i;j >= gap && arr[j-gap] > arr[j];j -= gap) {
+			for(j = i;arr[j-gap] > temp && j >= gap;j -= gap) {
 				arr[j] = arr[j-gap];
 			}
+
 			arr[j] = temp;
 		}
 	}
@@ -135,5 +136,7 @@ int main() {
 
     return 0;
 }
+
+
 
 ```
