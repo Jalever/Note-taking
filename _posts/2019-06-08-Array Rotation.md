@@ -95,3 +95,61 @@ int main() {
     return 0;
 }
 ```
+
+## Reversal algorithm for array rotation
+
+#### The Reversal Algorithm
+![mILdZn.png](https://s2.ax1x.com/2019/08/27/mILdZn.png)
+Let AB are the two parts of the input array where A = arr[0..d-1] and B = arr[d..n-1]. The idea of the algorithm is :
+- Reverse `A` to get `ArB`, where `Ar` is reverse of `A`.
+- Reverse `B` to get `ArBr`, where `Br` is reverse of `B`.
+- Reverse all to get `(ArBr)r` = `BA`.
+
+
+#### Implementation
+<strong>Time Complexity</strong><br/>
+Time complexity : O(n)
+
+![mILAPK.png](https://s2.ax1x.com/2019/08/27/mILAPK.png)
+![mILmKH.png](https://s2.ax1x.com/2019/08/27/mILmKH.png)
+```cpp
+#include <iostream>
+
+using namespace std;
+
+void Traversal(int arr[], int length) {
+    for (int i = 0; i < length; i++)
+        cout << arr[i] << " ";
+}
+
+void Rotate(int arr[],int startIndex,int endIndex) {
+	while(startIndex < endIndex) {
+		int temp = arr[startIndex];
+		arr[startIndex] = arr[endIndex];
+		arr[endIndex] = temp;
+		startIndex++;
+		endIndex--;
+	}
+}
+
+void LeftRotate(int arr[],int needToBeRotated,int length) {
+	if(needToBeRotated != 0) {
+		::Rotate(arr, 0, needToBeRotated-1);
+		::Rotate(arr, needToBeRotated, length-1);
+		::Rotate(arr, 0, length-1);
+	}
+}
+
+int main() {
+	int arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	int length = sizeof(arr) / sizeof(arr[0]);
+	int needToBeRotated = 2;
+	needToBeRotated = needToBeRotated % length;
+
+	::LeftRotate(arr, needToBeRotated, length);
+
+	::Traversal(arr, length);
+
+	return 0;
+}
+```

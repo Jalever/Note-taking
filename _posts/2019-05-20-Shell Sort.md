@@ -97,40 +97,41 @@ foreach (gap in gaps)
 ![eYnTzR.png](https://s2.ax1x.com/2019/07/31/eYnTzR.png)
 ![eYnbsx.png](https://s2.ax1x.com/2019/07/31/eYnbsx.png)
 ```cpp
-#include <stdio.h>
+#include <iostream>
 
-void shellSort(int arr[], int len) {
-    for(int gap = len/2; gap > 0; gap = gap/2) {
-        for(int i = gap;i < len;i++) {
-            int temp = arr[i];
+using namespace std;
 
-            int j;
-            for(j = i;j >= gap && arr[j-gap] > temp;j = j - gap) {
-                arr[j] = arr[j-gap];
-            }
-            arr[j] = temp;
-        }
+void Shellsort(int arr[], int length) {
+	for(int gap=length/2;gap > 0;gap = gap/2) {
+		for(int i = gap;i < length;i++) {
+			int temp = arr[i];
+
+			int j;
+			for(j = i;j >= gap && arr[j-gap] > arr[j];j -= gap) {
+				arr[j] = arr[j-gap];
+			}
+			arr[j] = temp;
+		}
+	}
+}
+
+void Traversal(int arr[], int n) {
+    for (int i=0; i<n; i++) {
+        printf("%d ", arr[i]);
     }
 }
 
-void printArray(int arr[], int n)
-{
-    for (int i=0; i<n; i++)
-        printf("%d  ", arr[i]);
-}
+int main() {
+    int arr[] = {12, 34, 54, 84, 1, 321, 9, 2, 3};
+    int length = sizeof(arr)/sizeof(arr[0]);
 
-int main()
-{
-    int arr[] = {12, 34, 54, 2, 3}, i;
-    int n = sizeof(arr)/sizeof(arr[0]);
+    cout << "Array before sorting: " << endl;
+    ::Traversal(arr, length);
 
-    printf("Array before sorting: \n");
-    printArray(arr, n);
+    ::Shellsort(arr, length);
 
-    shellSort(arr, n);
-
-    printf("\nArray after sorting: \n");
-    printArray(arr, n);
+    cout << "\nArray after sorting:" << endl;
+    ::Traversal(arr, length);
 
     return 0;
 }
