@@ -27,82 +27,86 @@ tags:
 [![VRM4Dx.md.png](https://s2.ax1x.com/2019/06/12/VRM4Dx.md.png)](https://imgchr.com/i/VRM4Dx)
 
 ## Implementation in CPP
-```c
-#include <stdio.h>
+```cpp
+#include <iostream>
 
-void merge(int arr[], int leftIndex, int middleIndex, int rightIndex) {
-    int leftLength = middleIndex - leftIndex + 1;
-    int rightLength = rightIndex - middleIndex;
-    int leftArray[leftLength],rightArray[rightLength];
+using namespace std;
 
-    int leftSubArrayIndex, rightSubArrayIndex;
-    for(leftSubArrayIndex = 0;leftSubArrayIndex < leftLength;leftSubArrayIndex++) {
-        leftArray[leftSubArrayIndex] = arr[leftIndex + leftSubArrayIndex];
-    }
+void Merge(int arr[],int leftIndex,int middleIndex,int rightIndex) {
+	int leftLength = middleIndex - leftIndex + 1;
+	int rightLength = rightIndex - middleIndex;
 
-    for(rightSubArrayIndex = 0;rightSubArrayIndex < rightLength;rightSubArrayIndex++) {
-        rightArray[rightSubArrayIndex] = arr[middleIndex + 1 + rightSubArrayIndex];
-    }
+	int leftArray[leftLength], rightArray[rightLength];
 
-    leftSubArrayIndex = 0;
-    rightSubArrayIndex = 0;
-    int mergedSubArrayIndex = leftIndex;
+	int leftSubIndex, rightSubIndex;
+	for(leftSubIndex = 0;leftSubIndex < leftLength;leftSubIndex++) {
+		leftArray[leftSubIndex] = arr[leftIndex + leftSubIndex];
+	}
 
-    while(leftSubArrayIndex < leftLength && rightSubArrayIndex < rightLength) {
-        if(leftArray[leftSubArrayIndex] <= rightArray[rightSubArrayIndex]) {
-            arr[mergedSubArrayIndex] = leftArray[leftSubArrayIndex];
-            leftSubArrayIndex++;
-        } else {
-            arr[mergedSubArrayIndex] = rightArray[rightSubArrayIndex];
-            rightSubArrayIndex++;
-        }
+	for(rightSubIndex = 0;rightSubIndex < rightLength;rightSubIndex++) {
+		rightArray[rightSubIndex] = arr[middleIndex + 1 + rightSubIndex];
+	}
 
-        mergedSubArrayIndex++;
-    }
+	leftSubIndex = 0;
+	rightSubIndex = 0;
+	int mergeIndex = leftIndex;
 
-    while(leftSubArrayIndex < leftLength) {
-        arr[mergedSubArrayIndex] = leftArray[leftSubArrayIndex];
-        leftSubArrayIndex++;
-        mergedSubArrayIndex++;
-    }
+	while(leftSubIndex < leftLength && rightSubIndex < rightLength) {
+		if(leftArray[leftSubIndex] <= rightArray[rightSubIndex]) {
+			arr[mergeIndex] = leftArray[leftSubIndex];
+			leftSubIndex++;
+		} else {
+			arr[mergeIndex] = rightArray[rightSubIndex];
+			rightSubIndex++;
+		}
 
-    while(rightSubArrayIndex < rightLength) {
-        arr[mergedSubArrayIndex] = rightArray[rightSubArrayIndex];
-        rightSubArrayIndex++;
-        mergedSubArrayIndex++;
-    }
+		mergeIndex++;
+	}
+
+	while(leftSubIndex < leftLength) {
+		arr[mergeIndex] = leftArray[leftSubIndex];
+		mergeIndex++;
+		leftSubIndex++;
+	}
+
+	while(rightSubIndex < rightLength) {
+		arr[mergeIndex] = rightArray[rightSubIndex];
+		mergeIndex++;
+		rightSubIndex++;
+	}
 }
 
-void mergeSort(int arr[], int leftIndex, int rightIndex) {
-    if(leftIndex < rightIndex) {
-        int middleIndex = leftIndex + (rightIndex - leftIndex)/2;
+void Mergesort(int arr[],int leftIndex,int rightIndex) {
+	if(leftIndex < rightIndex) {
+		int middleIndex = leftIndex + (rightIndex - leftIndex)/2;
 
-        mergeSort(arr, leftIndex, middleIndex);
-        mergeSort(arr, middleIndex + 1, rightIndex);
+		::Mergesort(arr, leftIndex, middleIndex);
+		::Mergesort(arr, middleIndex+1, rightIndex);
 
-        merge(arr, leftIndex, middleIndex, rightIndex);
-    }
+		::Merge(arr, leftIndex, middleIndex, rightIndex);
+	}
 }
 
-void printArray(int arr[], int n) {
+void Traversal(int arr[], int n) {
     for (int i=0; i<n; i++)
-        printf("%d  ", arr[i]);
+        printf("%d ", arr[i]);
 }
 
 int main() {
-    int arr[] = {12, 34, 54, 2, 3}, i;
+    int arr[] = {12, 34, 43, 44,21,948, 1, 54, 2, 3};
     int n = sizeof(arr)/sizeof(arr[0]);
 
     printf("Array before sorting: \n");
-    printArray(arr, n);
+    ::Traversal(arr, n);
 
-    mergeSort(arr, 0, n-1);
+    ::Mergesort(arr, 0, n-1);
 
     printf("\nArray after sorting: \n");
-    printArray(arr, n);
+    ::Traversal(arr, n);
 
     return 0;
 }
+
 ```
 
 ## Links
