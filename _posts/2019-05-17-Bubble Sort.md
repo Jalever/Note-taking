@@ -20,6 +20,7 @@ tags:
 ## Implementation in CPP
 ```cpp
 #include <iostream>
+
 using namespace std;
 
 void swap (int *a, int *b) {
