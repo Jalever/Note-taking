@@ -21,7 +21,12 @@ For example, web components let us define custom elements in `HTML` files.
 ```js
 <body>
     <app-button>Hello</app-button>
+
 </body>
 ```
+
+## Getting Started
+All we need is the `index.html` file.
+ 
 
 
