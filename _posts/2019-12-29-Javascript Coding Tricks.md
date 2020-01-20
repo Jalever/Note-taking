@@ -18,7 +18,7 @@ tags:
 
 Bitwise operators are one of those features you learn about in beginner JavaScript tutorials and you never get to implement them anywhere. Besides, who wants to work with ones and zeroes if you are not dealing with binary?
 
-There is, however, a very practical use case for the Double Bitwise NOT operator. You can use it as a replacement for Math.floor(). The advantage of the Double Bitwise NOT operator is that it performs the same operation much faster.
+There is, however, a very practical use case for the Double Bitwise NOT operator. You can use it as a replacement for `Math.floor()`. The advantage of the Double Bitwise NOT operator is that it performs the same operation much faster.
 
 Longhand:
 

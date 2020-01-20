@@ -1,0 +1,90 @@
+---
+layout: post
+title: Currying in Javascript
+subtitle: Currying in Javascript
+date: 2020-01-20
+author: Jalever
+header-img: img/post-bg-js-version.jpg
+catalog: true
+tags:
+  - Web Development
+---
+
+- [Double Bitwise NOT Shorthand](#double-bitwise-not-shorthand)
+- [Exponent Power Shorthand](#exponent-power-shorthand)
+- [Converting a String into a Number](#converting-a-string-into-a-number)
+
+Currying is a fundamental tool in functional programming, a programming pattern that tries to minimize the number of changes to a program’s state (known as side effects) by using immutable data and pure (no side effects) functions.
+
+## Currying
+
+Currying is the process of taking a function with multiple arguments and returning a series of functions that take one argument and eventually resolve to a value.
+
+Here’s a simple example to illustrate it using the `_.curry` function from Lodash (we’ll build our own curry function shortly):
+
+```js
+function volume(l, w, h) {
+  return l * w * h;
+}
+
+const curried = _.curry(volume);
+
+volume(2, 3, 4); // 24
+curried(2)(3)(4); // 24
+```
+
+The original function `volume` takes three arguments, but once curried we can instead pass in each argument to three nested functions.
+
+In other words, currying has effectively done this:
+
+```js
+function volume1(length) {
+  return function(width) {
+    return function(height) {
+      return height * width * length;
+    };
+  };
+}
+
+volume1(2)(3)(4); // 24
+```
+
+## Arity
+
+As you may have noticed, it’d be nice to have a way to refer to the number of parameters each function expects. It terms out there’s a fancy word for this: `arity`. A given function can have zero, one (<strong>unary</strong>), two (<strong>binary</strong>), three (<strong>ternary</strong>), or more (<strong>polyadic</strong>) parameters it expects.
+
+## Write your own curry function
+
+Now it’s time to write our own curry function, which is a bit tricky. Fortunately ES6’s spread operator and arrow syntax help simplify things.
+
+To start, we know `curry` accepts a function as well as a variable number of parameters:
+
+```js
+var curry = (fn, ...args) => ...
+```
+
+Next we need to know how many arguments (the “arity”) our function expects. If the number of arguments we already have equals the number expected, we call the function. Otherwise, we return a new function.
+
+We can obtain both values using the `length` property of a function:
+
+```js
+var curry = (fn, ...args) =>
+  (fn.length <= args.length) ...
+```
+
+Now the final step. If the value of arguments equals the value expected, we simply call the function `fn(...args)`. But to return a new function and add it to our nested list, we store a series of functions which we can call `...more`.
+
+```js
+var curry = (fn, ...args) =>
+  fn.length <= args.length
+    ? fn(...args)
+    : (...more) => curry(fn, ...args, ...more);
+```
+
+#### exprIfTrue
+![1P0X6O.png](https://s2.ax1x.com/2020/01/20/1P0X6O.png)
+![1P0z0H.png](https://s2.ax1x.com/2020/01/20/1P0z0H.png)
+
+#### exprIfFalse
+![1PBCtI.png](https://s2.ax1x.com/2020/01/20/1PBCtI.png)
+![1PBAc8.png](https://s2.ax1x.com/2020/01/20/1PBAc8.png)
