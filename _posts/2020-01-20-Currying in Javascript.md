@@ -10,9 +10,11 @@ tags:
   - Web Development
 ---
 
-- [Double Bitwise NOT Shorthand](#double-bitwise-not-shorthand)
-- [Exponent Power Shorthand](#exponent-power-shorthand)
-- [Converting a String into a Number](#converting-a-string-into-a-number)
+- [Currying](#currying)
+- [Arity](#arity)
+- [Write your own curry function](#write-your-own-curry-function)
+  - [exprIfTrue](#expriftrue)
+  - [exprIfFalse](#expriffalse)
 
 Currying is a fundamental tool in functional programming, a programming pattern that tries to minimize the number of changes to a program’s state (known as side effects) by using immutable data and pure (no side effects) functions.
 
