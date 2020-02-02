@@ -93,9 +93,7 @@ foreach (gap in gaps)
 ```
 
 ## Implementation in C
-![eYnIJJ.png](https://s2.ax1x.com/2019/07/31/eYnIJJ.png)
-![eYnTzR.png](https://s2.ax1x.com/2019/07/31/eYnTzR.png)
-![eYnbsx.png](https://s2.ax1x.com/2019/07/31/eYnbsx.png)
+
 ```cpp
 #include <iostream>
 
