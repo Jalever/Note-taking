@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Compoarison between React and Vue
+title: Comparison between React and Vue
 subtitle: React Advanced Guides
 date: 2019-08-11
 author: Jalever
