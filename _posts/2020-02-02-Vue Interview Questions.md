@@ -10,11 +10,17 @@ tags:
   - Interview Questions
 ---
 
-- [`v-show` 与 `v-if` 有什么区别?](#v-show-%e4%b8%8e-v-if-%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab)
-- [说说你对 SPA 单页面的理解，它的优缺点分别是什么?](#%e8%af%b4%e8%af%b4%e4%bd%a0%e5%af%b9-spa-%e5%8d%95%e9%a1%b5%e9%9d%a2%e7%9a%84%e7%90%86%e8%a7%a3%e5%ae%83%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9%e5%88%86%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88)
-- [`Class` 与 `Style` 如何动态绑定?](#class-%e4%b8%8e-style-%e5%a6%82%e4%bd%95%e5%8a%a8%e6%80%81%e7%bb%91%e5%ae%9a)
-- [computed 和 watch 的区别和运用的场景](#computed-%e5%92%8c-watch-%e7%9a%84%e5%8c%ba%e5%88%ab%e5%92%8c%e8%bf%90%e7%94%a8%e7%9a%84%e5%9c%ba%e6%99%af)
+- [Common Interview Questions](#common-interview-questions)
+    - [`v-show` 与 `v-if` 有什么区别?](#v-show-%e4%b8%8e-v-if-%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab)
+    - [说说你对 SPA 单页面的理解，它的优缺点分别是什么?](#%e8%af%b4%e8%af%b4%e4%bd%a0%e5%af%b9-spa-%e5%8d%95%e9%a1%b5%e9%9d%a2%e7%9a%84%e7%90%86%e8%a7%a3%e5%ae%83%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9%e5%88%86%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88)
+    - [`Class` 与 `Style` 如何动态绑定?](#class-%e4%b8%8e-style-%e5%a6%82%e4%bd%95%e5%8a%a8%e6%80%81%e7%bb%91%e5%ae%9a)
+    - [`computed` 和 `watch` 的区别和运用的场景](#computed-%e5%92%8c-watch-%e7%9a%84%e5%8c%ba%e5%88%ab%e5%92%8c%e8%bf%90%e7%94%a8%e7%9a%84%e5%9c%ba%e6%99%af)
+    - [怎样理解 Vue 的单向数据流?](#%e6%80%8e%e6%a0%b7%e7%90%86%e8%a7%a3-vue-%e7%9a%84%e5%8d%95%e5%90%91%e6%95%b0%e6%8d%ae%e6%b5%81)
+    - [直接给一个数组项赋值，Vue 能检测到变化吗?](#%e7%9b%b4%e6%8e%a5%e7%bb%99%e4%b8%80%e4%b8%aa%e6%95%b0%e7%bb%84%e9%a1%b9%e8%b5%8b%e5%80%bcvue-%e8%83%bd%e6%a3%80%e6%b5%8b%e5%88%b0%e5%8f%98%e5%8c%96%e5%90%97)
+    - [谈谈你对 Vue 生命周期的理解?](#%e8%b0%88%e8%b0%88%e4%bd%a0%e5%af%b9-vue-%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%9a%84%e7%90%86%e8%a7%a3)
+- [参考](#%e5%8f%82%e8%80%83)
 
+## Common Interview Questions
 #### `v-show` 与 `v-if` 有什么区别?
 
 `v-if` 是"真正"的条件渲染, 因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建
@@ -179,7 +185,7 @@ vm.items.splice(newLength);
    | beforeDestory |                            组件销毁前调用                             |
    | destoryed     |                            组件销毁后调用                             |
 
-3) 生命周期示意图
+3. 生命周期示意图
    [![1NHiSe.md.png](https://s2.ax1x.com/2020/02/03/1NHiSe.md.png)](https://imgchr.com/i/1NHiSe)
 
 ## 参考
