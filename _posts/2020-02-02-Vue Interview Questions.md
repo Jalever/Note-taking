@@ -33,6 +33,12 @@ tags:
         - [4.`$attrs` / `$listeners` 适用于 隔代组件通信](#4attrs--listeners-%e9%80%82%e7%94%a8%e4%ba%8e-%e9%9a%94%e4%bb%a3%e7%bb%84%e4%bb%b6%e9%80%9a%e4%bf%a1)
         - [5.`provide` / `inject` 适用于 隔代组件通信](#5provide--inject-%e9%80%82%e7%94%a8%e4%ba%8e-%e9%9a%94%e4%bb%a3%e7%bb%84%e4%bb%b6%e9%80%9a%e4%bf%a1)
         - [6.`Vuex` 适用于 父子、隔代、兄弟组件通信](#6vuex-%e9%80%82%e7%94%a8%e4%ba%8e-%e7%88%b6%e5%ad%90%e9%9a%94%e4%bb%a3%e5%85%84%e5%bc%9f%e7%bb%84%e4%bb%b6%e9%80%9a%e4%bf%a1)
+    - [`Vue` 是如何实现数据双向绑定的?](#vue-%e6%98%af%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e6%95%b0%e6%8d%ae%e5%8f%8c%e5%90%91%e7%bb%91%e5%ae%9a%e7%9a%84)
+    - [Vue 框架怎么实现对象和数组的监听?](#vue-%e6%a1%86%e6%9e%b6%e6%80%8e%e4%b9%88%e5%ae%9e%e7%8e%b0%e5%af%b9%e8%b1%a1%e5%92%8c%e6%95%b0%e7%bb%84%e7%9a%84%e7%9b%91%e5%90%ac)
+    - [`Proxy` 与 `Object.defineProperty` 优劣对比](#proxy-%e4%b8%8e-objectdefineproperty-%e4%bc%98%e5%8a%a3%e5%af%b9%e6%af%94)
+    - [Vue 怎么用`vm.$set()`解决对象新增属性不能响应的问题？](#vue-%e6%80%8e%e4%b9%88%e7%94%a8vmset%e8%a7%a3%e5%86%b3%e5%af%b9%e8%b1%a1%e6%96%b0%e5%a2%9e%e5%b1%9e%e6%80%a7%e4%b8%8d%e8%83%bd%e5%93%8d%e5%ba%94%e7%9a%84%e9%97%ae%e9%a2%98)
+    - [虚拟 `DOM` 的优缺点](#%e8%99%9a%e6%8b%9f-dom-%e7%9a%84%e4%bc%98%e7%bc%ba%e7%82%b9)
+    - [虚拟 `DOM` 实现原理](#%e8%99%9a%e6%8b%9f-dom-%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86)
 - [参考](#%e5%8f%82%e8%80%83)
 
 ## Common Interview Questions
@@ -696,7 +702,114 @@ const app = new Vue({
 ###### 6.`Vuex` 适用于 父子、隔代、兄弟组件通信
 `Vuex` 是一个专为 `Vue.js` 应用程序开发的状态管理模式。每一个 `Vuex` 应用的核心就是 `store`（仓库）。`“store”` 基本上就是一个容器，它包含着你的应用中大部分的状态 ( `state` )
 
+#### `Vue` 是如何实现数据双向绑定的?
+`Vue` 数据双向绑定主要是指: 数据变化更新视图, 视图变化更新数据, 如下图所示:
+![1UXjbQ.png](https://s2.ax1x.com/2020/02/03/1UXjbQ.png)
+
+即:
+- 输入框内容变化时，`Data` 中的数据同步变化。即 `View => Data` 的变化。
+- `Data` 中的数据变化时，文本节点的内容同步变化。即 `Data => View` 的变化
+
+其中，`View` 变化更新 `Data` ，可以通过事件监听的方式来实现，所以 `Vue` 的数据双向绑定的工作主要是如何根据 `Data` 变化更新 `View`
+
+Vue 主要通过以下 4 个步骤来实现数据双向绑定的: 
+1.实现一个监听器 `Observer`: 对数据对象进行遍历, 包括子属性对象的属性，利用 `Object.defineProperty()` 对属性都加上 `setter` 和 `getter`. 这样的话，给这个对象的某个值赋值, 就会触发 setter，那么就能监听到了数据变化
+
+2.实现一个解析器 `Compile`: 解析 `Vue` 模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图, 并将每个指令对应的节点绑定更新函数, 添加监听数据的订阅者, 一旦数据有变动, 收到通知, 调用更新函数进行数据更新
+
+3.实现一个订阅者 `Watcher`：`Watcher` 订阅者是 `Observer` 和 `Compile` 之间通信的桥梁 ，主要的任务是订阅 `Observer` 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 `Compile` 中对应的更新函数
+
+4.实现一个订阅器 `Dep`：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 `Observer` 和 订阅者 `Watcher` 进行统一管理
+[![1aP7Pe.md.png](https://s2.ax1x.com/2020/02/03/1aP7Pe.md.png)](https://imgchr.com/i/1aP7Pe)
+
+#### Vue 框架怎么实现对象和数组的监听?
+```jsx
+  /**
+   * Observe a list of Array items.
+   */
+  observeArray (items: Array<any>) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i])  // observe 功能为监测数据的变化
+    }
+  }
+
+  /**
+   * 对属性进行递归遍历
+   */
+  let childOb = !shallow && observe(val) // observe 功能为监测数据的变化
+```
+`Vue` 框架是通过遍历数组 和递归遍历对象，从而达到利用 `Object.defineProperty()` 也能对对象和数组（部分方法的操作）进行监听
+
+#### `Proxy` 与 `Object.defineProperty` 优劣对比
+`Proxy` 的优势如下:
+- `Proxy` 可以直接监听对象而非属性；
+- `Proxy` 可以直接监听数组的变化；
+- `Proxy` 有多达 13 种拦截方法,不限于 `apply`、`ownKeys`、`deleteProperty`、`has` 等等是`Object.defineProperty` 不具备的；
+- `Proxy` 返回的是一个新对象,我们可以只操作新的对象达到目的,而 `Object.defineProperty` 只能遍历对象属性直接修改；
+- `Proxy` 作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利
+
+`Object.defineProperty` 的优势如下:
+- 兼容性好，支持 `IE9`，而 `Proxy` 的存在浏览器兼容性问题,而且无法用 `polyfill` 磨平，因此 `Vue` 的作者才声明需要等到下个大版本( 3.0 )才能用 `Proxy` 重写
+
+#### Vue 怎么用`vm.$set()`解决对象新增属性不能响应的问题？
+受现代 `JavaScript` 的限制 ，`Vue` 无法检测到对象属性的添加或删除。由于 `Vue` 会在初始化实例时对属性执行 `getter/setter` 转化，所以属性必须在 `data` 对象上存在才能让 `Vue` 将它转换为响应式的。但是 `Vue` 提供了 `Vue.set (object, propertyName, value)` / `vm.$set (object, propertyName, value)`  来实现为对象添加响应式属性，那框架本身是如何实现的呢
+
+我们查看对应的 `Vue` 源码：`vue/src/core/instance/index.js`
+```jsx
+export function set (target: Array<any> | Object, key: any, val: any): any {
+
+  // target 为数组  
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    // 修改数组的长度, 避免索引>数组长度导致splcie()执行有误
+    target.length = Math.max(target.length, key)
+    // 利用数组的splice变异方法触发响应式  
+    target.splice(key, 1, val)
+    return val
+  }
+
+  // key 已经存在，直接修改属性值  
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val
+    return val
+  }
+
+  const ob = (target: any).__ob__;
+
+  // target 本身就不是响应式数据, 直接赋值
+  if (!ob) {
+    target[key] = val
+    return val
+  }
+
+  // 对属性进行响应式处理
+  defineReactive(ob.value, key, val)
+  ob.dep.notify()
+  return val
+}
+```
+我们阅读以上源码可知，`vm.$set` 的实现原理是：
+
+- 如果目标是数组，直接使用数组的 `splice` 方法触发相应式
+- 如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用`defineReactive`方法进行响应式处理（ `defineReactive` 方法就是  `Vue` 在初始化对象时，给对象属性采用 `Object.defineProperty` 动态添加 `getter` 和 `setter` 的功能所调用的方法）
+
+#### 虚拟 `DOM` 的优缺点
+1. 优点:
+- 保证性能下限： 框架的虚拟 `DOM` 需要适配任何上层 `API` 可能产生的操作，它的一些 `DOM` 操作的实现必须是普适的，所以它的性能并不是最优的；但是比起粗暴的 DOM 操作性能要好很多，因此框架的虚拟 `DOM` 至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；
+- 无需手动操作 `DOM`： 我们不再需要手动去操作 `DOM`，只需要写好 `View-Model` 的代码逻辑，框架会根据虚拟 `DOM` 和 数据双向绑定，帮我们以可预期的方式更新视图，极大提高我们的开发效率；
+- 跨平台： 虚拟 `DOM` 本质上是 `JavaScript` 对象,而 `DOM` 与平台强相关，相比之下虚拟 `DOM` 可以进行更方便地跨平台操作，例如服务器渲染、`weex` 开发等等
+
+2. 缺点:
+- 无法进行极致优化： 虽然虚拟 `DOM` + 合理的优化，足以应对绝大部分应用的性能需求，但在一些性能要求极高的应用中虚拟 `DOM` 无法进行针对性的极致优化
+
+#### 虚拟 `DOM` 实现原理
+虚拟 `DOM` 的实现原理主要包括以下 3 部分: 
+
+- 用 `JavaScript` 对象模拟真实 `DOM` 树，对真实 `DOM` 进行抽象；
+- `diff` 算法 — 比较两棵虚拟 `DOM` 树的差异；
+- `patch` 算法 — 将两个虚拟 `DOM` 对象的差异应用到真正的 `DOM` 树
+
 
 ## 参考
 
 - 我是你的超级英雄.[30 道 Vue 面试题，内含详细讲解](https://juejin.im/post/5d59f2a451882549be53b170#heading-4)
+- littleLane.[Vue 组件通信方式全面详解](https://juejin.im/post/5c77c4ae518825407505e262#heading-8)
