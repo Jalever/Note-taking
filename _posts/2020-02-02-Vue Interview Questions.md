@@ -163,7 +163,7 @@ vm.items.splice(newLength);
 #### 谈谈你对 Vue 生命周期的理解?
 
 1. 生命周期是什么?
-`Vue` 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -> 渲染、更新 -> 渲染、卸载等一系列过程，我们称这是 Vue 的生命周期
+   `Vue` 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载 Dom -> 渲染、更新 -> 渲染、卸载等一系列过程，我们称这是 Vue 的生命周期
 
 2. 各个生命周期的作用
    | 生命周期      |                                 描述                                  |
@@ -180,7 +180,7 @@ vm.items.splice(newLength);
    | destoryed     |                            组件销毁后调用                             |
 
 3) 生命周期示意图
-[![1NHiSe.md.png](https://s2.ax1x.com/2020/02/03/1NHiSe.md.png)](https://imgchr.com/i/1NHiSe)
+   [![1NHiSe.md.png](https://s2.ax1x.com/2020/02/03/1NHiSe.md.png)](https://imgchr.com/i/1NHiSe)
 
 ## 参考
 
