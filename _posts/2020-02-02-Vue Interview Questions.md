@@ -828,6 +828,7 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
 
 我们以下通过一个 `Vue` 实例来说明 `MVVM` 的具体实现，有 `Vue` 开发经验的同学应该一目了然:
 1. `View`层
+  
 ```jsx
 <div id="app">
     <p>{{message}}</p>
@@ -836,6 +837,7 @@ export function set (target: Array<any> | Object, key: any, val: any): any {
 ```
 
 2. `ViewModel`层
+   
 ```jsx
 var app = new Vue({
     el: '#app',
@@ -861,8 +863,9 @@ var app = new Vue({
 })
 ```
 
-3. `Model`层
-```json
+1. `Model`层
+
+```js
 {
     "url": "/your/server/data/api",
     "res": {
