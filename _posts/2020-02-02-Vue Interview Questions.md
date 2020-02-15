@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Vue Interview Questions
-subtitle: Advanced Vue Interview Questions
+subtitle: Vue系列
 date: 2020-02-02
 author: Jalever
 header-img: img/post_bg_fancyCrave.jpg
