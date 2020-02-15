@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Web前端高频面试题 - Webpack相关
-subtitle: Web前端面试题系列
+title: Webpack Interview Questions
+subtitle: Webpack系列
 date: 2019-03-28
 author: Jalever
 header-img: img/post_bg_fancyCrave.jpg
