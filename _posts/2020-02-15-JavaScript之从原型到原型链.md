@@ -12,13 +12,26 @@ tags:
 
 > 声明: 本文参照冴羽大大的文章
 
-- [介绍](#%e4%bb%8b%e7%bb%8d)
+- [总结](#%e6%80%bb%e7%bb%93)
+- [构造函数创建对象](#%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%88%9b%e5%bb%ba%e5%af%b9%e8%b1%a1)
+- [prototype](#prototype)
+- [**proto**](#proto)
+- [constructor](#constructor)
+- [实例与原型](#%e5%ae%9e%e4%be%8b%e4%b8%8e%e5%8e%9f%e5%9e%8b)
+- [原型的原型](#%e5%8e%9f%e5%9e%8b%e7%9a%84%e5%8e%9f%e5%9e%8b)
+- [原型链](#%e5%8e%9f%e5%9e%8b%e9%93%be)
+- [补充](#%e8%a1%a5%e5%85%85)
+    - [constructor](#constructor-1)
+    - [**proto**](#proto-1)
+    - [真的是继承吗？](#%e7%9c%9f%e7%9a%84%e6%98%af%e7%bb%a7%e6%89%bf%e5%90%97)
 
 ## 总结
 
 `JavaScript` 只有一种结构：对象。每个实例对象（ `object` ）都有一个私有属性（称之为 `__proto__` ）指向它的构造函数的原型对象（`prototype` ）。该原型对象也有一个自己的原型对象( `__proto__` ) ，层层向上直到一个对象的原型对象为 `null`。根据定义，`null` 没有原型，并作为这个原型链中的最后一个环节。
 
 几乎所有 `JavaScript` 中的对象都是位于原型链顶端的 `Object` 的实例
+
+![1zPx4x.png](https://s2.ax1x.com/2020/02/15/1zPx4x.png)
 
 ## 构造函数创建对象
 
@@ -197,6 +210,7 @@ person.constructor === Person.prototype.constructor;
 其次是 **proto** ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 `Person.prototype` 中，实际上，它是来自于 `Object.prototype` ，与其说是一个属性，不如说是一个 `getter/setter`，当使用 obj.**proto** 时，可以理解成返回了 `Object.getPrototypeOf(obj)`。
 
 #### 真的是继承吗？
-最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：
+
+最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的 JavaScript》中的话，就是：
 
 继承意味着复制操作，然而 `JavaScript` 默认并不会复制对象的属性，相反，`JavaScript` 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些
