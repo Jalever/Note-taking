@@ -10,6 +10,7 @@ tags:
   - Interview Questions
 ---
 
+- [JavaScript的内置类型](#javascript%e7%9a%84%e5%86%85%e7%bd%ae%e7%b1%bb%e5%9e%8b)
 - [undefined 和 null 有什么区别？](#undefined-%e5%92%8c-null-%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab)
 - [什么是事件传播?](#%e4%bb%80%e4%b9%88%e6%98%af%e4%ba%8b%e4%bb%b6%e4%bc%a0%e6%92%ad)
 - [什么是事件冒泡？](#%e4%bb%80%e4%b9%88%e6%98%af%e4%ba%8b%e4%bb%b6%e5%86%92%e6%b3%a1)
@@ -24,6 +25,12 @@ tags:
 - [什么是闭包？](#%e4%bb%80%e4%b9%88%e6%98%af%e9%97%ad%e5%8c%85)
 - [JavaScript 中的虚值是什么？](#javascript-%e4%b8%ad%e7%9a%84%e8%99%9a%e5%80%bc%e6%98%af%e4%bb%80%e4%b9%88)
 - ['use strict' 是干嘛用的？](#use-strict-%e6%98%af%e5%b9%b2%e5%98%9b%e7%94%a8%e7%9a%84)
+- [load和DOMContentLoaded的区别](#load%e5%92%8cdomcontentloaded%e7%9a%84%e5%8c%ba%e5%88%ab)
+- [input中如何监听值的变化](#input%e4%b8%ad%e5%a6%82%e4%bd%95%e7%9b%91%e5%90%ac%e5%80%bc%e7%9a%84%e5%8f%98%e5%8c%96)
+
+## JavaScript的内置类型
+6种原始类型: `Boolean`, `String`, `Null`, `undefined`, `Number`, `Symbol`
+引用类型: `Object`, `Function`
 
 ## undefined 和 null 有什么区别？
 
@@ -320,4 +327,22 @@ const falsyValues = ["", 0, null, undefined, NaN, false];
 - 提高编译器效率，增加运行速度；
 
 - 为未来新版本的Javascript做好铺垫。
+
+## load和DOMContentLoaded的区别
+load:
+
+`load` 应该仅用于检测一个完全加载的页面 当一个资源及其依赖资源已完成加载时，将触发`load`事件.即页面的`HTML`, `CSS`, `JavaScript`图片等资源都已经加载完之后才会触发 `load` 事件
+
+DOMContentLoaded:
+
+当初始的 `HTML` 文档被完全加载和解析完成之后，`DOMContentLoaded` 事件被触发，而无需等待样式表、图像和子框架的完成加载. 即`HTML`下载、解析完毕之后就触发
+
+## input中如何监听值的变化
+可以实时监听值的变化的事件有以下几种
+- keypress
+- keydown
+- keyup
+- input
+
+注: `onChange` 无法做到实时监听，因为 `onChange` 需要失去焦点才能触发
 
