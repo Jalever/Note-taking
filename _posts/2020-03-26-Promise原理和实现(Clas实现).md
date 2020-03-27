@@ -100,7 +100,6 @@ export default class MyPromise{
             }
         };
 
-
         let _reject = reason => {
             if(this._status !== PENDING) return;
             this._status = REJECTED;
@@ -121,36 +120,39 @@ export default class MyPromise{
 ```
 问题：
 1. 只能是异步
-2. 无法then链式调用
+2. 无法`then`链式调用
 
-## 链式调用
+## `then`的链式调用
+
 ```js
+
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
 
-export default class MyPromise{
+export default class MyPromise {
     constructor(executor) {
         this._status = PENDING;
         this._resolveQueue = [];
         this._rejectQueue = [];
 
         let _resolve = val => {
-            if(this._status !== PENDING) return;
+            if (this._status !== PENDING) return;
             this._status = FULFILLED;
 
-            while(this._resolveQueue.length) {
+            while (this._resolveQueue.length) {
                 let cb = this._resolveQueue.shift();
                 cb(val);
             }
         };
 
-        let _reject = reason => {
-            if(this._status !== PENDING) return;
+        let _reject = val => {
+            if (this._status !== PENDING) return;
             this._status = REJECTED;
-            while(this._rejectQueue.length) {
+
+            while (this._rejectQueue.length) {
                 let cb = this._rejectQueue.shift();
-                cb(reason);
+                cb(val);
             }
         };
 
@@ -159,23 +161,25 @@ export default class MyPromise{
 
     then(resolveFn, rejectFn) {
         return new MyPromise((resolve, reject) => {
+
             const fulfilledFn = val => {
                 try {
                     let x = resolveFn(val);
-                    x instanceof MyPromise ? x.then(resolve, reject): resolve(x)
+                    x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
                 } catch (error) {
                     reject(error);
                 }
             };
 
-            const rejectedFn = val => {
+            const rejectedFn = () => {
                 try {
                     let x = rejectFn(val);
-                    x instanceof MyPromise ? x.then(resolve, reject): resolve(x)
+                    x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
                 } catch (error) {
                     reject(error);
                 }
             };
+
 
             this._resolveQueue.push(fulfilledFn);
             this._rejectQueue.push(rejectedFn);
@@ -188,34 +192,25 @@ export default class MyPromise{
 ```js
 let p = new MyPromise((resolve, reject) => {
   setTimeout(() => {
-    console.log('111');
-    reject("222");
+    console.log(111);
+    resolve(2222);
   }, 1000);
 });
-
 p.then(res => {
   console.log(res);
-
-  return 333;
-  // throw new Error('ee');
-}, reason => {
-  console.log('reason');
-  console.log(reason);
-  
-  throw new Error('last');
+  return '333';
 }).then(res => {
   console.log(res);
-  console.log('--- end ---');
+  return '444';
   
-  
-}, reason => {
-  console.log('end: reason => ', reason);
+}).then(res => {
+  console.log(res);
 });
 
 // 111
-// reason
-// 222
-// end: reason =>  Error: last
+// 2222
+// 333
+// 444
 ```
 
 问题
@@ -224,7 +219,6 @@ p.then(res => {
 
 ## 值穿透 && 状态已经是resolve/reject的情况
 ```js
-
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
@@ -238,8 +232,8 @@ export default class MyPromise {
 
         let _resolve = val => {
             if (this._status !== PENDING) return;
-            this._status = FULFILLED;
             this._value = val;
+            this._status = FULFILLED;
 
             while (this._resolveQueue.length) {
                 let cb = this._resolveQueue.shift();
@@ -247,14 +241,14 @@ export default class MyPromise {
             }
         };
 
-        let _reject = reason => {
+        let _reject = val => {
             if (this._status !== PENDING) return;
+            this._value = val;
             this._status = REJECTED;
-            this._value = reason;
 
             while (this._rejectQueue.length) {
                 let cb = this._rejectQueue.shift();
-                cb(reason);
+                cb(val);
             }
         };
 
@@ -262,12 +256,14 @@ export default class MyPromise {
     }
 
     then(resolveFn, rejectFn) {
+        //值穿透
         typeof resolveFn !== 'function' ? resolveFn = value => value : null;
         typeof rejectFn !== 'function' ? rejectFn = reason => {
             throw new Error(reason instanceof Error ? reason.message : reason);
         } : null;
 
         return new MyPromise((resolve, reject) => {
+
             const fulfilledFn = val => {
                 try {
                     let x = resolveFn(val);
@@ -277,7 +273,7 @@ export default class MyPromise {
                 }
             };
 
-            const rejectedFn = val => {
+            const rejectedFn = () => {
                 try {
                     let x = rejectFn(val);
                     x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
@@ -286,6 +282,7 @@ export default class MyPromise {
                 }
             };
 
+            //解决值已是resolve/reject状态的情况
             switch (this._status) {
                 case PENDING:
                     this._resolveQueue.push(fulfilledFn);
@@ -293,6 +290,7 @@ export default class MyPromise {
                     break;
                 case FULFILLED:
                     fulfilledFn(this._value);
+                    break;
                 case REJECTED:
                     rejectedFn(this._value);
                     break;
@@ -327,8 +325,6 @@ p.then(res => {
   .then(res => {
     console.log(res);
     console.log('--- end ---');
-
-
   }, reason => {
     console.log('end: reason => ', reason);
   });
@@ -342,6 +338,9 @@ p.then(res => {
 ```
 
 ## 兼容同步任务
+上面的代码有一个问题,如下:
+![GPELTI.png](https://s1.ax1x.com/2020/03/27/GPELTI.png)
+
 ```js
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
@@ -357,29 +356,29 @@ export default class MyPromise {
         let _resolve = val => {
             const run = () => {
                 if (this._status !== PENDING) return;
-                this._status = FULFILLED;
                 this._value = val;
+                this._status = FULFILLED;
 
                 while (this._resolveQueue.length) {
                     let cb = this._resolveQueue.shift();
                     cb(val);
                 }
-            }
+            };
 
             setTimeout(run);
         };
 
-        let _reject = reason => {
+        let _reject = val => {
             const run = () => {
                 if (this._status !== PENDING) return;
+                this._value = val;
                 this._status = REJECTED;
-                this._value = reason;
 
                 while (this._rejectQueue.length) {
                     let cb = this._rejectQueue.shift();
-                    cb(reason);
+                    cb(val);
                 }
-            }
+            };
 
             setTimeout(run);
         };
@@ -388,12 +387,14 @@ export default class MyPromise {
     }
 
     then(resolveFn, rejectFn) {
+        //值穿透
         typeof resolveFn !== 'function' ? resolveFn = value => value : null;
         typeof rejectFn !== 'function' ? rejectFn = reason => {
             throw new Error(reason instanceof Error ? reason.message : reason);
         } : null;
 
         return new MyPromise((resolve, reject) => {
+
             const fulfilledFn = val => {
                 try {
                     let x = resolveFn(val);
@@ -403,7 +404,7 @@ export default class MyPromise {
                 }
             };
 
-            const rejectedFn = val => {
+            const rejectedFn = () => {
                 try {
                     let x = rejectFn(val);
                     x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
@@ -412,6 +413,7 @@ export default class MyPromise {
                 }
             };
 
+            //解决值已是resolve/reject状态的情况
             switch (this._status) {
                 case PENDING:
                     this._resolveQueue.push(fulfilledFn);
@@ -419,9 +421,11 @@ export default class MyPromise {
                     break;
                 case FULFILLED:
                     fulfilledFn(this._value);
+                    break;
                 case REJECTED:
                     rejectedFn(this._value);
                     break;
+
                 default:
                     break;
             }
@@ -449,5 +453,205 @@ finally(callback) {
 }
 ```
 
+## Promise.prototype.resolve()
+`Promise.resolve(value)`方法返回一个以给定值解析后的 Promise 对象。<br/>
+如果该值为 `promise`, 返回这个 `promise`;<br/>
+如果这个值是 `thenable`(即带有`then` 方法),返回的 `promise` 会“跟随”这个 thenable 的对象，采用它的最终状态；<br/>
+否则返回的 `promise` 将以此值完成。此函数将类 `promise` 对象的多层嵌套展平<br/>
+```js
+//静态的resolve方法
+static resolve(value) {
+    // 根据规范, 如果参数是Promise实例, 直接return这个实例
+  if(value instanceof MyPromise) return value;
+  return new MyPromise(resolve => resolve(value))
+}
+```
+
+## Promise.prototype.reject()
+`Promise.reject()`方法返回一个带有拒绝原因的 `Promise` 对象
+```js
+//静态的reject方法
+static reject(reason) {
+  return new MyPromise((resolve, reject) => reject(reason))
+}
+```
+
+## Promise.all()
+`Promise.all(iterable)`方法返回一个 `Promise` 实例, 此实例在 `iterable` 参数内所有的 `promise` 都"完成`(resolved)`"或参数中不包含 `promise` 时回调完成`(resolve)`; 如果参数中 `promise` 有一个失败`(rejected)`，此实例回调失败`(reject)`, 失败原因的是第一个失败 `promise` 的结果
+```js
+static all(promiseArr) {
+    return new MyPromise((resolve, reject) => {
+        let index = 0;
+        let result = [];
+
+        promiseArr.forEach((pro, idx) => {
+            MyPromise.resolve(pro).then(value => {
+                index++;
+                result[idx] = value;
+
+                if(index === promiseArr.length) resolve(result);
+            }, reason => {
+                reject(reason);
+            });
+
+        });
+    });
+}
+```
+
+## Promise.race()
+`Promise.race(iterable)`方法返回一个 `promise`, 一旦迭代器中的某个 `promise` 解决或拒绝，返回的 `promise` 就会解决或拒绝
+
+```js
+    static race(promiseArr) {
+        return new MyPromise((resolve, reject) => {
+            for (let pro of promiseArr) {
+                MyPromise.resolve(pro).then(val => resolve(val), reason => reject(reason))
+            }
+        });
+    }
+```
+
+## 完整代码
+```js
+const PENDING = 'pending';
+const FULFILLED = 'fulfilled';
+const REJECTED = 'rejected';
+
+export default class MyPromise {
+    constructor(executor) {
+        this._value = undefined;
+        this._status = PENDING;
+        this._resolveQueue = [];
+        this._rejectQueue = [];
+
+        let _resolve = val => {
+            const run = () => {
+                if (this._status !== PENDING) return;
+                this._value = val;
+                this._status = FULFILLED;
+
+                while (this._resolveQueue.length) {
+                    let cb = this._resolveQueue.shift();
+                    cb(val);
+                }
+            };
+
+            setTimeout(run);
+        };
+
+        let _reject = val => {
+            const run = () => {
+                if (this._status !== PENDING) return;
+                this._value = val;
+                this._status = REJECTED;
+
+                while (this._rejectQueue.length) {
+                    let cb = this._rejectQueue.shift();
+                    cb(val);
+                }
+            };
+
+            setTimeout(run);
+        };
+
+        executor(_resolve, _reject);
+    }
+
+    then(resolveFn, rejectFn) {
+        //值穿透
+        typeof resolveFn !== 'function' ? resolveFn = value => value : null;
+        typeof rejectFn !== 'function' ? rejectFn = reason => {
+            throw new Error(reason instanceof Error ? reason.message : reason);
+        } : null;
+
+        return new MyPromise((resolve, reject) => {
+
+            const fulfilledFn = val => {
+                try {
+                    let x = resolveFn(val);
+                    x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            const rejectedFn = () => {
+                try {
+                    let x = rejectFn(val);
+                    x instanceof MyPromise ? x.then(resolve, reject) : resolve(x)
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            //解决值已是resolve/reject状态的情况
+            switch (this._status) {
+                case PENDING:
+                    this._resolveQueue.push(fulfilledFn);
+                    this._rejectQueue.push(rejectedFn);
+                    break;
+                case FULFILLED:
+                    fulfilledFn(this._value);
+                    break;
+                case REJECTED:
+                    rejectedFn(this._value);
+                    break;
+
+                default:
+                    break;
+            }
+        });
+    }
+
+    catch(resolveFn, rejectFn) {
+        return this.then(undefined, rejectFn);
+    }
+
+    finally(cb) {
+        return this.then(
+            val => MyPromise.resolve(cb()).then(() => val),
+            reason => MyPromise.resolve(cb()).then(() => { throw reason })
+        );
+    }
+
+    static resolve(value) {
+
+        if (value instanceof MyPromise) return value;
+        return new MyPromise(resolve => resolve(value));
+    }
+
+    static reject(reason) {
+        return new Promise((resolve, reject) => reject(reason));
+    }
+
+    static all(promiseArr) {
+        return new MyPromise((resolve, reject) => {
+            let result = [];
+            let index = 0;
+
+            promiseArr.forEach((pro, idx) => {
+                MyPromise.resolve(pro).then(val => {
+                    index++;
+                    result[idx] = val;
+
+                    if (index === promiseArr.length) resolve(result);
+                }, reason => {
+                    reject(reason);
+                })
+            });
+        });
+    }
+
+    static race(promiseArr) {
+        return new MyPromise((resolve, reject) => {
+            for (let pro of promiseArr) {
+                MyPromise.resolve(pro).then(val => resolve(val), reason => reject(reason))
+            }
+        });
+    }
+}
+```
+
 ## 参考链接:
-[文章](https://mp.weixin.qq.com/s?__biz=MzI4OTI0NDc2NQ==&mid=2247483861&idx=1&sn=0453a4fa5aa2956938138181ed30f64e&chksm=ec3352e7db44dbf12ee1118a2f0bf715a5f2e57ef74122c6a52b9125bedeb4953ede3826c8e6&scene=126&sessionid=1585146571&key=03b7e0e33e341fce7befb033476a930e790172eaaef162b83d083e34995f7316b8c921c890da4bbf8f109dc83037d7e5fa20b5801f9ebc2722e9b6f380a84e87ea635286b391e9f32c6fa650c82f76d8&ascene=1&uin=MTUyNTM3MDAyNg%3D%3D&devicetype=Windows+10&version=62080079&lang=en&exportkey=A2KvjAuUkA5WOxTHa%2F6O%2BJs%3D&pass_ticket=8C3g0RHiXRnElkMfuzVJPgjIpXKuEQ5pw2kLEkDRAtJsaFvRGdR1ZeWCwjM03JUa)
+<a href="https://mp.weixin.qq.com/s?__biz=MzI4OTI0NDc2NQ==&mid=2247483861&idx=1&sn=0453a4fa5aa2956938138181ed30f64e&chksm=ec3352e7db44dbf12ee1118a2f0bf715a5f2e57ef74122c6a52b9125bedeb4953ede3826c8e6&scene=126&sessionid=1585146571&key=03b7e0e33e341fce7befb033476a930e790172eaaef162b83d083e34995f7316b8c921c890da4bbf8f109dc83037d7e5fa20b5801f9ebc2722e9b6f380a84e87ea635286b391e9f32c6fa650c82f76d8&ascene=1&uin=MTUyNTM3MDAyNg%3D%3D&devicetype=Windows+10&version=62080079&lang=en&exportkey=A2KvjAuUkA5WOxTHa%2F6O%2BJs%3D&pass_ticket=8C3g0RHiXRnElkMfuzVJPgjIpXKuEQ5pw2kLEkDRAtJsaFvRGdR1ZeWCwjM03JUa" target="_blank">参考文章</a>
