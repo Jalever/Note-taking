@@ -29,18 +29,54 @@ const p1 = newPromise((resolve, reject) => {
 p1.then(res =>console.log(res), err => console.log(err))
 ```
 
-符合Promise A+的状态控制
-链式调用
-值穿透 && 状态已变更的情况
-兼顾同步任务
-Promise.prototype.catch
-Promise.prototype.finally
-Promise.resolve
-Promise.reject
-Promise.all
-Promise.race
+
+## Promise A+ 规范
+`ES6` 的 `Promise` 实现需要遵循`Promise/A+`规范，是规范对 `Promise` 的状态控制做了要求。`Promise/A+`的规范比较长，这里只总结两条核心规则:
+
+- `Promise` 本质是一个状态机，且状态只能为以下三种：`Pending`（等待态）、`Fulfilled`（执行态）、`Rejected`（拒绝态），状态的变更是单向的，只能从 `Pending -> Fulfilled` 或 `Pending -> Rejected`，状态变更不可逆
+- `then`方法接收两个可选参数，分别对应状态改变时触发的回调。`then` 方法返回一个 `promise`。`then` 方法可以被同一个 `promise` 调用多次
+![GPCKIO.png](https://s1.ax1x.com/2020/03/27/GPCKIO.png)
 
 
+## 简易版Promise实现
+```js
+export default class MyPromise {
+    constructor(executor) {
+        this._resolveQueue = [];
+        this._rejectQueue = [];
+
+        let _resolve = val => {
+            while(this._resolveQueue.length) {
+                let cb = this._resolveQueue.shift();
+                cb(val);
+            }
+        };
+
+        let _reject = val => {
+            while(this._rejectQueue.length){
+                let cb = this._rejectQueue.shift();
+                cb(val);
+            }
+        };
+
+        executor(_resolve, _reject);
+    }
+
+    then(resolveFn, rejectFn) {
+        this._resolveQueue.push(resolveFn);
+        this._rejectQueue.push(rejectFn);
+    }
+}
+```
+
+使用情况:
+![GP9R8H.png](https://s1.ax1x.com/2020/03/27/GP9R8H.png)
+
+控制台输出:
+![GPCiiF.png](https://s1.ax1x.com/2020/03/27/GPCiiF.png)
+
+问题:
+1. 无法链式调用
 
 ## 引入状态控制
 ```js
@@ -307,7 +343,6 @@ p.then(res => {
 
 ## 兼容同步任务
 ```js
-
 const PENDING = 'pending';
 const FULFILLED = 'fulfilled';
 const REJECTED = 'rejected';
