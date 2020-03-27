@@ -9,6 +9,24 @@ catalog: true
 tags:
   - JavaScript
 ---
+
+- [Promises的使用](#promises%e7%9a%84%e4%bd%bf%e7%94%a8)
+- [Promise A+ 规范](#promise-a-%e8%a7%84%e8%8c%83)
+- [简易版Promise实现](#%e7%ae%80%e6%98%93%e7%89%88promise%e5%ae%9e%e7%8e%b0)
+- [引入状态控制](#%e5%bc%95%e5%85%a5%e7%8a%b6%e6%80%81%e6%8e%a7%e5%88%b6)
+- [`then`的链式调用](#then%e7%9a%84%e9%93%be%e5%bc%8f%e8%b0%83%e7%94%a8)
+- [值穿透 && 状态已经是resolve/reject的情况](#%e5%80%bc%e7%a9%bf%e9%80%8f--%e7%8a%b6%e6%80%81%e5%b7%b2%e7%bb%8f%e6%98%afresolvereject%e7%9a%84%e6%83%85%e5%86%b5)
+- [兼容同步任务](#%e5%85%bc%e5%ae%b9%e5%90%8c%e6%ad%a5%e4%bb%bb%e5%8a%a1)
+- [Promise.prototype.catch()](#promiseprototypecatch)
+- [Promise.prototype.finally()](#promiseprototypefinally)
+- [Promise.prototype.resolve()](#promiseprototyperesolve)
+- [Promise.prototype.reject()](#promiseprototypereject)
+- [Promise.all()](#promiseall)
+- [Promise.race()](#promiserace)
+- [完整代码](#%e5%ae%8c%e6%95%b4%e4%bb%a3%e7%a0%81)
+- [参考链接:](#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5)
+
+
 ## Promises的使用
 `Promise` 必须为以下三种状态之一：等待态（`Pending`）、执行态（Fulfilled）和拒绝态（`Rejected`）。一旦`Promise` 被 `resolve` 或 `reject`，不能再迁移至其他任何状态（即状态 `immutable`）
 
@@ -499,6 +517,24 @@ static all(promiseArr) {
 }
 ```
 
+使用:
+```js
+let fun1 = MyPromise.resolve('all - 111');
+
+let fun2 = 'all - 222';
+
+let fun3 = new MyPromise((resolve, reject) => setTimeout(resolve, 1000, 'result - 333'));
+
+let promiseArr = [fun1, fun2, fun3];
+
+MyPromise.all(promiseArr).then(res => {
+  console.log(res);
+});
+
+//返回:
+// ["all - 111", "all - 222", "result - 333"]
+```
+
 ## Promise.race()
 `Promise.race(iterable)`方法返回一个 `promise`, 一旦迭代器中的某个 `promise` 解决或拒绝，返回的 `promise` 就会解决或拒绝
 
@@ -510,6 +546,28 @@ static all(promiseArr) {
             }
         });
     }
+```
+
+使用：
+```js
+let fun1 = new MyPromise((resolve, reject) => {
+  setTimeout(resolve, 500, 'race - 111');
+});
+
+let fun2 = new MyPromise((resolve, reject) => {
+  setTimeout(resolve, 100, 'race - 222');
+});
+
+let fun3 = new MyPromise((resolve, reject) => setTimeout(resolve, 1000, 'result - 333'));
+
+let promiseArr = [fun1, fun2, fun3];
+
+MyPromise.race(promiseArr).then(res => {
+  console.log(res);
+});
+
+//返回:
+//race - 222
 ```
 
 ## 完整代码
