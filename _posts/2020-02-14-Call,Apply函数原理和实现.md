@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript深入之call和apply函数实现
+title: Call,Apply函数原理和实现
 subtitle: JavaScript系列
 date: 2020-02-14
 author: Jalever

@@ -1,17 +1,39 @@
 ---
 layout: post
-title: Throttle and Debounce
-subtitle: Debouncing and Throttling Explained Through Examples
+title: 防抖Debounce和节流Throttle的原理和实现
+subtitle: JavaScript原理和实现系列
 date: 2019-03-27
 author: Jalever
 header-img: img/post-bg-js-version.jpg
 catalog: true
 tags:
-  - Web Development
+  - JavaScript
 ---
 
-Event trigger rate is the number of times an event handler invokes in a given amount of time.<br/>
-In general, mouse clicks have lower event trigger rates compare to scrolling and mouseover.
+- [防抖Debounce](#%e9%98%b2%e6%8a%96debounce)
+    - [防抖Debounce实现](#%e9%98%b2%e6%8a%96debounce%e5%ae%9e%e7%8e%b0)
+- [Throttle](#throttle)
+
+## 防抖Debounce
+
+如果事件在即将计时快结束时又被触发了，那么重新计时
+
+#### 防抖Debounce实现
+![GiiO1g.png](https://s1.ax1x.com/2020/03/27/GiiO1g.png)
+```js
+debounce(fun, delay) {
+  return function(args){
+    let _args = args;
+    let that = this;
+
+    clearTimeout(fun.id);
+
+    fun.id = setTimeout(() => {
+      fun.call(that, _args);
+    }, delay)
+  }
+}
+```
 
 ## Throttle
 In a nutshell, throttling means delaying function execution.<br/>
@@ -41,14 +63,3 @@ If you throttle it to only once per 100 milliseconds, it would only execute that
 
 
 
-## Debounce
-debouncing is a technique to prevent the event trigger from being fired too often.<br/>
-
-<ins>***Debouncing***</ins> enforces that a function not be called again until a certain amount of time has passed without it being called.<br>
-
-As in "execute this function only if 100 milliseconds have passed without it being called."
-Perhaps a function is called 1,000 times in a quick burst, dispersed over 3 seconds, then stops being called. <br>
-
-If you have debounced it at 100 milliseconds, the function will only fire once, at 3.1 seconds, once the burst is over. <br>
-
-Each time the function is called during the burst it resets the debouncing timer.
