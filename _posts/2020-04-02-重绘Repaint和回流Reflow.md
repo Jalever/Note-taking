@@ -17,6 +17,7 @@ tags:
     - [最小化重绘和重排](#%e6%9c%80%e5%b0%8f%e5%8c%96%e9%87%8d%e7%bb%98%e5%92%8c%e9%87%8d%e6%8e%92)
     - [批量修改DOM](#%e6%89%b9%e9%87%8f%e4%bf%ae%e6%94%b9dom)
     - [避免触发同步布局事件](#%e9%81%bf%e5%85%8d%e8%a7%a6%e5%8f%91%e5%90%8c%e6%ad%a5%e5%b8%83%e5%b1%80%e4%ba%8b%e4%bb%b6)
+    - [CSS3硬件加速(GPU加速)](#css3%e7%a1%ac%e4%bb%b6%e5%8a%a0%e9%80%9fgpu%e5%8a%a0%e9%80%9f)
 
 ## 浏览器的渲染过程
 ![GGuwSH.png](https://s1.ax1x.com/2020/04/02/GGuwSH.png)
@@ -161,3 +162,7 @@ function initP() {
     }
 }
 ```
+
+#### CSS3硬件加速(GPU加速)
+1. 使用CSS3硬件加速，可以让`transform`、`opacity`、`filters`这些动画不会引起回流重绘 。
+2. 对于动画的其它属性，比如`background-color`这些，还是会引起回流重绘的，不过它还是可以提升这些动画的性能
