@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 重绘Repaint和回流(重排)Reflow
-subtitle: Web Development系列
+subtitle: 重绘Repaint, 重排Reflow以及如何优化
 date: 2020-04-02
 author: Jalever
 header-img: img/post-bg-js-version.jpg
@@ -9,6 +9,14 @@ catalog: true
 tags:
   - JavaScript
 ---
+- [浏览器的渲染过程](#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e6%b8%b2%e6%9f%93%e8%bf%87%e7%a8%8b)
+- [重绘Repaint](#%e9%87%8d%e7%bb%98repaint)
+- [回流Reflow](#%e5%9b%9e%e6%b5%81reflow)
+- [浏览器的优化机制](#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%9a%84%e4%bc%98%e5%8c%96%e6%9c%ba%e5%88%b6)
+- [减少重绘和重排](#%e5%87%8f%e5%b0%91%e9%87%8d%e7%bb%98%e5%92%8c%e9%87%8d%e6%8e%92)
+    - [最小化重绘和重排](#%e6%9c%80%e5%b0%8f%e5%8c%96%e9%87%8d%e7%bb%98%e5%92%8c%e9%87%8d%e6%8e%92)
+    - [批量修改DOM](#%e6%89%b9%e9%87%8f%e4%bf%ae%e6%94%b9dom)
+    - [避免触发同步布局事件](#%e9%81%bf%e5%85%8d%e8%a7%a6%e5%8f%91%e5%90%8c%e6%ad%a5%e5%b8%83%e5%b1%80%e4%ba%8b%e4%bb%b6)
 
 ## 浏览器的渲染过程
 ![GGuwSH.png](https://s1.ax1x.com/2020/04/02/GGuwSH.png)
@@ -64,9 +72,92 @@ const el = document.getElementById('test');
 el.className += ' active';
 ```
 
+#### 批量修改DOM
+当我们需要对DOM对一系列修改的时候，可以通过以下步骤减少回流重绘次数：
 
+1. 使元素脱离文档流
+2. 对其进行多次修改
+3. 将元素带回到文档中
 
+该过程的第一步和第三步可能会引起回流，但是经过第一步之后，对DOM的所有修改都不会引起回流重绘，因为它已经不在渲染树了
 
+有三种方式可以让DOM脱离文档流:
+- 隐藏元素，应用修改，重新显示
+- 使用文档片段(document fragment)在当前DOM之外构建一个子树，再把它拷贝回文档。
+- 将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素
 
+考虑我们要执行一段批量插入节点的代码:
+```js
+function appendDataToElement(appendToElement, data) {
+    let li;
+    for (let i = 0; i < data.length; i++) {
+    	li = document.createElement('li');
+        li.textContent = 'text';
+        appendToElement.appendChild(li);
+    }
+}
 
+const ul = document.getElementById('list');
+appendDataToElement(ul, data);
+```
 
+如果我们直接这样执行的话，由于每次循环都会插入一个新的节点，会导致浏览器回流一次
+
+我们可以使用上述的三种方式进行优化:
+
+<strong>隐藏元素，应用修改，重新显示</strong><br/>
+这个会在展示和隐藏节点的时候，产生两次回流
+
+```js
+function appendDataToElement(appendToElement, data) {
+    let li;
+    for (let i = 0; i < data.length; i++) {
+    	li = document.createElement('li');
+        li.textContent = 'text';
+        appendToElement.appendChild(li);
+    }
+}
+const ul = document.getElementById('list');
+ul.style.display = 'none';
+appendDataToElement(ul, data);
+ul.style.display = 'block';
+```
+
+<strong>使用文档片段(document fragment)在当前DOM之外构建一个子树，再把它拷贝回文档</strong><br/>
+
+```js
+const ul = document.getElementById('list');
+const fragment = document.createDocumentFragment();
+appendDataToElement(fragment, data);
+ul.appendChild(fragment);
+```
+
+<strong>将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素</strong><br/>
+
+```js
+const ul = document.getElementById('list');
+const clone = ul.cloneNode(true);
+appendDataToElement(clone, data);
+ul.parentNode.replaceChild(clone, ul);
+```
+
+#### 避免触发同步布局事件
+上文我们说过，当我们访问元素的一些属性的时候，会导致浏览器强制清空队列，进行强制同步布局。举个例子，比如说我们想将一个p标签数组的宽度赋值为一个元素的宽度，我们可能写出这样的代码：
+```js
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+        paragraphs[i].style.width = box.offsetWidth + 'px';
+    }
+}
+```
+
+这段代码看上去是没有什么问题，可是其实会造成很大的性能问题。在每次循环的时候，都读取了box的一个`offsetWidth`属性值，然后利用它来更新p标签的width属性。这就导致了每一次循环的时候，浏览器都必须先使上一次循环中的样式更新操作生效，才能响应本次循环的样式读取操作。每一次循环都会强制浏览器刷新队列。我们可以优化为:
+
+```js
+const width = box.offsetWidth;
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+        paragraphs[i].style.width = width + 'px';
+    }
+}
+```
