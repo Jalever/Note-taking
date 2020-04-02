@@ -1,7 +1,7 @@
 ---
 layout: post
-title: HTML & CSS面试题
-subtitle: 面试题
+title: HTML & CSS Interview Questions
+subtitle: Interview Questions
 date: 2020-03-15
 author: Jalever
 header-img: img/post_bg_fancyCrave.jpg
@@ -14,6 +14,7 @@ tags:
 - [link和@import的区别](#link%e5%92%8cimport%e7%9a%84%e5%8c%ba%e5%88%ab)
 - [CSS中单位px和em,rem的区别](#css%e4%b8%ad%e5%8d%95%e4%bd%8dpx%e5%92%8cemrem%e7%9a%84%e5%8c%ba%e5%88%ab)
 - [CSS position属性](#css-position%e5%b1%9e%e6%80%a7)
+- [clientWidth,offsetWidth和scrollWidth的区别](#clientwidthoffsetwidth%e5%92%8cscrollwidth%e7%9a%84%e5%8c%ba%e5%88%ab)
 
 
 
@@ -90,4 +91,35 @@ position定位属性，检索或设置对象的定位方式,一共有四种属�
 <strong>sticky</strong><br/>
 (粘性定位)可以看出是`position:relative`和`position:fixed`的结合体——当元素在屏幕内, 表现为`relative`, 就要滚出显示器屏幕的时候, 表现为fixed
 
+## clientWidth,offsetWidth和scrollWidth的区别
+- scrollWidth
+对象的实际内容的宽度，不包边线宽度，会随对象中内容超过可视区后而变大
+- clientWidth
+对象内容的可视区的宽度，不包滚动条等边线，会随对象显示大小的变化而改变
+- offsetWidth
+对象整体的实际宽度，包滚动条等边线，会随对象显示大小的变化而改变
 
+示例: 
+用在页面中放一个textarea元素的demo进行分析，采用默认宽高显示
+
+- 情况1
+
+元素内无内容或者内容不超过可视区，滚动不出现或不可用的情况下。
+
+`scrollWidth=clientWidth`，两者皆为内容可视区的宽度。
+
+`offsetWidth`为元素的实际宽度
+![GGzidI.png](https://s1.ax1x.com/2020/04/02/GGzidI.png)
+
+- 情况2
+
+元素的内容超过可视区，滚动条出现和可用的情况下。
+
+`scrollWidth > clientWidth`。
+
+`scrollWidth`为实际内容的宽度。
+
+`clientWidth`是内容可视区的宽度。
+
+`offsetWidth`是元素的实际宽度
+![GGzQwn.png](https://s1.ax1x.com/2020/04/02/GGzQwn.png)
