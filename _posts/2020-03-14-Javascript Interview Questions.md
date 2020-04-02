@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Javascript面试题
+title: Javascript Interview Questions
 subtitle: 面试题
 date: 2020-03-14
 author: Jalever
@@ -345,4 +345,8 @@ DOMContentLoaded:
 - input
 
 注: `onChange` 无法做到实时监听，因为 `onChange` 需要失去焦点才能触发
+
+## 重绘Repaint和回流Reflow
+
+
 
