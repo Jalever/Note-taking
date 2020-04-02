@@ -12,7 +12,7 @@ tags:
 
 - [防抖Debounce](#%e9%98%b2%e6%8a%96debounce)
     - [防抖Debounce实现](#%e9%98%b2%e6%8a%96debounce%e5%ae%9e%e7%8e%b0)
-- [Throttle](#throttle)
+- [节流Throttle](#%e8%8a%82%e6%b5%81throttle)
 
 ## 防抖Debounce
 
@@ -35,31 +35,48 @@ debounce(fun, delay) {
 }
 ```
 
-## Throttle
-In a nutshell, throttling means delaying function execution.<br/>
+## 节流Throttle
+`throttle`就是设置固定的函数执行速率, 从而降低频繁事件回调的执行次数
 
-So instead of executing the event handler/function immediately, you’ll be adding a few milliseconds of delay when an event is triggered.<br/>
+![GY3O3V.png](https://s1.ax1x.com/2020/04/02/GY3O3V.png)
 
-This can be used when implementing infinite scrolling, for example. <br/>
+变量进行存储:
+```js
+prevTime: null,
+deferTimer: null,
+```
 
-Rather than fetching the next result set as the user is scrolling, you can delay the XHR call.<br/>
+实现函数:
+```js
+handleOutput(e) {
+  console.log(e);
+},
+throttleFn(e) {
+  this.throttle(this.handleOutput, 1000)(e.target.value);
+},
+throttle(func, delay) {
+  let that = this;
+  return function() {
+    let _args = arguments;
+    let curTime = +new Date();
 
-Another good example of this is Ajax-based instant search. <br/>
+    if (that.prevTime && curTime < that.prevTime + delay) {
+      clearTimeout(that.deferTimer);
+      that.deferTimer = setTimeout(() => {
+        that.prevTime = curTime;
+        func.apply(that, _args);
+      }, delay);
+    } else {
+      that.prevTime = curTime;
+      func.apply(that, _args);
+    }
+  };
+},
+```
 
-You might not want to hit the server for every key press, so it’s better to throttle until the input field is dormant for a few milliseconds.<br/>
-
-<ins>***Throttling***</ins> enforces a maximum number of times a function can be called over time. <br>
-
-As in "execute this function at most once every 100 milliseconds."
-
-Say under normal circumstances you would call this function 1,000 times over 10 seconds.
-<br>
-
-If you throttle it to only once per 100 milliseconds, it would only execute that function at most 100 times<br>
-
-(10s * 1,000) = 10,000ms<br>
-
-(10,000ms / 100ms) throttling = 100 maximum calls
-
+调用例子:
+```js
+<el-input v-model="form.username" @keyup.native="throttleFn"></el-input>
+```
 
 
