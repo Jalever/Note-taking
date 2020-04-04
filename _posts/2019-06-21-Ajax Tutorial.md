@@ -1,13 +1,13 @@
 ---
 layout: post
-title: AJAX Tutorial
+title: AJAX原理和实现
 subtitle: AJAX学习笔记系列
 date: 2019-06-21
 author: Jalever
 header-img: img/post_2019_react_bg_shadow.jpg
 catalog: true
 tags:
-  - AJAX
+  - JavaScript
 ---
 
 - [Overview](#overview)
@@ -17,7 +17,7 @@ tags:
 - [AJAX Technologies](#ajax-technologies)
 - [Understanding XMLHttpRequest](#understanding-xmlhttprequest)
     - [Properties of XMLHttpRequest object](#properties-of-xmlhttprequest-object)
-    - [Methods of XMLHttpRequest object](#methods-of-xmlhttpRequest-object)
+    - [Methods of XMLHttpRequest object](#methods-of-xmlhttprequest-object)
 - [How AJAX works](#how-ajax-works)
 - [Examples](#examples)
 
