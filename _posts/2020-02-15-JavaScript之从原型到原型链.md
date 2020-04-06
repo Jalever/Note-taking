@@ -1,7 +1,7 @@
 ---
 layout: post
-title: JavaScript深入之从原型到原型链
-subtitle: JavaScript系列
+title: JavaScript原型链
+subtitle: JavaScript深入学习系列
 date: 2020-02-15
 author: Jalever
 header-img: img/post-bg-js-version.jpg
@@ -12,7 +12,7 @@ tags:
 
 > 声明: 本文参照冴羽大大的文章
 
-- [总结](#%e6%80%bb%e7%bb%93)
+- [一句话概括](#%e4%b8%80%e5%8f%a5%e8%af%9d%e6%a6%82%e6%8b%ac)
 - [构造函数创建对象](#%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%88%9b%e5%bb%ba%e5%af%b9%e8%b1%a1)
 - [prototype](#prototype)
 - [**proto**](#proto)
@@ -25,13 +25,13 @@ tags:
     - [**proto**](#proto-1)
     - [真的是继承吗？](#%e7%9c%9f%e7%9a%84%e6%98%af%e7%bb%a7%e6%89%bf%e5%90%97)
 
-## 总结
+## 一句话概括
 
 `JavaScript` 只有一种结构：对象。每个实例对象（ `object` ）都有一个私有属性（称之为 `__proto__` ）指向它的构造函数的原型对象（`prototype` ）。该原型对象也有一个自己的原型对象( `__proto__` ) ，层层向上直到一个对象的原型对象为 `null`。根据定义，`null` 没有原型，并作为这个原型链中的最后一个环节。
 
 几乎所有 `JavaScript` 中的对象都是位于原型链顶端的 `Object` 的实例
 
-![1zPx4x.png](https://s2.ax1x.com/2020/02/15/1zPx4x.png)
+![GsIWNj.png](https://s1.ax1x.com/2020/04/06/GsIWNj.png)
 
 ## 构造函数创建对象
 
