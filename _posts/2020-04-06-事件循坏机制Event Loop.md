@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JavaScript中的事件循坏(Event Loop)机制
+title: 事件循坏机制Event Loop
 subtitle: JavaScript深入学习系列
 date: 2020-04-06
 author: Jalever
@@ -13,7 +13,9 @@ tags:
 - [浏览器环境下JavaScript引擎的事件循环机制](#%e6%b5%8f%e8%a7%88%e5%99%a8%e7%8e%af%e5%a2%83%e4%b8%8bjavascript%e5%bc%95%e6%93%8e%e7%9a%84%e4%ba%8b%e4%bb%b6%e5%be%aa%e7%8e%af%e6%9c%ba%e5%88%b6)
     - [执行栈与事件队列](#%e6%89%a7%e8%a1%8c%e6%a0%88%e4%b8%8e%e4%ba%8b%e4%bb%b6%e9%98%9f%e5%88%97)
     - [宏任务Macro Task与微任务Micro Task](#%e5%ae%8f%e4%bb%bb%e5%8a%a1macro-task%e4%b8%8e%e5%be%ae%e4%bb%bb%e5%8a%a1micro-task)
+    - [例子](#%e4%be%8b%e5%ad%90)
 - [node环境下的事件循环机制](#node%e7%8e%af%e5%a2%83%e4%b8%8b%e7%9a%84%e4%ba%8b%e4%bb%b6%e5%be%aa%e7%8e%af%e6%9c%ba%e5%88%b6)
+- [参考链接](#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5)
 
 
 
@@ -72,6 +74,62 @@ js引擎遇到一个异步事件后并不会一直等待其返回结果，而是
 
 我们只需记住当当前执行栈执行完毕时会立刻先处理所有<strong>微任务队列</strong>中的事件，然后再去<strong>宏任务队列</strong>中取出一个事件。`同一次事件循环中，微任务永远在宏任务之前执行`
 
+#### 例子
+```js
+console.log('script start')
+
+async function async1() {
+  // async微任务产生的时机:
+  // 执行完await之后，
+  // 直接跳出async函数，
+  // 执行其他代码(此处就是协程的运作，A暂停执行，控制权交给B)。
+  // 其他代码执行完毕后，
+  // 再回到async函数去执行剩下的代码，
+  // 然后把await后面的代码注册到微任务队列当中
+  await async2()
+  console.log('async1 end')
+}
+
+async function async2() {
+  console.log('async2 end')
+}
+async1()
+
+setTimeout(function () {
+  console.log('setTimeout')
+}, 0)
+
+new Promise((resolve) => {
+  console.log('Promise')
+  resolve()
+})
+  .then(function () {
+    console.log('promise1')
+  })
+  .then(function () {
+    console.log('promise2')
+  })
+
+console.log('script end')
+// 旧版Chrome输出:
+// script start => 
+// async2 end => 
+// Promise => 
+// script end => 
+// promise1 => 
+// promise2 => 
+// async1 end => 
+// setTimeout
+```
+
+注意: 新版的chrome浏览器中不是如上打印的，因为chrome优化了,await变得更快了,但是这种做法其实是违法了规范的, 其输出为:
+```js
+// script start => async2 end => Promise => script end => async1 end => promise1 => promise2 => setTimeout
+```
+
 ## node环境下的事件循环机制
 
-
+## 参考链接
+[详解JavaScript中的Event Loop(事件循环)机制](https://zhuanlan.zhihu.com/p/33058983)
+[一次弄懂Event Loop(彻底解决此类面试问题)](https://juejin.im/post/5c3d8956e51d4511dc72c200#heading-7)
+[面试题: 说说事件循环机制(满分答案来了)](https://bit.ly/3bYd5U3)

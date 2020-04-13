@@ -27,6 +27,8 @@ tags:
 - ['use strict' 是干嘛用的？](#use-strict-%e6%98%af%e5%b9%b2%e5%98%9b%e7%94%a8%e7%9a%84)
 - [load和DOMContentLoaded的区别](#load%e5%92%8cdomcontentloaded%e7%9a%84%e5%8c%ba%e5%88%ab)
 - [input中如何监听值的变化](#input%e4%b8%ad%e5%a6%82%e4%bd%95%e7%9b%91%e5%90%ac%e5%80%bc%e7%9a%84%e5%8f%98%e5%8c%96)
+- [重绘Repaint和回流Reflow](#%e9%87%8d%e7%bb%98repaint%e5%92%8c%e5%9b%9e%e6%b5%81reflow)
+- [如何理解this关键字](#%e5%a6%82%e4%bd%95%e7%90%86%e8%a7%a3this%e5%85%b3%e9%94%ae%e5%ad%97)
 
 ## JavaScript的内置类型
 6种原始类型: `Boolean`, `String`, `Null`, `undefined`, `Number`, `Symbol`
@@ -148,6 +150,11 @@ border:1px solid red;border-radius:3px;"
 如果单击 `button`，即使我们单击该 `button`，它也会打印最外面的`div`标签。在此示例中，我们可以得出结论，`event.currentTarget`是附加事件处理程序的元素
 
 ## == 和 === 有什么区别？
+JavaScript 中有严格比较和类型转换比较: 
+
+严格比较（例如 ===）在不允许强制转型的情况下检查两个值是否相等
+
+类型转换比较（例如 ==）在允许强制转型的情况下检查两个值是否相等
 
 `==`用于一般比较，`===`用于严格比较，`==`在比较的时候可以转换数据类型，`===`严格比较，只要类型不匹配就返回`flase`
 
@@ -234,9 +241,13 @@ console.log(greet("Mark"));
 
 ## 什么是作用域和作用域链？
 
-`JavaScript` 中的作用域是我们可以有效访问变量或函数的区域。`JS`有三种类型的作用域：全局作用域、函数作用域和块作用域(ES6)。
+`JavaScript` 中的作用域基本上是变量以及如何通过名称访问这些变量的规则的集合
+
+`JS`有三种类型的作用域：全局作用域、函数作用域和块作用域(ES6)。
 
 `全局作用域`——在全局命名空间中声明的变量或函数位于全局作用域中，因此在代码中的任何地方都可以访问它们
+
+一个作用域可以嵌套在另一个作用域内。如果一个作用域嵌套在另一个作用域内，最内部作用域内的代码可以访问另一个作用域的变量
 
 ```js
 //global namespace
@@ -347,6 +358,15 @@ DOMContentLoaded:
 注: `onChange` 无法做到实时监听，因为 `onChange` 需要失去焦点才能触发
 
 ## 重绘Repaint和回流Reflow
+[详情] (https://jalever.github.io/2020/04/02/%E9%87%8D%E7%BB%98Repaint%E5%92%8C%E5%9B%9E%E6%B5%81Reflow/)
 
+## 如何理解this关键字
+`this`表示当前对象，`this`的指向是根据调用的上下文来决定的，默认指向`window`对象
 
+全局环境：全局环境就是在里面，这里的this始终指向的是`window`对象
 
+局部环境：
+1. 在全局作用域下直接调用函数，`this`指向`window`
+2. 对象函数调用，哪个对象调用就指向哪个对象
+3. 使用 `new` 实例化对象，在构造函数中的`this`指向实例化对象
+4. 使用`call`或`apply`改变`this`的指向
