@@ -2,7 +2,7 @@
 layout: post
 title: Strategy Pattern
 subtitle: Behavioral Pattern
-date: 2019-06-09
+date: 2019-06-02
 author: Jalever
 header-img: img/design_pattern_bg_simple.png
 catalog: true
@@ -117,4 +117,7 @@ function run() {
 
     log.show();
 }
+
+run();
 ```
+![NxH9RU.png](https://s1.ax1x.com/2020/07/04/NxH9RU.png)
